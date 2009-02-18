@@ -2,35 +2,6 @@
 
 # User specific aliases and functions
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-
-function set_prompt
-{
-    case $TERM in
-	xterm*)
-            local TITLEBAR='\[\033]0;\w\007\]'
-            ;;
-	*)
-            local TITLEBAR=''
-            ;;
-    esac
-
-    export PS1="${TITLEBAR}\
-\[\033[31m\][\t] \
-\[\033[m\]\[\033[$1\][\u@\h]\[\033[40m\[\033[32m\] \
-\W\[\033[m\]\$ "
-}
-if [ $USER = 'root' ]; then
-    set_prompt '41m'
-else
-    set_prompt '44m'
-fi
-
-
-
 #WINDOW_MANAGER=sawfish
 
 alias ls='ls --color -F'
@@ -57,3 +28,32 @@ umask 077
 ulimit -n 2048
 
 export LC_COLLATE=POSIX
+
+source ~/.git-completion.sh
+# set_prompt is "not working" in the sense that it doesn't change the color of the prompt
+# depending on the username
+function set_prompt
+{
+    case $TERM in
+ 	xterm*)
+	    TITLEBAR=
+#"\[\033]0;\w\007\]"
+            ;;
+ 	*)
+            local TITLEBAR=''
+            ;;
+    esac
+
+    local GIT_BRANCH=git_branch
+    export PS1='${TITLEBAR}\
+\[\033[31m\][\t] \
+\[\033[m\]\[\033[44m\][\u@\h]\
+\[\033[40m\]\[\033[32m\] \W\
+\[\033[33m\]`__git_ps1 "(%s)"`\[\033[m\]\$ '
+}
+
+if [ $USER = 'root' ]; then
+    set_prompt '\033[41m\]'
+else
+    set_prompt '\033[44m\]'
+fi
