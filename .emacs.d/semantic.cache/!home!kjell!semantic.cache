@@ -1,0 +1,15 @@
+;; Object semantic.cache/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semantic.cache/"
+  :tables (list 
+   (semanticdb-table ".emacs"
+    :major-mode 'emacs-lisp-mode
+    :tags '(("setq" code nil nil [292 324]) ("setq" code nil nil [541 574]) ("global-set-key" code nil nil [920 955]) ("scroll-up-one-line" function nil nil [1059 1120]) ("scroll-down-one-line" function nil nil [1121 1186]) ("scroll-other-window-up-one-line" function nil nil [1187 1271]) ("scroll-other-window-down-one-line" function nil nil [1272 1359]) ("global-set-key" code nil nil [1360 1404]) ("global-set-key" code nil nil [1405 1451]) ("global-set-key" code nil nil [1452 1510]) ("global-set-key" code nil nil [1511 1570]) ("setq" code nil nil [1999 2254]) ("custom-set-faces" code nil nil [2256 2639]) ("set-face-background" code nil nil [2640 2685]) ("global-font-lock-mode" code nil nil [2714 2739]) ("global-set-key" code nil nil [2900 2933]) ("match-paren" function (:user-visible-flag t :arguments ("arg")) nil [2934 3230]) ("set-face-attribute" code nil nil [3269 3313]) ("display-time" code nil nil [3314 3328]) ("setq" code nil nil [3329 3362]) ("setq" code nil nil [3363 3398]) ("setq" code nil nil [3399 3420]) ("setq" code nil nil [3421 3441]) ("setq" code nil nil [3442 3467]) ("setq" code nil nil [3468 3495]) ("setq-default" code nil nil [3496 3537]) ("setq" code nil nil [3538 3575]) ("setq-default" code nil nil [3576 3608]) ("setq-default" code nil nil [3609 3641]) ("scroll-bar-mode" code nil nil [3642 3663]) ("show-paren-mode" code nil nil [3664 3683]) ("setq-default" code nil nil [3684 3722]) ("setq" code nil nil [5500 5568]) ("set" code nil nil [5599 5658]) ("indent-or-complete" function (:user-visible-flag t) nil [5870 6087]) ("add-hook" code nil nil [6089 6203]) ("switch-window-buffers" function (:user-visible-flag t) nil [6717 6981]) ("global-set-key" code nil nil [6982 7029]))
+    :file ".emacs"
+    :pointmax 7395
+    )
+   )
+  :file "!home!kjell!semantic.cache"
+  :semantic-tag-version "2.0pre3"
+  :semanticdb-version "2.0pre3"
+  )

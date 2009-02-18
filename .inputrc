@@ -1,0 +1,9 @@
+# .inputrc
+
+set bell-style none
+set meta-flag on
+set convert-meta off
+set output-meta on
+set horizontal-scroll-mode off
+set show-all-if-ambiguous on
+set visible-stats on
