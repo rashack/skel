@@ -1,0 +1,15 @@
+;; Object semantic.cache/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "semantic.cache/"
+  :tables (list 
+   (semanticdb-table "Makefile"
+    :major-mode 'makefile-mode
+    :tags '(("INC_PATH" variable (:default-value ("-I/info/agi04/OpenGL/rtg/librtg" "-I/pkg/graphics/src/jpeg-6b" "-I/pkg/glut/3.7/os/include" "-I/usr/openwin/include" "-I/usr/dt/include" "-I.")) nil [1 206]) ("LIB_PATH" variable (:default-value ("-L/info/agi04/OpenGL/rtg/librtg" "-L/pkg/graphics/src/jpeg-6b" "-L/pkg/glut/3.7/os/lib/glut")) nil [207 314]) ("LDLIBS" variable (:default-value ("-ljpeg" "-lm" "-lrtg" "-lglut" "-lGLU" "-lGL" "-lXmu" "-lXext" "-lX11" "-ldl")) nil [316 384]) ("CC" variable (:default-value ("gcc")) nil [387 397]) ("CPPFLAGS" variable (:default-value ("$(INC_PATH)" "$(LIB_PATH)" "-ansi" "-Wall" "-g")) nil [397 447]) ("BINDIR" variable (:default-value (".")) nil [447 458]) ("OBJS" variable (:default-value ("main.o" "omegaman.o")) nil [459 486]) ("EXEC" variable (:default-value ("main")) nil [487 500]) ("TARGETS" variable (:default-value ("$(EXEC)")) nil [502 520]) ("all" function (:arguments ("$(TARGETS)")) nil [521 538]) ("$(EXEC)" function (:arguments ("$(OBJS)")) nil [538 607]) ("omegaman.o" function nil nil [607 656]) ("clean" function (:arguments (";" "rm" "*.o" ";")) nil [656 676]) ("cleanall" function (:arguments (";" "rm" "*.o" ";" "rm" "*~" ";" "rm" "../include/*~" ";" "rm" "$(EXEC)")) nil [676 739]))
+    :file "Makefile"
+    :pointmax 739
+    )
+   )
+  :file "!home!kjell!src!opengl!semantic.cache"
+  :semantic-tag-version "2.0pre3"
+  :semanticdb-version "2.0pre3"
+  )

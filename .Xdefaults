@@ -1,0 +1,9 @@
+Emacs*font: -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
+XTerm*metaSendsEscape: true
+
+! better to turn this off here than in .emacs
+! where it has already been loaded.
+emacs.menuBar: off
+emacs.toolBar: off
+! no scrollbars fur me
+emacs.verticalScrollBars: off
