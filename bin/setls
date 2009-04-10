@@ -1,0 +1,12 @@
+# no  0 - normal (non filename) text
+# fi  0 - regular file
+# di 32 - directory
+# ln 36 - symbolic link
+# pi 31 - named pipe (FIFO)
+# so 33 - socket
+# bd 44;37 - block device
+# cd 44;37 - character device
+# ex 35 - executable
+
+LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
+export LS_COLORS

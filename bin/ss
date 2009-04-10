@@ -1,0 +1,7 @@
+#!/bin/sh
+# ss - list file and directory sizes in ascending order
+#if [ -z $1 ]; then
+#    du -s * | sort -n
+#else
+    du -s "$@" | sort -n
+#fi

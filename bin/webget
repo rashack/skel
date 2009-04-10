@@ -1,0 +1,2 @@
+#!/bin/sh
+wget -t 1 -T 45 -r -l 2 -k -A html,htm,jpg,jpeg -nc $*

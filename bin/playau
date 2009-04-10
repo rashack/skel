@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for x in `cat aufiles` ; do
+    echo "$x"
+    play "$x"
+#    cat "$x" > /dev/dsp
+done

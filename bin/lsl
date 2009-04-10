@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#lsl - LiSt Largest file
+
+ls -l | cut -c33-42 | sort -nr | head -1

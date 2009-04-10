@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "mplayer-ffmpeg-mt should use: -lavdopts threads=N"
+
+if [ -z $MPLAYER ]; then
+    MPLAYER="/home/kjell/src/mplayer/trunk/mplayer"
+fi
+SPDIF="-ao alsa:device=spdif -ac "
+DTS_REGEX=".*dts.*"
+AC3_REGEX=".*ac3.*"
+if [[ $0 =~ $DTS_REGEX ]]; then
+    AUDIO_DECODER=${SPDIF}'hwdts'
+elif [[ $0 =~ $AC3_REGEX ]]; then
+    AUDIO_DECODER=${SPDIF}'hwac3'
+else
+    AUDIO_DECODER=
+fi
+
+TV_REGEX=".*tv.*"
+TW_REGEX=".*tw.*"
+if [[ $0 =~ $TV_REGEX ]]; then
+    SCREEN="-monitoraspect 16:9 -display :0.1"
+elif [[ $0 =~ $TW_REGEX ]]; then
+    SCREEN="-monitoraspect 16:10 -display :0.1"
+else
+    SCREEN=
+fi
+
+CMD="$MPLAYER -stop-xscreensaver $AUDIO_DECODER $SCREEN"
+echo "$CMD $@"
+$CMD "$@"
