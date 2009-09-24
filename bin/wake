@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BERRY=berry
+BERRY_MAC=00:0f:fe:1d:c4:16
+PRINGLE=pringle
+PRINGLE_MAC=00:18:8b:1a:42:e8
+
+if [ -z $1 ]; then
+    echo "Need a machine name to try to wake."
+    exit 1
+elif [[ $1 =~ "berry" ]]; then
+    TARGET=$BERRY
+    TARGET_MAC=$BERRY_MAC
+elif [[ $1 =~ "pringle" ]]; then
+    TARGET=$PRINGLE
+    TARGET_MAC=$PRINGLE_MAC
+fi
+echo "Will try to wake $TARGET."
+wakeonlan -i 192.168.1.255 $TARGET_MAC
