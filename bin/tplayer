@@ -1,9 +1,12 @@
 #!/bin/bash
 
+TV_DISPLAY=:0.3
+
 echo "mplayer-ffmpeg-mt should use: -lavdopts threads=N"
 
 if [ -z $MPLAYER ]; then
-    MPLAYER="/home/kjell/src/mplayer/trunk/mplayer"
+#    MPLAYER="/home/kjell/src/mplayer/r29404/mplayer"
+    MPLAYER=mplayer
 fi
 SPDIF="-ao alsa:device=spdif -ac "
 DTS_REGEX=".*dts.*"
@@ -19,13 +22,22 @@ fi
 TV_REGEX=".*tv.*"
 TW_REGEX=".*tw.*"
 if [[ $0 =~ $TV_REGEX ]]; then
-    SCREEN="-monitoraspect 16:9 -display :0.1"
+    SCREEN="-monitoraspect 16:9 -display $TV_DISPLAY"
 elif [[ $0 =~ $TW_REGEX ]]; then
-    SCREEN="-monitoraspect 16:10 -display :0.1"
+    SCREEN="-monitoraspect 16:10 -display $TV_DISPLAY"
 else
     SCREEN=
 fi
 
-CMD="$MPLAYER -stop-xscreensaver $AUDIO_DECODER $SCREEN"
+if [[ $0 =~ "splayer" ]]; then
+    AUDIO_DECODER="-nosound"
+fi
+
+if [[ $0 =~ "vdpau" ]]; then
+    CMD="/mnt/raid/kjell/src/mplayer/mplayer-090430/mplayer -ao alsa:device=spdif -afm hwac3 -vo vdpau -vc ffh264vdpau -display :0.2 -monitoraspect 16:9"
+else
+    CMD="$MPLAYER -stop-xscreensaver $AUDIO_DECODER $SCREEN"
+fi
+
 echo "$CMD $@"
 $CMD "$@"
