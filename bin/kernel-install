@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if [ -z $1 ]; then
+    echo "The first parameter should be the kernel version e.g. 2.6.29.3 and the source should reside in /usr/src/linux-\$1"
+    exit 1
+fi
+
+if [ -f $2 ]; then
+    echo "The second parameter should be the local version of the kernel e.g. '1' for the first local kernel of a certain official kernel version."
+    exit 1
+fi
+
 cd /usr/src/linux-"$1"
 
 cp -vp .config /boot/config-"$1-$2"
