@@ -2,7 +2,7 @@
 
 TV_DISPLAY=:0.3
 
-echo "mplayer-ffmpeg-mt should use: -lavdopts threads=N"
+echo "$(tput setaf 3)mplayer-ffmpeg-mt should use: -lavdopts threads=N$(tput sgr0)"
 
 if [ -z $MPLAYER ]; then
 #    MPLAYER="/home/kjell/src/mplayer/r29404/mplayer"
