@@ -14,7 +14,7 @@ else
     AUDIO_DECODER=
 fi
 
-if [[ $0 =~ "splayer" ]]; then
+if [[ $0 =~ "qplayer" ]]; then
     AUDIO_DECODER="-nosound"
 fi
 
