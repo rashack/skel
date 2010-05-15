@@ -1,5 +1,8 @@
 #!/bin/bash
 
+BOOT_DIR=/boot
+SRC_ROOT=/mnt/raid/kjell/src/linux
+
 if [ -z $1 ]; then
     echo "The first parameter should be the kernel version e.g. 2.6.29.3 and the source should reside in /usr/src/linux-\$1"
     exit 1
@@ -10,20 +13,13 @@ if [ -f $2 ]; then
     exit 1
 fi
 
-cd /usr/src/linux-"$1"
+cd $SRC_ROOT/linux-"$1"
 
-cp -vp .config /boot/config-"$1-$2"
-#cp -p .config /mnt/sda2/boot/config-"$1-$2"
-
-cp -vp System.map /boot/System.map-"$1-$2"
-#cp -p System.map /mnt/sda2/boot/System.map-"$1-$2"
-
-cp -vp arch/i386/boot/bzImage /boot/vmlinuz-"$1-$2"
-#cp -p arch/x86_64/boot/bzImage /mnt/sda2/boot/vmlinuz-"$1-$2"
+cp -vp .config $BOOT_DIR/config-"$1-$2"
+cp -vp System.map $BOOT_DIR/System.map-"$1-$2"
+cp -vp arch/i386/boot/bzImage $BOOT_DIR/vmlinuz-"$1-$2"
 
 echo creating initrd
-mkinitramfs -v -k "$1" -o /boot/initrd.img-"$1-$2"
-#cp /boot/initrd.img-"$1-$2" /mnt/sda2/boot
+mkinitramfs -v -k "$1" -o $BOOT_DIR/initrd.img-"$1-$2"
 
-emacs -nw /boot/grub/menu.lst
-#emacs -nw /mnt/sda2/boot/grub/menu.lst
+emacs -nw $BOOT_DIR/grub/menu.lst
