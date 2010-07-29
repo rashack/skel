@@ -1,0 +1,47 @@
+pcm.ice_spdif {
+    type plug
+    ttable.0.8 1
+    ttable.1.9 1
+    slave.pcm {
+        type hw
+        card 0
+        device 0
+    }
+}
+
+
+# our ICE1712 dmix:
+pcm.ossmix {
+    type dmix
+    ipc_key 1024
+    slave {
+        pcm "hw:0,0"
+        #period_time 0
+        period_size 512
+        buffer_size 1024 # buffer size < 6653, but pow(x, 2)
+	#rate 44100 # we want to play CDs only
+        format S32_LE # needed in alsa 1.0.10 for some reason
+    }
+
+    bindings {
+        0 0
+        1 1
+    }
+}
+
+# Everything shall be dmixed, so redefine "default":
+pcm.!default {
+    type plug
+    slave.pcm "ossmix"
+}
+
+# OSS via aoss should d(mix)stroyed:
+pcm.dsp0 {
+    type plug
+    slave.pcm "ossmix"
+}
+
+ctl.mixer0 {
+    type hw
+    card 0
+} 
