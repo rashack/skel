@@ -35,7 +35,7 @@ main = do
          , terminal           = "/home/kjell/bin/xmterm"
          , modMask = mod4Mask
 	 , workspaces = myWorkspaces
-         , layoutHook = gaps [(U,16)] (smartBorders (tiled ||| Full ||| ThreeCol 1 (0.8/100) (1/3)))
+         , layoutHook = gaps [(U,16)] (smartBorders (tiled ||| Full ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror tiled))
          , manageHook = composeAll [ className =? "fontforge" --> doFloat
                                    , className =? "Gimp"      --> doFloat
 				   , className =? "sun-applet-Main" --> doFloat
