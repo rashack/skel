@@ -1,4 +1,14 @@
 [color]
-	diff = auto
-	status = auto
-	branch = auto
+	ui = auto
+[core]
+        editor = vim
+[alias]
+        st = status
+        ci = commit
+        br = branch
+        co = checkout
+        df = diff
+        lg = log -p
+[user]
+	name = Kjell Andreassen
+	email = andreassen.kjell@gmail.com
