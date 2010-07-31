@@ -20,13 +20,21 @@ import XMonad.Layout.ThreeColumns
 
 -- I want 10 workspaces (at least).
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+myFont = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
+myBgColor = "#044084"
+myDzenOpts = "-fn '" ++ myFont ++ "' -bg '" ++ myBgColor ++ "'"
+myTimeBar = "conky -d -c ~/.skel/conky.time | dzen2 -x 3520 -w 160 -ta c " ++ myDzenOpts
+myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -x 5000 -w 440 -ta l " ++ myDzenOpts
+
 
 main :: IO ()
 main = do
           --xmobar
-          --xmproc <- spawnPipe "xmobar /home/kjell/.xmonad/xmobarrc"
+          --xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
         --dzen2
-        h <- spawnPipe "dzen2 -fg green -bg \"#044084\" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -x 3520 -w 1920 -ta l"
+        h <- spawnPipe "dzen2 -fg green -bg \"#044084\" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -x 3680 -w 1320 -ta l"
+        dummy <- spawnPipe myTimeBar
+        spawn myLoadBar
         xmonad defaultConfig
          {
            --dzen2
@@ -38,7 +46,7 @@ main = do
 --                                                 }
 	 , normalBorderColor  = "#334455"
          , focusedBorderColor = "#ff9900"
-         , terminal           = "/home/kjell/bin/xmterm"
+         , terminal           = "~/bin/xmterm"
          , modMask = mod4Mask
 	 , workspaces = myWorkspaces
          , layoutHook = gaps [(U,16)] (smartBorders (tiled ||| Full ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror tiled))
