@@ -69,7 +69,7 @@
 (setq default-frame-alist
       '(
 ;;; Define here the default geometry or via ~/.Xdefaults.
-	(width . 100) (height . 60)
+;;	(width . 100) (height . 60) 
         (cursor-color . "red")
         (cursor-type . box)
         (foreground-color . "gray")
@@ -169,6 +169,21 @@
 	  (function (lambda ()
 		      (local-set-key (kbd "<tab>") 'indent-or-complete))))
 
+
+;; This is NOT working
+(defun div-num ()
+  "Push the number at point divided by 12 to the kill-ring."
+  (interactive)
+  (let (num)
+    (save-excursion
+      (forward-word 1)
+      (set-mark-command (point))
+      (backward-word)
+      (copy-region-as-kill (point) (mark))
+      (setq num (string-to-number (car kill-ring)))
+      (push (/ num 12) kill-ring))))
+
+
 ;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/jde"))
 ;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/eieio"))
 ;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/cedet-common"))
@@ -198,6 +213,16 @@
 ;; (cons birds birds)
 ;; (setcdr birds '(bass borre))
 
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
+;; (require 'emms-setup)
+;; (emms-standard)
+;; (emms-default-players)
+
+(load "~/.emacs.d/haskell-mode-2.8.0/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+
+
+
+(server-start)
