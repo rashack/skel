@@ -1,0 +1,11 @@
+gap_y -1000
+
+double_buffer yes
+out_to_console yes
+own_window yes
+own_window_type desktop
+update_interval 1.0
+font -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
+
+TEXT
+^fg(white) CPU: ${cpu}% | Mem: ${memperc}% Swap: ${swapperc}% | eth0: ${upspeed eth0}/${downspeed eth0} eth1: ${upspeed eth1}/${downspeed eth1 | } ^fg()
