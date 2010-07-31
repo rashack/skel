@@ -1,1 +1,0 @@
-octoploids-xmonad.hs
