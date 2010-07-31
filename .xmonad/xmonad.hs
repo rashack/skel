@@ -23,13 +23,19 @@ myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 main :: IO ()
 main = do
-        xmproc <- spawnPipe "xmobar /home/kjell/.xmonad/xmobarrc"
+          --xmobar
+          --xmproc <- spawnPipe "xmobar /home/kjell/.xmonad/xmobarrc"
+        --dzen2
+        h <- spawnPipe "dzen2 -fg green -bg \"#044084\" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -x 3520 -w 1920 -ta l"
         xmonad defaultConfig
          {
-	   logHook = dynamicLogWithPP $ xmobarPP {
-	                                           ppOutput = hPutStrLn xmproc
-						 , ppTitle = xmobarColor "green" "" . shorten 256
-                                                 }
+           --dzen2
+           logHook = dynamicLogWithPP $ defaultPP { ppOutput = hPutStrLn h }
+          --xmobar
+           --           logHook = dynamicLogWithPP $ xmobarPP {
+--	                                           ppOutput = hPutStrLn xmproc
+--						 , ppTitle = xmobarColor "green" "" . shorten 256
+--                                                 }
 	 , normalBorderColor  = "#334455"
          , focusedBorderColor = "#ff9900"
          , terminal           = "/home/kjell/bin/xmterm"
