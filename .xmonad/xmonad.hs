@@ -1,22 +1,22 @@
-import XMonad
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Util.EZConfig(additionalKeys)
-import XMonad.Layout
-import XMonad.Config (defaultConfig)
-import XMonad.Layout.NoBorders
-import XMonad.Actions.NoBorders
-import XMonad.Layout.Gaps
-import XMonad.Hooks.DynamicLog hiding (xmobar)
-import XMonad.Actions.CycleWS
 import Data.Bits
-import qualified XMonad.StackSet as W
-import qualified Data.Map as M
-import XMonad.Util.Run (spawnPipe)
-import System.IO (hPutStrLn)
 import Graphics.X11
+import System.IO (hPutStrLn)
+import XMonad
+import XMonad.Actions.CycleWS
+import XMonad.Actions.NoBorders
+import XMonad.Config (defaultConfig)
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicLog hiding (xmobar)
+import XMonad.Hooks.ManageDocks
+import XMonad.Layout
+import XMonad.Layout.Gaps
+import XMonad.Layout.NoBorders
 import XMonad.Layout.ThreeColumns
+import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Loggers
+import XMonad.Util.Run (spawnPipe)
+import qualified Data.Map as M
+import qualified XMonad.StackSet as W
 
 
 -- I want 10 workspaces (at least).
