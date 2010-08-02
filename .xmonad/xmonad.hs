@@ -16,29 +16,38 @@ import XMonad.Util.Run (spawnPipe)
 import System.IO (hPutStrLn)
 import Graphics.X11
 import XMonad.Layout.ThreeColumns
+import XMonad.Util.Loggers
 
 
 -- I want 10 workspaces (at least).
-myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
 myFont = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 myBgColor = "#044084"
+myTitleFgColor = "white"
 myDzenOpts = "-fn '" ++ myFont ++ "' -bg '" ++ myBgColor ++ "'"
-myTimeBar = "conky -d -c ~/.skel/conky.time | dzen2 -x 3520 -w 160 -ta c " ++ myDzenOpts
-myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -x 5000 -w 440 -ta l " ++ myDzenOpts
-
+myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -xs 2 -x 1480 -w 440 -ta l " ++ myDzenOpts
+timeBarWidth = "180"
 
 main :: IO ()
 main = do
           --xmobar
           --xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
         --dzen2
-        h <- spawnPipe "dzen2 -fg green -bg \"#044084\" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -x 3680 -w 1320 -ta l"
-        dummy <- spawnPipe myTimeBar
+        h <- spawnPipe ("dzen2 -fg green " ++ myDzenOpts ++ " -xs 2 -x " ++ timeBarWidth ++ " -w 1320 -ta l")
+        spawn ("~/bin/dzen-time | dzen2 -xs 2 -w " ++ timeBarWidth ++ " -ta l " ++ myDzenOpts)
         spawn myLoadBar
         xmonad defaultConfig
          {
            --dzen2
-           logHook = dynamicLogWithPP $ defaultPP { ppOutput = hPutStrLn h }
+           logHook = dynamicLogWithPP $ defaultPP { ppOutput = hPutStrLn h
+                                                  , ppCurrent = wrapFg "yellow" . wrap "[" "]"
+                                                  , ppVisible = wrap "(" ")"
+                                                  , ppSep = wrapFg "grey" " | "
+                                                  , ppTitle = (\x -> wrapFg myTitleFgColor x)
+                                                  -- two below: for time and order of the fields
+                                                  --, ppExtras = [ date (wrapFg "orange" "%a %Y-%m-%d %H:%M:%S") ]
+                                                  --, ppOrder  = \(ws:l:t:exs) -> exs ++ [l,ws,t]
+                                                  }
           --xmobar
            --           logHook = dynamicLogWithPP $ xmobarPP {
 --	                                           ppOutput = hPutStrLn xmproc
@@ -61,6 +70,9 @@ main = do
          , keys = \c -> mykeys c `M.union` keys defaultConfig c
          }
   where
+     wrapFg color content = wrap ("^fg(" ++ color ++ ")") "^fg()" content
+
+
      tiled   = Tall nmaster delta ratio
 
      -- The default number of windows in the master pane
@@ -97,4 +109,4 @@ main = do
 	     [ ((modm .|. shiftMask, k), (windows $ W.shift i))
 	         | (i, k) <- zip myWorkspaces workspaceKeys
 	     ]
-	     where workspaceKeys = [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0]
+	     where workspaceKeys = [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0, xK_plus]
