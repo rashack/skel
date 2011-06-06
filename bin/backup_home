@@ -4,7 +4,7 @@ BACKUP_SOURCE_DIR=/home/kjell/
 BACKUP_ROOT=/mnt/raid/kjell/backup/home
 BACKUP_TARGET_DIR=$BACKUP_ROOT/backup.0
 BACKUP_PREV_DIR=$BACKUP_ROOT/backup.1
-EXCLUDES=/home/kjell/.rsync_excludes
+EXCLUDES=/home/kjell/.skel/rsync_excludes
 
 rm -rf $BACKUP_ROOT/backup.3
 mv $BACKUP_ROOT/backup.2 $BACKUP_ROOT/backup.3
