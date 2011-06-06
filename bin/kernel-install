@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BOOT_DIR=/boot
-SRC_ROOT=/mnt/raid/kjell/src/linux
+SRC_ROOT=/home/kjell/src/linux
 
 if [ -z $1 ]; then
     echo "The first parameter should be the kernel version e.g. 2.6.29.3 and the source should reside in /usr/src/linux-\$1"
@@ -17,9 +17,10 @@ cd $SRC_ROOT/linux-"$1"
 
 cp -vp .config $BOOT_DIR/config-"$1-$2"
 cp -vp System.map $BOOT_DIR/System.map-"$1-$2"
-cp -vp arch/i386/boot/bzImage $BOOT_DIR/vmlinuz-"$1-$2"
+#cp -vp arch/i386/boot/bzImage $BOOT_DIR/vmlinuz-"$1-$2"
+cp -vp arch/x86_64/boot/bzImage $BOOT_DIR/vmlinuz-"$1-$2"
 
 echo creating initrd
 mkinitramfs -v -k "$1" -o $BOOT_DIR/initrd.img-"$1-$2"
 
-emacs -nw $BOOT_DIR/grub/menu.lst
+#emacs -nw $BOOT_DIR/grub/menu.lst
