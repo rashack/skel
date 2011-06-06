@@ -7,17 +7,19 @@ fi
 
 # User specific environment and startup programs
 
-JAVA_HOME="~/java/jdk"
-PATH="$JAVA_HOME/bin:$PATH:~/bin"
-ENV=$HOME/.bashrc
+export EDITOR=vim
+export JAVA_HOME=$HOME/java/jdk
+export JDK_HOME=$JAVA_HOME
+export CATALINA_HOME=/mnt/raid/kjell/apache-tomcat
+export PATH=$HOME/bin:$JAVA_HOME/bin:$HOME/android/android-sdk-linux_86/tools:$PATH
+export ENV=$HOME/.bashrc
 #USERNAME=""
-HISTSIZE=32768
-LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
-IRCNICK="Rashack"
+export HISTSIZE=1048576
+export LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
+export IRCNICK="Rashack"
 #IRCNAME="c"
 #IRCUSER="rot"
-IRCSERVER="irc.homelien.no"
-JDK_HOME="$JAVA_HOME"
+export IRCSERVER="irc.homelien.no"
 #JUNIT_HOME="/usr/local/java/junit"
 #CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit.jar:/$JUNIT_HOME"
 #MANPATH="$MANPATH:/usr/local/java/j2sdk/man"
@@ -31,4 +33,4 @@ JDK_HOME="$JAVA_HOME"
 # #    PS1='\[\033[44m\][\u@\h]\[\033[40m\] \W\$ '
 # fi
 
-export PATH ENV USERNAME HISTSIZE LS_COLORS PS1 IRCNICK IRCSERVER JAVA_HOME JDK_HOME
+export PS1
