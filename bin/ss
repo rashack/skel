@@ -1,7 +1,30 @@
 #!/bin/sh
+
 # ss - list file and directory sizes in ascending order
-#if [ -z $1 ]; then
-#    du -s * | sort -n
-#else
+
+if [ -z "$1" ]; then
+    du -s * | sort -n | awk -F'\t' \
+'BEGIN {
+  suffArr[0] = "K";
+  suffArr[1] = "M";
+  suffArr[2] = "G";
+  suffArr[3] = "T";
+  suffArr[4] = "P";
+  suffArr[5] = "E";
+  suffArr[6] = "Z";
+  suffArr[7] = "Y";
+}
+
+{
+  size = $1;
+  suff = 0;
+  while (size > 1023) {
+    suff++;
+    size /= 1024;
+  }
+
+  printf ("%6.1f %s\t%s\n", size, suffArr[suff], $2)
+} '
+else
     du -s "$@" | sort -n
-#fi
+fi
