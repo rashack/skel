@@ -18,11 +18,13 @@
 ;; Buffer history for commands reading buffer names (for example C-x b)
 ;;(load-safe "better-readbuf")
 
-;; ;; Some useful key bindings
-;;     (define-key esc-map " " 'hippie-expand)
-(global-set-key [?\M-g] 'goto-line)
+;; Some useful key bindings
+(define-key esc-map " " 'hippie-expand)
+;;    (define-key ctl-x-map "g" 'goto-line)
+(global-set-key [(meta g)] `goto-line)
 
-;; (put 'iconify-or-deiconify-frame 'disabled nil)
+(setq my-emacs-dir (expand-file-name "~/.emacs.d"))
+(setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
 
 ;; Define C-, and C-. as scoll-up and scroll-down
 (defun scroll-up-one-line ()
