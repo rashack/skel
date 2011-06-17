@@ -1,9 +1,3 @@
-;; (defmacro GNUEmacs (&rest x)
-;;   (list 'if (string-match "GNU Emacs 20" (version)) (cons 'progn x)))
-;; (defmacro XEmacs (&rest x)
-;;   (list 'if (string-match "XEmacs 21" (version)) (cons 'progn x)))
-;; (defmacro Xlaunch (&rest x)
-;;   (list 'if (eq window-system 'x)(cons 'progn x)))
 
 (setq inhibit-startup-message t)
 ;;(setq inhibit-startup-echo-area-message "kjell")
