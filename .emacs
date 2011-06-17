@@ -218,6 +218,9 @@
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
-
+;; Dont split horizontally when I don't want to (default 160?)
+(setq split-height-threshold nil)
+;; Dont split vertically when I don't want to (default 80?)
+(setq split-width-threshold nil)
 
 (server-start)
