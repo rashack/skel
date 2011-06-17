@@ -215,9 +215,7 @@
 ;; (cons birds birds)
 ;; (setcdr birds '(bass borre))
 
-;; (require 'emms-setup)
-;; (emms-standard)
-;; (emms-default-players)
+(load-library "my-emms.el")
 
 (load "~/.emacs.d/haskell-mode-2.8.0/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
