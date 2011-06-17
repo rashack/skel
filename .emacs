@@ -9,6 +9,9 @@
 ;; ;; Don't add newlines at end of file when I go down
 (setq next-line-add-newlines nil)
 
+;; Don't insert tab characters.
+(setq indent-tabs-mode nil)
+
 ;; Use text mode instead of fundamental mode
 (setq default-major-mode
       (lambda()
