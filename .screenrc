@@ -116,6 +116,8 @@ bind 'I' login on
 bind 'O' login off
 bind '}' history
 
+bind e exec !!! $HOME/bin/screen-exchange-to-primary
+
 # Yet another hack:
 # Prepend/append register [/] to the paste if ^a^] is pressed.
 # This lets me have autoindent mode in vi.

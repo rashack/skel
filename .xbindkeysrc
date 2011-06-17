@@ -65,7 +65,7 @@
 #"rxvt"
 #  Control + b:2 + Release
 
-"xscreensaver-command -lock"
+"/home/kjell/bin/start-xscreensaver"
   Control + Alt + Delete
 
 ##################################
