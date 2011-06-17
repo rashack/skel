@@ -103,9 +103,16 @@
 (setq column-number-mode t)
 (setq-default show-trailing-whitespace t)
 (setq default-indicate-empty-lines t)
-(setq-default tool-bar-mode nil)
-(setq-default menu-bar-mode nil)
-(scroll-bar-mode nil)
+;; These three below are better turned off in .Xdefaults or .Xresources
+;; (setq-default tool-bar-mode nil)
+;; (setq-default menu-bar-mode nil)
+;; (scroll-bar-mode -1)
+;; replace the three above for the three below in .Xdefaults or .Xresources
+;;emacs.menuBar: off
+;;emacs.toolBar: off
+;;emacs.verticalScrollBars: off
+;; does the trick
+
 (show-paren-mode t)
 (setq-default require-final-newline t)
 
