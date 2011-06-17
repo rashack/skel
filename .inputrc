@@ -7,3 +7,4 @@ set output-meta on
 set horizontal-scroll-mode off
 set show-all-if-ambiguous on
 set visible-stats on
+set completion-ignore-case on
