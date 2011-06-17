@@ -28,9 +28,10 @@ pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 # shellaka '$ |sh'
 
 # set every new windows hardstatus line to somenthing descriptive
-# defhstatus "screen: ^En (^Et)"
+defhstatus "screen: ^En (^Et)"
+#hardstatus off
 
-defscrollback 1000
+defscrollback 10000
 
 # don't kill window after the process died
 # zombie "^["
@@ -116,6 +117,8 @@ bind 'I' login on
 bind 'O' login off
 bind '}' history
 
+bind e exec !!! $HOME/bin/screen-exchange-to-primary
+
 # Yet another hack:
 # Prepend/append register [/] to the paste if ^a^] is pressed.
 # This lets me have autoindent mode in vi.
@@ -136,3 +139,6 @@ bind ^] paste [.]
 # hardstatus alwaysignore
 # hardstatus alwayslastline "%w"
 
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.gk}%-w%{.kw} %{rk}%n %{.kw}%t %{.gk}%+w %=%{..r} %H %{.gb} %Y-%m-%d %c"
