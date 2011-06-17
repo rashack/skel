@@ -145,6 +145,14 @@
 
 (setq semanticdb-default-save-directory "~/.emacs.d/semantic.cache")
 
+;; Enable subversion support
+(add-to-list 'load-path "~/.emacs.d/elisp/" t)
+(require 'vc-svn)
+;;(require 'psvn)
+
+(autoload 'gtags-mode "gtags" "" t)
+(gtags-mode 1)
+
 ;; show filename in titlebar
 (set 'frame-title-format '(myltiple-frames "%f" ("" "%f")))
 ;; set current buffer's filename, and full path in titlebar
