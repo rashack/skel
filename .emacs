@@ -9,14 +9,14 @@
 ;; ;; Don't add newlines at end of file when I go down
 (setq next-line-add-newlines nil)
 
-;; ;; Use text mode instead of fundamental mode
-;; (setq default-major-mode
-;;       (lambda()
-;; 	(text-mode)
-;; 	(turn-on-auto-fill)
-;; 	(font-lock-mode)))
-;; ;; Buffer history for commands reading buffer names (for example C-x b)
-;; (load-safe "better-readbuf")
+;; Use text mode instead of fundamental mode
+(setq default-major-mode
+      (lambda()
+	(text-mode)
+;;	(turn-on-auto-fill)
+	(font-lock-mode)))
+;; Buffer history for commands reading buffer names (for example C-x b)
+;;(load-safe "better-readbuf")
 
 ;; ;; Some useful key bindings
 ;;     (define-key esc-map " " 'hippie-expand)
