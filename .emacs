@@ -168,16 +168,16 @@
 ;; (looking-at "\\>") means "at end of word"
 ;; (looking-at "$") means "at end of line"
 (defun indent-or-complete ()
-  "Complete if point is at end of line, and indent line."
+  "Complete if point is at end of a word, and indent line."
   (interactive)
-  (if (and (looking-at "$") (not (looking-back "^\\s-*")))
-      (dabbrev-expand nil))
-  (indent-for-tab-command))
+  (if (looking-at "\\>")
+;;  (if (and (looking-at "$") (not (looking-back "^\\s-*")))
+      (dabbrev-expand nil)
+    (indent-for-tab-command)))
 
 (add-hook 'c-mode-common-hook
 	  (function (lambda ()
 		      (local-set-key (kbd "<tab>") 'indent-or-complete))))
-
 
 ;; This is NOT working
 (defun div-num ()
