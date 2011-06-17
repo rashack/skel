@@ -42,38 +42,33 @@
 (global-set-key [?\C-\;] 'scroll-other-window-up-one-line)
 (global-set-key [?\C-:] 'scroll-other-window-down-one-line)
 
-;; (add-hook 'c-mode-hook '(lambda ()
-;; 	  (c-set-style "Stroustrup")))
 
-;; (add-hook 'c++-mode-hook '(lambda ()
-;; 	  (c-set-style "Stroustrup")))
+(add-hook 'c-mode-hook '(lambda ()
+	  (c-set-style "Stroustrup")))
 
-;; ;; Some new Colors for Font-lock.
-;;(require 'font-lock)
-;(GNUEmacs (set-face-foreground 'modeline "red")
-;          (set-face-background 'modeline "lemonchiffon"))
+(add-hook 'c++-mode-hook '(lambda ()
+	  (c-set-style "Stroustrup")))
 
-;;(GNUEmacs
-;; (setq transient-mark-mode 't))
-
-;;(GNUEmacs
-;; (Xlaunch
-;;  (make-face-bold 'bold-italic)))
+;; Some new Colors for Font-lock.
+(setq font-lock-mode-normal-decoration t)
+(require 'font-lock)
 
 (setq default-frame-alist
       '(
 ;;; Define here the default geometry or via ~/.Xdefaults.
-;;	(width . 100) (height . 60) 
+;;	(width . 100) (height . 60)
         (cursor-color . "red")
         (cursor-type . box)
         (foreground-color . "gray")
         (background-color . "black")))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
- ;; Your init file should contain only one such instance.
- '(show-paren-match-face ((((class color)) (:background "lightblue" :foreground "black"))))
- '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))))
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(show-paren-match-face ((((class color)) (:background "lightblue" :foreground "black"))) t)
+ '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))) t)
  '(trailing-whitespace ((t (:background "navy")))))
 (set-face-background 'region "mediumpurple4")
 
