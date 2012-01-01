@@ -3,7 +3,7 @@ xrdb -merge ~/.Xdefaults
 xmodmap ~/.Xmodmap
 xbindkeys
 xscreensaver -nosplash &
-
+imwheel
 #xmms &
 xsetroot -solid black
 #xsetroot -solid black -display :0.1

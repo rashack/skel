@@ -1,0 +1,5 @@
+"^Firefox$"
+None, Left, Alt_L|Left
+None, Right, Alt_L|Right
+Shift_R, Left, Control_L|Page_Up
+Shift_R, Right, Control_L|Page_Down
