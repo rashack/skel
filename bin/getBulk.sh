@@ -2,8 +2,9 @@
 
 YEAR=$(date +"%Y")
 MONTH=$(date +"%m")
-DAY=$(($(date +"%d") - 1))
-HOUR=21
+DAY=$(printf "%02d" $(($(date +"%d") - 1)))
+HOUR=20
+
 YMD=$YEAR$MONTH$DAY
 
 TDAPP_FIFO=out-fifo-$YMD
