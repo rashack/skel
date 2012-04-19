@@ -2,6 +2,51 @@
 (setq inhibit-startup-message t)
 ;;(setq inhibit-startup-echo-area-message "kjell")
 
+;; Enable subversion support
+(add-to-list 'load-path "~/.emacs.d/elisp/" t)
+
+;;(load-file "~/.emacs.d/elisp/sqlplus.el")
+(require 'sqlplus)
+
+(load-library "my-funs.el")
+(load-library "my-flymake.el")
+(load-library "my-jdb.el")
+
+(require 'clojure-mode)
+(require 'vc-svn)
+;;(require 'psvn)
+(require 'csv-mode)
+(require 'dos)
+
+
+(require 'cedet "~/src/cedet/common/cedet.el")
+(require 'cedet-java)
+(global-ede-mode t)                      ; Enable the Project management system
+
+(require 'semanticdb)
+(require 'semanticdb-global)
+(require 'semantic-ia)
+
+;;(semantic-load-enable-minimum-features)  ; * This enables the database and idle reparse engines
+(semantic-load-enable-code-helpers)      ; * Enable prototype help and smart completion
+;(semantic-load-enable-gaudy-code-helpers)
+(semantic-load-enable-excessive-code-helpers)
+;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
+(semanticdb-enable-gnu-global-databases 'java-mode)
+(semantic-load-enable-semantic-debugging-helpers)
+(setq semanticdb-default-save-directory "~/.emacs.d/semantic.cache")
+
+; jde stuff
+;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/jde"))
+;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/speedbar"))
+;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/semantic"))
+;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/elib"))
+;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/eieio"))
+;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/cedet-common"))
+;(load-file (expand-file-name "/usr/share/emacs/site-lisp/cedet-common/cedet.el"))
+;(require 'jde)
+
+
 ;; ;; Dont crash if file not found
 ;; (defun load-safe (file)
 ;;   (condition-case () (load file) (error)))
@@ -28,24 +73,6 @@
 
 (setq my-emacs-dir (expand-file-name "~/.emacs.d"))
 (setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
-
-;; Define C-, and C-. as scoll-up and scroll-down
-(defun scroll-up-one-line ()
-  (interactive)
-  (scroll-up 1))
-(defun scroll-down-one-line ()
-  (interactive)
-  (scroll-down 1))
-(defun scroll-other-window-up-one-line ()
-  (interactive)
-  (scroll-other-window 1))
-(defun scroll-other-window-down-one-line ()
-  (interactive)
-  (scroll-other-window -1))
-(global-set-key [?\C-,] 'scroll-up-one-line)
-(global-set-key [?\C-.] 'scroll-down-one-line)
-(global-set-key [?\C-\;] 'scroll-other-window-up-one-line)
-(global-set-key [?\C-:] 'scroll-other-window-down-one-line)
 
 
 (add-hook 'c-mode-hook '(lambda ()
@@ -81,16 +108,7 @@
 (global-font-lock-mode t)
 
 ;; ; Fix delete to delete forward.
-;; (global-set-key (read-kbd-macro "<delete>") `delete-char)
-
-; Define function to match a parenthesis otherwise insert a %
-(global-set-key "%" 'match-paren)
-(defun match-paren (arg)
-  "Go to the matching parenthesis if on parenthesis otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
+(global-set-key (read-kbd-macro "<delete>") `delete-char)
 
 ; no mode line 3D-style highlighting
 (set-face-attribute 'mode-line nil :box nil)
@@ -116,46 +134,32 @@
 (show-paren-mode t)
 (setq-default require-final-newline t)
 
-;; ;; MATLAB EmacsLink initiation
-;; (add-to-list 'load-path "/usr/local/matlab7/java/extern/EmacsLink/lisp")
-;; (autoload 'matlab-eei-connect "matlab-eei"
-;;   "Connects Emacs to MATLAB's external editor interface.")
+(custom-set-variables
+;;   ;; custom-set-variables was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  '(jde-debugger (quote ("JDEbug")))
+;;  '(jde-run-applet-viewer "appletviewer")
+;;  '(jde-sourcepath (quote ("~/src/trunk/src" "$JAVA_HOME")))
+  '(ps-font-size (quote (7 . 8)))
+  '(ps-header-font-size (quote (10 . 10)))
+  '(ps-header-title-font-size (quote (12 . 12)))
+  '(ps-paper-type (quote a4)))
 
-;; (autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
-;; (setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
-;; (autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
+;; default grep command is 'grep -nH -e '
+(setq grep-command "bgrep -n ")
+(global-set-key "\C-cg" 'grep)
 
-;; (setq matlab-indent-function t)		; if you want function bodies indented
-;; (setq matlab-verify-on-save-flag nil)	; turn off auto-verify on save
-;; (defun my-matlab-mode-hook ()
-;;   (setq fill-column 76)
-;;   (imenu-add-to-menubar "Find"))		; where auto-fill should wrap
-;; (add-hook 'matlab-mode-hook 'my-matlab-mode-hook)
-;; ;; MATLAB EmacsLink initiation end
+(set-variable 'bios-home (getenv "BIOS_HOME"))
+(set-variable 'compilation-search-path (list bios-home))
 
-;; ;;; Commands added by calc-private-autoloads on Tue Aug  7 00:02:50 2007.
-;; (autoload 'calc-dispatch	   "calc" "Calculator Options" t)
-;; (autoload 'full-calc		   "calc" "Full-screen Calculator" t)
-;; (autoload 'full-calc-keypad	   "calc" "Full-screen X Calculator" t)
-;; (autoload 'calc-eval		   "calc" "Use Calculator from Lisp")
-;; (autoload 'defmath		   "calc" nil t t)
-;; (autoload 'calc			   "calc" "Calculator Mode" t)
-;; (autoload 'quick-calc		   "calc" "Quick Calculator" t)
-;; (autoload 'calc-keypad		   "calc" "X windows Calculator" t)
-;; (autoload 'calc-embedded	   "calc" "Use Calc inside any buffer" t)
-;; (autoload 'calc-embedded-activate  "calc" "Activate =>'s in buffer" t)
-;; (autoload 'calc-grab-region	   "calc" "Grab region of Calc data" t)
-;; (autoload 'calc-grab-rectangle	   "calc" "Grab rectangle of data" t)
-;; (setq load-path (nconc load-path (list "/usr/share/emacs/site-lisp/calc")))
-;; (global-set-key "\e#" 'calc-dispatch)
-;; ;;; End of Calc autoloads.
+(global-set-key "\C-cc" 'compile)
+(global-set-key "\C-cr" 'recompile)
+(global-set-key [ f8 ] 'next-error)
 
-(setq semanticdb-default-save-directory "~/.emacs.d/semantic.cache")
+(global-set-key "\C-xaf" 'find-file-at-point)
 
-;; Enable subversion support
-(add-to-list 'load-path "~/.emacs.d/elisp/" t)
-(require 'vc-svn)
-;;(require 'psvn)
 
 (autoload 'gtags-mode "gtags" "" t)
 (gtags-mode 1)
@@ -165,50 +169,65 @@
 ;; set current buffer's filename, and full path in titlebar
 ;;(setq frame-title-format '("%b" (buffer-file-name ": %f")))
 
-;; (looking-at "\\>") means "at end of word"
-;; (looking-at "$") means "at end of line"
-(defun indent-or-complete ()
-  "Complete if point is at end of a word, and indent line."
-  (interactive)
-  (if (looking-at "\\>")
-;;  (if (and (looking-at "$") (not (looking-back "^\\s-*")))
-      (dabbrev-expand nil)
-    (indent-for-tab-command)))
+(put 'narrow-to-region 'disabled nil)
 
-(add-hook 'c-mode-common-hook
-	  (function (lambda ()
-		      (local-set-key (kbd "<tab>") 'indent-or-complete))))
+(gtags-mode 1)
+;;(add-hook 'java-mode-hook 'flymake-mode)
+;;(add-hook 'java-mode-hook 'gtags-mode)
+(setq java-mode-hook
+      '(lambda ()
+	 (flymake-mode 1)
+	 (my-flymake-minor-mode)
+         (gtags-mode 1)
+         (setq indent-tabs-mode nil)
+	 (c-set-offset 'func-decl-cont 0)
+	 (fix-java-annotation-indentation-frema)
+	 ))
 
-;; This is NOT working
-(defun div-num ()
-  "Push the number at point divided by 12 to the kill-ring."
-  (interactive)
-  (let (num)
-    (save-excursion
-      (forward-word 1)
-      (set-mark-command (point))
-      (backward-word)
-      (copy-region-as-kill (point) (mark))
-      (setq num (string-to-number (car kill-ring)))
-      (push (/ num 12) kill-ring))))
+;; ViewMail
+;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/vm/")
+;;(require 'vm-autoloads)
+
+;;(defun insert-tag (tag)
+;;  "Insert a tag pair, i.e. <tag></tag>, and move the point in between them."
+;;  (blahblahblah
+
+(setq message-log-max 512)
+
+;; mozrepl
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
+(add-hook 'javascript-mode-hook 'java-custom-setup)
+(defun javascript-custom-setup ()
+  (moz-minor-mode 1))
+;; mozrepl end
 
 
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/jde"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/eieio"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/cedet-common"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/cedet-contrib"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/elib"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/semantic"))
-;(require 'jde)
+;; Highlight word on double-click.
 
-(defun switch-window-buffers ()
-  "Visit buffer of other window in this window and visit this buffer in other window."
-  (interactive)
-  (other-window 1)
-  (switch-to-buffer (other-buffer (current-buffer) t))
-  (other-window 1)
-  (switch-to-buffer (other-buffer)))
-(global-set-key "\C-xw" 'switch-window-buffers)
+(global-set-key [C-left] 'shrink-window-horizontally)
+(global-set-key [C-right] 'enlarge-window-horizontally)
+(global-set-key [C-S-up] 'enlarge-window)
+(global-set-key [C-S-down] 'shrink-window)
+
+(global-hl-line-mode 1)
+(set-face-background 'hl-line "#222")
+
+
+;; Make all character after column 100 a little more visible.
+;;(setq whitespace-style (quote (lines-tail))
+;;      whitespace-line-column 100)
+;;(global-whitespace-mode 1)
+
+;; (require 'ido)
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching nil)
+
+(custom-set-faces
+ '(diff-added ((t (:foreground "Green3"))) 'now)
+ '(diff-removed ((t (:foreground "Red3"))) 'now))
+
+(setq line-move-visual nil)
 
 ;; (let ((a 'a)
 ;;       (b 'B))
@@ -222,9 +241,9 @@
 ;; (cons birds birds)
 ;; (setcdr birds '(bass borre))
 
-(load-library "my-emms.el")
+;(load-library "my-emms.el")
 
-(load "~/.emacs.d/haskell-mode-2.8.0/haskell-site-file")
+;;(load "~/.emacs.d/haskell-mode-2.8.0/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
@@ -235,4 +254,12 @@
 ;; Dont split vertically when I don't want to (default 80?)
 (setq split-width-threshold nil)
 
+(when window-system
+  (global-unset-key "\C-z"))
+
+(transient-mark-mode nil)
+
+(windmove-default-keybindings 'meta)
+
 (server-start)
+(put 'downcase-region 'disabled nil)

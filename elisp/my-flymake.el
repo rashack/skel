@@ -63,6 +63,15 @@
       flymake-allowed-file-name-masks)
 
 
+(set-variable 'batch-home (concat (getenv "TD_TRUNK_SRC_HOME") "hercules-modules/batch"))
+(defun compile-batch-init ()
+  (compile-server-dir-init batch-home "code/src" "lib"))
+(push (list (concat batch-home "/code/src.+\\.java$")
+	    'compile-batch-init
+	    'compile-server-flymake-cleanup)
+      flymake-allowed-file-name-masks)
+
+
 ;; (setq flymake-allowed-file-name-masks (cdr flymake-allowed-file-name-masks))
 
 (defun compile-hercules-regressiontests-init ()
