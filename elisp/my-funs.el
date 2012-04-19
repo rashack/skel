@@ -81,6 +81,17 @@
     (setq c-comment-start-regexp "(@|/(/|[*][*]?))")
     (modify-syntax-entry ?@ "< b" java-mode-syntax-table)))
 
+;; Make java mode support Java 1.5 annotations.
+(defun fix-java-annotation-indentation-frema ()
+  (condition-case err
+      (progn
+	(require 'java-mode-indent-annotations)
+	(add-hook 'java-mode-hook
+		  (lambda ()
+		    (java-mode-indent-annotations-setup))))
+    (error (message "Failed to load java-mode-indent-annotations: %s" err))))
+
+
 (defun copy-word ()
   "Copy word to the left of point to kill-ring."
   (interactive)
