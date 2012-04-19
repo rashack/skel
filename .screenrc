@@ -118,6 +118,9 @@ bind 'O' login off
 bind '}' history
 
 bind e exec !!! $HOME/bin/screen-exchange-to-primary
+#bind -m > eval "stuff ' '" writebuf "exec sh -c 'xsel -n < /tmp/screen-exchange'"
+#bindkey < eval "stuff ' '" "exec sh -c 'xsel -o > /tmp/screen-exchange'" readbuf
+#bindkey -m ^[w eval “stuff ‘ ‘” writebuf “exec sh -c ‘xsel < /tmp/screen-exchange’”
 
 # Yet another hack:
 # Prepend/append register [/] to the paste if ^a^] is pressed.
