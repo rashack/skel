@@ -14,3 +14,5 @@
 [user]
 	name = Kjell Andreassen
 	email = kjell.andreassen@tradedoubler.com
+[push]
+	default = tracking
