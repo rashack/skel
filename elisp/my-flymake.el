@@ -52,7 +52,7 @@
 ;; 	    'compile-server-flymake-cleanup)
 ;;       flymake-allowed-file-name-masks)
 
-(set-variable 'hercules-home (concat (getenv "TD_SRC_HOME") "/hercules"))
+(set-variable 'hercules-home (getenv "HERCULES_SRC_HOME"))
 
 (defun compile-hercules-init ()
   (compile-server-dir-init hercules-home "code/src" "lib"))

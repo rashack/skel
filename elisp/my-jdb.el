@@ -43,7 +43,7 @@
 
 ;;(macroexpand '
 ;; (jdb-debug 'jdb-debug-commons "5112" commons-sourcepath)  ;; "\C-x\C-jq"))
-(defvar hercules-sourcepath (concat "/home/kjean/src/td/hercules/code/src"))
+(defvar hercules-sourcepath (concat (getenv "HERCULES_SRC_HOME") "/code/src"))
 (defun jdb-debug-hercules ()
   (interactive)
   (jdb (concat "jdb -attach 8642 -sourcepath" hercules-sourcepath)))
