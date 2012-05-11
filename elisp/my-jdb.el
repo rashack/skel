@@ -46,7 +46,8 @@
 (defvar hercules-sourcepath (concat (getenv "HERCULES_SRC_HOME") "/code/src"))
 (defun jdb-debug-hercules ()
   (interactive)
-  (jdb (concat "jdb -attach 8642 -sourcepath" hercules-sourcepath)))
+;;  (jdb (concat "jdb -attach 8642 -sourcepath" hercules-sourcepath)))
+  (jdb (concat "jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=8642 -sourcepath" hercules-sourcepath)))
 (global-set-key "\C-x\C-jh" 'jdb-debug-hercules)
 
 
@@ -57,3 +58,10 @@
   (interactive)
   (jdb (concat "jdb -attach 5005 -sourcepath" pan-sourcepath)))
 (global-set-key "\C-x\C-jj" 'jdb-debug-jboss)
+
+
+;; (setenv "GTAGSLIBPATH" (mapconcat 'identity (mapcar 'getenv
+;; 						   '("HERCULES_SRC_HOME"
+;; 						     "HERCULES_MODULES_SRC_HOME"
+;; 						     "TD_TRUNK_SRC_HOME"))
+;; 				 ":"))

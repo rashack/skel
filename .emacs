@@ -1,9 +1,14 @@
-
 (setq inhibit-startup-message t)
 ;;(setq inhibit-startup-echo-area-message "kjell")
 
-;; Enable subversion support
 (add-to-list 'load-path "~/.emacs.d/elisp/" t)
+(setq my-emacs-dir (expand-file-name "~/.emacs.d"))
+(setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
+
+(set-variable 'bios-home (getenv "BIOS_HOME"))
+(set-variable 'compilation-search-path (list bios-home))
+
+(load-library "my-cedet.el")
 
 ;;(load-file "~/.emacs.d/elisp/sqlplus.el")
 (require 'sqlplus)
@@ -17,35 +22,6 @@
 ;;(require 'psvn)
 (require 'csv-mode)
 (require 'dos)
-
-
-(require 'cedet "~/src/cedet/common/cedet.el")
-(require 'cedet-java)
-(global-ede-mode t)                      ; Enable the Project management system
-
-(require 'semanticdb)
-(require 'semanticdb-global)
-(require 'semantic-ia)
-
-;;(semantic-load-enable-minimum-features)  ; * This enables the database and idle reparse engines
-(semantic-load-enable-code-helpers)      ; * Enable prototype help and smart completion
-;(semantic-load-enable-gaudy-code-helpers)
-(semantic-load-enable-excessive-code-helpers)
-;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
-(semanticdb-enable-gnu-global-databases 'java-mode)
-(semantic-load-enable-semantic-debugging-helpers)
-(setq semanticdb-default-save-directory "~/.emacs.d/semantic.cache")
-
-; jde stuff
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/jde"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/speedbar"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/semantic"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/elib"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/eieio"))
-;(add-to-list 'load-path (expand-file-name "/usr/share/emacs/site-lisp/cedet-common"))
-;(load-file (expand-file-name "/usr/share/emacs/site-lisp/cedet-common/cedet.el"))
-;(require 'jde)
-
 
 ;; ;; Dont crash if file not found
 ;; (defun load-safe (file)
@@ -70,9 +46,6 @@
 (define-key esc-map " " 'hippie-expand)
 ;;    (define-key ctl-x-map "g" 'goto-line)
 (global-set-key [(meta g)] `goto-line)
-
-(setq my-emacs-dir (expand-file-name "~/.emacs.d"))
-(setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
 
 
 (add-hook 'c-mode-hook '(lambda ()
@@ -151,9 +124,6 @@
 (setq grep-command "bgrep -n ")
 (global-set-key "\C-cg" 'grep)
 
-(set-variable 'bios-home (getenv "BIOS_HOME"))
-(set-variable 'compilation-search-path (list bios-home))
-
 (global-set-key "\C-cc" 'compile)
 (global-set-key "\C-cr" 'recompile)
 (global-set-key [ f8 ] 'next-error)
@@ -172,17 +142,7 @@
 (put 'narrow-to-region 'disabled nil)
 
 (gtags-mode 1)
-;;(add-hook 'java-mode-hook 'flymake-mode)
-;;(add-hook 'java-mode-hook 'gtags-mode)
-(setq java-mode-hook
-      '(lambda ()
-	 (flymake-mode 1)
-	 (my-flymake-minor-mode)
-         (gtags-mode 1)
-         (setq indent-tabs-mode nil)
-	 (c-set-offset 'func-decl-cont 0)
-	 (fix-java-annotation-indentation-frema)
-	 ))
+
 
 ;; ViewMail
 ;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/vm/")
