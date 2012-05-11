@@ -58,7 +58,7 @@ else
     set_prompt '\033[44m\]'
 fi
 
-
+shopt -s checkwinsize
 
 SSH_AGENT_ENV=$HOME/.ssh/agent-environment
 function start-ssh-agent {
