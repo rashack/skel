@@ -39,7 +39,7 @@
 (defun hercules-lib-dir
   (concat (getenv "HERCULES_SRC_HOME") "/lib"))
 (defun set-hercules-semanticdb-javap-classpath
-  (setq semanticdb-javap-classpath (find-jars-in-dir hercules-lib-dir))
+  (setq semanticdb-javap-classpath (find-jars-in-dir (hercules-lib-dir))))
 
 (add-hook 'java-mode-hook 'flymake-mode)
 (add-hook 'java-mode-hook 'my-flymake-minor-mode)
