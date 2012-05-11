@@ -7,11 +7,13 @@ fi
 
 # User specific environment and startup programs
 
+ANDROID_SDK_ROOT=/home/kjell/android/android-sdk-linux
+
 export EDITOR=vim
 export JAVA_HOME=$HOME/java/jdk
 export JDK_HOME=$JAVA_HOME
 export CATALINA_HOME=/mnt/raid/kjell/apache-tomcat
-export PATH=$HOME/bin:$JAVA_HOME/bin:$HOME/android/android-sdk-linux_86/tools:$PATH
+export PATH=$HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
 export ENV=$HOME/.bashrc
 #USERNAME=""
 export HISTSIZE=1048576
