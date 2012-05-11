@@ -1,4 +1,7 @@
 # .bashrc
+#echo "Reading .bashrc"
+
+export HOME_FQDN=rashack.dyndns.org
 
 # User specific aliases and functions
 
@@ -33,6 +36,7 @@ alias grep='grep --color'
 alias pgrep='pgrep -l'
 alias diff='colordiff -u'
 umask 077
+alias evince='dbus-launch --exit-with-session evince'
 
 ulimit -n 2048
 ulimit -c unlimited
@@ -43,6 +47,10 @@ if [[ $TERM =~ "xterm" ]]; then
     TERM="xterm-256color"
 fi
 
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="auto"
 source ~/.git-completion.sh
 # set_prompt is "not working" in the sense that it doesn't change the color of the prompt
 # depending on the username
@@ -52,23 +60,67 @@ function set_prompt
  	xterm*)
 	    TITLEBAR='\[\033]0;\w\007\]'
             ;;
+	screen)
+#	    TITLEBAR='\[\033k^fg(grey)[^fg(white)\u^fg(grey)@^fg(white)\h^fg(grey)] ^fg(green)\w^fg(white)\033\\\]'
+	    TITLEBAR='\[\033k\h \w\033\\\]'
+	    ;;
  	*)
             local TITLEBAR=''
             ;;
     esac
 
-    local GIT_BRANCH=git_branch
     export PS1=${TITLEBAR}'\
 \[\033[31m\][\t] \
 \[\033[m\]\[\033[44m\][\u@\h]\
-\[\033[40m\]\[\033[32m\] \W\
-\[\033[33m\]`__git_ps1 "(%s)"`\[\033[m\]\$ '
+\[\033[40m\]\[\033[32m\] \w\
+\[\033[33m\]`__git_ps1 "(%s)"`\[\033[m\]$(if ! [ $? == 0 ] ; then echo -en "\[\033[31m\]" ; fi)\$\[\033[m\] '
 }
 
-if [ $USER = 'root' ]; then
+if [ "$USER" == 'root' ]; then
     set_prompt '\033[41m\]'
 else
     set_prompt '\033[44m\]'
 fi
 
 shopt -s checkwinsize
+
+# ORIG_PS1=$PS1
+# SGR0=$(tput sgr0)
+# FR=$(tput setaf 1)
+# FG=$(tput setaf 2)
+# FY=$(tput setaf 3)
+# BB=$(tput setab 4)
+# TPUT_PS1=\
+# $FR'[\t] '\
+# $SGR0$BB'[\u@\h]'\
+# $SGR0$FG' \w'\
+# $FY'`__git_ps1 "(%s)"`'\
+# $(if [ $? == 0 ] ; then echo -ne "$SGR0" ; else echo -ne "$FR" ; fi)'\$'\
+# $SGR0' '
+
+# Set the title of a Terminal window
+function settitle {
+    if [ -n "$STY" ] ; then         # We are in a screen session
+	echo "Setting screen titles to $@"
+	printf "\033k%s\033\\" "$@"
+	screen -X eval "at \\# title $@" "shelltitle $@"
+    else
+	printf "\033]0;%s\007" "$@"
+    fi
+}
+
+SSH_AGENT_ENV=$HOME/.ssh/agent-environment
+function start-ssh-agent {
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > $SSH_AGENT_ENV
+    chmod 600 $SSH_AGENT_ENV
+    source $SSH_AGENT_ENV > /dev/null
+}
+
+if [ -f $SSH_AGENT_ENV ] ; then
+    source $SSH_AGENT_ENV > /dev/null
+    ps $SSH_AGENT_PID | grep -q ssh-agent || {
+	start-ssh-agent
+    }
+else
+    start-ssh-agent
+fi

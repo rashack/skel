@@ -11,4 +11,8 @@ xsetroot -solid black
 #xterm -fg gray -bg black -cr red -ls -sl 1024 -vb +sb \
 #     -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* &
 #/usr/bin/nvidia-settings --load-config-only
+
+#xmodmap ~/.Xmodmap
+#~/bin/xmod &
+
 xmonad 2>&1 > $HOME/.xmonad/log.txt

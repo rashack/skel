@@ -9,6 +9,8 @@
 (require 'emms-streams)
 (require 'emms-playing-time)
 
+(setq emms-directory (concat my-emacs-dir "/emms"))
+
 (setq emms-player-list '(emms-player-mplayer
                          emms-player-alsaplayer
                          emms-player-mpg321
