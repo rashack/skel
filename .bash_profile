@@ -32,9 +32,11 @@ export HERCULES_HOME=$TD_SRC_HOME/deploy/hercules
 export HERCULES_DEPLOY_ROOT=$TD_SRC_HOME/deploy/hercules/dist
 export HERCULES_HTTP_TEST_TEMP=/tmp/hercules_http_test
 export HERCULES_SRC_HOME="$TD_SRC_HOME/hercules"
+export HERCULES_MODULES_SRC_HOME="$TD_SRC_HOME/hercules-modules"
 #JUNIT_HOME="/usr/local/java/junit"
 #CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit.jar:/$JUNIT_HOME"
 #MANPATH="$MANPATH:/usr/local/java/j2sdk/man"
+export GTAGSLIBPATH="$HERCULES_SRC_HOME:$HERCULES_MODULES_SRC_HOME:$TD_TRUNK_SRC_HOME"
 
 # if [ $USER = 'root' ]; then
 #     PS1='\[\033[41m\][\u@\h]\[\033[40m\] \W\$ '
