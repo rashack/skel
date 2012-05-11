@@ -1,0 +1,1 @@
+/home/kjean/src/clojure-mode/clojure-mode.el
