@@ -57,3 +57,21 @@ if [ $USER = 'root' ]; then
 else
     set_prompt '\033[44m\]'
 fi
+
+
+
+SSH_AGENT_ENV=$HOME/.ssh/agent-environment
+function start-ssh-agent {
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > $SSH_AGENT_ENV
+    chmod 600 $SSH_AGENT_ENV
+    source $SSH_AGENT_ENV > /dev/null
+}
+
+if [ -f $SSH_AGENT_ENV ] ; then
+    source $SSH_AGENT_ENV > /dev/null
+    ps $SSH_AGENT_PID | grep -q ssh-agent || {
+	start-ssh-agent
+    }
+else
+    start-ssh-agent
+fi
