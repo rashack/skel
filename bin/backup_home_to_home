@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BACKUP_SOURCE_DIR=/home/kjean/
+BACKUP_TARGET_DIR=kjell@$HOME_FQDN:/mnt/backup/kjell/td_home
+EXCLUDES=$HOME/.skel/rsync_home_excludes
+
+rsync --archive --hard-links --human-readable --inplace \
+    --delete --delete-excluded --exclude-from=$EXCLUDES \
+    $BACKUP_SOURCE_DIR $BACKUP_TARGET_DIR
