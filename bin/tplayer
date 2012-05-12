@@ -6,7 +6,8 @@ if [ -z $MPLAYER ]; then
 #    MPLAYER="/home/kjell/src/mplayer/r29404/mplayer"
     MPLAYER=mplayer
 fi
-SPDIF="-ao alsa:device=spdif -afm hwac3 "
+#SPDIF="-ao alsa:device=spdif -afm hwac3"
+SPDIF="-ao alsa:device=pt48 -afm hwac3"
 DIGITAL_REGEX=".*d"
 if [[ $0 =~ $DIGITAL_REGEX ]]; then
     AUDIO_DECODER=$SPDIF
@@ -19,9 +20,13 @@ if [[ $0 =~ "qplayer" ]]; then
 fi
 
 if [[ $0 =~ "vdpau" ]]; then
-    CMD="/mnt/raid/kjell/src/mplayer/mplayer-090430/mplayer $SPDIF -vo vdpau -vc ffh264vdpau -display :0.2 -monitoraspect 16:9"
+    echo "$(tput setaf 3)vdpau on Panasonic requires VDPAU_NVIDIA_XINERAMA_PHYSICAL_SCREEN=2$(tput sgr0)"
+    if [ -z $VDPAU_NVIDIA_XINERAMA_PHYSICAL_SCREEN ]; then
+	export VDPAU_NVIDIA_XINERAMA_PHYSICAL_SCREEN=1
+    fi
+    CMD="/mnt/raid/kjell/src/mplayer/r31555/mplayer $SPDIF -vo vdpau"
 else
-    CMD="$MPLAYER -stop-xscreensaver $AUDIO_DECODER "
+    CMD="$MPLAYER -vo xv -stop-xscreensaver $AUDIO_DECODER"
 fi
 
 echo "$CMD $@"
