@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for suff in $(suffixes_in_dir $1); do
+    echo -e "$suff\t" $(find . -iname "*$suff" | wc -l)
+done
