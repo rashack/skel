@@ -1,9 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 # ss - list file and directory sizes in ascending order
 
-if [ -z "$1" ]; then
-    du -s * | sort -n | awk -F'\t' \
+HUMAN_READABLE="y"
+while getopts "n-" opt ; do
+    case $opt in
+	-) break;;
+	n) HUMAN_READABLE="n";;
+    esac
+done
+
+shift $(( $OPTIND - 1 ))
+
+if [[ "$HUMAN_READABLE" == "y" ]] ; then
+    du -s "$@" | sort -n | awk -F'\t' \
 'BEGIN {
   suffArr[0] = "K";
   suffArr[1] = "M";
