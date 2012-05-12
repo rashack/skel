@@ -4,6 +4,8 @@ BERRY=berry
 BERRY_MAC=00:0f:fe:1d:c4:16
 PRINGLE=pringle
 PRINGLE_MAC=00:18:8b:1a:42:e8
+PRINGLE_II=pringleii
+PRINGLE_II_MAC=00:23:ae:71:cc:9e
 
 if [ -z $1 ]; then
     echo "Need a machine name to try to wake."
@@ -11,9 +13,14 @@ if [ -z $1 ]; then
 elif [[ $1 =~ "berry" ]]; then
     TARGET=$BERRY
     TARGET_MAC=$BERRY_MAC
-elif [[ $1 =~ "pringle" ]]; then
+elif [[ $1 =~ "ii760" ]]; then
     TARGET=$PRINGLE
     TARGET_MAC=$PRINGLE_MAC
+elif [[ $1 =~ "pringle" ]]; then
+    TARGET=$PRINGLE_II
+    TARGET_MAC=$PRINGLE_II_MAC
 fi
+
 echo "Will try to wake $TARGET."
 wakeonlan -i 192.168.1.255 $TARGET_MAC
+wakeonlan -i 192.168.2.255 $TARGET_MAC
