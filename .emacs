@@ -203,7 +203,7 @@
 ;; (cons birds birds)
 ;; (setcdr birds '(bass borre))
 
-(load-library "my-emms.el")
+;;(load-library "my-emms.el")
 
 (load "~/src/haskell-mode/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
