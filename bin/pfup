@@ -1,0 +1,42 @@
+#!/bin/bash
+
+. ~/.bashrc
+
+PORT=11238
+IDENTITY=~/.ssh/nightshade_restricted
+REMOTE_USER=kjell
+REMOTE_HOST=$HOME_FQDN
+LOCK=/tmp/pfup.pid
+WAIT_TIME=60
+LOG=~/pfup.log
+
+function ts () {
+    date +"%Y-%m-%d %H:%M:%S"
+}
+
+function log () {
+    echo "$(ts) ($$) $1" >> $LOG
+}
+
+if [ -a $LOCK ]; then
+    PID=$(cat $LOCK)
+    ps -p $PID > /dev/null
+    if [ 0 -eq $? ]; then # exit status 0 means ps found the process and should exit cleanly
+	exit 0
+    fi
+fi
+
+log "Creating lock file \"$LOCK\"."
+echo $$ > $LOCK
+
+log "Starting connect loop."
+while ! (ps -ewf | grep -v grep | grep -q $PORT); do
+    log "Trying to establish connection."
+    SSH_RES=$(ssh -v -i $IDENTITY -X -R $PORT:localhost:22 $REMOTE_USER@$REMOTE_HOST 2>&1)
+    log "$SSH_RES"
+    log "No connection, sleeping for $WAIT_TIME seconds."
+    sleep $WAIT_TIME
+done
+
+log "$0 is running (port $PORT seems busy), removing lock and exiting."
+rm -f $LOCK
