@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -i ~/.ssh/td-ssh01 kjean@217.212.242.123
