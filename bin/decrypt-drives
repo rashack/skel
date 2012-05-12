@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function decrypt-and-mount {
+    echo "Creating $2 from $1"
+    sudo /home/kjell/bin/decrypt-drive $1 $2
+    sudo mount /dev/mapper/$2 $3
+}
+
+decrypt-and-mount /dev/md1 r2t /mnt/r2t
+decrypt-and-mount /dev/md3 r3t /mnt/r3t
+decrypt-and-mount /dev/md4p3 r4t /mnt/r4t
