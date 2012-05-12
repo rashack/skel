@@ -25,7 +25,7 @@ myFont = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 myBgColor = "#044084"
 myTitleFgColor = "white"
 myDzenOpts = "-fn '" ++ myFont ++ "' -bg '" ++ myBgColor ++ "'"
-myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -xs 1 -x 1920 -w 440 -ta l " ++ myDzenOpts
+myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -xs 1 -x 1500 -w 440 -ta l " ++ myDzenOpts
 timeBarWidth = "180"
 
 main :: IO ()
