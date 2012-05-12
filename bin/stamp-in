@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo $(date +"%F_%T") IN >> ~/.time
+
+#if egrep -q "`date +%F`.*IN" ~/.time ;
+#  then echo ;
+#  else echo -e \\n`date +"%F %H:%M IN"` >> ~/.time ;
+#fi
