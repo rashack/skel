@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for x in /dev/sd? ; do
+    DRIVE=$(echo $x | sed 's/.*\([a-z]\)$/\1/')
+    $HOME/bin/stop-drive $DRIVE
+done
