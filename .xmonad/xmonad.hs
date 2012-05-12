@@ -25,7 +25,7 @@ myFont = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 myBgColor = "#044084"
 myTitleFgColor = "white"
 myDzenOpts = "-fn '" ++ myFont ++ "' -bg '" ++ myBgColor ++ "'"
-myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -xs 2 -x 1480 -w 440 -ta l " ++ myDzenOpts
+myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -xs 1 -x 1920 -w 440 -ta l " ++ myDzenOpts
 timeBarWidth = "180"
 
 main :: IO ()
@@ -33,8 +33,8 @@ main = do
           --xmobar
           --xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
         --dzen2
-        h <- spawnPipe ("dzen2 -fg green " ++ myDzenOpts ++ " -xs 2 -x " ++ timeBarWidth ++ " -w 1320 -ta l")
-        spawn ("~/bin/dzen-time | dzen2 -xs 2 -w " ++ timeBarWidth ++ " -ta l " ++ myDzenOpts)
+        h <- spawnPipe ("~/bin/dzen2-status")
+        spawn ("~/bin/dzen2-time")
         spawn myLoadBar
         xmonad defaultConfig
          {
