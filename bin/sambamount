@@ -1,0 +1,1 @@
+mount -t cifs -o username=kjean //flhq01/$1 /mnt/flhq01/$1
