@@ -1,0 +1,31 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+
+if [ -z $1 ]; then
+    echo "Name a database as first parameter (Oracle SID)."
+    exit 1
+fi
+
+sqlplus -S system/manager@$1 <<EOF
+select
+         asession.username blocker,
+         substr(asession.machine, 1, 12) at,
+         substr(asession.osuser, 1,10) osuser,
+         a.sid,
+         ' is blocking ',
+         bsession.username blockee,
+         substr(bsession.machine, 1, 12) at,
+         substr(bsession.osuser, 1,10) osuser,
+         b.sid
+    from v\$lock a, v\$lock b,
+         v\$session asession,
+         v\$session bsession
+   where
+         asession.sid = a.sid
+     and bsession.sid = b.sid
+     and a.block = 1
+     and b.request > 0
+     and a.id1 = b.id1
+     and a.id2 = b.id2;
+EOF
