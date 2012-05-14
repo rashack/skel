@@ -51,7 +51,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
-source ~/.git-completion.sh
+source ~/.skel/git-completion.bash
 # set_prompt is "not working" in the sense that it doesn't change the color of the prompt
 # depending on the username
 function set_prompt
