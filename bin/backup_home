@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BACKUP_SOURCE_DIR=/home/kjell/
-BACKUP_DIR=/mnt/backup/kjell/home/backup
+BACKUP_DIR=/mnt/backup/$LOGNAME/home/backup
 EXCLUDES=/home/kjell/.skel/rsync_excludes
 
 BACKUPS=8
