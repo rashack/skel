@@ -18,6 +18,7 @@
 (load-library "my-funs.el")
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
+(load-library "my-erlang.el")
 
 (require 'clojure-mode)
 (require 'vc-svn)
@@ -223,5 +224,5 @@
 
 (windmove-default-keybindings 'meta)
 
-(server-start)
+;;(server-start)
 (put 'downcase-region 'disabled nil)
