@@ -18,6 +18,7 @@
 (load-library "my-funs.el")
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
+(load-library "graphviz-dot-mode.el")
 
 (require 'clojure-mode)
 (require 'vc-svn)
@@ -225,3 +226,67 @@
 
 (server-start)
 (put 'downcase-region 'disabled nil)
+
+(add-hook 'kill-buffer-hook
+	  (lambda ()
+	    (let ((file-name (buffer-file-name)))
+	      (when file-name
+		(message (format "%s: closed" file-name))))))
+
+
+;; (put-text-property start end prop value &optional object)
+
+
+;; (if (dired-move-to-filename)
+;;     (add-text-properties
+;;      (point)
+;;      (save-excursion
+;;        (dired-move-to-end-of-filename)
+;;        (point))
+;;      '(mouse-face highlight
+;; 		  help-echo "mouse-2: visit this file in other window")))
+
+;; (let ((map (make-sparse-keymap))
+;;       (file-name "/home/kjean/src/td/hercules/code/src/com/tradedoubler/hercules/cache/keyword/service/IndexBuilder.java"))
+;;   (define-key map [mouse-2] '(lambda ()
+;; 			       (find-file-other-window file-name)))
+;;   (put-text-property 0 (length file-name) 'keymap map file-name)
+;;   (message file-name))
+
+
+;; (defconst closed-buffer-name "*Closed buffers*"
+;;   "The name of the buffer close is writing to")
+
+;; (defun closed-visit-file ()
+;;   (interactive)
+;;   (message "++++++++++++++++ close visited file ++++++++++++++++" ))
+
+;; (defun closed-close ()
+;;   (interactive) ;; DEBUG
+;;   (let ((closed (buffer-file-name)))
+;;     (when (and closed (not (string= closed close-buffer-name)))
+;;       (let* ((old (get-buffer close-buffer-name))
+;;              (buffer (or old (get-buffer-create close-buffer-name))))
+;;         (with-current-buffer buffer
+;;           ;; if buffer newly created disable undo
+;;           (unless old
+;;             (setq buffer-undo-list t))
+;;           (goto-char (point-max))
+;;           (unless (bolp)
+;;             (newline))
+;;           (let* ((start (point))
+;;                  (end (+ start (length closed))))
+;;             (insert closed)
+;;             (newline)
+;;             (let ((map (make-sparse-keymap)))
+;;               (define-key map (kbd "RET") 'close-visit-file)
+;;               (define-key map [mouse-1] 'close-visit-file)
+;;               (put-text-property start end 'keymap map buffer))
+;;             (add-text-properties
+;;              start
+;;              end
+;;              '(help-echo "visit this file in other window"
+;;                          mouse-face highlight
+;;                          face (:foreground "red")))))))))
+
+;; ;;(setq kill-buffer-hook nil)

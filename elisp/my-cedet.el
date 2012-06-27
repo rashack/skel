@@ -1,5 +1,5 @@
 ;;(require 'cedet "~/src/cedet/common/cedet.el")
-(load-file "~/src/cedet/cedet/common/cedet.el")
+(load-file "~/src/cedet/cedet-1.1/common/cedet.el")
 (require 'cedet-java)
 (global-ede-mode t)                      ; Enable the Project management system
 
@@ -29,26 +29,20 @@
 ;(load-file (expand-file-name "/usr/share/emacs/site-lisp/cedet-common/cedet.el"))
 ;(require 'jde)
 
-(defun find-jars-in-dir (dir &optional recursive)
+(defun find-jars-in-dir (dir recursive)
   (if recursive
       '()
     (directory-files dir t ".*.jar")))
 
 ;;(length (directory-files-and-attributes hercules-lib-dir t))
 
-(defun hercules-lib-dir
+(defun hercules-lib-dir ()
   (concat (getenv "HERCULES_SRC_HOME") "/lib"))
-(defun set-hercules-semanticdb-javap-classpath
-  (setq semanticdb-javap-classpath (find-jars-in-dir (hercules-lib-dir))))
+(defun set-hercules-semanticdb-javap-classpath ()
+  (setq semanticdb-javap-classpath (find-jars-in-dir (hercules-lib-dir) nil)))
 
-(add-hook 'java-mode-hook 'flymake-mode)
-(add-hook 'java-mode-hook 'my-flymake-minor-mode)
-(add-hook 'java-mode-hook 'gtags-mode)
 (add-hook 'java-mode-hook
 	  '(lambda ()
-	     (setq indent-tabs-mode nil)
-	     (c-set-offset 'func-decl-cont 0)
-	     (fix-java-annotation-indentation-frema)
 	     (semantic-add-system-include (getenv "JAVA_HOME") 'java-mode)
 	     (semantic-add-system-include (concat (getenv "HERCULES_SRC_HOME") "/code/src") 'java-mode)
 	     (set-hercules-semanticdb-javap-classpath)))
