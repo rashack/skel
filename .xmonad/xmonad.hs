@@ -7,6 +7,7 @@ import XMonad.Actions.NoBorders
 import XMonad.Config (defaultConfig)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicLog hiding (xmobar)
+import XMonad.Hooks.SetWMName -- for swing applications
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout
 import XMonad.Layout.Gaps
@@ -68,6 +69,7 @@ main = do
 				   , className =? "sun-plugin-navig-motif-Plugin" --> doFloat
 				   ]
          , keys = \c -> mykeys c `M.union` keys defaultConfig c
+         , startupHook = setWMName "LG3D" -- for swing applications
          }
   where
      wrapFg color content = wrap ("^fg(" ++ color ++ ")") "^fg()" content

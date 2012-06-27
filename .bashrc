@@ -35,7 +35,7 @@ alias dzen2='dzen2 -fn "$MY_FONT"'
 alias grep='grep --color'
 alias pgrep='pgrep -l'
 alias diff='colordiff -u'
-umask 077
+umask 022
 alias evince='dbus-launch --exit-with-session evince'
 
 ulimit -n 2048
@@ -73,7 +73,7 @@ function set_prompt
 \[\033[31m\][\t] \
 \[\033[m\]\[\033[44m\][\u@\h]\
 \[\033[40m\]\[\033[32m\] \w\
-\[\033[33m\]`__git_ps1 "(%s)"`\[\033[m\]$(if ! [ $? == 0 ] ; then echo -en "\[\033[31m\]" ; fi)\$\[\033[m\] '
+\[\033[33m\]`__git_ps1 "(%s)"`\[\033[m\]\$ '
 }
 
 if [ "$USER" == 'root' ]; then
