@@ -9,7 +9,7 @@
 (set-variable 'bios-home (getenv "BIOS_HOME"))
 (set-variable 'compilation-search-path (list bios-home))
 
-(load-library "my-cedet.el")
+(load-library "my-java.el")
 
 ;;(load-file "~/.emacs.d/elisp/sqlplus.el")
 ;; temporary uncommented, will be functional in a later commit
