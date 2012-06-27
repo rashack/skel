@@ -2,7 +2,7 @@
 	ui = auto
 [core]
         editor = vim
-	excludesfile = /home/kjean/.gitignore
+	excludesfile = ~/.gitignore
 [alias]
         st = status
         ci = commit
@@ -13,6 +13,6 @@
 	unstage = reset HEAD --
 [user]
 	name = Kjell Andreassen
-	email = kjell.andreassen@tradedoubler.com
+	email = andreassen.kjell@gmail.com
 [push]
 	default = tracking
