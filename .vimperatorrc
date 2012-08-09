@@ -1,0 +1,5 @@
+set visualbell
+set toolbars=noaddons,nobookmarks,nomenu,navigation,tabs
+set hlsearch
+map <C-S-PageUp> :tabm -1<CR>
+map <C-S-PageDown> :tabm +1<CR>
