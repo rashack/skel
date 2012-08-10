@@ -4,6 +4,25 @@ FIND_PATH=$TD_TRUNK_SRC_HOME
 HERC_PATH=$HERCULES_SRC_HOME
 LOCAL_PATH=$PWD
 
+# TODO: ls-file and find-parent-for-file (mostly) copied from alm, move them somewhere.
+function ls-file () {
+    ls -d $1/$2 2> /dev/null
+}
+
+function find-parent-for-file () {
+    local FILE=$1
+    local DIR=$2
+    local RES=$(ls-file $DIR $FILE)
+    while [ -z $RES ] ; do
+	if [ "$DIR" == "/" ] ; then
+	    return
+	fi
+	DIR=$(dirname $DIR)
+	RES=$(ls-file $DIR $FILE)
+    done
+    echo $(dirname $RES)
+}
+
 while getopts "c" opt ; do
     case $opt in
 	c) COUNT="wc -l" ; shift ;;
@@ -16,6 +35,8 @@ Usage:  tgrep REGEX
                 Find REGEX in a file in $FIND_PATH
         hgrep REGEX
                 Find REGEX in a file in $HERC_PATH
+        ggrep REGEX
+                Find REGEX in a file in a subdirectory of the present git tree
         lgrep REGEX
                 Find REGEX in a file in present directory: '$LOCAL_PATH'
         dgrep DIR REGEX
@@ -45,6 +66,8 @@ elif [[ $0 =~ "nfgrep" ]]; then
     fi
     NAME_FIND="-iname $1"
     shift
+elif [[ $0 =~ "ggrep" ]] ; then
+    FIND_PATH=$(find-parent-for-file \.git $PWD)
 fi
 
 # -o -name "*.js" -o -name "*.json"
