@@ -2,6 +2,7 @@
 
 DAY=$(date +%F)
 
+# find if $1 or $2 is the destination host (ending with a ":")
 if [[ $1 =~ .*: ]] ; then
     DEST_HOST=${1/%:/}
     DATA=$2
@@ -10,6 +11,7 @@ else
     DATA=$1
 fi
 
+# determine the adm host (dradm1 or tdadm1)
 if [[ $DEST_HOST =~ dr.*app.* ]] ; then
     ADM_HOST=dradm1
 elif [[ $DEST_HOST =~ td.*app.* ]] ; then
