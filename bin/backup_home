@@ -1,15 +1,15 @@
 #!/bin/bash
 
-BACKUP_SOURCE_DIR=/home/kjell/
+BACKUP_SOURCE_DIR=$HOME
 BACKUP_DIR=/mnt/backup/$LOGNAME/home/backup
-EXCLUDES=/home/kjell/.skel/rsync_excludes
+EXCLUDES=$HOME/.skel/rsync_excludes
 
 BACKUPS=8
 rm -rf $BACKUP_DIR.$BACKUPS
 for (( i=$BACKUPS ; i > 0 ; i=i-1 )) ; do
     mv $BACKUP_DIR.$(( $i-1 )) $BACKUP_DIR.$i
 done
-#mkdir $BACKUP_TARGET_DIR
+mkdir -p $BACKUP_DIR.0
 
 rsync --archive --one-file-system --hard-links --human-readable --inplace \
     --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES \
