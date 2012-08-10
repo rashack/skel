@@ -1,12 +1,18 @@
 #!/bin/bash
 
 DAY=$(date +%F)
-DEST_HOST=$1
-DATA=$2
 
-if [[ $DEST_HOST =~ dr.*app ]] ; then
+if [[ $1 =~ .*: ]] ; then
+    DEST_HOST=${1/%:/}
+    DATA=$2
+else
+    DEST_HOST=${2/%:/}
+    DATA=$1
+fi
+
+if [[ $DEST_HOST =~ dr.*app.* ]] ; then
     ADM_HOST=dradm1
-elif [[ $DEST_HOST =~ td.*app ]] ; then
+elif [[ $DEST_HOST =~ td.*app.* ]] ; then
     ADM_HOST=tdadm1
 fi
 
