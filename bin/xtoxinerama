@@ -5,9 +5,9 @@ TO_VDPAU=".*tovdpau"
 cd /etc/X11
 
 if [[ $0 =~ $TO_XINERAMA ]]; then
-    XORG_CONF_SOURCE="xorg.conf-default.conf"
+    XORG_CONF_SOURCE="xorg.conf-default-eizo.conf"
 elif [[ $0 =~ $TO_VDPAU ]]; then
-    XORG_CONF_SOURCE="xorg.conf-vdpau"
+    XORG_CONF_SOURCE="xorg.conf-vdpau.conf"
 else
     echo "$0: Script name invalid."
     exit 1
