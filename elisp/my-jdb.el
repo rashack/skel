@@ -51,6 +51,16 @@
 (global-set-key "\C-x\C-jh" 'jdb-debug-hercules)
 
 
+(defvar pf-sourcepath (concat (getenv "TD_SRC_HOME") "/athena/src/importer"))
+(defun jdb-debug-pf ()
+  (interactive)
+  (let ((conn-string (concat "jdb -connect com.sun.jdi.SocketAttach:hostname=localhost,port=5555 -sourcepath"
+			     pf-sourcepath)))
+    (message "%s" conn-string)
+    (jdb conn-string)))
+(global-set-key "\C-x\C-jp" 'jdb-debug-pf)
+
+
 (setq max-specpdl-size 5)
 (setq debug-on-error t)
 
