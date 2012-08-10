@@ -1,13 +1,15 @@
 #!/bin/bash
 
+ADB=$HOME/android/android-sdk-linux/platform-tools/adb
+
 # Copy backup from phone to computer
-LATEST_BACKUP=$(adb shell ls /mnt/sdcard/clockworkmod/backup | tail -1 | tr '\r' '\n')
+LATEST_BACKUP=$($ADB shell ls /mnt/sdcard/clockworkmod/backup | tail -1 | tr '\r' '\n')
 echo "LATEST_BACKUP=$LATEST_BACKUP"
 BACKUP_DIR=/home/kjell/android/galaxy-nexus/clockworkmod/backup/$LATEST_BACKUP
 echo "BACKUP_DIR=$BACKUP_DIR"
 mkdir -p $BACKUP_DIR
 for F in boot.img cache.ext4.tar data.ext4.tar nandroid.md5 recovery.img system.ext4.tar ; do
-    CMD="adb pull /mnt/sdcard/clockworkmod/backup/$LATEST_BACKUP/$F $BACKUP_DIR/$F"
+    CMD="$ADB pull /mnt/sdcard/clockworkmod/backup/$LATEST_BACKUP/$F $BACKUP_DIR/$F"
     echo "pulling $F"
     $CMD
 done
