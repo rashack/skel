@@ -1,7 +1,18 @@
 #!/bin/bash
 
+if [[ "$1" == "" ]] ; then
+    BACKUP_DIR=/mnt/backup/$LOGNAME/home/backup
+else
+    # backup_home /mnt/tmp/kjell/backup/home
+    # places kjean part of /home/kjean in /mnt/tmp/kjell/backup/home.X/kjean
+    if [[ $1 =~ [^/]+/$ ]] ; then
+	echo "Backup dir ends with a '/', are you sure you want to do that?"
+	exit 1
+    fi
+    BACKUP_DIR=$1
+fi
+
 BACKUP_SOURCE_DIR=$HOME
-BACKUP_DIR=/mnt/backup/$LOGNAME/home/backup
 EXCLUDES=$HOME/.skel/rsync_excludes
 
 BACKUPS=8
