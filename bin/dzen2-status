@@ -1,0 +1,5 @@
+#!/bin/sh
+
+DZEN_OPTS=" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -bg #044084"
+
+dzen2 $DZEN_OPTS -xs 1 -x 180 -w 1320 -ta l

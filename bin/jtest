@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# by Per Sedholm <sedholm@nada.kth.se>
+# altered by Kjell Franzen <md98-kfr@nada.kth.se>
+
+usage () {
+    echo "Usage: `basename $0` -a | -s | -t [java args]
+    -a   run the AWT version of TestRunner
+    -s   run the Swing version of TestRunner
+    -t   run the text version of TestRunner (requires test name
+         to be given as an argument)
+    -h   show this help.
+"
+}
+
+#CLASSPATH=".:/info/suoop1-03/junit3.8.1/junit.jar"
+#export CLASSPATH
+
+# Set default test type
+JTYPE=swing
+
+while getopts "asth" i
+do
+    case $i in
+	a)  JTYPE=awt;;
+	s)  JTYPE=swing;;
+	t)  JTYPE=text;;
+	h)  usage; exit 0;;
+	\?) usage; exit 1;;
+    esac
+done;
+
+shift `expr $OPTIND - 1`
+
+if [ $JTYPE = awt ]
+then
+    echo "Running awt-test"
+    java junit.awtui.TestRunner $* &
+elif [ $JTYPE = swing ]
+then 
+    echo "Running swing-test"
+    # To remove the settings file, use the second line below.
+    # java junit.swingui.TestRunner $* &
+    (java junit.swingui.TestRunner $*; rm -f $HOME/.junitsession) &
+elif [ $JTYPE = text ]
+then
+    echo "Running text-test"
+    java junit.textui.TestRunner $*
+else
+    usage
+fi

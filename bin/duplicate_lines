@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Find lines where column $1 (using separator ;) is identical and print these.
+#awk -F";" '{if (x[$'$1']) { x_count[$'$1']++; print $0; if (x_count[$'$1'] == 1) { print x[$'$1'] } } x[$'$1'] = $0}' $1a
+
+#awk -v col=$1 -F";" '
+awk -v col=$1 '
+{
+  if (x[$col]) {
+    x_count[$col]++;
+    print $0;
+    if (x_count[$col] == 1) {
+      print x[$col]
+    }
+  }
+  x[$col] = $0
+}' $2

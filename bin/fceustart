@@ -1,0 +1,1 @@
+fceu -input1 gamepad1 -opengl 1 -fs 1 -xres 512 -yres 448  -doublebuf 1 $@

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "If this fails, try: ssh -D 6880 -p 11238 kjella@localhost"
+google-chrome -proxy-server="socks5://localhost:6880"

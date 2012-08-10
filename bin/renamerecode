@@ -1,0 +1,18 @@
+#!/bin/bash
+
+LATIN1_UTF8=(
+    $(echo -ne "\xc5") $(echo -ne "\xc3\x85")
+    $(echo -ne "\xc4") $(echo -ne "\xc3\x84")
+    $(echo -ne "\xd6") $(echo -ne "\xc3\x96")
+    $(echo -ne "\xe5") $(echo -ne "\xc3\xa5")
+    $(echo -ne "\xe4") $(echo -ne "\xc3\xa4")
+    $(echo -ne "\xf5") $(echo -ne "\xc3\xb6")
+)
+
+NEW=$1
+for (( i = 0 ; i < ${#LATIN1_UTF8[@]} ; i=$i+2 )) ; do
+    LATIN1=${LATIN1_UTF8[$i]}
+    UTF8=${LATIN1_UTF8[$i+1]}
+    NEW=${NEW/$LATIN1/$UTF8}
+done
+mv "$1" "$NEW"

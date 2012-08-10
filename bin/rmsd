@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# rmsd - ReMove Small Directories
+
+for x in "du *" do
+    dirsize=$(echo $x | cut -f 1)
+#	if [ -d "$x" ] then
+#		dir_size=$(du $x | cut -f 1)
+#		if [ $dirsize <= 400 ] then
+#		   echo $1
+#		fi
+#	fi
+done

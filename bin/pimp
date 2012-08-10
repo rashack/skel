@@ -1,0 +1,38 @@
+#!/bin/sh
+
+colour () {
+    COLOUR=$(tput setaf $1)
+}
+
+bold () {
+    COLOUR="$COLOUR; $(tput bold)"
+}
+
+colour 1
+
+while getopts "Rrgbcmy" opt ; do
+    case $opt in
+	r) colour 1; shift ;;
+	g) colour 2; shift ;;
+	b) colour 4; shift ;;
+	c) colour 6; shift ;;
+	m) colour 5; shift ;;
+	y) colour 3; shift ;;
+	R) colour 1; bold; shift ;;
+    esac
+done
+
+PATTERN=$1
+if [ $# -lt 1 ] ; then
+    echo "Usage: $0 PATTERN [FILE...]\nIf no file is given, standard input is read."
+    exit 1
+fi
+
+if [ $# -eq 1 ] ; then
+    while read line ; do
+	echo "$line" | sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
+    done
+else
+    shift
+    cat $@ | sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
+fi

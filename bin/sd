@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "standby mode for drive /dev/$1"
+sudo /sbin/hdparm -y /dev/"$1"

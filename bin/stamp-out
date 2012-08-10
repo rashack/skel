@@ -1,0 +1,4 @@
+#!/bin/sh
+egrep -v "`date +%F`.*OUT" ~/.time > ~/.time.bak
+mv ~/.time.bak ~/.time
+date +"%F %H:%M OUT" >> ~/.time

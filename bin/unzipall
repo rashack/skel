@@ -1,0 +1,8 @@
+#!/bin/bash
+for filename in *.zip
+do
+dirname=${filename%.*}
+mkdir $dirname
+unzip $filename -d $dirname
+mv $filename /tmp
+done

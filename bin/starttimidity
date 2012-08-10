@@ -1,0 +1,2 @@
+echo "Execute something like 'aconnect 16:0 128:0' after this script."
+timidity -iA -B2,1 -Os -A120 --realtime-priority=1

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+USAGE="Usage: $0 <device> <mapping name>"
+
+if [ -z $1 ]; then
+    echo $USAGE
+    exit 1;
+fi
+
+if [ -z $2 ]; then
+    echo $USAGE
+    exit 1;
+fi
+
+cryptsetup -c aes-cbc-essiv:sha256 create $2 $1

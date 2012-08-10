@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "You must give an ip address as a parameter"
+else
+    COMMAND="sudo iptables -I INPUT -s $1 -j DROP"
+    echo "Dropping all packages from $1 using command:"
+    echo "[$COMMAND]"
+    $COMMAND
+fi
