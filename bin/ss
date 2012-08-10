@@ -5,15 +5,15 @@
 HUMAN_READABLE="y"
 while getopts "n-" opt ; do
     case $opt in
-	-) break;;
-	n) HUMAN_READABLE="n";;
+        -) break;;
+        n) HUMAN_READABLE="n";;
     esac
 done
 
 shift $(( $OPTIND - 1 ))
 
 if [[ "$HUMAN_READABLE" == "y" ]] ; then
-    du -s "$@" | sort -n | awk -F'\t' \
+    du -s "$@" | sort -n | gawk -F'\t' \
 'BEGIN {
   suffArr[0] = "K";
   suffArr[1] = "M";
