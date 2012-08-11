@@ -1,0 +1,43 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+
+if [ -z $1 ]; then
+    echo "need an organization id"
+    exit 1
+fi
+
+FORMATTING=$(echo -e \
+"SET LINESIZE 32767\n\
+SET NEWPAGE 0\n\
+SET SPACE 0\n\
+SET LINESIZE 32767\n\
+SET PAGESIZE 0\n\
+SET ECHO OFF\n\
+SET FEEDBACK OFF\n\
+SET VERIFY OFF\n\
+SET HEADING OFF\n\
+SET MARKUP HTML OFF SPOOL OFF\n")
+
+function get-org-data {
+    sqlplus -S admin/admin@adminadm <<EOF
+$FORMATTING
+select
+    la.username,
+    p.firstname,
+    p.lastname,
+    la.email,
+    p.id,
+    p.logon_account_id,
+    p.organization_id,
+    la.report_key
+from
+    persons p,
+    logon_accounts la
+where
+    p.organization_id=$1
+and p.logon_account_id = la.id;
+EOF
+}
+
+get-org-data $1 | tr '\t' ' ' | tr -s ' '
