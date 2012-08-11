@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# remove routing of local net to default gateway
+route del -net 192.168.0.0 gw 0.0.0.0 netmask 255.255.0.0
+
+# set default gateway
+route add default gw 10.6.6.6
+
+# add internal local network on local nic (eth1)
+route add 192.168.0.1 gw 192.168.1.201
+route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.0.1
+
+# add DNS and bugzilla (DMZ)
+route add -net 195.42.200.64 netmask 255.255.255.192 gw 192.168.0.1
