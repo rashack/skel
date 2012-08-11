@@ -1,0 +1,19 @@
+#!/bin/bash
+
+IF=$1
+SSID=$2
+
+try () {
+    echo $@
+    $@
+    ERR=$?
+    if [[ 0 != $ERR ]] ; then
+	exit $ERR
+    fi
+}
+
+try ifconfig $IF up
+try killall wpa_supplicant
+#try wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i$IF
+try iwconfig $IF essid $SSID
+try dhclient $IF
