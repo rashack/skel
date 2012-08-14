@@ -1,0 +1,44 @@
+#!/bin/bash
+
+HDPARM=/sbin/hdparm
+STAT_LINE=" drive state is:  "
+
+function red () {
+    echo "$(tput setaf 1)$1$(tput sgr0)"
+}
+
+function green () {
+    echo "$(tput setaf 2)$1$(tput sgr0)"
+}
+
+function status () {
+    if [[ $1 =~ "standby" ]]; then
+	red $1
+    elif [[ $1 =~ "active/idle" ]]; then
+	green $1
+    else
+	echo $1
+    fi
+}
+
+function power_mode_status () {
+    if [ -L $1 ]; then
+	REAL_NAME=$(ls -l $1 | sed 's/.*-> //')
+    fi
+    MD_NAME=$(cat /proc/mdstat | grep md | grep $REAL_NAME | cut -d " " -f 1)
+    STATUS=" $($HDPARM -C $1 | grep "$STAT_LINE" | sed 's/'"$STAT_LINE"'//')"
+    printf "%s\t(%s)\t%s\t %s\n" $1 $REAL_NAME $(status $STATUS) $MD_NAME
+}
+
+power_mode_status "/dev/ssd-intel"
+power_mode_status "/dev/ssd64"
+#power_mode_status "/dev/r00"
+#power_mode_status "/dev/r01"
+power_mode_status "/dev/r10"
+power_mode_status "/dev/r11"
+#power_mode_status "/dev/r20"
+#power_mode_status "/dev/r21"
+power_mode_status "/dev/r30"
+power_mode_status "/dev/r31"
+power_mode_status "/dev/r40"
+power_mode_status "/dev/r41"

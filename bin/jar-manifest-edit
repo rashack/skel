@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $(echo "$1" | grep "^/") ]; then
+    JAR=$1
+else
+    JAR=$(pwd)
+    JAR=$JAR/$(dirname $1)
+    JAR_NAME=$(basename $1)
+    JAR=$JAR/$JAR_NAME
+fi
+
+TMP_DIR=/tmp/TMP_JAR_DIR
+
+mkdir $TMP_DIR
+cp $JAR $TMP_DIR
+cd $TMP_DIR
+jar xf $JAR
+rm $JAR_NAME
+$EDITOR META-INF/MANIFEST.MF
+jar cf $JAR_NAME *
+cp $JAR_NAME $JAR
+cd
+rm -rf $TMP_DIR

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mkdir black
+mkdir asian
+mkdir white
+mkdir named
+mkdir extreme

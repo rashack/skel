@@ -1,0 +1,7 @@
+#!/bin/bash
+
+pgrep xscreensaver
+if [[ 1 -eq $? ]] ; then
+    xscreensaver &
+fi
+xscreensaver-command -lock

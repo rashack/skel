@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# tput colors
+
+if [ "$TERM" == "dumb" ] ; then
+    diff "$@"
+else
+    colordiff "$@"
+fi

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+BACKUP_SOURCE_DIR=/
+BACKUP_DIR=/mnt/backup/kjell/root/root
+EXCLUDES=/root/rsync_excludes
+
+BACKUPS=8
+rm -rf $BACKUP_DIR.$BACKUPS
+for (( i=$BACKUPS ; i > 0 ; i=i-1 )) ; do
+    mv $BACKUP_DIR.$(( $i-1 )) $BACKUP_DIR.$i
+done
+#mkdir $BACKUP_TARGET_DIR
+
+rsync --archive --one-file-system --hard-links --human-readable --inplace \
+    --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES \
+    --link-dest=$BACKUP_DIR.1 $BACKUP_SOURCE_DIR $BACKUP_DIR.0

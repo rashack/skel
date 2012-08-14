@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -X tdadm1 -F $HOME/.ssh/tdadm1.config

@@ -1,0 +1,1 @@
+rlwrap java -cp ./:./classes:$HOME/clojure/clojure-latest.jar clojure.main

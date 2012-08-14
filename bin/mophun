@@ -1,0 +1,2 @@
+#!/bin/sh
+wine -dll /usr/local/wine/MSVCP60.dll=n /home/kjell/mophun/mophun/bin/mophun.exe &

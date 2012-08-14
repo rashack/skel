@@ -1,0 +1,37 @@
+#!/bin/bash
+
+GREP_STRING=$1
+TMP_ROOT=/tmp/jargrep-tmp-dir
+
+jar-grep () {
+    JARNAME=$1
+    GREP_STRING=$2
+    echo "greping $JARNAME"
+    TMP_DIR=$TMP_ROOT/$JARNAME
+    mkdir -p $TMP_DIR
+    cp $JARNAME $TMP_DIR
+    cd $TMP_DIR
+    jar -xf $(basename $JARNAME)
+    for CLASSNAME in $(find . -iname \*.class | sed "s/\(.*\)\.class/\1/") ; do
+	class-grep $JARNAME $CLASSNAME $GREP_STRING
+    done
+    cd ..
+    rm -rf $TMP_DIR
+}
+
+class-grep () {
+    JARNAME=$1
+    CLASSNAME=$2
+    GREP_STRING=$3
+    IFS=$(echo -en "\n\b")
+    for x in $(javap -c $CLASSNAME | grep -n $GREP_STRING) ; do
+	echo "$(basename $JARNAME): $CLASSNAME: $x"
+    done
+}
+
+rm -rf $TMP_ROOT
+mkdir -p $TMP_ROOT
+for jar in $(find $2 -iname \*.jar) ; do
+    jar-grep $jar $GREP_STRING
+done
+rm -rf $TMP_ROOT

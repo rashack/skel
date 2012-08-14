@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -X dradm1 -F $HOME/.ssh/dradm1.config

@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /mnt/raid/kjell
+rsync -a -v --delete  eos/ /mnt/sda3/kjell/eos/

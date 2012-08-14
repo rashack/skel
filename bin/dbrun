@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rlwrap -H ~/.sqlplus_history -s 100000 -c -f ~/.sqlcomplete ~/bin/sqlplus $@

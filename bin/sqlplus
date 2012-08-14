@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+$HOME/oracle/instantclient-sqlplus-linux-x86-64-11.2.0.2.0/instantclient_11_2/sqlplus -L $@

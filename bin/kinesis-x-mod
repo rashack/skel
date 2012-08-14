@@ -1,0 +1,4 @@
+#!/bin/bash
+xmodmap -e "remove control = Control_R"
+xmodmap -e "keycode 105 = Super_L Super_R"
+xmodmap -e "keycode 49 = Insert"
