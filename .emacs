@@ -20,6 +20,7 @@
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
 (load-library "graphviz-dot-mode.el")
+(load-library "my-eclim.el")
 
 (require 'clojure-mode)
 (require 'vc-svn)
