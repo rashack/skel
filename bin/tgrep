@@ -80,5 +80,5 @@ find $FIND_PATH \
 -o -name "*xsl" -o -name "*html" \
 -o -name "\.#*" -o -name "*~" \
 -o -name GPATH -o -name GRTAGS -o -name GSYMS -o -name GTAGS -o -name TAGS -o -name "*.class" \) \
-$NAME_FIND -print0 | xargs -0 grep --color -Pin "$@"
+$NAME_FIND -print0 | xargs -0 grep --color -d skip -Pin "$@"
 # ${COUNT:+ -- | wc -l}
