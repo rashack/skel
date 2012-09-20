@@ -209,3 +209,11 @@
       (switch-to-buffer '*compilation*)))
   (other-window 1)
   (compile "m -k"))
+
+(defun add (num)
+  (interactive "*NAdd: ")
+  (let* ((word (thing-at-point 'word))
+	 (number (string-to-number word)))
+    (forward-word)
+    (kill-word -1)
+    (insert (number-to-string (+ number num)))))
