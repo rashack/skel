@@ -14,5 +14,6 @@ xsetroot -solid black
 
 #xmodmap ~/.Xmodmap
 #~/bin/xmod &
+xmterm &
 
 xmonad 2>&1 > $HOME/.xmonad/log.txt
