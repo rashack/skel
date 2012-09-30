@@ -1,6 +1,5 @@
 #!/bin/sh
 xrdb -merge ~/.Xdefaults
-xmodmap ~/.Xmodmap
 xbindkeys
 xscreensaver -nosplash &
 imwheel
@@ -12,8 +11,8 @@ xsetroot -solid black
 #     -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* &
 #/usr/bin/nvidia-settings --load-config-only
 
-#xmodmap ~/.Xmodmap
 #~/bin/xmod &
+~/bin/caps-away
 xmterm &
 
 xmonad 2>&1 > $HOME/.xmonad/log.txt
