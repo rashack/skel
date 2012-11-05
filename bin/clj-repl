@@ -1,1 +1,13 @@
-rlwrap java -cp ./:./classes:$HOME/clojure/clojure-latest.jar clojure.main
+#!/bin/bash
+
+CLASSPATH=./:./classes:$HOME/clojure/clojure-latest.jar
+BREAK_CHARS="(){}[],^%$#@\"\";:''|\\"
+
+if [ $# -eq 0 ]; then
+    exec rlwrap  --remember --complete-filenames -f $HOME/.skel/clojure-completions \
+	--quote-characters="'" --break-chars $BREAK_CHARS java -cp $CLASSPATH clojure.main --repl
+else
+    exec java -cp $CLASSPATH clojure.main $@
+fi
+
+#rlwrap java -cp ./:./classes:$HOME/clojure/clojure-latest.jar clojure.main
