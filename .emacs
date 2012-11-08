@@ -2,7 +2,6 @@
 (setq inhibit-startup-message t)
 ;;(setq inhibit-startup-echo-area-message "kjell")
 
-(add-to-list 'load-path "~/.emacs.d/elisp/" t)
 (setq my-emacs-dir (expand-file-name "~/.emacs.d"))
 (setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
 
@@ -20,7 +19,8 @@
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
 (load-library "graphviz-dot-mode.el")
-(load-library "my-eclim.el")
+(load-library "my-scala.el")
+;;(load-library "my-eclim.el")
 
 (require 'clojure-mode)
 (require 'vc-svn)
@@ -100,9 +100,9 @@
 (setq-default show-trailing-whitespace t)
 (setq default-indicate-empty-lines t)
 ;; These three below are better turned off in .Xdefaults or .Xresources
-;; (setq-default tool-bar-mode nil)
-;; (setq-default menu-bar-mode nil)
-;; (scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 ;; replace the three above for the three below in .Xdefaults or .Xresources
 ;;emacs.menuBar: off
 ;;emacs.toolBar: off

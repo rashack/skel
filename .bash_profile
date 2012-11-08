@@ -12,8 +12,9 @@ ANDROID_SDK_ROOT=/home/kjell/android/android-sdk-linux
 
 export EDITOR=vim
 export JAVA_HOME=$HOME/jdk/jdk
+export SCALA_HOME=$HOME/scala/scala
 export JDK_HOME=$JAVA_HOME
-export PATH=$HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
+export PATH=$HOME/bin:$JAVA_HOME/bin:$ANDROID_SDK_ROOT/platform-tools:$SCALA_HOME/bin:$PATH
 export ENV=$HOME/.bashrc
 export HISTSIZE=1048576
 export LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
