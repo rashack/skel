@@ -1,0 +1,23 @@
+#!/bin/bash
+
+usage () {
+    echo -e "\
+usage: $(basename $0) CLASS JAR [JARS]\n\
+\n\
+           Find class or file named by CLASS in jar named by JAR and/or JARS.\n"
+}
+
+if [[ $# < 2 ]] ; then
+    usage
+    exit 1
+fi
+
+CLASS=$1
+shift
+for jar in $* ; do
+    jar -tvf $jar | grep -qi $CLASS
+    if [ $? == 0 ] ; then
+	echo $jar:
+	jar -tvf $jar | grep --color -i $CLASS
+    fi
+done
