@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IF=wlan1
+IF=wlan0
 
 if [ -z "$SSID" ] ; then
     SSID=D3E1F4
@@ -19,4 +19,5 @@ try ifconfig $IF up
 try killall wpa_supplicant
 try wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i$IF
 try iwconfig $IF essid $SSID
-try dhclient $IF
+#try dhclient $IF
+try dhclient -s 192.168.100.2 $IF
