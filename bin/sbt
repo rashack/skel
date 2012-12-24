@@ -1,2 +1,2 @@
 #!/bin/sh
-java -Xmx512M -jar ~/sbt/bin/sbt-launch.jar "$@"
+java -Xmx512M -jar ~/sbt/sbt/bin/sbt-launch.jar "$@"
