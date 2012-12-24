@@ -10,9 +10,7 @@ fi
 
 MOVIE_LIST_FILENAME=~/.movielist
 MOVIE_DIRECTORIES=" \
-    /mnt/raid/kjell/video/ \
-    /mnt/r2t/kjell/ \
-    /mnt/r4t/kjell/ "
+    /mnt/movies/ "
 IGNORE_SUFFIXES="txt$|url$|nfo$|srt$|jpg$|ifo$|bup$|sub$|md5$|sfv$|idx$"
 
 if [[ $1 =~ "-update" ]]; then
