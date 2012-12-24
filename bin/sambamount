@@ -1,1 +1,2 @@
-mount -t cifs -o username=kjean //flhq01/$1 /mnt/flhq01/$1
+mount -t cifs -o username=kjean //tdfp01.root.tradedoubler.com/Stockholm /mnt/tdfp01/Stockholm
+mount -t cifs -o username=kjean //tdfp01.root.tradedoubler.com/pst /mnt/tdfp01/pst
