@@ -189,9 +189,26 @@
 
 (defun java-string-to-sql ()
   (interactive)
-  (replace-regexp "^[ =+]*\"" "" nil (point-min) (point-max))
-  (replace-regexp "\"[ ;+]*$" "" nil (point-min) (point-max))
+  (let ((from (point-min))
+	(to (point-max)))
+    (replace-regexp "^[ \t=+]*\"" "" nil from to)
+    (replace-regexp "\"[ ;+]*$" "" nil from to))
+  (highlight-regexp "\?" 'hi-yellow)
   (delete-trailing-whitespace))
+
+;; (defun java-string-to-sql ()
+;;   (interactive)
+;;   (let* ((from (if mark-active
+;; 		   (region-beginning)
+;; 		 (point-min)))
+;; 	 (to (if mark-active
+;; 		 (region-end)
+;; 	       (point-max))))
+;;     (replace-regexp "^[ \t=+]*\"" "" nil from to)
+;;     (replace-regexp "\"[ ;+]*$" "" nil from to))
+;;   (highlight-regexp "\?" 'hi-green)
+;;   (delete-trailing-whitespace))
+
 
 (defun ps-print-buffer-landscape ()
   "Use ps-print-buffer to print the buffer in landscape mode."
