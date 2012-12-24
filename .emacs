@@ -21,6 +21,7 @@
 (load-library "graphviz-dot-mode.el")
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
+(load-library (concat (getenv "HOME") "/src/gnuplot-mode/gnuplot-mode.el"))
 
 (require 'clojure-mode)
 (require 'vc-svn)
@@ -292,3 +293,12 @@
 ;;                          face (:foreground "red")))))))))
 
 ;; ;;(setq kill-buffer-hook nil)
+
+(add-to-list 'compilation-finish-functions
+	     (lambda (buf msg)
+	       (message "Jumping to end of compilation buffer (%s), msg was (%s)..." buf msg)
+	       (interactive)
+	       (end-of-buffer-other-window 0)
+	       (other-window 1)
+	       (recenter-top-bottom (- (frame-height) 4))
+	       (other-window -1)))
