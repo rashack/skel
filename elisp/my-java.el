@@ -4,6 +4,7 @@
 (add-hook 'java-mode-hook
 	  '(lambda ()
 	     (setq indent-tabs-mode nil)
+	     (setq tab-width 4)
 	     (c-set-offset 'func-decl-cont 0)
 	     (fix-java-annotation-indentation-frema)))
 
