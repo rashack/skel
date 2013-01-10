@@ -1,11 +1,5 @@
-gap_y -1000
-
 double_buffer yes
 out_to_console yes
-own_window yes
-own_window_type desktop
 update_interval 1.0
 font -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
-
 TEXT
-^fg(orange)${time %a %b %e %Y %H:%M:%S}^fg()

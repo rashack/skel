@@ -2,4 +2,6 @@
 
 source $HOME/bin/dzen2-env
 
-conky -d -c ~/.skel/conky.load | dzen2 $DZEN_OPTS -xs 1 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l
+conky -d -t \
+    "^fg(white) CPU: \${cpu}% | Mem: \${memperc}% Swap: \${swapperc}% | eth3: \${upspeed eth3}/\${downspeed eth3} ^fg()" \
+    | dzen2 $DZEN_OPTS -xs 1 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l

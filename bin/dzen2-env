@@ -7,14 +7,17 @@ case $(hostname) in
     pringle)
 	DZEN_STATUS_WIDTH=1320
 	DZEN_LOAD_X=1500
+	CONKY_IF=eth0
 	;;
     tdhq197)
 	DZEN_STATUS_WIDTH=1070
 	DZEN_LOAD_X=1250
+	CONKY_IF=eth3
 	;;
     tp)
 	DZEN_STATUS_WIDTH=700
 	DZEN_LOAD_X=450
+	CONKY_IF=wlan0
 	;;
 esac
 
@@ -22,3 +25,4 @@ export DZEN_OPTS
 export DZEN_STATUS_WIDTH
 export DZEN_LOAD_X
 export DZEN_LOAD_WIDTH
+export CONKY_IF
