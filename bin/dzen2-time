@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+source $HOME/bin/dzen2-env
 
 TIMEOUT=1
-TIMEBAR_WIDTH=180
-DZEN_OPTS=" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -bg #044084"
 
 get_time () {
     while :; do
@@ -12,4 +12,4 @@ get_time () {
     done
 }
 
-get_time | dzen2 -xs 1 -w $TIMEBAR_WIDTH -ta l $DZEN_OPTS
+get_time | dzen2 -xs 1 -w $DZEN_TIMEBAR_WIDTH -ta l $DZEN_OPTS
