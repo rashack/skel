@@ -3,5 +3,5 @@
 source $HOME/bin/dzen2-env
 
 conky -d -t \
-    "^fg(white) CPU: \${cpu}% | Mem: \${memperc}% Swap: \${swapperc}% | $CONKY_IF: \${upspeed $CONKY_IF}/\${downspeed $CONKY_IF} ^fg()" \
+    "^fg(white) CPU: \${cpu}% | Mem: \${memperc}% Swap: \${swapperc}% | $CONKY_IF: \${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA ^fg()" \
     | dzen2 $DZEN_OPTS -xs 1 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l

@@ -17,8 +17,9 @@ case $(hostname) in
 	;;
     tp)
 	SCREEN_WIDTH=1280
-	DZEN_STATUS_WIDTH=700
+	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlan0
+	CONKY_EXTRA=' | bat: ${battery_short}'
 	;;
 esac
 
@@ -31,3 +32,4 @@ export DZEN_STATUS_WIDTH
 export DZEN_LOAD_X
 export DZEN_LOAD_WIDTH
 export CONKY_IF
+export CONKY_EXTRA
