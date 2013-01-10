@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-DZEN_OPTS=" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -bg #044084"
+source $HOME/bin/dzen2-env
 
-dzen2 $DZEN_OPTS -xs 1 -x 180 -w 1320 -ta l
+dzen2 $DZEN_OPTS -xs 1 -x 180 -w $DZEN_STATUS_WIDTH -ta l

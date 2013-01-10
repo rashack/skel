@@ -1,0 +1,24 @@
+#!/bin/bash
+
+DZEN_OPTS=" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -bg #044084"
+DZEN_LOAD_WIDTH=350
+
+case $(hostname) in
+    pringle)
+	DZEN_STATUS_WIDTH=1320
+	DZEN_LOAD_X=1500
+	;;
+    tdhq197)
+	DZEN_STATUS_WIDTH=1070
+	DZEN_LOAD_X=1250
+	;;
+    tp)
+	DZEN_STATUS_WIDTH=700
+	DZEN_LOAD_X=450
+	;;
+esac
+
+export DZEN_OPTS
+export DZEN_STATUS_WIDTH
+export DZEN_LOAD_X
+export DZEN_LOAD_WIDTH

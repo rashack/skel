@@ -22,12 +22,7 @@ import qualified XMonad.StackSet as W
 
 -- I want 10 workspaces (at least).
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
-myFont = "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
-myBgColor = "#044084"
 myTitleFgColor = "white"
-myDzenOpts = "-fn '" ++ myFont ++ "' -bg '" ++ myBgColor ++ "'"
-myLoadBar = "conky -d -c ~/.skel/conky.load | dzen2 -xs 1 -x 1500 -w 440 -ta l " ++ myDzenOpts
-timeBarWidth = "180"
 
 main :: IO ()
 main = do
@@ -36,7 +31,7 @@ main = do
         --dzen2
         h <- spawnPipe ("~/bin/dzen2-status")
         spawn ("~/bin/dzen2-time")
-        spawn myLoadBar
+        spawn ("~/bin/dzen2-load")
         xmonad defaultConfig
          {
            --dzen2
