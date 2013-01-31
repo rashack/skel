@@ -1,14 +1,14 @@
 #!/bin/bash
 
-if [ $# != 2 ] ; then
-    echo "usage: $0 REMOTE_HOST REMOTE_KEY"
+if [ $# != 3 ] ; then
+    echo "usage: $0 REMOTE_MACHINE REMOTE_SOURCE REMOTE_KEY"
     exit 1
 fi
 
 REMOTE_MACHINE=$1
-REMOTE_KEY=$2
+REMOTE_SOURCE=$2
+REMOTE_KEY=$3
 
-REMOTE_SOURCE=/home
 BACKUP_SOURCE_DIR=$LOGNAME@$REMOTE_MACHINE:$REMOTE_SOURCE
 
 BACKUP_DEST=/mnt/backup/$LOGNAME/$REMOTE_MACHINE/backup
