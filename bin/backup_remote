@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ $# != 2 ] ; then
+    echo "usage: $0 REMOTE_HOST REMOTE_KEY"
+    exit 1
+fi
+
+REMOTE_MACHINE=$1
+REMOTE_KEY=$2
+
+REMOTE_SOURCE=/home
+BACKUP_SOURCE_DIR=$LOGNAME@$REMOTE_MACHINE:$REMOTE_SOURCE
+
+BACKUP_DEST=/mnt/backup/$LOGNAME/$REMOTE_MACHINE/backup
+
+EXCLUDES=$HOME/.skel/rsync_excludes
+
+BACKUPS=8
+rm -rf $BACKUP_DEST.$BACKUPS
+for (( i=$BACKUPS ; i > 0 ; i=i-1 )) ; do
+    mv $BACKUP_DEST.$(( $i-1 )) $BACKUP_DEST.$i
+done
+mkdir -p $BACKUP_DEST.0
+
+rsync -e "ssh -i $REMOTE_KEY" \
+    --archive --one-file-system --hard-links --human-readable --inplace \
+    --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES \
+    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE_DIR $BACKUP_DEST.0
