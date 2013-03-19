@@ -8,7 +8,7 @@ fi
 
 # User specific environment and startup programs
 
-ANDROID_SDK_ROOT=/home/kjell/android/android-sdk-linux
+ANDROID_SDK_ROOT=~/android/android-sdk-linux
 
 export EDITOR=vim
 export JAVA_HOME=$HOME/jdk/jdk
