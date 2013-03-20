@@ -42,6 +42,7 @@ ulimit -n 2048
 ulimit -c unlimited
 
 export LC_COLLATE=POSIX
+export LC_TIME=en_DK.utf8
 
 if [[ $TERM =~ "xterm" ]]; then
     TERM="xterm-256color"
