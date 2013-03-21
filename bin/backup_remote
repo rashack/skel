@@ -15,6 +15,12 @@ BACKUP_DEST=/mnt/backup/$LOGNAME/$REMOTE_MACHINE/backup
 
 EXCLUDES=$HOME/.skel/rsync_excludes
 
+ping -c 1 $REMOTE_MACHINE > /dev/null
+if [[ $? != 0 ]] ; then
+    echo "Could not ping $REMOTE_MACHINE" 1>&2
+    exit 1
+fi
+
 BACKUPS=8
 rm -rf $BACKUP_DEST.$BACKUPS
 for (( i=$BACKUPS ; i > 0 ; i=i-1 )) ; do
