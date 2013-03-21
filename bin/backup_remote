@@ -1,18 +1,35 @@
 #!/bin/bash
 
 if [ $# != 3 ] ; then
-    echo "usage: $0 REMOTE_MACHINE REMOTE_SOURCE REMOTE_KEY"
+    echo "usage: $0 REMOTE_MACHINE REMOTE_SOURCE [KEY_FILE|REMOTE_USER]"
     exit 1
 fi
 
+
 REMOTE_MACHINE=$1
 REMOTE_SOURCE=$2
-REMOTE_KEY=$3
+KEY_FILE=
+REMOTE_USER=
+# Check that user owns the id file and the correct permissions are set.
+if [ -O "$3" ] ; then
+    if [ $(stat -c %a "$3") == 600 ]; then
+	KEY_FILE=$3
+    else
+	echo "$3: The given key file does not have permission 600"
+	exit 2
+    fi
+else
+    REMOTE_USER=$3
+fi
 
-BACKUP_SOURCE_DIR=$LOGNAME@$REMOTE_MACHINE:$REMOTE_SOURCE
+if [ -n "$KEY_FILE" ] ; then
+    SSH_COMMAND="ssh -i $KEY_FILE"
+else
+    SSH_COMMAND="ssh -l $REMOTE_USER"
+fi
 
-BACKUP_DEST=/mnt/backup/$LOGNAME/$REMOTE_MACHINE/backup
-
+BACKUP_SOURCE=${REMOTE_USER:-$LOGNAME}@$REMOTE_MACHINE:$REMOTE_SOURCE
+BACKUP_DEST=/mnt/backup/$LOGNAME/$REMOTE_MACHINE/$(basename $REMOTE_SOURCE)
 EXCLUDES=$HOME/.skel/rsync_excludes
 
 ping -c 1 $REMOTE_MACHINE > /dev/null
@@ -28,7 +45,7 @@ for (( i=$BACKUPS ; i > 0 ; i=i-1 )) ; do
 done
 mkdir -p $BACKUP_DEST.0
 
-rsync -e "ssh -i $REMOTE_KEY" \
+rsync -e "$SSH_COMMAND" \
     --archive --one-file-system --hard-links --human-readable --inplace \
     --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES \
-    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE_DIR $BACKUP_DEST.0
+    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE $BACKUP_DEST.0
