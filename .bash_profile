@@ -39,6 +39,7 @@ export HERCULES_DEPLOY_ROOT=$TD_SRC_HOME/deploy/hercules/dist
 export HERCULES_HTTP_TEST_TEMP=/tmp/hercules_http_test
 export HERCULES_SRC_HOME="$TD_SRC_HOME/hercules"
 export HERCULES_MODULES_SRC_HOME="$TD_SRC_HOME/hercules-modules"
+export HISTTIMEFORMAT="%F %T "
 #JUNIT_HOME="/usr/local/java/junit"
 #CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit.jar:/$JUNIT_HOME"
 #MANPATH="$MANPATH:/usr/local/java/j2sdk/man"
