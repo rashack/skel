@@ -37,7 +37,7 @@
 (setq next-line-add-newlines nil)
 
 ;; Don't insert tab characters.
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 ;; Use text mode instead of fundamental mode
 (setq default-major-mode
