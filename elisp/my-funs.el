@@ -1,3 +1,5 @@
+(defun home-root (path) (concat (getenv "HOME") path))
+
 ;; Define C-, and C-. as scoll-up and scroll-down
 (defun scroll-up-one-line ()
   (interactive)

@@ -21,7 +21,8 @@
 (load-library "graphviz-dot-mode.el")
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
-(load-library (concat (getenv "HOME") "/src/gnuplot-mode/gnuplot-mode.el"))
+(load-library "my-mu4e.el")
+(load-library (home-root "/src/gnuplot-mode/gnuplot-mode.el"))
 
 (require 'clojure-mode)
 (require 'vc-svn)
