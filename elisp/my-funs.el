@@ -234,3 +234,9 @@
     (forward-word)
     (kill-word -1)
     (insert (number-to-string (+ number num)))))
+
+(defun ask-save-buffers-kill-terminal ()
+  (interactive)
+  (when (y-or-n-p "Really exit emacs? ")
+    (save-buffers-kill-terminal)))
+(global-set-key "\C-x\C-c" 'ask-save-buffers-kill-terminal)
