@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# != 3 ] ; then
-    echo "usage: $0 REMOTE_MACHINE REMOTE_SOURCE [KEY_FILE|REMOTE_USER]"
+    echo "usage: $0 REMOTE_MACHINE REMOTE_SOURCE <KEY_FILE|REMOTE_USER>"
     exit 1
 fi
 
