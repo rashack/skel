@@ -5,6 +5,8 @@ if [ $# != 3 ] ; then
     exit 1
 fi
 
+# backup_remote rashack.dyndns.org /mnt/kjell/eos kjell
+# 00 04 * * * /home/kjell/bin/backup_remote tp /home/kjell /home/kjell/.ssh/tp-backup
 
 REMOTE_MACHINE=$1
 REMOTE_SOURCE=$2
