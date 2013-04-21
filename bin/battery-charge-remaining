@@ -1,0 +1,15 @@
+#!/bin/sh
+
+CHARGE_LOG=~/battery-charge
+
+charge () {
+    echo $1 | grep -Po "\d+%"
+}
+
+TS=$(date +"%FT%T")
+CHARGE=$(charge "$(acpi -b)")
+OLD_CHARGE=$(tail -1 $CHARGE_LOG)
+OLD_CHARGE=$(charge "$OLD_CHARGE")
+if [ "$CHARGE" != "$OLD_CHARGE" ] ; then
+    echo $TS $CHARGE >> $CHARGE_LOG
+fi
