@@ -8,6 +8,7 @@ import XMonad.Config (defaultConfig)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicLog hiding (xmobar)
 import XMonad.Hooks.SetWMName -- for swing applications
+import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout
 import XMonad.Layout.Gaps
@@ -32,7 +33,7 @@ main = do
         h <- spawnPipe ("~/bin/dzen2-status")
         spawn ("~/bin/dzen2-time")
         spawn ("~/bin/dzen2-load")
-        xmonad defaultConfig
+        xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
          {
            --dzen2
            logHook = dynamicLogWithPP $ defaultPP { ppOutput = hPutStrLn h
@@ -40,6 +41,7 @@ main = do
                                                   , ppVisible = wrap "(" ")"
                                                   , ppSep = wrapFg "grey" " | "
                                                   , ppTitle = (\x -> wrapFg myTitleFgColor x)
+                                                  , ppUrgent = dzenColor "dark orange" "" .  dzenStrip
                                                   -- two below: for time and order of the fields
                                                   --, ppExtras = [ date (wrapFg "orange" "%a %Y-%m-%d %H:%M:%S") ]
                                                   --, ppOrder  = \(ws:l:t:exs) -> exs ++ [l,ws,t]

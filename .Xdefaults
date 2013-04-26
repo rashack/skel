@@ -4,7 +4,8 @@ xterm*background: #000000
 xterm*foreground: #bebebe
 xterm*cursor:     #ff0000
 XTerm*metaSendsEscape: true
-XTerm*urgentOnBell: true
+XTerm*bellIsUrgent: true
+urxvt.urgentOnBell: true
 
 ! better to turn this off here than in .emacs
 ! where it has already been loaded.
