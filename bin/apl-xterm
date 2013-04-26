@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xterm -fa 'APL385' -fs 12 &

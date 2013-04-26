@@ -1,0 +1,3 @@
+#!/bin/bash
+
+urxvt -fn '8x13,xft:APL385' -fg gray -bg black -cr red -ls -sl 8192 -vb +sb &
