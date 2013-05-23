@@ -8,6 +8,9 @@
 (set-variable 'bios-home (getenv "BIOS_HOME"))
 (set-variable 'compilation-search-path (list bios-home))
 
+(require 'undo-tree)
+(global-undo-tree-mode)
+
 (load-library "my-java.el")
 
 ;;(load-file "~/.emacs.d/elisp/sqlplus.el")
