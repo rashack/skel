@@ -4,10 +4,13 @@
 
 (setq my-emacs-dir (expand-file-name "~/.emacs.d"))
 (setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
+(load-library "my-funs.el")
 
 (set-variable 'bios-home (getenv "BIOS_HOME"))
 (set-variable 'compilation-search-path (list bios-home))
 
+(require 'cl)
+(require 'use-package)
 (require 'undo-tree)
 (global-undo-tree-mode)
 
@@ -17,15 +20,19 @@
 ;; temporary uncommented, will be functional in a later commit
 ;;(require 'sqlplus)
 
-(load-library "my-funs.el")
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
 (load-library "graphviz-dot-mode.el")
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
-(load-library "my-mu4e.el")
-(load-library (home-root "/src/gnuplot-mode/gnuplot-mode.el"))
+;;(load-library "my-mu4e.el")
+(load-and-do-if-exists (home-root "/src/gnuplot-mode/gnuplot-mode.el") nil)
+;(load-library "my-apl.el")
+;(load-library "my-cgm-stuff.el")
+(load-library "my-haskell.el")
+
+(which-func-mode t)
 
 (require 'clojure-mode)
 (require 'vc-svn)
@@ -83,8 +90,8 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(show-paren-match-face ((((class color)) (:background "lightblue" :foreground "black"))) t)
- '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))) t)
- '(trailing-whitespace ((t (:background "navy")))))
+ '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))) t))
+(set-face-background 'trailing-whitespace "navy")
 (set-face-background 'region "mediumpurple4")
 
 ;; ;; Turn on colorization
@@ -212,12 +219,6 @@
 ;; (setcdr birds '(bass borre))
 
 ;;(load-library "my-emms.el")
-
-(load "~/src/haskell-mode/haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;; Dont split horizontally when I don't want to (default 160?)
 (setq split-height-threshold nil)

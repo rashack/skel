@@ -242,3 +242,36 @@
   (when (y-or-n-p "Really exit emacs? ")
     (save-buffers-kill-terminal)))
 (global-set-key "\C-x\C-c" 'ask-save-buffers-kill-terminal)
+
+(defmacro load-and-do-if-exists (f &rest body)
+  "Load a file and execute 'body'.
+If the file doesn't exist an error message is displayed."
+  `(let ((file ,f))
+     (if (file-exists-p file)
+         (progn
+           (load file)
+           ,@body)
+       (message (concat "load-and-do-if-exists: cannot access "
+                        file ": No such file")))))
+
+;; (defun get-alnums (strings)
+;;   (flet ((alnum-string (lambda (string)
+;;                         (string-match "^[a-zA-Z]*$" string))))
+;;     (cond ((eq nil string)
+;;            (message "strings is nil")
+;;            'nil)
+;;           ((consp strings)
+;;            (message "string is cons cell")
+;;            (remove-if-not 'alnum-string strings))
+;;           ((if (alnum-string strings)
+;;                strings
+;;              nil)))))
+
+;; (get-alnums '("foo"))
+;; (get-alnums "foo")
+;; (get-alnums '("foo" "bar"))
+;; (string-match "^[a-zA-Z]*$" "sdf")
+;; (remove-if-not (lambda (string)
+;;                         (string-match "[[:alnum:]]+$" string))
+;; ;                        (string-match "/\\.\\{1,2\\}$" string))
+;;                '("foo" "-" "bar" "quux/-" "home/." "home/.." "/foo/..." "my-.d" "/.."))

@@ -1,5 +1,6 @@
-(setq load-path (cons  "/usr/local/lib/erlang/lib/tools-2.6.7/emacs"
-		       load-path))
-(setq erlang-root-dir "/usr/local/lib/erlang")
-(setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
-(require 'erlang-start)
+(let ((file "/usr/local/lib/erlang/lib/tools-2.6.7/emacs"))
+  (when (file-exists-p file)
+    (add-to-load-path file)
+    (setq erlang-root-dir "/usr/local/lib/erlang")
+    (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
+    (require 'erlang-start)))
