@@ -20,6 +20,7 @@
 ;; temporary uncommented, will be functional in a later commit
 ;;(require 'sqlplus)
 
+(load-library "my-cl.el")
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
@@ -86,10 +87,14 @@
         (background-color . "black")))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(diff-added ((t (:foreground "Green3"))) t)
+ '(diff-removed ((t (:foreground "Red3"))) t)
+ '(flymake-errline ((((class color)) (:underline "Red"))))
+ '(flymake-warnline ((((class color)) (:underline "Orange"))))
  '(show-paren-match-face ((((class color)) (:background "lightblue" :foreground "black"))) t)
  '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))) t))
 (set-face-background 'trailing-whitespace "navy")
@@ -126,17 +131,15 @@
 (setq-default require-final-newline t)
 
 (custom-set-variables
-;;   ;; custom-set-variables was added by Custom.
-;;   ;; If you edit it by hand, you could mess it up, so be careful.
-;;   ;; Your init file should contain only one such instance.
-;;   ;; If there is more than one, they won't work right.
-;;  '(jde-debugger (quote ("JDEbug")))
-;;  '(jde-run-applet-viewer "appletviewer")
-;;  '(jde-sourcepath (quote ("~/src/trunk/src" "$JAVA_HOME")))
-  '(ps-font-size (quote (7 . 8)))
-  '(ps-header-font-size (quote (10 . 10)))
-  '(ps-header-title-font-size (quote (12 . 12)))
-  '(ps-paper-type (quote a4)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ps-font-size (quote (7 . 8)))
+ '(ps-header-font-size (quote (10 . 10)))
+ '(ps-header-title-font-size (quote (12 . 12)))
+ '(ps-paper-type (quote a4))
+ '(slime-backend "/usr/share/common-lisp/source/slime/swank-loader.lisp"))
 
 ;; default grep command is 'grep -nH -e '
 (setq grep-command "bgrep -n ")
@@ -201,9 +204,7 @@
 ;; (ido-mode t)
 ;; (setq ido-enable-flex-matching nil)
 
-(custom-set-faces
- '(diff-added ((t (:foreground "Green3"))) 'now)
- '(diff-removed ((t (:foreground "Red3"))) 'now))
+
 
 (setq line-move-visual nil)
 
