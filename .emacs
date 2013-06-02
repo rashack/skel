@@ -31,6 +31,7 @@
 ;(load-library "my-apl.el")
 ;(load-library "my-cgm-stuff.el")
 (load-library "my-haskell.el")
+(load-library "my-html.el")
 
 (which-func-mode t)
 
