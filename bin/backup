@@ -15,7 +15,7 @@ BACKUP_DEST=$2$1
 
 EXCLUDES=$HOME/.skel/rsync_excludes
 
-BACKUPS=8
+BACKUPS=16
 rm -rf $BACKUP_DEST.$BACKUPS
 for (( i=$BACKUPS ; i > 0 ; i=i-1 )) ; do
     mv $BACKUP_DEST.$(( $i-1 )) $BACKUP_DEST.$i
