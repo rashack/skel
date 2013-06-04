@@ -25,20 +25,12 @@ function power_mode_status () {
     if [ -L $1 ]; then
 	REAL_NAME=$(ls -l $1 | sed 's/.*-> //')
     fi
-    MD_NAME=$(cat /proc/mdstat | grep md | grep $REAL_NAME | cut -d " " -f 1)
+#    MD_NAME=$(cat /proc/mdstat | grep md | grep $REAL_NAME | cut -d " " -f 1)
+    MOUNT_POINT=$(df | grep ${1#/dev/} | awk '{print $NF}')
     STATUS=" $($HDPARM -C $1 | grep "$STAT_LINE" | sed 's/'"$STAT_LINE"'//')"
-    printf "%s\t(%s)\t%s\t %s\n" $1 $REAL_NAME $(status $STATUS) $MD_NAME
+    printf "%s\t(%s)\t%s\t %s\n" $1 $REAL_NAME $(status $STATUS) $MD_NAME $MOUNT_POINT
 }
 
-power_mode_status "/dev/ssd-intel"
-power_mode_status "/dev/ssd64"
-#power_mode_status "/dev/r00"
-#power_mode_status "/dev/r01"
-power_mode_status "/dev/r10"
-power_mode_status "/dev/r11"
-#power_mode_status "/dev/r20"
-#power_mode_status "/dev/r21"
-power_mode_status "/dev/r30"
-power_mode_status "/dev/r31"
-power_mode_status "/dev/r40"
-power_mode_status "/dev/r41"
+for x in /dev/sd? ; do
+    power_mode_status $x
+done
