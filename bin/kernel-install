@@ -1,25 +1,26 @@
 #!/bin/bash
 
 BOOT_DIR=/boot
-SRC_ROOT=$HOME/src/linux
-if [ -z $1 ]; then
-    echo "The first parameter should be the kernel version e.g. 2.6.29.3 and the source should reside in /usr/src/linux-\$1"
-    exit 1
+
+KERNEL_VERSION=$(basename $(pwd))
+KERNEL_VERSION=${KERNEL_VERSION#linux-}
+if [ -f "$(ls $BOOT_DIR/*lin*${KERNEL_VERSION/linux-}* 2> /dev/null | head -1)" ] ; then
+    KERNEL_REV=$(ls $BOOT_DIR/*lin*${KERNEL_VERSION/linux-}* | head -1)
+    KERNEL_REV=$(( 1 + ${KERNEL_REV: -1:1} ))
+else
+    KERNEL_REV=1
 fi
 
-if [ -f $2 ]; then
-    echo "The second parameter should be the local version of the kernel e.g. '1' for the first local kernel of a certain official kernel version."
-    exit 1
-fi
-
-cd $SRC_ROOT/linux-"$1"
+KN=$KERNEL_VERSION-$KERNEL_REV
 
 make modules_install
-cp -vp .config $BOOT_DIR/config-"$1-$2"
-cp -vp System.map $BOOT_DIR/System.map-"$1-$2"
-cp -vp arch/x86_64/boot/bzImage $BOOT_DIR/vmlinuz-"$1-$2"
+cp -vp .config $BOOT_DIR/config-$KN
+cp -vp System.map $BOOT_DIR/System.map-$KN
+cp -vp arch/x86_64/boot/bzImage $BOOT_DIR/vmlinuz-$KN
 
 echo creating initrd
-mkinitramfs -v -k "$1" -o $BOOT_DIR/initrd.img-"$1-$2"
+mkinitramfs -v -k $KERNEL_VERSION -o $BOOT_DIR/initrd.img-$KN
+
+update-grub
 
 #emacs -nw $BOOT_DIR/grub/menu.lst
