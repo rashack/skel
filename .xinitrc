@@ -12,7 +12,6 @@ xsetroot -solid black
 #/usr/bin/nvidia-settings --load-config-only
 
 #~/bin/xmod &
-~/bin/caps-away
 xmterm &
 
 xmonad 2>&1 > $HOME/.xmonad/log.txt
