@@ -1,4 +1,14 @@
 #!/bin/bash
 
+# set dyalog apl characters on right ctrl and right ctrl-shift
+setxkbmap -option -option ctrl:nocaps,grp:rctrl_switch se,apl ,dyalog
 export TERM=xterm
-/usr/bin/dyalog
+if [ "$1" == "12" ] ; then
+    /opt/mdyalog/12.1/32/classic/mapl
+elif [ "$1" == "13" ] ; then
+    /usr/bin/dyalog
+else
+    echo "Parameter for version to start required (e.g. $0 12)"
+fi
+
+echo "To reset the keyboard mapping, execute 'setxkbmap -option -option ctrl:nocaps'"
