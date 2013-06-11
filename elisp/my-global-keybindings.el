@@ -1,0 +1,15 @@
+(global-set-key "\C-xb" 'list-buffers-this-window)
+(global-set-key "\C-x\C-b" 'switch-to-buffer)
+
+(define-key esc-map " " 'hippie-expand)
+(global-set-key "\M-g" 'goto-line)
+(global-set-key "\C-cg" 'grep)
+(global-set-key "\C-cc" 'compile)
+(global-set-key "\C-cr" 'recompile)
+(global-set-key [ f8 ] 'next-error)
+(global-set-key "\C-xaf" 'find-file-at-point)
+
+(global-set-key [C-left] 'shrink-window-horizontally)
+(global-set-key [C-right] 'enlarge-window-horizontally)
+(global-set-key [C-S-up] 'enlarge-window)
+(global-set-key [C-S-down] 'shrink-window)

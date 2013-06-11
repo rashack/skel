@@ -61,12 +61,6 @@
 ;; Buffer history for commands reading buffer names (for example C-x b)
 ;;(load-safe "better-readbuf")
 
-;; Some useful key bindings
-(define-key esc-map " " 'hippie-expand)
-;;    (define-key ctl-x-map "g" 'goto-line)
-(global-set-key [(meta g)] `goto-line)
-
-
 (add-hook 'c-mode-hook '(lambda ()
 	  (c-set-style "Stroustrup")))
 
@@ -87,24 +81,17 @@
         (background-color . "black")))
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(diff-added ((t (:foreground "Green3"))) t)
- '(diff-removed ((t (:foreground "Red3"))) t)
- '(flymake-errline ((((class color)) (:underline "Red"))))
- '(flymake-warnline ((((class color)) (:underline "Orange"))))
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(show-paren-match-face ((((class color)) (:background "lightblue" :foreground "black"))) t)
  '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))) t))
+;(set-face-background 'region "mediumpurple4")
 (set-face-background 'trailing-whitespace "navy")
-(set-face-background 'region "mediumpurple4")
 
 ;; ;; Turn on colorization
 (global-font-lock-mode t)
-
-;; ; Fix delete to delete forward.
-(global-set-key (read-kbd-macro "<delete>") `delete-char)
 
 ; no mode line 3D-style highlighting
 (set-face-attribute 'mode-line nil :box nil)
@@ -131,26 +118,20 @@
 (setq-default require-final-newline t)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ps-font-size (quote (7 . 8)))
- '(ps-header-font-size (quote (10 . 10)))
- '(ps-header-title-font-size (quote (12 . 12)))
- '(ps-paper-type (quote a4))
- '(slime-backend "/usr/share/common-lisp/source/slime/swank-loader.lisp"))
+;;   ;; custom-set-variables was added by Custom.
+;;   ;; If you edit it by hand, you could mess it up, so be careful.
+;;   ;; Your init file should contain only one such instance.
+;;   ;; If there is more than one, they won't work right.
+;;  '(jde-debugger (quote ("JDEbug")))
+;;  '(jde-run-applet-viewer "appletviewer")
+;;  '(jde-sourcepath (quote ("~/src/trunk/src" "$JAVA_HOME")))
+  '(ps-font-size (quote (7 . 8)))
+  '(ps-header-font-size (quote (10 . 10)))
+  '(ps-header-title-font-size (quote (12 . 12)))
+  '(ps-paper-type (quote a4)))
 
 ;; default grep command is 'grep -nH -e '
 (setq grep-command "bgrep -n ")
-(global-set-key "\C-cg" 'grep)
-
-(global-set-key "\C-cc" 'compile)
-(global-set-key "\C-cr" 'recompile)
-(global-set-key [ f8 ] 'next-error)
-
-(global-set-key "\C-xaf" 'find-file-at-point)
-
 
 (autoload 'gtags-mode "gtags" "" t)
 (gtags-mode 1)
@@ -183,17 +164,9 @@
   (moz-minor-mode 1))
 ;; mozrepl end
 
-
-;; Highlight word on double-click.
-
-(global-set-key [C-left] 'shrink-window-horizontally)
-(global-set-key [C-right] 'enlarge-window-horizontally)
-(global-set-key [C-S-up] 'enlarge-window)
-(global-set-key [C-S-down] 'shrink-window)
-
-(global-hl-line-mode 1)
-(set-face-background 'hl-line "#222")
-
+(when window-system
+  (global-hl-line-mode 1)
+  (set-face-background 'hl-line "#222"))
 
 ;; Make all character after column 100 a little more visible.
 ;;(setq whitespace-style (quote (lines-tail))
@@ -243,6 +216,7 @@
 	      (when file-name
 		(message (format "%s: closed" file-name))))))
 
+(load-library "my-global-keybindings.el")
 
 ;; (put-text-property start end prop value &optional object)
 

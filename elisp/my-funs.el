@@ -254,6 +254,12 @@ If the file doesn't exist an error message is displayed."
        (message (concat "load-and-do-if-exists: cannot access "
                         file ": No such file")))))
 
+(defun list-buffers-this-window (&optional arg)
+  "Shows the buffer-menu in the active window."
+  (interactive "P")
+  (buffer-menu arg))
+
+
 ;; (defun get-alnums (strings)
 ;;   (flet ((alnum-string (lambda (string)
 ;;                         (string-match "^[a-zA-Z]*$" string))))
