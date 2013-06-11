@@ -27,10 +27,10 @@
 (load-library "graphviz-dot-mode.el")
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
-;;(load-library "my-mu4e.el")
+(load-library "my-mu4e.el")
 (load-and-do-if-exists (home-root "/src/gnuplot-mode/gnuplot-mode.el") nil)
-;(load-library "my-apl.el")
-;(load-library "my-cgm-stuff.el")
+(load-library "my-apl.el")
+(load-library "my-cgm-stuff.el")
 (load-library "my-haskell.el")
 (load-library "my-html.el")
 
@@ -145,7 +145,6 @@
 
 (gtags-mode 1)
 
-
 ;; ViewMail
 ;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/vm/")
 ;;(require 'vm-autoloads)
@@ -176,8 +175,6 @@
 ;; (require 'ido)
 ;; (ido-mode t)
 ;; (setq ido-enable-flex-matching nil)
-
-
 
 (setq line-move-visual nil)
 
