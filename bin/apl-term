@@ -12,4 +12,5 @@ else
     FONTS=""
 fi
 
+setxkbmap -option -option ctrl:nocaps se-altgr-apl
 urxvt -fn "$FONTS" -fg gray -bg black -cr red -ls -sl 8192 -vb +sb &
