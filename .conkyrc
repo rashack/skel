@@ -2,4 +2,6 @@ double_buffer yes
 out_to_console yes
 update_interval 1.0
 font -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
+use_spacer left
+pad_percents 2
 TEXT
