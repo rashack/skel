@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# set dyalog apl characters on right ctrl and right ctrl-shift
-setxkbmap -option -option ctrl:nocaps,grp:rctrl_switch se,apl ,dyalog
 export TERM=xterm
 if [ "$1" == "12" ] ; then
     /opt/mdyalog/12.1/32/classic/mapl
