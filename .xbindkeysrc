@@ -68,6 +68,16 @@
 "$HOME/bin/start-xscreensaver"
   Control + Alt + Delete
 
+keycode 121 = XF86AudioMute
+keycode 122 = XF86AudioRaiseVolume
+keycode 123 = XF86AudioLowerVolume
+
+"$HOME/bin/alsa-vol 5%+"
+  XF86AudioRaiseVolume
+
+"$HOME/bin/alsa-vol 5%-"
+  XF86AudioLowerVolume
+
 ##################################
 # End of xbindkeys configuration #
 ##################################

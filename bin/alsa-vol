@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source ~/bin/dzen2-env
+amixer -q set Master $1
+VOL="Volume: $(amixer get Master | grep 'Front Left' | egrep -o '[0-9]+%')"
+echo $VOL | dzen2 -xs 1 -x $DZEN_STATUS_X -w $DZEN_STATUS_WIDTH -ta c $DZEN_OPTS  -fg white -p 2
