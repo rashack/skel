@@ -2,4 +2,4 @@
 
 source $HOME/bin/dzen2-env
 
-dzen2 $DZEN_OPTS -xs 1 -x $DZEN_STATUS_X -w $DZEN_STATUS_WIDTH -ta l
+dzen2 $DZEN_OPTS -x $DZEN_STATUS_X -w $DZEN_STATUS_WIDTH -ta l

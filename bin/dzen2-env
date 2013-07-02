@@ -9,17 +9,20 @@ case $(hostname) in
 	SCREEN_WIDTH=1920
 	DZEN_STATUS_WIDTH=1320
 	CONKY_IF=eth0
+	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
-    tdhq197)
-	SCREEN_WIDTH=1600
+    kjelldesktop)
+	SCREEN_WIDTH=1680
 	DZEN_STATUS_WIDTH=1070
-	CONKY_IF=eth3
+	CONKY_IF=eth1
+	DZEN_OPTS="$DZEN_OPTS -xs 0"
 	;;
     tp)
 	SCREEN_WIDTH=1280
 	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlan0
 	CONKY_EXTRA=' | bat: ${battery_short}'
+	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
 esac
 
