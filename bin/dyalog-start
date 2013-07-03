@@ -2,9 +2,11 @@
 
 export TERM=xterm
 if [ "$1" == "12" ] ; then
-    /opt/mdyalog/12.1/32/classic/mapl
+    shift
+    /opt/mdyalog/12.1/32/classic/mapl $@
 elif [ "$1" == "13" ] ; then
-    /usr/bin/dyalog
+    shift
+    /usr/bin/dyalog $@
 else
     echo "Parameter for version to start required (e.g. $0 12)"
 fi
