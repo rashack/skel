@@ -21,6 +21,7 @@
 ;;(require 'sqlplus)
 
 (load-library "my-cl.el")
+(load-library "my-clojure.el")
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
@@ -36,7 +37,6 @@
 
 (which-func-mode t)
 
-(require 'clojure-mode)
 (require 'vc-svn)
 ;;(require 'psvn)
 (require 'csv-mode)

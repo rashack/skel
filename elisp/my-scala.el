@@ -1,6 +1,8 @@
 (add-to-list 'load-path "~/src/scala-mode")
-(require 'scala-mode-auto)
-
-(add-to-list 'load-path "~/src/ensime-server/ensime-server/elisp/")
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(use-package scala-mode-auto
+  :init
+  (progn
+    (add-to-list 'load-path "~/src/ensime-server/ensime-server/elisp/")
+    (use-package ensime
+      :init
+      (add-hook 'scala-mode-hook 'ensime-scala-mode-hook))))
