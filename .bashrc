@@ -58,6 +58,11 @@ source ~/.skel/git-prompt.sh
 # depending on the username
 function set_prompt
 {
+    if [ "$SSH_CONNECTION" ]; then
+        SSH_PROMPT='\[\033[m\] [\[\033[31m\]SSH\[\033[m\]] '
+    else
+        SSH_PROMPT=
+    fi
     case $TERM in
  	xterm*)
 	    TITLEBAR='\[\033]0;\w\007\]'
@@ -75,7 +80,7 @@ function set_prompt
 \[\033[31m\][\t] \
 \[\033[m\]\[\033[44m\][\u@\h]\
 \[\033[40m\]\[\033[32m\] \w\
-\[\033[33m\]`__git_ps1 "(%s)"`\[\033[m\]\$ '
+\[\033[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\033[m\]\$ '
 }
 
 if [ "$USER" == 'root' ]; then
