@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source ~/bin/dzen2-env
+
+MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+ACTUAL=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
+PERCENTAGE=$(echo -e "scale=1 \n 100  * $ACTUAL / $MAX" | bc)
+
+echo "brightness: $PERCENTAGE%" | \
+    dzen2 -xs 1 -x $DZEN_STATUS_X -w $DZEN_STATUS_WIDTH -ta c $DZEN_OPTS  -fg white -p 2

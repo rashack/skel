@@ -78,6 +78,12 @@ keycode 123 = XF86AudioLowerVolume
 "$HOME/bin/alsa-vol 5%-"
   XF86AudioLowerVolume
 
+"$HOME/bin/display-brightness"
+  XF86MonBrightnessUp
+
+"$HOME/bin/display-brightness"
+  XF86MonBrightnessDown
+
 ##################################
 # End of xbindkeys configuration #
 ##################################
