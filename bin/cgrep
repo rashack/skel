@@ -1,0 +1,15 @@
+#!/bin/sh
+
+FIND_ROOT="$TC_SRC_HOME"
+UNWANTED="-name .hg -prune"
+
+while getopts "d:f:" opt ; do
+    case $opt in
+        d) FIND_ROOT="./$opt" ;;
+        f) FILE_FILTER="-o -name \*$opt\*" ;;
+    esac
+done
+
+shift `expr $OPTIND - 1`
+
+find "$FIND_ROOT" $UNWANTED $FILE_FILTER -o -print0 | xargs -0 grep --color -d skip -Pin "$@"
