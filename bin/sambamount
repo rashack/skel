@@ -1,2 +1,46 @@
-mount -t cifs -o username=kjean //tdfp01.root.tradedoubler.com/Stockholm /mnt/tdfp01/Stockholm
-mount -t cifs -o username=kjean //tdfp01.root.tradedoubler.com/pst /mnt/tdfp01/pst
+#!/bin/bash
+
+# Mount samba shares at CGM.
+# Either mount all "standard" shares or take share and mount point as parameters
+# using switches -s and -m respectively.
+
+# list shares for a host:
+# smbclient -W PROFDOC -U kjell.andreassen -L stotclab01
+
+#mount -t cifs -o username=kjean //tdfp01.root.tradedoubler.com/Stockholm /mnt/tdfp01/Stockholm
+#mount -t cifs -o username=kjean //tdfp01.root.tradedoubler.com/pst /mnt/tdfp01/pst
+
+function smb-mount () {
+    local SMB_OPTS=$1
+    local SMB_SHARE=$2
+    local MOUNT_POINT=$3
+    mount $SMB_OPTS $SMB_SHARE $MOUNT_POINT
+}
+
+while getopts "s:m:" opt ; do
+    case $opt in
+	s) SMB_SHARE=$OPTARG ;;
+	m) MOUNT_POINT=$OPTARG ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+
+#OPTS="-t cifs -o credentials=~kjell/Private/profdoc-credentials"
+if [ -z "$SMB_OPTS" ] ; then
+    SMB_OPTS="-t cifs -o domain=PROFDOC,username=kjell.andreassen"
+    echo "Using SMB_OPTS=\"$SMB_OPTS\""
+fi
+
+if [ -n "$SMB_SHARE" ] && [ -n "$MOUNT_POINT" ] ; then
+    echo "Mounting $SMB_SHARE at $MOUNT_POINT"
+    smb-mount "$SMB_OPTS" "$SMB_SHARE" "$MOUNT_POINT"
+else
+    PROFDOC_ROOT=/mnt
+    smb-mount $SMB_OPTS //stofil01/utv $PROFDOC_ROOT/stofil01/utv
+    smb-mount $SMB_OPTS //stofil01/userhome $PROFDOC_ROOT/stofil01/userhome
+
+    smb-mount $SMB_OPTS //stotclab01/utv $PROFDOC_ROOT/stotclab01/utv
+    smb-mount $SMB_OPTS //stotclab01/dyalog95 $PROFDOC_ROOT/stotclab01/dyalog95
+    smb-mount $SMB_OPTS //stotclab01/kus $PROFDOC_ROOT/stotclab01/kus
+fi
