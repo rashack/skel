@@ -1,18 +1,22 @@
 #!/bin/bash
 
+# APL symbols keymap: 'setxkbmap -option -option ctrl:nocaps se-altgr-apl'
+# Normal keymap:      'setxkbmap -option -option ctrl:nocaps'
+
 export TERM=xterm
-if [ "$1" == "12" ] ; then
-    shift
-    DYALOG=/opt/mdyalog/12.1/32/classic/mapl
-elif [ "$1" == "13" ] ; then
-    shift
-    DYALOG=/usr/bin/dyalog
-else
-    echo "Parameter for version to start required (e.g. $0 12)"
-    exit 1
-fi
+DYALOG_BIN=/opt/mdyalog/12.1/32/classic/mapl
 
-echo "Executing $DYALOG $@"
-$DYALOG $@
+while getopts "v:r" opt ; do
+    case $opt in
+	v)
+            if [ "$OPTARG" == "13" ] ; then
+                DYALOG_BIN=/opt/mdyalog/13.2/32/unicode/mapl
+            fi
+            ;;
+	r) export RUNTIME=True ;;
+    esac
+done
+shift $((OPTIND - 1))
 
-echo "To reset the keyboard mapping, execute 'setxkbmap -option -option ctrl:nocaps'"
+echo "Executing $DYALOG_BIN $@"
+$DYALOG_BIN $@
