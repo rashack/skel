@@ -1,3 +1,9 @@
 #!/bin/bash
 
-xterm -fg gray -bg black -cr red -ls +mb -sl 8192 -vb +sb -fa 'xft:APL385 Unicode' -fs 9 $@ &
+COLOURS="-fg black -bg gray"
+
+if [[ $0 =~ "termb" ]]; then
+    COLOURS="-fg gray -bg black"
+fi
+
+xterm $COLOURS -cr red -ls +mb -sl 8192 -vb +sb -fa 'xft:APL385 Unicode' -fs 9 $@ &
