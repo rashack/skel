@@ -17,6 +17,7 @@
               '(lambda ()
                  (setq paragraph-start
                        (concat "^\\s-*⍝\\s-*\\\\" profdoc-doc-comment ".*$"))
+                 (setq tab-width 4)
                  (which-func-mode t)))
     (autoload 'dyalog-ediff-forward-word "dyalog-mode" "Dyalog mode" t)
     (setq ediff-forward-word-function 'dyalog-ediff-forward-word)))
