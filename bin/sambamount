@@ -37,10 +37,10 @@ if [ -n "$SMB_SHARE" ] && [ -n "$MOUNT_POINT" ] ; then
     smb-mount "$SMB_OPTS" "$SMB_SHARE" "$MOUNT_POINT"
 else
     PROFDOC_ROOT=/mnt
-    smb-mount $SMB_OPTS //stofil01/utv $PROFDOC_ROOT/stofil01/utv
-    smb-mount $SMB_OPTS //stofil01/userhome $PROFDOC_ROOT/stofil01/userhome
+    smb-mount "$SMB_OPTS" //stofil01/utv $PROFDOC_ROOT/stofil01/utv
+    smb-mount "$SMB_OPTS" //stofil01/userhome $PROFDOC_ROOT/stofil01/userhome
 
-    smb-mount $SMB_OPTS //stotclab01/utv $PROFDOC_ROOT/stotclab01/utv
-    smb-mount $SMB_OPTS //stotclab01/dyalog95 $PROFDOC_ROOT/stotclab01/dyalog95
-    smb-mount $SMB_OPTS //stotclab01/kus $PROFDOC_ROOT/stotclab01/kus
+    smb-mount "$SMB_OPTS" //stotclab01/utv $PROFDOC_ROOT/stotclab01/utv
+    smb-mount "$SMB_OPTS" //stotclab01/dyalog95 $PROFDOC_ROOT/stotclab01/dyalog95
+    smb-mount "$SMB_OPTS" //stotclab01/kus $PROFDOC_ROOT/stotclab01/kus
 fi
