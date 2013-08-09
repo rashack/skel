@@ -19,4 +19,5 @@ done
 shift $((OPTIND - 1))
 
 echo "Executing $DYALOG_BIN $@"
+titlebar "$DYALOG_BIN $@"
 $DYALOG_BIN $@
