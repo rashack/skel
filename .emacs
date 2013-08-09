@@ -34,12 +34,10 @@
 (load-library "my-cgm-stuff.el")
 (load-library "my-haskell.el")
 (load-library "my-html.el")
+(load-library "my-vc.el")
 
 (which-func-mode t)
 
-(require 'vc-svn)
-;;(require 'psvn)
-(require 'csv-mode)
 (require 'dos)
 
 ;; ;; Dont crash if file not found
