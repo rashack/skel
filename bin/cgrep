@@ -5,8 +5,8 @@ UNWANTED="-name .hg -prune"
 
 while getopts "d:f:" opt ; do
     case $opt in
-        d) FIND_ROOT="./$opt" ;;
-        f) FILE_FILTER="-o -name \*$opt\*" ;;
+        d) FIND_ROOT="$OPTARG" ;;
+        f) FILE_FILTER="$FILE_FILTER ${FILE_FILTER:+-o} -name $OPTARG" ;;
     esac
 done
 
