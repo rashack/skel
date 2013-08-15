@@ -6,7 +6,8 @@ TEXTI=~/src/cgm/text-background.png
 RES=~/src/cgm/background.png
 
 convert -size 1920x1080 \
-    -background none -pointsize 12 -fill white \
+    -background none \
+    -font /usr/share/fonts/truetype/apl/Apl385.ttf -pointsize 12 -fill white \
     -gravity northwest label:@$TEXTF \
     -trim -bordercolor none -border 32 \
     $TEXTI
