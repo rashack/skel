@@ -11,22 +11,17 @@ while getopts "d:f:" opt ; do
 done
 
 find_grep () {
-    # if [ -n "$FILE_FILTER" ] ; then
-    #     FILE_FILTER=" \( $FILE_FILTER \)"
-    # fi
-    echo "find $FIND_ROOT $UNWANTED -o \( $FILE_FILTER -print0 \) | xargs -0 grep --color -d skip -Pin $@"
-    # find $FIND_ROOT $UNWANTED -o \( $FILE_FILTER -print0 \) | xargs -0 grep --color -d skip -Pin "$@"
-    # works for more than one file but not "no file"
-#    find $FIND_ROOT $UNWANTED -o \( \( $FILE_FILTER \) -print0 \) | xargs -0 grep --color -d skip -Pin "$@"
-    # works-ish for one file but well for no file
     find $FIND_ROOT $UNWANTED -o \( $FILE_FILTER -print0 \) | xargs -0 grep --color -d skip -Pin "$@"
+}
+
+find_grep_recur () {
+    find $FIND_ROOT $UNWANTED -o \( $FILE_FILTER -print0 \) | xargs -0 grep -d skip -Zl "$1" | xargs -0 grep --color -d skip -Pin "$2"
 }
 
 shift `expr $OPTIND - 1`
 
 if [ $# -gt 1 ] ; then
-    echo "Recursive search, will look for [arg N+1] in file with [arg N]."
-
+    find_grep_recur "$1" "$2"
+else
+    find_grep "$@"
 fi
-
-find_grep "$@"
