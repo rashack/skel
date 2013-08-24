@@ -2,7 +2,7 @@
 
 CHARGE_LOG=~/battery-charge
 source <(sed 's/ //g' /sys/class/power_supply/BAT0/uevent)
-BATTERY_ID="$POWER_SUPPLY_MANUFACTURER $POWER_SUPPLY_MODEL_NAME $POWER_SUPPLY_SERIAL_NUMBER"
+BATTERY_ID="$POWER_SUPPLY_MANUFACTURER\t$POWER_SUPPLY_MODEL_NAME\t$POWER_SUPPLY_SERIAL_NUMBER"
 
 charge () {
     echo $1 | grep -Po "\d+%"
@@ -13,5 +13,5 @@ CHARGE=$(charge "$(acpi -b)")
 OLD_CHARGE=$(tail -1 $CHARGE_LOG)
 OLD_CHARGE=$(charge "$OLD_CHARGE")
 if [ "$CHARGE" != "$OLD_CHARGE" ] ; then
-    echo $TS $CHARGE $BATTERY_ID >> $CHARGE_LOG
+    echo -e "$TS\t$CHARGE\t$BATTERY_ID" >> $CHARGE_LOG
 fi
