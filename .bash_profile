@@ -19,12 +19,12 @@ export SCALA_HOME=$HOME/scala/scala
 export JDK_HOME=$JAVA_HOME
 export PATH=$HOME/bin:$JAVA_HOME/bin:$ANDROID_PATH:$SCALA_HOME/bin:$PATH
 export ENV=$HOME/.bashrc
-export HISTSIZE=1048576
 export LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
 export IRCSERVER="irc.homelien.no"
 
 export HISTCONTROL=ignoredups:erasedups
 export HISTSIZE=1048576
+export HISTFILESIZE=1048576
 #export PROMPT_COMMAND="history -a; history -c; history -r"
 export SVN=http://dev01/repository
 
