@@ -1,0 +1,13 @@
+#!/bin/bash
+
+roll_backup_dirs () {
+    local BACKUP_DEST=$1
+    local N_BACKUPS=$2
+    mv $BACKUP_DEST.$N_BACKUPS $BACKUP_DEST.$N_BACKUPS.bak
+    for (( i=$N_BACKUPS ; i > 0 ; i=i-1 )) ; do
+        mv $BACKUP_DEST.$(( $i-1 )) $BACKUP_DEST.$i
+    done
+}
+
+RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
+--inplace --numeric-ids --delete --delete-excluded"
