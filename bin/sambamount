@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $(dirname $0)/colours.sh
+
 # Mount samba shares at CGM.
 # Either mount all "standard" shares or take share and mount point as parameters
 # using switches -s and -m respectively.
@@ -14,7 +16,20 @@ function smb-mount () {
     local SMB_OPTS=$1
     local SMB_SHARE=$2
     local MOUNT_POINT=$3
-    mount $SMB_OPTS $SMB_SHARE $MOUNT_POINT
+    mount | grep -q $2
+    if [[ $? -eq 0 ]] ; then
+        echo "${COLY}$2 already mounted${COLN}"
+    else
+        echo "mounting $2 on $3"
+        mount $SMB_OPTS $SMB_SHARE $MOUNT_POINT
+        ERR=$?
+        if [[ $ERR -eq 0 ]] ; then
+            echo "[ ${COLG}OK${COLN}  ] mount successful"
+        else
+            echo "[ ${COLR}ERR${COLN} ] could not mount $2, error code: $ERR"
+            return $ERR
+        fi
+    fi
 }
 
 while getopts "s:m:" opt ; do
@@ -37,10 +52,14 @@ if [ -n "$SMB_SHARE" ] && [ -n "$MOUNT_POINT" ] ; then
     smb-mount "$SMB_OPTS" "$SMB_SHARE" "$MOUNT_POINT"
 else
     PROFDOC_ROOT=/mnt
+    echo "Mounting stofil shares"
     smb-mount "$SMB_OPTS" //stofil01/utv $PROFDOC_ROOT/stofil01/utv
     smb-mount "$SMB_OPTS" //stofil01/userhome $PROFDOC_ROOT/stofil01/userhome
 
     smb-mount "$SMB_OPTS" //stotclab01/utv $PROFDOC_ROOT/stotclab01/utv
     smb-mount "$SMB_OPTS" //stotclab01/dyalog95 $PROFDOC_ROOT/stotclab01/dyalog95
     smb-mount "$SMB_OPTS" //stotclab01/kus $PROFDOC_ROOT/stotclab01/kus
+
+    echo "Mounting virtual guest shares"
+    smb-mount $SMD_OPTS //192.168.122.71/c /mnt/virt-win
 fi
