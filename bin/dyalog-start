@@ -6,7 +6,7 @@
 export TERM=xterm
 DYALOG_BIN=/opt/mdyalog/12.1/32/classic/mapl
 
-while getopts "v:r" opt ; do
+while getopts "v:rt:x" opt ; do
     case $opt in
 	v)
             if [ "$OPTARG" == "13" ] ; then
@@ -14,10 +14,12 @@ while getopts "v:r" opt ; do
             fi
             ;;
 	r) export RUNTIME=True ;;
+        t) TB="$OPTARG" ;;
+        x) NO_LX=-x
     esac
 done
 shift $((OPTIND - 1))
 
 echo "Executing $DYALOG_BIN $@"
-titlebar "$DYALOG_BIN $@"
-$DYALOG_BIN $@
+titlebar "$DYALOG_BIN $@ $TB"
+$DYALOG_BIN $NO_LX $@
