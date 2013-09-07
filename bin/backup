@@ -1,5 +1,9 @@
 #!/bin/bash
 
+BACKUP_SOURCE=$1
+BACKUP_DEST=$2$1
+N_BACKUPS=32
+
 source $(dirname $0)/backup-funs
 
 if [ $# != 2 ] ; then
@@ -12,23 +16,27 @@ fi
 
 # Added a slash at the end of BACKUP_SOURCE to move the contents of the directory,
 # not the directory and its contents.
-BACKUP_SOURCE=$1/
-BACKUP_DEST=$2$1
 
-EXCLUDES=$HOME/.skel/rsync_excludes
-
-N_BACKUPS=32
-roll_backup_dirs $BACKUP_DEST $N_BACKUPS
-mkdir -p $BACKUP_DEST
-
-rsync $RSYNC_OPTS --exclude-from=$EXCLUDES \
-    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE $BACKUP_DEST \
-    -i > rsync-res-${BACKUP_SOURCE//\//-}$(date +"%F")
-ERR=$?
-if [ $ERR != 0 ] ; then
-    echo "rsync returned an error ($ERR), not moving directories." >&2
-    exit 1
+if [ $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
+    log "INFO: Yesterdays backup contained no changes, not rolling backup dirs."
+else
+    log "INFO: rolling backp directories."
+    roll_backup_dirs $BACKUP_DEST $N_BACKUPS
+    mkdir -p $BACKUP_DEST
 fi
 
-mv $BACKUP_DEST $BACKUP_DEST.0
+log "INFO: Starting rsync."
+rsync $RSYNC_OPTS \
+    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE/ $BACKUP_DEST.0 \
+    -i > $RSYNC_LOG_NEXT
+ERR=$?
+log "INFO: rsync finished with exit status $ERR"
+if [ $ERR != 0 ] ; then
+    MSG="rsync returned an error ($ERR), not moving directories."
+    log $MSG
+    echo $MSG >&2
+    exit $ERR
+fi
+
+log "INFO: removing $BACKUP_DEST.$N_BACKUPS.bak"
 rm -rf $BACKUP_DEST.$N_BACKUPS.bak

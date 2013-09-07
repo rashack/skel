@@ -1,6 +1,15 @@
 #!/bin/bash
 
+REMOTE_MACHINE=$1
+REMOTE_SOURCE=$2
+BACKUP_NAME=$REMOTE_MACHINE-$REMOTE_SOURCE
+BACKUP_SOURCE=${REMOTE_USER:-$LOGNAME}@$REMOTE_MACHINE:$REMOTE_SOURCE
+N_BACKUPS=16
+
 source $(dirname $0)/backup-funs
+if [ -z "$BACKUP_DEST" ] ; then
+    BACKUP_DEST=$BACKUP_ROOT/$REMOTE_MACHINE/$(basename $REMOTE_SOURCE)
+fi
 
 if [ $# != 3 ] ; then
     echo "usage: $0 REMOTE_MACHINE REMOTE_SOURCE <KEY_FILE|REMOTE_USER>"
@@ -10,8 +19,8 @@ fi
 # backup_remote rashack.dyndns.org /mnt/kjell/eos kjell
 # 00 04 * * * /home/kjell/bin/backup_remote tp /home/kjell /home/kjell/.ssh/tp-backup
 
-REMOTE_MACHINE=$1
-REMOTE_SOURCE=$2
+log "INFO: backup start"
+
 KEY_FILE=
 REMOTE_USER=
 # Check that user owns the id file and the correct permissions are set.
@@ -19,7 +28,9 @@ if [ -O "$3" ] ; then
     if [ $(stat -c %a "$3") == 600 ]; then
 	KEY_FILE=$3
     else
-	echo "$3: The given key file does not have permission 600"
+	MSG="$3: FATAL: The given key file does not have permission 600"
+        log $MSG
+        echo $MSG
 	exit 2
     fi
 else
@@ -32,25 +43,40 @@ else
     SSH_COMMAND="ssh -l $REMOTE_USER"
 fi
 
-BACKUP_SOURCE=${REMOTE_USER:-$LOGNAME}@$REMOTE_MACHINE:$REMOTE_SOURCE
-if [ -z "$BACKUP_DEST" ] ; then
-    BACKUP_DEST=/mnt/backup/$LOGNAME/$REMOTE_MACHINE/$(basename $REMOTE_SOURCE)
+if [ -f "$RSYNC_LOG_NEXT" ] ; then
+    log "INFO: rsync log for day found, not doing backup again."
+    exit 0
 fi
-EXCLUDES=$HOME/.skel/rsync_excludes
 
 ping -c 1 $REMOTE_MACHINE > /dev/null
 if [[ $? != 0 ]] ; then
-    echo "Could not ping $REMOTE_MACHINE" 1>&2
+    MSG="FATAL: Could not ping $REMOTE_MACHINE"
+    log $MSG
+    echo $MSG 1>&2
     exit 1
 fi
 
-N_BACKUPS=16
-roll_backup_dirs $BACKUP_DEST $N_BACKUPS
-mkdir -p $BACKUP_DEST.0
+if [ $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
+    log "INFO: Yesterdays backup contained no changes, not rolling backup dirs."
+else
+    log "INFO: rolling backp directories."
+    roll_backup_dirs $BACKUP_DEST $N_BACKUPS
+    mkdir -p $BACKUP_DEST.0
+fi
 
+log "INFO: Starting rsync."
 rsync -e "$SSH_COMMAND" \
-    $RSYNC_OPTS --exclude-from=$EXCLUDES \
-    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE $BACKUP_DEST.0 \
-    -i > rsync-res-${BACKUP_SOURCE//\//-}$(date +"%F")
+    $RSYNC_OPTS \
+    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE/ $BACKUP_DEST.0 \
+    -i > $RSYNC_LOG_NEXT
+ERR=$?
+if [ $ERR != 0 ] ; then
+    MSG="rsync returned an error ($ERR), not moving directories."
+    log $MSG
+    echo $MSG >&2
+    exit $ERR
+fi
 
+log "INFO: removing $BACKUP_DEST.$N_BACKUPS.bak"
 rm -rf $BACKUP_DEST.$N_BACKUPS.bak
+log "INFO: backup end"
