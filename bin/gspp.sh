@@ -15,8 +15,10 @@ run_command () {
     fi
 }
 
-run_command "git stash"
+git diff --quiet
+STASH_NEEDED=$?
+[ $STASH_NEEDED -eq 1 ] && run_command "git stash"
 run_command "git pull --rebase"
 run_command "git push"
-run_command "git stash pop"
+[ $STASH_NEEDED -eq 1 ] && run_command "git stash pop"
 echo "[ ${GREEN}OK${NORMAL} ]"
