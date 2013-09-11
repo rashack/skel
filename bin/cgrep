@@ -14,12 +14,12 @@ done
 shift `expr $OPTIND - 1`
 
 find_grep () {
-    find $FIND_ROOT $UNWANTED -o \( $FILE_FILTER -print0 \) | \
-        xargs -0 grep $GREP_OPTS "$@"
+    find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
+        xargs -0 grep $GREP_OPTS "$*"
 }
 
 find_grep_recur () {
-    find $FIND_ROOT $UNWANTED -o \( $FILE_FILTER -print0 \) | \
+    find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
         xargs -0 grep -d skip -Zl "$1" | \
         xargs -0 grep $GREP_OPTS "$2"
 }

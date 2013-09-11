@@ -8,7 +8,7 @@ fi
 
 # User specific environment and startup programs
 
-ANDROID_SDK_ROOT=~/android/android-sdk-linux
+export ANDROID_SDK_ROOT=~/android/android-sdk-linux
 ANDROID_TOOLS=$ANDROID_SDK_ROOT/tools
 ANDROID_PLATFORM_TOOLS=$ANDROID_SDK_ROOT/platform-tools
 ANDROID_PATH=$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS
@@ -42,7 +42,7 @@ export HERCULES_DEPLOY_ROOT=$TD_SRC_HOME/deploy/hercules/dist
 export HERCULES_HTTP_TEST_TEMP=/tmp/hercules_http_test
 export HERCULES_SRC_HOME="$TD_SRC_HOME/hercules"
 export HERCULES_MODULES_SRC_HOME="$TD_SRC_HOME/hercules-modules"
-export TC_SRC_HOME="$HOME/src/cgm/tc-130910"
+export TC_SRC_HOME="$HOME/src/cgm/tc-next"
 export TC_UNIX=1
 export HISTTIMEFORMAT="%F %T "
 #JUNIT_HOME="/usr/local/java/junit"
