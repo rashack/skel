@@ -3,21 +3,80 @@
 BACKUP_ROOT=/mnt/backup/$LOGNAME
 LOG_FILE=$BACKUP_ROOT/log/backup.log
 EXCLUDES=$HOME/.skel/rsync_excludes
-RSYNC_LOG_NEXT=rsync-res-${BACKUP_SOURCE//\//-}$(date "+%F")
-RSYNC_LOG_PREV=rsync-res-${BACKUP_SOURCE//\//-}$(date --date "yesterday" "+%F")
+RSYNC_LOG_NEXT=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date "+%F")
+RSYNC_LOG_PREV=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date --date "yesterday" "+%F")
+RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
+--inplace --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES"
 
 roll_backup_dirs () {
     local BACKUP_DEST=$1
     local N_BACKUPS=$2
+
+    if [ -f $RSYNC_LOG_PREV -a $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
+        log "INFO: No changes in yestardays backup; not rolling backup dirs."
+    else
+        log "INFO: rolling backp directories."
+    fi
+
     mv $BACKUP_DEST.$N_BACKUPS $BACKUP_DEST.$N_BACKUPS.bak
     for (( i=$N_BACKUPS ; i > 0 ; i=i-1 )) ; do
         mv $BACKUP_DEST.$(( $i-1 )) $BACKUP_DEST.$i
     done
+    mkdir -p $BACKUP_DEST.0
 }
 
 log () {
     echo $(date "+%F %T") "$BACKUP_NAME: $1" >> $LOG_FILE
 }
 
-RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
---inplace --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES"
+exit_backup () {
+    if [ -n "$1" ] ; then
+        log "$1"
+    fi
+    log "END: backup"
+    exit $2
+}
+
+check_size_diff () {
+    local OLD_SIZE=$(du -s $1 | cut -f 1)
+    local NEW_SIZE=$(du -s $2 | cut -f 1)
+    local MAX_PERCENT=$3
+    local D_PERCENT=$(echo "
+define change_ratio (old, new) {
+  diff=(new-old)
+  if (diff < 0) diff=-diff
+  return 100*(diff/old)
+}
+change_ratio ($OLD_SIZE, $NEW_SIZE)" | bc -l)
+    local D_OK=$(echo "
+if ($D_PERCENT > $MAX_PERCENT) 1 else 0" | bc -l)
+    D_MSG=$(printf "backup size changed %.2f%%, from %d to %d" $D_PERCENT $OLD_SIZE $NEW_SIZE)
+    if [ $D_OK -gt 0 ] ; then
+        MSG="WARNING: $D_MSG"
+        echo "$MSG" >&2
+    else
+        MSG="INFO: $D_MSG"
+    fi
+    log "$MSG"
+}
+
+do_backup () {
+    roll_backup_dirs "$BACKUP_DEST" "$N_BACKUPS"
+
+    log "INFO: Starting rsync."
+    rsync "$SSH_COMMAND" \
+        $RSYNC_OPTS \
+        --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE/ $BACKUP_DEST.0 \
+        -i > $RSYNC_LOG_NEXT
+    ERR=$?
+    if [ $ERR != 0 ] ; then
+        MSG="rsync returned an error ($ERR), not moving directories."
+        echo $MSG >&2
+        exit_backup "$MSG" $ERR
+    fi
+
+    log "INFO: removing $BACKUP_DEST.$N_BACKUPS.bak"
+    rm -rf $BACKUP_DEST.$N_BACKUPS.bak
+    # log a warning if the backup sizes differ by more than 1%
+    check_size_diff $BACKUP_DEST.1 $BACKUP_DEST.0 1
+}

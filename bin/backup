@@ -2,6 +2,7 @@
 
 BACKUP_SOURCE=$1
 BACKUP_DEST=$2$1
+BACKUP_NAME=$BACKUP_SOURCE
 N_BACKUPS=32
 
 source $(dirname $0)/backup-funs
@@ -13,30 +14,9 @@ fi
 
 # $0 /home/foo /mnt/backup
 # copies contents of foo to /mnt/backup/home/foo.0 hardlinked from /mnt/backup/home/foo.1
+# 00 07 * * * /home/kjell/bin/backup /home/kjell /mnt/backup/kjell
 
-# Added a slash at the end of BACKUP_SOURCE to move the contents of the directory,
-# not the directory and its contents.
+log "START: backup"
 
-if [ $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
-    log "INFO: Yesterdays backup contained no changes, not rolling backup dirs."
-else
-    log "INFO: rolling backp directories."
-    roll_backup_dirs $BACKUP_DEST $N_BACKUPS
-    mkdir -p $BACKUP_DEST
-fi
-
-log "INFO: Starting rsync."
-rsync $RSYNC_OPTS \
-    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE/ $BACKUP_DEST.0 \
-    -i > $RSYNC_LOG_NEXT
-ERR=$?
-log "INFO: rsync finished with exit status $ERR"
-if [ $ERR != 0 ] ; then
-    MSG="rsync returned an error ($ERR), not moving directories."
-    log $MSG
-    echo $MSG >&2
-    exit $ERR
-fi
-
-log "INFO: removing $BACKUP_DEST.$N_BACKUPS.bak"
-rm -rf $BACKUP_DEST.$N_BACKUPS.bak
+do_backup
+exit_backup "" 0

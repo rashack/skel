@@ -19,7 +19,7 @@ fi
 # backup_remote rashack.dyndns.org /mnt/kjell/eos kjell
 # 00 04 * * * /home/kjell/bin/backup_remote tp /home/kjell /home/kjell/.ssh/tp-backup
 
-log "INFO: backup start"
+log "START: backup"
 
 KEY_FILE=
 REMOTE_USER=
@@ -29,54 +29,29 @@ if [ -O "$3" ] ; then
 	KEY_FILE=$3
     else
 	MSG="$3: FATAL: The given key file does not have permission 600"
-        log $MSG
         echo $MSG
-	exit 2
+	exit_backup "$MSG" 2
     fi
 else
     REMOTE_USER=$3
 fi
 
 if [ -n "$KEY_FILE" ] ; then
-    SSH_COMMAND="ssh -i $KEY_FILE"
+    SSH_COMMAND="-e ssh -i $KEY_FILE"
 else
-    SSH_COMMAND="ssh -l $REMOTE_USER"
+    SSH_COMMAND="-e ssh -l $REMOTE_USER"
 fi
 
 if [ -f "$RSYNC_LOG_NEXT" ] ; then
-    log "INFO: rsync log for day found, not doing backup again."
-    exit 0
+    exit_backup "INFO: rsync log for day found, not doing backup again." 0
 fi
 
 ping -c 1 $REMOTE_MACHINE > /dev/null
 if [[ $? != 0 ]] ; then
     MSG="FATAL: Could not ping $REMOTE_MACHINE"
-    log $MSG
     echo $MSG 1>&2
-    exit 1
+    exit_backup "$MSG" 1
 fi
 
-if [ $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
-    log "INFO: Yesterdays backup contained no changes, not rolling backup dirs."
-else
-    log "INFO: rolling backp directories."
-    roll_backup_dirs $BACKUP_DEST $N_BACKUPS
-    mkdir -p $BACKUP_DEST.0
-fi
-
-log "INFO: Starting rsync."
-rsync -e "$SSH_COMMAND" \
-    $RSYNC_OPTS \
-    --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE/ $BACKUP_DEST.0 \
-    -i > $RSYNC_LOG_NEXT
-ERR=$?
-if [ $ERR != 0 ] ; then
-    MSG="rsync returned an error ($ERR), not moving directories."
-    log $MSG
-    echo $MSG >&2
-    exit $ERR
-fi
-
-log "INFO: removing $BACKUP_DEST.$N_BACKUPS.bak"
-rm -rf $BACKUP_DEST.$N_BACKUPS.bak
-log "INFO: backup end"
+do_backup
+exit_backup "" 0
