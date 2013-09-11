@@ -43,7 +43,7 @@ shift $((OPTIND - 1))
 
 #OPTS="-t cifs -o credentials=~kjell/Private/profdoc-credentials"
 if [ -z "$SMB_OPTS" ] ; then
-    SMB_OPTS="-t cifs -o domain=PROFDOC,username=kjell.andreassen"
+    SMB_OPTS="-t cifs -o domain=PROFDOC,credentials=/home/kjell/.Private/creds"
     echo "Using SMB_OPTS=\"$SMB_OPTS\""
 fi
 
