@@ -13,13 +13,14 @@ while getopts "v:rt:x" opt ; do
                 DYALOG_BIN=/opt/mdyalog/13.2/32/unicode/mapl
             fi
             ;;
-	r) export RUNTIME=True ;;
-        t) TB="$OPTARG" ;;
+#	r) export RUNTIME=True ;;
+	r) export RUNTIME=-rt ;;
+        t) TITLEBAR="$OPTARG" ;;
         x) NO_LX=-x
     esac
 done
 shift $((OPTIND - 1))
 
-echo "Executing $DYALOG_BIN $@"
-titlebar "$DYALOG_BIN $@ $TB"
-$DYALOG_BIN $NO_LX $@
+echo "Executing $DYALOG_BIN $RUNTIME $NO_LX $@"
+titlebar "$DYALOG_BIN $@ $TITLEBAR"
+$DYALOG_BIN $RUNTIME $NO_LX $@
