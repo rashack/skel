@@ -1,21 +1,32 @@
-#!/bin/sh
+#!/bin/bash
 
 FIND_ROOT="$TC_SRC_HOME"
 UNWANTED="-name .hg -prune"
 GREP_OPTS="--color -d skip -Pin"
 
-while getopts "d:f:g:" opt ; do
+while getopts "d:f:g:v" opt ; do
     case $opt in
         d) FIND_ROOT="$OPTARG" ;;
         f) FILE_FILTER="$FILE_FILTER ${FILE_FILTER:+-o} -iname *$OPTARG*" ;;
         g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
+        v) VERBOSE=t
     esac
 done
 shift `expr $OPTIND - 1`
 
+log () {
+    [ $VERBOSE ] && echo "$*" >&2
+}
+logv () {
+    log "$1='${!1}'"
+}
+
 if [ ! -z "$FILE_FILTER" ] ; then
     FILE_FILTER="( $FILE_FILTER )"
 fi
+
+logv FIND_ROOT
+logv FILE_FILTER
 
 find_grep () {
     find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
@@ -23,6 +34,7 @@ find_grep () {
 }
 
 find_grep_recur () {
+    log "recursive grep"
     find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
         xargs -0 grep -d skip -Zl "$1" | \
         xargs -0 grep $GREP_OPTS "$2"
