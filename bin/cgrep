@@ -22,22 +22,26 @@ logv () {
 }
 
 if [ ! -z "$FILE_FILTER" ] ; then
-    FILE_FILTER="( $FILE_FILTER )"
+    FILE_FILTER="\( $FILE_FILTER \)"
 fi
 
 logv FIND_ROOT
 logv FILE_FILTER
 
 find_grep () {
-    find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
-        xargs -0 grep $GREP_OPTS "$*"
+    FIND="find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) |
+        xargs -0 grep $GREP_OPTS \"$*\""
+    log "$FIND"
+    eval $FIND
 }
 
 find_grep_recur () {
     log "recursive grep"
-    find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
-        xargs -0 grep -d skip -Zl "$1" | \
-        xargs -0 grep $GREP_OPTS "$2"
+    FIND="find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) |
+        xargs -0 grep -d skip -Zl \"$1\" |
+        xargs -0 grep $GREP_OPTS \"$2\""
+    log "$FIND"
+    eval $FIND
 }
 
 if [ $# -gt 1 ] ; then
