@@ -7,11 +7,15 @@ GREP_OPTS="--color -d skip -Pin"
 while getopts "d:f:g:" opt ; do
     case $opt in
         d) FIND_ROOT="$OPTARG" ;;
-        f) FILE_FILTER="$FILE_FILTER ${FILE_FILTER:+-o} -name $OPTARG" ;;
+        f) FILE_FILTER="$FILE_FILTER ${FILE_FILTER:+-o} -iname *$OPTARG*" ;;
         g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
     esac
 done
 shift `expr $OPTIND - 1`
+
+if [ ! -z "$FILE_FILTER" ] ; then
+    FILE_FILTER="( $FILE_FILTER )"
+fi
 
 find_grep () {
     find $FIND_ROOT/ $UNWANTED -o \( $FILE_FILTER -print0 \) | \
