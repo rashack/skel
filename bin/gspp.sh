@@ -17,8 +17,7 @@ run_command () {
 
 check_add_ssh_key () {
     GIT_HOST=$(cat .git/config | grep "url \?= \?ssh://" | perl -pe 's|\s*url *= *ssh://([^/]+)/.*|$1|')
-    echo $GIT_HOST
-    if [ ! $(ssh-add -l | grep -q $GIT_HOST) ] ; then
+    if ! ssh-add -l | grep -q $GIT_HOST ; then
         echo "${YELLOW}Couldn't find $GIT_HOST in ssh-agent, trying to add.${NORMAL}"
         HOST_KEY="~/.ssh/$GIT_HOST"
         if [ -f $HOST_KEY ] ; then
