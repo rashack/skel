@@ -280,3 +280,8 @@
 	       (other-window 1)
 	       (recenter-top-bottom (- (frame-height) 4))
 	       (other-window -1)))
+
+;; Monday is, of course, the first day of the week.
+(setq calendar-week-start-day 1)
+(setq calendar-view-diary-initially-flag nil)
+(setq calendar-view-holidays-initially-flag nil)
