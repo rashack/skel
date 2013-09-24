@@ -1,6 +1,3 @@
-(global-set-key "\C-xb" 'list-buffers-this-window)
-(global-set-key "\C-x\C-b" 'switch-to-buffer)
-
 (define-key esc-map " " 'hippie-expand)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\C-cg" 'grep)
