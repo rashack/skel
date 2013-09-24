@@ -98,6 +98,8 @@
 (setq delete-key-deletes-forward t)
 (setq visible-bell t)
 (setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
 (setq line-number-mode t)
 (setq column-number-mode t)
 (setq-default show-trailing-whitespace t)
