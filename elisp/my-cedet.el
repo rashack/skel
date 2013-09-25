@@ -1,6 +1,5 @@
 ;;(require 'cedet "~/src/cedet/common/cedet.el")
-(load-file "~/src/cedet/cedet-1.1/common/cedet.el")
-(require 'cedet-java)
+(my-load-use "cedet/cedet-1.1/common/cedet.el" 'cedet-java)
 (global-ede-mode t)                      ; Enable the Project management system
 
 (require 'semanticdb)

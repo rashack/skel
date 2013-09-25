@@ -1,7 +1,7 @@
 ;;(set-frame-font "APL385 Unicode 10")
 
 ;; Dyalog-mode, from https://bitbucket.org/harsman/dyalog-mode
-(add-to-list 'load-path "~/src/dyalog/mode")
+(add-to-list 'load-path (elisp-root "dyalog-mode"))
 (use-package dyalog-mode
   :init
   (progn

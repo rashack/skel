@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/src/haskell-mode/")
+(add-to-list 'load-path (elisp-root "haskell-mode/"))
 (use-package haskell-mode-autoloads
   :init
   (progn

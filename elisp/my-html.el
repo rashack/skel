@@ -1,5 +1,5 @@
 ;; from https://github.com/fgallina/multi-web-mode.git
-(add-to-list 'load-path "~/src/multi-web-mode")
+(add-to-list 'load-path (elisp-root "multi-web-mode"))
 (use-package multi-web-mode
   :init
   (progn

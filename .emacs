@@ -10,9 +10,11 @@
 (set-variable 'compilation-search-path (list bios-home))
 
 (require 'cl)
-(require 'use-package)
-(require 'undo-tree)
+(my-load-use "use-package" 'use-package)
+(my-load-use "undo-tree" 'undo-tree)
 (global-undo-tree-mode)
+(my-load-use "icicles" 'icicles)
+(icy-mode 1)
 
 (load-library "my-java.el")
 
@@ -29,7 +31,7 @@
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
 (load-library "my-mu4e.el")
-(load-and-do-if-exists (home-root "/src/gnuplot-mode/gnuplot-mode.el") nil)
+(load-and-do-if-exists (elisp-root "gnuplot-mode/gnuplot-mode.el") nil)
 (load-library "my-apl.el")
 (load-library "my-cgm-stuff.el")
 (load-library "my-haskell.el")

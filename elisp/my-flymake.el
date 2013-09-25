@@ -6,7 +6,7 @@
 ;;(add-to-list 'load-path "~/pkg/flymake/cvs")
 (require 'flymake "~/.emacs.d/elisp/flymake.el")
 (setq flymake-log-level 1) ; set this when debugging flymake
-(setq flymake-compiler-jar "/home/kjean/src/ecj-flymake/jars/compiler.jar")
+(setq flymake-compiler-jar (elisp-root "ecj-flymake/jars/compiler.jar"))
 
 (global-set-key [f4] 'flymake-display-err-menu-for-current-line)
 (global-set-key [f3] 'flymake-goto-next-error)

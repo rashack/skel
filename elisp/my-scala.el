@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/src/scala-mode")
+(add-to-list 'load-path (elisp-root "scala-mode"))
 (use-package scala-mode-auto
   :init
   (progn

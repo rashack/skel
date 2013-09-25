@@ -1,5 +1,12 @@
 (defun home-root (path) (concat (getenv "HOME") path))
 
+(defun elisp-root (path)
+  (concat "~/src/elisp/" path "/"))
+
+(defun my-load-use (path pack)
+  (add-to-list 'load-path (elisp-root path))
+  (require pack))
+
 ;; Define C-, and C-. as scoll-up and scroll-down
 (defun scroll-up-one-line ()
   (interactive)
