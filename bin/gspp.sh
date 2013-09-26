@@ -16,7 +16,7 @@ run_command () {
 }
 
 check_add_ssh_key () {
-    local GIT_HOST=$(cat .git/config | grep "url \?= \?ssh://" | \
+    local GIT_HOST=$(grep "url \?= \?ssh://" .git/config | \
 	perl -pe 's|\s*url *= *ssh://([^/]+)/.*|$1|')
     local HOST_KEY=$(sed -ne '/Host '$GIT_HOST'/,/^$/ p' ../.ssh/config | \
 	sed -ne 's/IdentityFile \(.*\)/\1/ p')
