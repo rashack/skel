@@ -23,7 +23,7 @@ check_add_ssh_key () {
     HOST_KEY=${HOST_KEY/\~/$HOME}
     if ! ssh-add -l | grep -q $HOST_KEY ; then
         echo "${YELLOW}Couldn't find $GIT_HOST in ssh-agent, trying to add.${NORMAL}"
-        if [ -f $HOST_KEY ] ; then
+        if ! [ -f $HOST_KEY ] ; then
             echo "${RED}Couldn't find $HOST_KEY, giving up.${NORMAL}"
             exit 1;
         fi
