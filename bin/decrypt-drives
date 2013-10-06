@@ -1,11 +1,41 @@
 #!/bin/bash
 
-function decrypt-and-mount {
-    echo "Creating $2 from $1"
-    sudo /home/kjell/bin/decrypt-drive $1 $2
-    sudo mount /dev/mapper/$2 $3
+source $(dirname $0)/colours.sh
+
+run_command () {
+    echo "$YELLOW$1$NORMAL" >& 2
+    eval $1
+    ERR=$?
+    if [ $ERR -ne 0 ] ; then
+        echo "$1: ${RED}command failed with exit code $ERR$NORMAL"
+        return $ERR
+    fi
 }
 
-decrypt-and-mount /dev/md1 r2t /mnt/r2t
-decrypt-and-mount /dev/md3 r3t /mnt/r3t
-decrypt-and-mount /dev/md4p3 r4t /mnt/r4t
+function decrypt-and-mount {
+    local DEV=$1
+    local NAME=$2
+    local MOUNT_POINT=$3
+    mount | grep -q $NAME
+    if [[ $? -eq 0 ]] ; then
+        echo "${COLY}$NAME already mounted${COLN}"
+    else
+        echo "decrypting $DEV to $NAME"
+        run_command "sudo /home/kjell/bin/decrypt-drive $DEV $NAME"
+        ERR=$?
+        if [[ $ERR -eq 0 ]] ; then
+            echo "[ ${COLG}OK${COLN}  ] decrypt successful"
+            run_command "sudo mount /dev/mapper/$NAME $MOUNT_POINT"
+            ERR=$?
+            if [[ $ERR -eq 0 ]] ; then
+                echo "[ ${COLG}OK${COLN}  ] mount successful"
+            else
+                echo "[ ${COLR}ERR${COLN} ] could not decrypt $NAME, error code: $ERR"
+                return $ERR
+            fi
+        fi
+    fi
+}
+
+decrypt-and-mount /dev/sdb mov-old /mnt/movies/old
+decrypt-and-mount /dev/sdc mov-new /mnt/movies/new
