@@ -20,13 +20,13 @@ function smb-mount () {
     if [[ $? -eq 0 ]] ; then
         echo "${COLY}$2 already mounted${COLN}"
     else
-        echo "mounting $2 on $3"
+        echo "mounting $SMB_SHARE on $MOUNT_POINT"
         mount $SMB_OPTS $SMB_SHARE $MOUNT_POINT
         ERR=$?
         if [[ $ERR -eq 0 ]] ; then
             echo "[ ${COLG}OK${COLN}  ] mount successful"
         else
-            echo "[ ${COLR}ERR${COLN} ] could not mount $2, error code: $ERR"
+            echo "[ ${COLR}ERR${COLN} ] could not mount $SMB_SHARE, error code: $ERR"
             return $ERR
         fi
     fi
