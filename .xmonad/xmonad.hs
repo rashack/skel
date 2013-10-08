@@ -7,6 +7,7 @@ import XMonad.Actions.NoBorders
 import XMonad.Config (defaultConfig)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicLog hiding (xmobar)
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.SetWMName -- for swing applications
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
@@ -14,12 +15,10 @@ import XMonad.Layout
 import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ThreeColumns
-import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Loggers
 import XMonad.Util.Run (spawnPipe)
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
-
 
 -- I want 10 workspaces (at least).
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
@@ -33,7 +32,7 @@ main = do
         h <- spawnPipe ("~/bin/dzen2-status")
         spawn ("~/bin/dzen2-time")
         spawn ("~/bin/dzen2-load")
-        xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
+        xmonad $ ewmh $ withUrgencyHook NoUrgencyHook defaultConfig
          {
            --dzen2
            logHook = dynamicLogWithPP $ defaultPP { ppOutput = hPutStrLn h
