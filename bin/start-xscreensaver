@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pgrep xscreensaver
+pgrep -x xscreensaver
 if [[ 1 -eq $? ]] ; then
     xscreensaver &
 fi
