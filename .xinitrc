@@ -5,11 +5,12 @@ xscreensaver -nosplash &
 imwheel
 xsetroot -solid black
 
-if [ `hostname` = "kjelldesktop" ] ; then
-    xrandr --output HDMI2 --mode 1920x1200  --left-of HDMI1
+if [ `hostname` = "chimp" ] ; then
+    xrandr --output DVI-I-1 --mode 2560x1440 --output DP-1 --mode 2560x1440  --right-of DVI-I-1
 fi
 
-#~/bin/xmod &
+[ $(lsusb | grep -q "Kinesis Advantage") ] || kinesis-x-mod
+
 xmterm &
 
 xmonad 2>&1 > $HOME/.xmonad/log.txt
