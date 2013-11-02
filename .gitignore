@@ -9,3 +9,4 @@ TAGS
 .xmonad/xmonad.hi
 .xmonad/xmonad.o
 .xmonad/log.txt
+bin/xidle
