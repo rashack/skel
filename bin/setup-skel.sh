@@ -20,7 +20,7 @@ ln -s $SKEL_DIR/bin bin
 for x in \
     .bash_profile .bashrc .colordiffrc .conkyrc .emacs .gitconfig .imwheelrc \
     .inputrc .screenrc .vimperatorrc .vimrc .xbindkeysrc .Xdefaults \
-    .xinitrc .Xmodmap .xmonad \
+    .xinitrc .Xmodmap .xmonad .xscreensaver \
     ; do
     link_file $SKEL_DIR $x
 done
