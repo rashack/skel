@@ -32,6 +32,14 @@ else
     CMD="$MPLAYER -vo xv -stop-xscreensaver $OPTS"
 fi
 
+if [[ "$1" =~ .*mp3 ]] ; then
+    if ! [ -f "$1" ] ; then
+        if [ -f "$MUSIC_ROOT/$1" ] ; then
+            set -- "$MUSIC_ROOT/$1" "${@:2}"
+        fi
+    fi
+fi
+
 echo "$CMD $@"
 $CMD "$@"
 
