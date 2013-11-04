@@ -18,14 +18,14 @@ mkdir -p $BACKUP_DIR
 ln -s $SKEL_DIR/bin bin
 
 for x in \
-    .bash_profile .bashrc .colordiffrc .conkyrc .emacs .imwheelrc \
+    .bash_profile .bashrc .colordiffrc .conkyrc .emacs .gitconfig .imwheelrc \
     .inputrc .screenrc .vimperatorrc .vimrc .xbindkeysrc .Xdefaults \
     .xinitrc .Xmodmap .xmonad \
     ; do
     link_file $SKEL_DIR $x
 done
 
-ln -s $SKEL_DIR/.xinitrx .xsession
+ln -s $SKEL_DIR/.xinitrc .xsession
 
 ED=~/.emacs.d
 mkdir -p $ED
