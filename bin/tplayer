@@ -6,13 +6,14 @@ if [ -z $MPLAYER ]; then
 #    MPLAYER="/home/kjell/src/mplayer/r29404/mplayer"
     MPLAYER=mplayer
 fi
+
 #SPDIF="-ao alsa:device=spdif -afm hwac3"
 SPDIF="-ao alsa:device=pt48 -afm hwac3"
 DIGITAL_REGEX=".*d"
 if [[ $0 =~ $DIGITAL_REGEX ]]; then
-    AUDIO_DECODER=$SPDIF
-else
-    AUDIO_DECODER=
+    OPTS="$OPTS $SPDIF"
+elif [[ $0 =~ "qplayer" ]]; then
+    OPTS="$OPTS -nosound"
 fi
 
 if [[ $0 =~ "qplayer" ]]; then
