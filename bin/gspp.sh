@@ -18,6 +18,10 @@ run_command () {
 check_add_ssh_key () {
     local GIT_HOST=$(grep "url \?= \?ssh://" .git/config | \
 	perl -pe 's|\s*url *= *ssh://([^/]+)/.*|$1|')
+    if [ -z $GIT_HOST ] ; then
+        echo "${RED}Couldn't figure out git host.${NORMAL} Do you have a ssh://... in .git/config?"
+        exit 1
+    fi
     local HOST_KEY=$(sed -ne '/Host '$GIT_HOST'/,/^$/ p' ../.ssh/config | \
 	sed -ne 's/IdentityFile \(.*\)/\1/ p')
     HOST_KEY=${HOST_KEY/\~/$HOME}
@@ -25,7 +29,7 @@ check_add_ssh_key () {
         echo "${YELLOW}Couldn't find $GIT_HOST in ssh-agent, trying to add.${NORMAL}"
         if ! [ -f $HOST_KEY ] ; then
             echo "${RED}Couldn't find $HOST_KEY, giving up.${NORMAL}"
-            exit 1;
+            exit 1
         fi
         run_command "ssh-add $HOST_KEY"
     fi
