@@ -16,8 +16,10 @@ elif [[ $0 =~ "qplayer" ]]; then
     OPTS="$OPTS -nosound"
 fi
 
-if [[ $0 =~ "qplayer" ]]; then
-    AUDIO_DECODER="-nosound"
+MPLAYER_SLAVE_FIFO=~/mplayer-slave
+if [[ $0 =~ "splayer" ]]; then
+    mkfifo $MPLAYER_SLAVE_FIFO
+    OPTS="$OPTS -slave -input file=$MPLAYER_SLAVE_FIFO"
 fi
 
 if [[ $0 =~ "vdpau" ]]; then
@@ -27,8 +29,12 @@ if [[ $0 =~ "vdpau" ]]; then
     fi
     CMD="/mnt/raid/kjell/src/mplayer/r31555/mplayer $SPDIF -vo vdpau"
 else
-    CMD="$MPLAYER -vo xv -stop-xscreensaver $AUDIO_DECODER"
+    CMD="$MPLAYER -vo xv -stop-xscreensaver $OPTS"
 fi
 
 echo "$CMD $@"
 $CMD "$@"
+
+# if [ -p $MPLAYER_SLAVE_FIFO ] ; then
+#     rm $MPLAYER_SLAVE_FIFO
+# fi
