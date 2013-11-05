@@ -18,9 +18,11 @@ mkdir -p $BACKUP_DIR
 ln -s $SKEL_DIR/bin bin
 
 for x in \
-    .bash_profile .bashrc .colordiffrc .conkyrc .emacs .gitconfig .imwheelrc \
-    .inputrc .screenrc .vimperatorrc .vimrc .xbindkeysrc .Xdefaults \
-    .xinitrc .Xmodmap .xmonad .xscreensaver \
+    .bash_profile .bashrc .colordiffrc .conkyrc .emacs .gitconfig \
+    .imwheelrc .inputrc \
+    .screenrc .tmux.conf .tmux-default.conf \
+    .vimperatorrc .vimrc \
+    .xbindkeysrc .Xdefaults .xinitrc .Xmodmap .xmonad .xscreensaver \
     ; do
     link_file $SKEL_DIR $x
 done
