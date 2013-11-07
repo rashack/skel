@@ -43,3 +43,4 @@ git clone https://github.com/emacsmirror/icicles.git
 git clone https://github.com/haskell/haskell-mode.git
 git clone https://github.com/fgallina/multi-web-mode.git
 git clone https://github.com/mkmcc/gnuplot-mode.git
+git clone https://github.com/tjarvstrand/edts.git
