@@ -15,7 +15,7 @@ mkdir -p $BACKUP_DIR
 
 #echo $(dirname $0)
 #echo $(dirname $(readlink -e $0))
-ln -s $SKEL_DIR/bin bin
+ln -s $SKEL_DIR/bin
 
 for x in \
     .bash_profile .bashrc .colordiffrc .conkyrc .emacs .gitconfig \
@@ -32,7 +32,7 @@ ln -s $SKEL_DIR/.xinitrc .xsession
 ED=~/.emacs.d
 mkdir -p $ED
 cd $ED
-ln -s ../.skel/elisp elisp
+ln -s ../.skel/elisp
 
 ELD=~/src/elisp
 mkdir -p $ELD
