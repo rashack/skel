@@ -40,3 +40,6 @@ cd $ELD
 git clone https://github.com/jwiegley/use-package.git
 git clone http://www.dr-qubit.org/git/undo-tree.git
 git clone https://github.com/emacsmirror/icicles.git
+git clone https://github.com/haskell/haskell-mode.git
+git clone https://github.com/fgallina/multi-web-mode.git
+git clone https://github.com/mkmcc/gnuplot-mode.git
