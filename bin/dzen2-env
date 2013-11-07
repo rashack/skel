@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DZEN_OPTS=" -fn -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-* -bg #044084"
-DZEN_TIMEBAR_WIDTH=220
+DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
+DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
+DZEN_TIMEBAR_WIDTH=240
 DZEN_STATUS_X=$DZEN_TIMEBAR_WIDTH
 
 case $(hostname) in
@@ -36,6 +37,7 @@ esac
 DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
 DZEN_LOAD_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_STATUS_WIDTH ))
 
+export DZEN_FONT
 export DZEN_OPTS
 export DZEN_TIMEBAR_WIDTH
 export DZEN_STATUS_WIDTH
