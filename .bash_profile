@@ -18,7 +18,12 @@ export EDITOR=vim
 export JAVA_HOME=$HOME/jdk/jdk
 export SCALA_HOME=$HOME/scala/scala
 export JDK_HOME=$JAVA_HOME
-export PATH=$HOME/bin:$JAVA_HOME/bin:$ANDROID_PATH:$SCALA_HOME/bin:$PATH
+
+BIN_PATH=$HOME/bin
+JAVA_PATH=$JAVA_HOME/bin
+SCALA_PATH=$SCALA_HOME/bin
+ERLANG_PATH=~/src/OTP/install/R15B03-1/bin
+export PATH=$BIN_PATH:$ERLANG_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$PATH
 export ENV=$HOME/.bashrc
 export LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
 export IRCSERVER="irc.homelien.no"
