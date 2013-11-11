@@ -9,7 +9,7 @@ if [ `hostname` = "chimp" ] ; then
     xrandr --output DVI-I-1 --mode 2560x1440 --output DP-1 --mode 2560x1440  --right-of DVI-I-1
 fi
 
-[ $(lsusb | grep -q "Kinesis Advantage") ] || kinesis-x-mod
+if $(lsusb | grep -q "Kinesis Advantage") ; then kinesis-x-mod ; fi
 
 xmterm &
 
