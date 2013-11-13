@@ -13,7 +13,7 @@ ANDROID_TOOLS=$ANDROID_SDK_ROOT/tools
 ANDROID_PLATFORM_TOOLS=$ANDROID_SDK_ROOT/platform-tools
 ANDROID_PATH=$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS
 
-export MUSIC_ROOT=/mnt/kjell/music
+export MUSIC_ROOT=/mnt/music
 export EDITOR=vim
 export JAVA_HOME=$HOME/jdk/jdk
 export SCALA_HOME=$HOME/scala/scala
