@@ -2,10 +2,11 @@
 
 DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 DZEN_TIMEBAR_WIDTH=240
-DZEN_STATUS_X=$DZEN_TIMEBAR_WIDTH
 
 case $(hostname) in
     pringle)
+        DZEN_TIMEBAR_WIDTH=$(dzen2-textwidth $DZEN_FONT "Day wNN YYYY-mm-dd HH:MM:SS   ")
+        echo $DZEN_TIMEBAR_WIDTH
 	SCREEN_WIDTH=1920
 	DZEN_STATUS_WIDTH=1320
 	CONKY_IF=eth0
@@ -36,8 +37,8 @@ case $(hostname) in
 	;;
 esac
 
+DZEN_STATUS_X=$DZEN_TIMEBAR_WIDTH
 DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
-
 DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
 DZEN_LOAD_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_STATUS_WIDTH ))
 
