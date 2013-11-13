@@ -5,19 +5,20 @@ DZEN_TIMEBAR_WIDTH=240
 DATEFMT="Day wNN YYYY-mm-dd HH:MM:SS   "
 
 textwidth () {
+    TEXT="$1"
     case $(hostname) in
 	baboon)
-	    echo $(( ${#1} * 8 ))
+	    echo $(( ${#TEXT} * 8 ))
 	    ;;
 	*)
-	    dzen2-textwidth $DZEN_FONT $1
+	    dzen2-textwidth $DZEN_FONT "$TEXT"
 	    ;;
     esac
 }
 
 case $(hostname) in
     pringle)
-	DZEN_TIMEBAR_WIDTH=$(textwidth $DATEFMT)
+	DZEN_TIMEBAR_WIDTH=$(textwidth "$DATEFMT")
 	SCREEN_WIDTH=1920
 	DZEN_STATUS_WIDTH=1320
 	CONKY_IF=eth0
@@ -40,7 +41,6 @@ case $(hostname) in
 	;;
     baboon)
 	DZEN_TIMEBAR_WIDTH=$(textwidth "$DATEFMT")
-	echo width=$DZEN_TIMEBAR_WIDTH
 	SCREEN_WIDTH=1366
 	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlan0
@@ -51,7 +51,7 @@ case $(hostname) in
 esac
 
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
-DZEN_IDLE_WIDTH=$(textwidth "[SSSSS]")
+DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
 DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
 DZEN_LOAD_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_STATUS_WIDTH ))

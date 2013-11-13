@@ -7,10 +7,9 @@ TIMEOUT=1
 get_time () {
     while :; do
 	DATE=$(date +"%a w%V %Y-%m-%d %H:%M:%S")
-	IDLE=$(~/bin/xidle.sh)
-	echo "^fg(orange)$DATE^fg() [$IDLE]"
+	echo "^fg(orange)$DATE^fg()"
 	sleep $TIMEOUT
     done
 }
 
-get_time | dzen2 -w $DZEN_TIMEBAR_WIDTH -ta l $DZEN_OPTS
+get_time | dzen2 -w $DZEN_TIMEBAR_WIDTH -ta c $DZEN_OPTS

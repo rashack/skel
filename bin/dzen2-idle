@@ -7,7 +7,7 @@ TIMEOUT=1
 get_idle () {
     while :; do
         IDLE=$(~/bin/xidle.sh)
-        echo "$IDLE"
+        echo "<$IDLE>"
         sleep $TIMEOUT
     done
 }
