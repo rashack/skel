@@ -26,11 +26,9 @@ myTitleFgColor = "white"
 
 main :: IO ()
 main = do
-          --xmobar
-          --xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
-        --dzen2
         h <- spawnPipe ("~/bin/dzen2-status")
         spawn ("~/bin/dzen2-time")
+        spawn ("~/bin/dzen2-idle")
         spawn ("~/bin/dzen2-load")
         xmonad $ ewmh $ withUrgencyHook NoUrgencyHook defaultConfig
          {
@@ -85,7 +83,8 @@ main = do
              [ ((controlMask .|. modm, xK_Right), nextWS)
              , ((controlMask .|. modm, xK_Left),  prevWS)
              , ((modm, xK_b     ), sendMessage $ ToggleGaps)
---	     , ((modm, xK_q     ), broadcastMessage ReleaseResources >> restart "xmonad" True) -- %! Restart xmonad
+	     , ((modm, xK_q     ), broadcastMessage ReleaseResources >> restart "xmonad" True)
+--	     , ((modm, xK_r     ), spawn "killall dzen2 && xmonad --recompile && xmonad --restart")
 	     , ((modm, xK_g ),   withFocused toggleBorder)
 	      ]
 	      ++

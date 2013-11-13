@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source $HOME/bin/dzen2-env
+
+TIMEOUT=1
+
+get_idle () {
+    while :; do
+        IDLE=$(~/bin/xidle.sh)
+        echo "$IDLE"
+        sleep $TIMEOUT
+    done
+}
+
+get_idle | dzen2 -x $DZEN_IDLE_X -w $DZEN_IDLE_WIDTH -ta c $DZEN_OPTS

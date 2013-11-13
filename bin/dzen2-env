@@ -2,11 +2,22 @@
 
 DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 DZEN_TIMEBAR_WIDTH=240
+DATEFMT="Day wNN YYYY-mm-dd HH:MM:SS   "
+
+textwidth () {
+    case $(hostname) in
+	baboon)
+	    echo $(( ${#1} * 8 ))
+	    ;;
+	*)
+	    dzen2-textwidth $DZEN_FONT $1
+	    ;;
+    esac
+}
 
 case $(hostname) in
     pringle)
-        DZEN_TIMEBAR_WIDTH=$(dzen2-textwidth $DZEN_FONT "Day wNN YYYY-mm-dd HH:MM:SS   ")
-        echo $DZEN_TIMEBAR_WIDTH
+	DZEN_TIMEBAR_WIDTH=$(textwidth $DATEFMT)
 	SCREEN_WIDTH=1920
 	DZEN_STATUS_WIDTH=1320
 	CONKY_IF=eth0
@@ -28,6 +39,8 @@ case $(hostname) in
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
     baboon)
+	DZEN_TIMEBAR_WIDTH=$(textwidth "$DATEFMT")
+	echo width=$DZEN_TIMEBAR_WIDTH
 	SCREEN_WIDTH=1366
 	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlan0
@@ -37,17 +50,29 @@ case $(hostname) in
 	;;
 esac
 
-DZEN_STATUS_X=$DZEN_TIMEBAR_WIDTH
-DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
+DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
+DZEN_IDLE_WIDTH=$(textwidth "[SSSSS]")
+DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
 DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
 DZEN_LOAD_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_STATUS_WIDTH ))
+DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
 
 export DZEN_FONT
 export DZEN_OPTS
 export DZEN_TIMEBAR_WIDTH
-export DZEN_STATUS_WIDTH
+export DZEN_IDLE_X
+export DZEN_IDLE_WIDTH
 export DZEN_STATUS_X
+export DZEN_STATUS_WIDTH
 export DZEN_LOAD_X
 export DZEN_LOAD_WIDTH
 export CONKY_IF
 export CONKY_EXTRA
+
+# echo "DZEN_TIMEBAR_WIDTH $DZEN_TIMEBAR_WIDTH"
+# echo "DZEN_IDLE_X $DZEN_IDLE_X"
+# echo "DZEN_IDLE_WIDTH $DZEN_IDLE_WIDTH"
+# echo "DZEN_STATUS_X $DZEN_STATUS_X"
+# echo "DZEN_STATUS_WIDTH $DZEN_STATUS_WIDTH"
+# echo "DZEN_LOAD_X $DZEN_LOAD_X"
+# echo "DZEN_LOAD_WIDTH $DZEN_LOAD_WIDTH"
