@@ -1,6 +1,7 @@
 (add-to-list 'load-path "/usr/share/common-lisp/source/slime/")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
 (add-to-list 'load-path "/usr/share/common-lisp/source/slime/")
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(require 'slime)
-(slime-setup)
+(use-package slime
+  :init
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (slime-setup))
