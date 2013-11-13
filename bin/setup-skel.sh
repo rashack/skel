@@ -12,6 +12,7 @@ link_file () {
 
 cd
 mkdir -p $BACKUP_DIR
+mkdir -p ~/.ssh
 
 #echo $(dirname $0)
 #echo $(dirname $(readlink -e $0))
