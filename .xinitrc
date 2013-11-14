@@ -8,6 +8,9 @@ xsetroot -solid black
 case `hostname` in
     chimp)
 	xrandr --output DVI-I-1 --mode 2560x1440 --output DP-1 --mode 2560x1440  --right-of DVI-I-1
+        MOUSE_ID=$(xinput list | grep -i "ThinkPad USB Laser Mouse" | awk -F= '{ print $2}' | awk '{print $1}')
+        #MOUSE_ID=$(xinput list | grep -i "ThinkPad USB Laser Mouse" | perl -pe 's/.*id=(\d+).*/$1/')
+        xinput set-button-map $MOUSE_ID 1 2 3 4 5 8 9 6 7 10 11 12 13
 	;;
     baboon)
 	setxkbmap -option -option ctrl:nocaps se
