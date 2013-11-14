@@ -19,11 +19,25 @@ mkdir -p ~/.ssh
 ln -s $SKEL_DIR/bin
 
 for x in \
-    .bash_profile .bashrc .colordiffrc .conkyrc .emacs .gitconfig \
-    .imwheelrc .inputrc \
-    .screenrc .tmux.conf .tmux-default.conf \
-    .vimperatorrc .vimrc \
-    .xbindkeysrc .Xdefaults .xinitrc .Xmodmap .xmonad .xscreensaver \
+    .Xdefaults \
+    .Xmodmap \
+    .bash_profile \
+    .bashrc \
+    .colordiffrc \
+    .conkyrc \
+    .emacs \
+    .gitconfig \
+    .imwheelrc \
+    .inputrc \
+    .screenrc \
+    .tmux-default.conf \
+    .tmux.conf \
+    .vimperatorrc \
+    .vimrc \
+    .xbindkeysrc \
+    .xinitrc \
+    .xmonad \
+    .xscreensaver \
     ; do
     link_file $SKEL_DIR $x
 done
