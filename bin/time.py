@@ -25,7 +25,7 @@ def timedeltastring (td):
     return '%02d:%02d:%02d' % (hours, minutes, seconds)
 
 def ts2datestr (timestruct):
-    return date.fromtimestamp (time.mktime (t0)).strftime ('%Y-%m-%d')
+    return date.fromtimestamp (time.mktime (timestruct)).strftime ('%Y-%m-%d')
 
 def ts2timestr (ts):
     return datetime.fromtimestamp (time.mktime (ts)).strftime ('%H:%M:%S')
@@ -41,7 +41,7 @@ def daylength (t0, t1):
     return tt2dt (t1) - tt2dt (t0)
 
 def print_day_sum (t0, daytime, daystart, dayend):
-    thedate = date.fromtimestamp (time.mktime (t0)).strftime ('%Y-%m-%d')
+    thedate = ts2datestr (t0)
     totaltime = timedeltastring (timedelta (seconds=daytime))
     print thedate, totaltime, daytimes (daystart, dayend), daylength (daystart, dayend)
 
