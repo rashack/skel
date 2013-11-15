@@ -17,7 +17,7 @@ def day (t0):
     return t0[2]
 
 def timediffstr (t0, t1):
-    return datetime (*t1[0:6]) - datetime (*t0[0:6])
+    return tt2dt (t1) - tt2dt (t0)
 
 def timedeltastring (td):
     hours, remainder = divmod (td.seconds, 3600)
@@ -33,10 +33,17 @@ def ts2timestr (ts):
 def daytimes (ts0, ts1):
     return '[' + ts2timestr (ts0) + ' - ' + ts2timestr (ts1) + ']'
 
+# timetuple -> datetime
+def tt2dt (tt):
+    return datetime (*tt[0:6])
+
+def daylength (t0, t1):
+    return tt2dt (t1) - tt2dt (t0)
+
 def print_day_sum (t0, daytime, daystart, dayend):
     thedate = date.fromtimestamp (time.mktime (t0)).strftime ('%Y-%m-%d')
     totaltime = timedeltastring (timedelta (seconds=daytime))
-    print thedate, totaltime, daytimes (daystart, dayend)
+    print thedate, totaltime, daytimes (daystart, dayend), daylength (daystart, dayend)
 
 f = open(argv[1], 'r')
 line = f.readline ().split ()
