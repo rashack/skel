@@ -45,6 +45,7 @@ if line[1] == 'OUT': # If the first line of the file is an OUT, ignore it.
 prev = None
 daytime = 0
 daystart = str2time (line[0])
+res = []
 while line:
     if prev is not None:
         t0 = str2time (prev[0])
@@ -64,7 +65,7 @@ while line:
                 daystart = date (t1[0], t1[1], t1[2]).timetuple ()
             else:
                 dayend = t0
-                print_day_sum (t0, daytime, daystart, dayend)
+                res.append ((t0, daytime, daystart, dayend))
                 daytime = 0
                 daystart = t1
         elif prev[1] == 'IN':
@@ -74,4 +75,7 @@ while line:
 if prev[1] == 'IN': # still logged in it seems, use present time
     daytime += time_diff (t1, time.localtime ())
     t1 = time.localtime ()
-print_day_sum (t0, daytime, daystart, t1)
+res.append((t0, daytime, daystart, t1))
+
+for days in res:
+    print_day_sum (*days)
