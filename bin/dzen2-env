@@ -51,7 +51,7 @@ case $(hostname) in
 	;;
 esac
 
-CONKY_LOAD_STR="^fg(white) CPU:\${cpu}% Mem:\${memperc}% Swap:\${swapperc}% $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA ^fg()"
+CONKY_LOAD_STR="CPU:\${cpu}% Mem:\${memperc}% Swap:\${swapperc}% $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA"
 
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
