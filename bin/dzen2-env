@@ -6,7 +6,7 @@ textwidth () {
     TEXT="$1"
     case $ARCH in
 	arch)
-	    echo $(( ${#TEXT} * 8 ))
+	    echo $(( ${#TEXT} * 7 ))
 	    ;;
 	debian)
 	    dzen2-textwidth $DZEN_FONT "$TEXT"
@@ -25,41 +25,39 @@ esac
 
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS   ")
 DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
-CONKY_LOAD_STR="^fg(white) CPU: \${cpu}% | Mem: \${memperc}% Swap: \${swapperc}% | $CONKY_IF: \${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA ^fg()"
 
 case $(hostname) in
     pringle)
 	SCREEN_WIDTH=1920
-	DZEN_STATUS_WIDTH=1320
 	CONKY_IF=eth0
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
     chimp)
 	SCREEN_WIDTH=2560
-	DZEN_STATUS_WIDTH=1920
 	CONKY_IF=eth1
 	DZEN_OPTS="$DZEN_OPTS -xs 0"
 	;;
     tp)
 	SCREEN_WIDTH=1280
-	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlp2s0
-	CONKY_EXTRA=' | bat: ${battery_short}'
+	CONKY_EXTRA=' Bat: ${battery_short}'
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
     baboon)
 	SCREEN_WIDTH=1366
-	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlan0
-	CONKY_EXTRA=' | bat: ${battery_short}'
+	CONKY_EXTRA=' Bat: ${battery_short}'
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
 esac
 
+CONKY_LOAD_STR="^fg(white) CPU:\${cpu}% Mem:\${memperc}% Swap:\${swapperc}% $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA ^fg()"
+
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
-DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
-DZEN_LOAD_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_STATUS_WIDTH ))
+DZEN_LOAD_WIDTH=$(textwidth "CPU:100% Mem:100% Swap:100% $CONKY_IF: 0.1234KiB/0.1234KiB $CONKY_EXTRA")
+DZEN_STATUS_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_LOAD_WIDTH ))
+DZEN_LOAD_X=$(( $SCREEN_WIDTH - $DZEN_LOAD_WIDTH ))
 DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
 
 export DZEN_FONT
