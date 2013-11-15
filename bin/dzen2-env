@@ -1,24 +1,34 @@
 #!/bin/bash
 
-DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
-DZEN_TIMEBAR_WIDTH=240
-DATEFMT="Day wNN YYYY-mm-dd HH:MM:SS   "
+ARCH=$(source /etc/os-release ; echo $ID)
 
 textwidth () {
     TEXT="$1"
-    case $(hostname) in
-	baboon)
+    case $ARCH in
+	arch)
 	    echo $(( ${#TEXT} * 8 ))
 	    ;;
-	*)
+	debian)
 	    dzen2-textwidth $DZEN_FONT "$TEXT"
 	    ;;
     esac
 }
 
+case $ARCH in
+    arch)
+	DZEN_FONT="-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
+	;;
+    debian)
+	DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
+	;;
+esac
+
+DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS   ")
+DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
+CONKY_LOAD_STR="^fg(white) CPU: \${cpu}% | Mem: \${memperc}% Swap: \${swapperc}% | $CONKY_IF: \${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA ^fg()"
+
 case $(hostname) in
     pringle)
-	DZEN_TIMEBAR_WIDTH=$(textwidth "$DATEFMT")
 	SCREEN_WIDTH=1920
 	DZEN_STATUS_WIDTH=1320
 	CONKY_IF=eth0
@@ -28,30 +38,25 @@ case $(hostname) in
 	SCREEN_WIDTH=2560
 	DZEN_STATUS_WIDTH=1920
 	CONKY_IF=eth1
-	DZEN_FONT="-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
 	DZEN_OPTS="$DZEN_OPTS -xs 0"
 	;;
     tp)
 	SCREEN_WIDTH=1280
 	DZEN_STATUS_WIDTH=650
-	CONKY_IF=wlan0
-	DZEN_FONT="-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
+	CONKY_IF=wlp2s0
 	CONKY_EXTRA=' | bat: ${battery_short}'
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
     baboon)
-	DZEN_TIMEBAR_WIDTH=$(textwidth "$DATEFMT")
 	SCREEN_WIDTH=1366
 	DZEN_STATUS_WIDTH=650
 	CONKY_IF=wlan0
-	DZEN_FONT="-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
 	CONKY_EXTRA=' | bat: ${battery_short}'
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
 esac
 
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
-DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
 DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
 DZEN_LOAD_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_STATUS_WIDTH ))
@@ -68,11 +73,4 @@ export DZEN_LOAD_X
 export DZEN_LOAD_WIDTH
 export CONKY_IF
 export CONKY_EXTRA
-
-# echo "DZEN_TIMEBAR_WIDTH $DZEN_TIMEBAR_WIDTH"
-# echo "DZEN_IDLE_X $DZEN_IDLE_X"
-# echo "DZEN_IDLE_WIDTH $DZEN_IDLE_WIDTH"
-# echo "DZEN_STATUS_X $DZEN_STATUS_X"
-# echo "DZEN_STATUS_WIDTH $DZEN_STATUS_WIDTH"
-# echo "DZEN_LOAD_X $DZEN_LOAD_X"
-# echo "DZEN_LOAD_WIDTH $DZEN_LOAD_WIDTH"
+export CONKY_LOAD_STR
