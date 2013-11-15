@@ -8,7 +8,7 @@ textwidth () {
 	arch)
 	    echo $(( ${#TEXT} * 7 ))
 	    ;;
-	debian)
+	debian|linuxmint)
 	    dzen2-textwidth $DZEN_FONT "$TEXT"
 	    ;;
     esac
@@ -18,7 +18,7 @@ case $ARCH in
     arch)
 	DZEN_FONT="-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
 	;;
-    debian)
+    debian|linuxmint)
 	DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 	;;
 esac
