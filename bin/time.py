@@ -19,17 +19,21 @@ def day (t0):
 def timediffstr (t0, t1):
     return tt2dt (t1) - tt2dt (t0)
 
+# timedelta -> string
 def timedeltastring (td):
     hours, remainder = divmod (td.seconds, 3600)
     minutes, seconds = divmod (remainder, 60)
     return '%02d:%02d:%02d' % (hours, minutes, seconds)
 
+# timestruct -> date
 def ts2datestr (timestruct):
     return date.fromtimestamp (time.mktime (timestruct)).strftime ('%Y-%m-%d')
 
+# timestruct -> string
 def ts2timestr (ts):
     return datetime.fromtimestamp (time.mktime (ts)).strftime ('%H:%M:%S')
 
+# timestruct -> string
 def daytimes (ts0, ts1):
     return '[' + ts2timestr (ts0) + ' - ' + ts2timestr (ts1) + ']'
 
@@ -43,7 +47,8 @@ def daylength (t0, t1):
 def print_day_sum (t0, daytime, daystart, dayend):
     thedate = ts2datestr (t0)
     totaltime = timedeltastring (timedelta (seconds=daytime))
-    print thedate, totaltime, daytimes (daystart, dayend), daylength (daystart, dayend)
+    dl = timedeltastring (daylength (daystart, dayend))
+    print thedate, totaltime, daytimes (daystart, dayend), dl
 
 def parse_timestamp_file (filename):
     f = open(filename, 'r')
