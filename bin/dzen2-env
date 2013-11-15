@@ -23,7 +23,7 @@ case $ARCH in
 	;;
 esac
 
-DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS   ")
+DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
 
 case $(hostname) in
