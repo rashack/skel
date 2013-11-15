@@ -45,44 +45,46 @@ def print_day_sum (t0, daytime, daystart, dayend):
     totaltime = timedeltastring (timedelta (seconds=daytime))
     print thedate, totaltime, daytimes (daystart, dayend), daylength (daystart, dayend)
 
-f = open(argv[1], 'r')
-line = f.readline ().split ()
-if line[1] == 'OUT': # If the first line of the file is an OUT, ignore it.
+def parse_timestamp_file (filename):
+    f = open(filename, 'r')
     line = f.readline ().split ()
-prev = None
-daytime = 0
-daystart = str2time (line[0])
-res = []
-while line:
-    if prev is not None:
-        t0 = str2time (prev[0])
-        if len (line) == 2:
-            t1 = str2time (line[0])
-        else:
-            t1 = time.localtime ()
-            print t1[2]
-        if day (t0) != day (t1): # new day
-            if line[1] == 'OUT': # stayed logged in past midnight
-                daytime += time_diff (t0, (date (t0[0], t0[1],
-                                                 t0[2]) + timedelta (days=1)).timetuple ())
-                dayend = date (t1[0], t1[1], t1[2]).timetuple ()
-                print_day_sum (t0, daytime, daystart, dayend)
-                # since logged in past midnight, start at OUT time instead of 0
-                daytime = time_diff (date (t1[0], t1[1], t1[2]).timetuple (), t1)
-                daystart = date (t1[0], t1[1], t1[2]).timetuple ()
+    if line[1] == 'OUT': # If the first line of the file is an OUT, ignore it.
+        line = f.readline ().split ()
+    prev = None
+    daytime = 0
+    daystart = str2time (line[0])
+    res = []
+    while line:
+        if prev is not None:
+            t0 = str2time (prev[0])
+            if len (line) == 2:
+                t1 = str2time (line[0])
             else:
-                dayend = t0
-                res.append ((t0, daytime, daystart, dayend))
-                daytime = 0
-                daystart = t1
-        elif prev[1] == 'IN':
-            daytime += time_diff (t0, t1)
-    prev = line
-    line = f.readline ().split ()
-if prev[1] == 'IN': # still logged in it seems, use present time
-    daytime += time_diff (t1, time.localtime ())
-    t1 = time.localtime ()
-res.append((t0, daytime, daystart, t1))
+                t1 = time.localtime ()
+                print t1[2]
+            if day (t0) != day (t1): # new day
+                if line[1] == 'OUT': # stayed logged in past midnight
+                    daytime += time_diff (t0, (date (t0[0], t0[1],
+                                                     t0[2]) + timedelta (days=1)).timetuple ())
+                    dayend = date (t1[0], t1[1], t1[2]).timetuple ()
+                    print_day_sum (t0, daytime, daystart, dayend)
+                    # since logged in past midnight, start at OUT time instead of 0
+                    daytime = time_diff (date (t1[0], t1[1], t1[2]).timetuple (), t1)
+                    daystart = date (t1[0], t1[1], t1[2]).timetuple ()
+                else:
+                    dayend = t0
+                    res.append ((t0, daytime, daystart, dayend))
+                    daytime = 0
+                    daystart = t1
+            elif prev[1] == 'IN':
+                daytime += time_diff (t0, t1)
+        prev = line
+        line = f.readline ().split ()
+    if prev[1] == 'IN': # still logged in it seems, use present time
+        daytime += time_diff (t1, time.localtime ())
+        t1 = time.localtime ()
+    res.append((t0, daytime, daystart, t1))
+    return res
 
-for days in res:
-    print_day_sum (*days)
+for day in parse_timestamp_file (argv[1]):
+    print_day_sum (*day)
