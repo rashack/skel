@@ -12,8 +12,9 @@ case `hostname` in
         #MOUSE_ID=$(xinput list | grep -i "ThinkPad USB Laser Mouse" | perl -pe 's/.*id=(\d+).*/$1/')
         xinput set-button-map $MOUSE_ID 1 2 3 4 5 8 9 6 7 10 11 12 13
 	;;
-    baboon)
+    tp|baboon)
 	setxkbmap -option -option ctrl:nocaps se
+	synclient MaxTapTime=0
 	;;
 esac
 
