@@ -60,7 +60,7 @@ export GTAGSLIBPATH="$HERCULES_SRC_HOME:$HERCULES_MODULES_SRC_HOME:$TD_TRUNK_SRC
 export KRED_POLL=true
 export DIALYZER_PLT=$HOME/src/OTP/install/R15B03-1/dialyzer.plt
 
-OS_ID=$(source /etc/os-release ; echo $ID)
+export OS_ID=$(source /etc/os-release ; echo $ID)
 
 case $OS_ID in
     arch)
