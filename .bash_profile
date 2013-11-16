@@ -30,7 +30,20 @@ export ENV=$HOME/.bashrc
 # from eval $(dircolors -b)
 # replaced   bd=40;33;01:cd=40;33;01:di=01;34:ex=01;32  :ln=01;36  :so=01;35:
 # with these bd=44;37   :cd=44;37   :di=32   :ex=35:fi=0:ln=36:no=0:so=33:
-export LS_COLORS='bd=44;37:ca=30;41:cd=44;37:di=32:do=01;35:ex=35:fi=0:ln=36:mh=00:no=0:or=40;31;01:ow=34;42:pi=40;33:rs=0:sg=30;43:so=33:st=37;44:su=37;41:tw=30;42:*.7z=31:*.Z=31:*.aac=00;36:*.ace=31:*.anx=01;35:*.arj=31:*.asf=01;35:*.au=00;36:*.avi=01;35:*.axa=00;36:*.axv=01;35:*.bmp=01;35:*.bz2=31:*.bz=31:*.cgm=01;35:*.cpio=31:*.deb=31:*.dl=01;35:*.dz=31:*.ear=31:*.emf=01;35:*.flac=00;36:*.flc=01;35:*.fli=01;35:*.flv=01;35:*.gif=01;35:*.gl=01;35:*.gz=31:*.jar=31:*.jpeg=01;35:*.jpg=01;35:*.lz=31:*.lzh=31:*.lzma=31:*.m2v=01;35:*.m4v=01;35:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp3=00;36:*.mp4=01;35:*.mp4v=01;35:*.mpc=00;36:*.mpeg=01;35:*.mpg=01;35:*.nuv=01;35:*.oga=00;36:*.ogg=00;36:*.ogm=01;35:*.ogv=01;35:*.ogx=01;35:*.pbm=01;35:*.pcx=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.qt=01;35:*.ra=00;36:*.rar=31:*.rm=01;35:*.rmvb=01;35:*.rpm=31:*.rz=31:*.sar=31:*.spx=00;36:*.svg=01;35:*.svgz=01;35:*.tar=31:*.taz=31:*.tbz2=31:*.tbz=31:*.tga=01;35:*.tgz=31:*.tif=01;35:*.tiff=01;35:*.tlz=31:*.txz=31:*.tz=31:*.vob=01;35:*.war=31:*.wav=00;36:*.webm=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.xspf=00;36:*.xwd=01;35:*.xz=31:*.yuv=01;35:*.z=31:*.zip=31:*.zoo=31'
+LS_COLORS="bd=44;37:ca=30;41:cd=44;37:di=32:ex=35:fi=0:ln=36:mh=00:no=0:\
+or=40;31;01:ow=34;42:pi=40;33:rs=0:sg=30;43:so=33:st=37;44:su=37;41:tw=30;42:"
+LS_C_ARCHIVES=$(echo {*.7z,*.Z,*.ace,*.arj,*.bz2,*.bz,*.cpio,*.deb,*.dz,\
+*.ear,*.gz,*.jar,*.lz,*.lzh,*.lzma,*.rar,*.rpm,*.rz,*.sar,*.tar,*.taz,*.tbz2,\
+*.tbz,*.tgz,*.tlz,*.txz,*.tz,*.war,*.xz,*.z,*.zip,*.zoo}'=31:')
+LS_C_AUD=$(echo {*.aac,*.au,*.axa,*.flac,*.mid,*.midi,*.mka,*.mp3,*.mpc,\
+*.oga,*.ogg,*.ra,*.spx,*.wav,*.xspf}'=00;36:')
+LS_C_IMG=$(echo {do,*.anx,*.asf,*.avi,*.axv,*.bmp,*.cgm,*.dl,*.flv,*.m4v,\
+*.pcx,*.ppm,*.emf,*.flc,*.fli,*.gif,*.gl,*.jpeg,*.jpg,*.m2v,*.mkv,*.mng,\
+*.mov,*.mp4,*.mp4v,*.mpeg,*.mpg,*.nuv,*.ogm,*.ogv,*.ogx,*.pbm,*.pgm,*.png,\
+*.qt,*.rm,*.rmvb,*.svg,*.svgz,*.tga,*.tif,*.tiff,*.vob,*.webm,*.wmv,*.xbm,\
+*.xcf,*.xpm,*.xwd,*.yuv}'=01;35:')
+LS_C_EXTRA=$LS_C_ARCHIVES$LS_C_AUD$LS_C_IMG
+export LS_COLORS=$LS_COLORS${LS_C_EXTRA// /}
 
 export IRCSERVER="irc.homelien.no"
 
