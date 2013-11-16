@@ -26,7 +26,12 @@ SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
 ERLANG_PATH=~/src/OTP/install/R15B03-1/bin
 export PATH=$BIN_PATH:$ERLANG_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$PATH
 export ENV=$HOME/.bashrc
-export LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
+
+# from eval $(dircolors -b)
+# replaced   bd=40;33;01:cd=40;33;01:di=01;34:ex=01;32  :ln=01;36  :pi=40;33:so=01;35:
+# with these bd=44;37   :cd=44;37   :di=32   :ex=35:fi=0:ln=36:no=0:pi=31   :so=33:
+export LS_COLORS='bd=44;37:ca=30;41:cd=44;37:di=32:do=01;35:ex=35:fi=0:ln=36:mh=00:no=0:or=40;31;01:ow=34;42:pi=31:rs=0:sg=30;43:so=33:st=37;44:su=37;41:tw=30;42:*.7z=01;31:*.Z=01;31:*.aac=00;36:*.ace=01;31:*.anx=01;35:*.arj=01;31:*.asf=01;35:*.au=00;36:*.avi=01;35:*.axa=00;36:*.axv=01;35:*.bmp=01;35:*.bz2=01;31:*.bz=01;31:*.cgm=01;35:*.cpio=01;31:*.deb=01;31:*.dl=01;35:*.dz=01;31:*.ear=01;31:*.emf=01;35:*.flac=00;36:*.flc=01;35:*.fli=01;35:*.flv=01;35:*.gif=01;35:*.gl=01;35:*.gz=01;31:*.jar=01;31:*.jpeg=01;35:*.jpg=01;35:*.lz=01;31:*.lzh=01;31:*.lzma=01;31:*.m2v=01;35:*.m4v=01;35:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mkv=01;35:*.mng=01;35:*.mov=01;35:*.mp3=00;36:*.mp4=01;35:*.mp4v=01;35:*.mpc=00;36:*.mpeg=01;35:*.mpg=01;35:*.nuv=01;35:*.oga=00;36:*.ogg=00;36:*.ogm=01;35:*.ogv=01;35:*.ogx=01;35:*.pbm=01;35:*.pcx=01;35:*.pgm=01;35:*.png=01;35:*.ppm=01;35:*.qt=01;35:*.ra=00;36:*.rar=01;31:*.rm=01;35:*.rmvb=01;35:*.rpm=01;31:*.rz=01;31:*.sar=01;31:*.spx=00;36:*.svg=01;35:*.svgz=01;35:*.tar=01;31:*.taz=01;31:*.tbz2=01;31:*.tbz=01;31:*.tga=01;35:*.tgz=01;31:*.tif=01;35:*.tiff=01;35:*.tlz=01;31:*.txz=01;31:*.tz=01;31:*.vob=01;35:*.war=01;31:*.wav=00;36:*.webm=01;35:*.wmv=01;35:*.xbm=01;35:*.xcf=01;35:*.xpm=01;35:*.xspf=00;36:*.xwd=01;35:*.xz=01;31:*.yuv=01;35:*.z=01;31:*.zip=01;31:*.zoo=01;31'
+
 export IRCSERVER="irc.homelien.no"
 
 export HISTCONTROL=ignoredups:erasedups
@@ -34,8 +39,6 @@ export HISTSIZE=1048576
 export HISTFILESIZE=1048576
 #export PROMPT_COMMAND="history -a; history -c; history -r"
 export SVN=http://dev01/repository
-
-export LS_COLORS='no=0:fi=0:di=32:ln=36:pi=31:so=33:bd=44;37:cd=44;37:ex=35'
 export IRCSERVER="irc.homelien.no"
 export JDK_HOME="$JAVA_HOME"
 export ORACLE_HOME=~/oracle/ora_home
