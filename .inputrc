@@ -9,3 +9,4 @@ set show-all-if-ambiguous on
 set visible-stats on
 set mark-symlinked-directories on
 set completion-ignore-case on
+"\e\C-l":"\C-e | less\C-m"
