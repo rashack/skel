@@ -13,10 +13,11 @@ textwidth () {
 }
 
 case $OS_ID in
-    arch)
-	DZEN_FONT="-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*"
+    arch|linuxmint)
+	DZEN_FONT="-*-terminus-*-*-*-*-12-*-*-*-*-*-iso8859-*"
+#	DZEN_FONT="-misc-fixed-medium-r-semicondensed--12-*-*-*-*-*-*-*"
 	;;
-    debian|linuxmint)
+    debian)
 	DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 	;;
 esac
