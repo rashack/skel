@@ -22,7 +22,7 @@ check_add_ssh_key () {
         echo "${RED}Couldn't figure out git host.${NORMAL} Do you have a ssh://... in .git/config?"
         exit 1
     fi
-    local HOST_KEY=$(sed -ne '/Host '$GIT_HOST'/,/^$/ p' ../.ssh/config | \
+    local HOST_KEY=$(sed -ne '/Host '$GIT_HOST'/,/^$/ p' ~/.ssh/config | \
 	sed -ne 's/IdentityFile \(.*\)/\1/ p')
     HOST_KEY=${HOST_KEY/\~/$HOME}
     if ! ssh-add -l | grep -q $HOST_KEY ; then
