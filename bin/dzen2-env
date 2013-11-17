@@ -24,27 +24,24 @@ esac
 
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
+CONKY_IF=$(ip r | sed -n 's/default via.*dev \(.*\)/\1/ p')
 
 case $(hostname) in
     pringle)
 	SCREEN_WIDTH=1920
-	CONKY_IF=eth0
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
     chimp)
 	SCREEN_WIDTH=2560
-	CONKY_IF=eth1
 	DZEN_OPTS="$DZEN_OPTS -xs 0"
 	;;
     tp)
 	SCREEN_WIDTH=1280
-	CONKY_IF=wlp2s0
 	CONKY_EXTRA=' Bat: ${battery_short}'
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
     baboon)
 	SCREEN_WIDTH=1366
-	CONKY_IF=wlan0
 	CONKY_EXTRA=' Bat: ${battery_short}'
 	DZEN_OPTS="$DZEN_OPTS -xs 1"
 	;;
