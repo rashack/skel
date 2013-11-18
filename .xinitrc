@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+
 xrdb -merge ~/.Xdefaults
 xbindkeys
 xscreensaver -nosplash &
@@ -22,4 +23,4 @@ if $(lsusb | grep -q "Kinesis Advantage") ; then kinesis-x-mod ; fi
 
 xmterm &
 
-xmonad 2>&1 > $HOME/.xmonad/log.txt
+exec xmonad 2>&1 > $HOME/.xmonad/log.txt
