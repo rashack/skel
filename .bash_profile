@@ -58,8 +58,6 @@ export HISTTIMEFORMAT="%F %T "
 export KRED_POLL=true
 export DIALYZER_PLT=$HOME/src/OTP/install/R15B03-1/dialyzer.plt
 
-export OS_ID=$(source /etc/os-release ; echo $ID)
-
 case $OS_ID in
     arch)
         export LESSOPEN="| source-highlight-esc.sh %s"
