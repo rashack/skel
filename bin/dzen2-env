@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OS_ID=$(source /etc/os-release ; echo $ID)
+
 textwidth () {
     TEXT="$1"
     case $OS_ID in
