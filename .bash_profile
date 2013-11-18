@@ -41,7 +41,7 @@ LS_C_IMG=$(echo {do,*.anx,*.asf,*.avi,*.axv,*.bmp,*.cgm,*.dl,*.flv,*.m4v,\
 *.pcx,*.ppm,*.emf,*.flc,*.fli,*.gif,*.gl,*.jpeg,*.jpg,*.m2v,*.mkv,*.mng,\
 *.mov,*.mp4,*.mp4v,*.mpeg,*.mpg,*.nuv,*.ogm,*.ogv,*.ogx,*.pbm,*.pgm,*.png,\
 *.qt,*.rm,*.rmvb,*.svg,*.svgz,*.tga,*.tif,*.tiff,*.vob,*.webm,*.wmv,*.xbm,\
-*.xcf,*.xpm,*.xwd,*.yuv}'=01;35:')
+*.xcf,*.xpm,*.xwd,*.yuv}'=35:')
 LS_C_EXTRA=$LS_C_ARCHIVES$LS_C_AUD$LS_C_IMG
 export LS_COLORS=$LS_COLORS${LS_C_EXTRA// /}
 
