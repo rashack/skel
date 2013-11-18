@@ -130,4 +130,20 @@ man() {
     man "$@"
 }
 
+alias gid='git diff'
+__gdiff () {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts=$(git status --porcelain | grep '^.[^ ?]' | cut -b 4-)
+
+    case "${prev}" in
+        gid)
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            ;;
+    esac
+}
+complete -F __gdiff gid
+
 source /etc/profile.d/lesspipe.sh
