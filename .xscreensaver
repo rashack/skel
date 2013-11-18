@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.15 for kjell on Sun Sep 15 19:48:07 2013.
+# Written by xscreensaver-demo 5.15 for kjell on Sun Nov 17 22:37:57 2013.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -341,7 +341,7 @@ programs:								      \
 - GL: 				skytentacles -root			    \n\
 - GL: 				rubikblocks -root			    \n\
 				unicode -root				    \n\
-  GL: 				companioncube -root			    \n\
+- GL: 				companioncube -root			    \n\
 - GL: 				hilbert -root				    \n\
 - GL: 				tronbit -root				    \n\
 
