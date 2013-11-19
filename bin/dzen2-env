@@ -28,7 +28,7 @@ esac
 
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_IDLE_WIDTH=$(textwidth "<SSSSSS>")
-CONKY_IF=$(ip r | sed -n 's/default via.*dev \(.*\)/\1/ p')
+CONKY_IF=$(ip r | sed -n 's/default via.*dev \([^ ]*\).*/\1/ p')
 CONKY_EXTRA=''
 
 case $(hostname) in
