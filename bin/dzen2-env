@@ -42,17 +42,21 @@ case $(hostname) in
 	SCREEN_WIDTH=1280
 	CONKY_EXTRA=' Bat: ${battery_short}'
 	;;
-    baboon)
+    bluetang)
 	SCREEN_WIDTH=1366
-	CONKY_EXTRA=' Bat: ${battery_short}'
+	CONKY_EXTRA=' B0:${battery_short (0)} B1:${battery_short (1)}'
 	;;
 esac
 
-CONKY_LOAD_STR="CPU:\${cpu}% Mem:\${memperc}% Swap:\${swapperc}% $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA"
+CONKY_LOAD_STR="CPU:\${cpu} Mem:\${memperc} Swap:\${swapperc} $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA"
 
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
-DZEN_LOAD_WIDTH=$(textwidth "CPU:100% Mem:100% Swap:100% $CONKY_IF: 0.1234KiB/0.1234KiB $CONKY_EXTRA")
+if [ '' == "$CONKY_EXTRA" ] ; then
+    DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 $CONKY_IF: 0.1234KiB/0.1234KiB")
+else
+    DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 $CONKY_IF: 0.1234KiB/0.1234KiB Bat: ")
+fi
 DZEN_STATUS_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_LOAD_WIDTH ))
 DZEN_LOAD_X=$(( $SCREEN_WIDTH - $DZEN_LOAD_WIDTH ))
 DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
