@@ -12,4 +12,4 @@ get_idle () {
     done
 }
 
-get_idle | dzen2 -x $DZEN_IDLE_X -w $DZEN_IDLE_WIDTH -ta c $DZEN_OPTS
+get_idle | dzen2 -x $DZEN_IDLE_X -w $DZEN_IDLE_WIDTH -ta l $DZEN_OPTS
