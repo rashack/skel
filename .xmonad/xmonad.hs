@@ -14,7 +14,10 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Layout
 import XMonad.Layout.Gaps
 import XMonad.Layout.NoBorders
+import XMonad.Layout.MultiColumns
+import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.ToggleLayouts
 import XMonad.Util.Loggers
 import XMonad.Util.Run (spawnPipe)
 import qualified Data.Map as M
@@ -23,6 +26,14 @@ import qualified XMonad.StackSet as W
 -- I want 10 workspaces (at least).
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
 myTitleFgColor = "white"
+
+myLayout = gaps [(U,16)] (smartBorders (tiled ||| Full ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror tiled ||| multiCol [1] 4 0.01 0.5 ||| toggleLayouts Full simpleTabbed))
+           where
+             tiled   = Tall nmaster delta ratio
+             nmaster = 1       -- The default number of windows in the master pane
+             ratio   = 1/2     -- Default proportion of screen occupied by master pane
+                       -- toRational (2/(1+sqrt(5)::Double)) -- golden
+             delta   = 0.03    -- Percent of screen to increment by when resizing panes
 
 main :: IO ()
 main = do
@@ -53,7 +64,7 @@ main = do
          , terminal           = "~/bin/xmterm"
          , modMask = mod4Mask
 	 , workspaces = myWorkspaces
-         , layoutHook = gaps [(U,16)] (smartBorders (tiled ||| Full ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror tiled))
+         , layoutHook = myLayout
          , manageHook = composeAll [ className =? "fontforge" --> doFloat
                                    , className =? "Gimp"      --> doFloat
 				   , className =? "sun-applet-Main" --> doFloat
@@ -68,17 +79,6 @@ main = do
   where
      wrapFg color content = wrap ("^fg(" ++ color ++ ")") "^fg()" content
 
-     tiled   = Tall nmaster delta ratio
-
-     -- The default number of windows in the master pane
-     nmaster = 1
-
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2 -- toRational (2/(1+sqrt(5)::Double)) -- golden
-
-     -- Percent of screen to increment by when resizing panes
-     delta   = 0.03
-
      mykeys (XConfig {XMonad.modMask = modm}) = M.fromList $
              [ ((controlMask .|. modm, xK_Right), nextWS)
              , ((controlMask .|. modm, xK_Left),  prevWS)
@@ -86,6 +86,7 @@ main = do
 	     , ((modm, xK_q     ), broadcastMessage ReleaseResources >> restart "xmonad" True)
 --	     , ((modm, xK_r     ), spawn "killall dzen2 && xmonad --recompile && xmonad --restart")
 	     , ((modm, xK_g ),   withFocused toggleBorder)
+             , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
 	      ]
 	      ++
     	     --
