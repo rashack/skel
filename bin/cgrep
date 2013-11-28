@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FIND_ROOT="$TC_SRC_HOME"
-UNWANTED="-name .hg -prune"
+UNWANTED="-name .hg -prune -name .git -prune"
 GREP_OPTS="--color -d skip -Pin"
 
 while getopts "d:f:g:v" opt ; do
