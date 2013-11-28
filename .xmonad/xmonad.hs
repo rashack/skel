@@ -27,7 +27,7 @@ import qualified XMonad.StackSet as W
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
 myTitleFgColor = "white"
 
-myLayout = gaps [(U,16)] (smartBorders (tiled ||| Full ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror tiled ||| multiCol [1] 4 0.01 0.5 ||| toggleLayouts Full simpleTabbed))
+myLayout = gaps [(U,16)] (smartBorders (tiled ||| toggleLayouts Full simpleTabbed ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror tiled ||| multiCol [1] 4 0.01 0.5))
            where
              tiled   = Tall nmaster delta ratio
              nmaster = 1       -- The default number of windows in the master pane
