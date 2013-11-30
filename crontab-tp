@@ -1,0 +1,5 @@
+#    m  h  dom mon dow   command
+     *  *    *   *   *   ~/bin/battery-charge-remaining
+0-59,1  *    *   *   *   ~/bin/check-xssw.sh
+     0 21    *   *   *   ~/bin/check-bash-history.sh
+
