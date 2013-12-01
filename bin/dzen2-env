@@ -45,7 +45,7 @@ case $(hostname) in
 	;;
     bluetang)
 	SCREEN_WIDTH=1600
-	CONKY_EXTRA=' B0:${battery_short (0)} B1:${battery_short (1)}'
+	CONKY_EXTRA=' Bat: ${battery_short}'
 	;;
 esac
 
