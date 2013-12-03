@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.15 for kjell on Sun Nov 17 22:37:57 2013.
+# Written by xscreensaver-demo 5.23 for kjell on Tue Dec  3 14:41:46 2013.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -331,7 +331,7 @@ programs:								      \
 - GL: 	  "Hypnowheel (dense)" 	hypnowheel -root -count 3 -layers 50	    \n\
 - GL: 	"Hypnowheel (trifoil)" 	hypnowheel -root -count 3 -layers 2	      \
 				  -speed 9 -twist 9 -wander		    \n\
-				attraction -root			    \n\
+-				attraction -root			    \n\
 -				qix -root				    \n\
 -				ripples -root				    \n\
 -				zoom -root				    \n\
@@ -344,6 +344,12 @@ programs:								      \
 - GL: 				companioncube -root			    \n\
 - GL: 				hilbert -root				    \n\
 - GL: 				tronbit -root				    \n\
+- GL: 				dnalogo -root				    \n\
+- GL: 				geodesic -root				    \n\
+-				hexadrop -root				    \n\
+- GL: 				kaleidocycle -root			    \n\
+- GL: 				quasicrystal -root			    \n\
+- GL: 				unknownpleasures -root			    \n\
 
 
 pointerPollTime:    0:00:05
