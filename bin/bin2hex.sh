@@ -17,5 +17,5 @@ elif [[ $0 =~ "2hex" ]] ; then
 fi
 
 for x in "$@" ; do
-    echo "$x: "$(echo "$OBASE;$IBASE;$x" | bc)
+    echo "$x: "$(echo "$OBASE;$IBASE;$(echo $x | tr [a-z] [A-Z])" | bc)
 done
