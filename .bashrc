@@ -147,3 +147,7 @@ __gdiff () {
 complete -F __gdiff gid
 
 source /etc/profile.d/lesspipe.sh
+
+hgrep () {
+    history | grep "$*"
+}
