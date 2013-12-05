@@ -5,8 +5,8 @@ SKIP_DIRS="\
 -name .hg -prune -o \
 -name .git -prune"
 SKIP_FILES="-o \! \( \
--name *.beam -o \
--name *.jar \)"
+-name \*.beam -o \
+-name \*.jar \)"
 UNWANTED="$SKIP_DIRS $SKIP_FILES"
 GREP_OPTS="--color -d skip -Pin"
 
