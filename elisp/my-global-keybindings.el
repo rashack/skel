@@ -1,3 +1,4 @@
+(define-key esc-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key esc-map " " 'hippie-expand)
 (global-set-key "\M-g" 'goto-line)
 (global-set-key "\C-cg" 'grep)
