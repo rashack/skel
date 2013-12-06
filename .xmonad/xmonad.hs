@@ -28,15 +28,13 @@ import qualified XMonad.StackSet as W
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
 myTitleFgColor = "white"
 
-myLayout = gaps [(U,16)] (smartBorders (tiled ||| full ||| ThreeCol 1 (0.8/100) (1/3) ||| Mirror myTall ||| multiCol [1] 4 0.01 0.5))
+myLayout = gaps [(U,16)] (smartBorders (tiled ||| full ||| threeCol ||| Mirror myTall ||| multiCol [1] 4 0.01 0.5))
            where
-             myTall  = Tall nmaster delta ratio
-             nmaster = 1       -- The default number of windows in the master pane
-             ratio   = 1/2     -- Default proportion of screen occupied by master pane
-                       -- toRational (2/(1+sqrt(5)::Double)) -- golden
-             delta   = 0.03    -- Percent of screen to increment by when resizing panes
-             tiled   = toggleLayouts myTall (reflectHoriz $ myTall)
-             full    = toggleLayouts Full (tabbed shrinkText myTabConfig)
+             toggleReflect l = toggleLayouts (reflectHoriz $ l) l
+             myTall          = Tall 1 0.03 0.5
+             tiled           = toggleReflect myTall
+             threeCol        = toggleReflect (ThreeCol 1 (0.8/100) (1/3))
+             full            = toggleLayouts Full (tabbed shrinkText myTabConfig)
 
 myTabConfig = defaultTheme {   activeBorderColor = "#FF9900",   activeColor = "#444444",   activeTextColor = "#00CC00"
                            , inactiveBorderColor = "#444444", inactiveColor = "#222222", inactiveTextColor = "#888888"}
