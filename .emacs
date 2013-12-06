@@ -13,8 +13,6 @@
 (my-load-use "use-package" 'use-package)
 (my-load-use "undo-tree" 'undo-tree)
 (global-undo-tree-mode)
-(my-load-use "icicles" 'icicles)
-(icy-mode 1)
 
 (load-library "my-java.el")
 
