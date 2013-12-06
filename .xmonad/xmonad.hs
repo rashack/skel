@@ -31,8 +31,7 @@ myTitleFgColor = "white"
 myLayout = gaps [(U,16)] (smartBorders (tiled ||| full ||| threeCol))
            where
              toggleReflect l = toggleLayouts (reflectHoriz $ l) l
-             myTall          = Tall 1 0.03 0.5
-             tiled           = toggleReflect myTall
+             tiled           = toggleReflect (Tall 1 0.03 0.5)
              threeCol        = toggleReflect (ThreeCol 1 (0.8/100) (1/3))
              full            = toggleLayouts Full (tabbed shrinkText myTabConfig)
 
