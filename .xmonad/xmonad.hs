@@ -53,15 +53,7 @@ main = do
                                                   , ppSep = wrapFg "grey" " | "
                                                   , ppTitle = (\x -> wrapFg myTitleFgColor x)
                                                   , ppUrgent = dzenColor "dark orange" "" .  dzenStrip
-                                                  -- two below: for time and order of the fields
-                                                  --, ppExtras = [ date (wrapFg "orange" "%a %Y-%m-%d %H:%M:%S") ]
-                                                  --, ppOrder  = \(ws:l:t:exs) -> exs ++ [l,ws,t]
                                                   }
-          --xmobar
-           --           logHook = dynamicLogWithPP $ xmobarPP {
---	                                           ppOutput = hPutStrLn xmproc
---						 , ppTitle = xmobarColor "green" "" . shorten 256
---                                                 }
 	 , normalBorderColor  = "#334455"
          , focusedBorderColor = "#ff9900"
          , terminal           = "~/bin/xmterm"
@@ -92,20 +84,12 @@ main = do
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
 	      ]
 	      ++
-    	     --
-    	     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    	     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    	     --
              [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
 	          | (key, sc) <- zip [xK_w, xK_e, xK_r, xK_s] [0, 1, 2]
              , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]] ++
-	     --
-	     -- 10 workspaces config below
-	     --
 	     [ ((modm, k), windows $ W.greedyView i)
 	         | (i, k) <- zip myWorkspaces workspaceKeys
 	     ] ++
---	     [ ((modm .|. shiftMask, k), (windows $ W.shift i) >> (windows $ W.greedyView i))
 	     [ ((modm .|. shiftMask, k), (windows $ W.shift i))
 	         | (i, k) <- zip myWorkspaces workspaceKeys
 	     ]
