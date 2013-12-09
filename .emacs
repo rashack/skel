@@ -170,11 +170,6 @@
 ;; from https://github.com/scottjad/linum-relativenumber
 (my-load-use "linum-relativenumber" 'linum-relativenumber)
 
-;; Make all character after column 100 a little more visible.
-;;(setq whitespace-style (quote (lines-tail))
-;;      whitespace-line-column 100)
-;;(global-whitespace-mode 1)
-
 ;; (require 'ido)
 ;; (ido-mode t)
 ;; (setq ido-enable-flex-matching nil)
