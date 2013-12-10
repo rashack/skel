@@ -9,6 +9,8 @@
 (set-variable 'bios-home (getenv "BIOS_HOME"))
 (set-variable 'compilation-search-path (list bios-home))
 
+(savehist-mode t)
+(setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (require 'cl)
 (my-load-use "use-package" 'use-package)
 (my-load-use "undo-tree" 'undo-tree)
