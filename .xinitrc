@@ -4,6 +4,7 @@ xrdb -merge ~/.Xdefaults
 xbindkeys
 xscreensaver -nosplash &
 imwheel
+parcellite &
 xsetroot -solid black
 
 case `hostname` in
