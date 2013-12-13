@@ -10,6 +10,9 @@
     (add-to-list 'load-path path))
   (require pack))
 
+(defun add-to-hooks (fun &rest hooks)
+  (mapcar (lambda (h) (add-hook h fun)) hooks))
+
 ;; Define C-, and C-. as scoll-up and scroll-down
 (defun scroll-up-one-line ()
   (interactive)

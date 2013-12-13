@@ -173,6 +173,12 @@
 (my-load-use 'linum-relativenumber)
 ;; from https://github.com/nschum/highlight-parentheses.el.git
 (my-load-use 'highlight-parentheses)
+(add-to-hooks 'highlight-parentheses-mode
+              'emacs-lisp-mode-hook
+              'erlang-mode-hook
+              'clojure-mode-hook
+              'haskell-mode-hook
+              'javascript-mode-hook)
 
 ;; (require 'ido)
 ;; (ido-mode t)
