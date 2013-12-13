@@ -293,3 +293,12 @@
 (setq calendar-week-start-day 1)
 (setq calendar-view-diary-initially-flag nil)
 (setq calendar-view-holidays-initially-flag nil)
+
+(setq backup-directory-alist `(("." . "~/.esaves")))
+(setq make-bakup-files t
+      backup-by-copying t
+      version-control t
+      delete-old-versions t
+      kept-new-versions 8
+      kept-old-versions 4
+      auto-save-default t)
