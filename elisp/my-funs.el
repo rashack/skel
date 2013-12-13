@@ -3,8 +3,11 @@
 (defun elisp-root (path)
   (concat "~/src/elisp/" path "/"))
 
-(defun my-load-use (path pack)
-  (add-to-list 'load-path (elisp-root path))
+(defun my-load-use (pack &optional ppath)
+  (let ((path (cond ((null ppath) (elisp-root (symbol-name pack)))
+                    ((file-name-absolute-p ppath) ppath)
+                    (t (elisp-root ppath)))))
+    (add-to-list 'load-path path))
   (require pack))
 
 ;; Define C-, and C-. as scoll-up and scroll-down

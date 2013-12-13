@@ -12,8 +12,8 @@
 (savehist-mode t)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (require 'cl)
-(my-load-use "use-package" 'use-package)
-(my-load-use "undo-tree" 'undo-tree)
+(my-load-use 'use-package)
+(my-load-use 'undo-tree)
 (global-undo-tree-mode)
 
 (load-library "my-java.el")
@@ -170,7 +170,9 @@
   (set-face-background 'hl-line "#222"))
 
 ;; from https://github.com/scottjad/linum-relativenumber
-(my-load-use "linum-relativenumber" 'linum-relativenumber)
+(my-load-use 'linum-relativenumber)
+;; from https://github.com/nschum/highlight-parentheses.el.git
+(my-load-use 'highlight-parentheses)
 
 ;; (require 'ido)
 ;; (ido-mode t)
