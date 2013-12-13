@@ -37,6 +37,7 @@
 (load-library "my-haskell.el")
 (load-library "my-html.el")
 (load-library "my-vc.el")
+(load-library "my-org.el")
 
 (which-func-mode t)
 
