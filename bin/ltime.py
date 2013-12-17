@@ -44,11 +44,14 @@ def tt2dt (tt):
 def daylength (t0, t1):
     return tt2dt (t1) - tt2dt (t0)
 
-def print_day_sum (t0, daytime, daystart, dayend):
+def print_day_sum (t0, daytime, daystart, dayend, weektot):
     thedate = ts2datestr (t0)
     totaltime = timedeltastring (timedelta (seconds=daytime))
     dl = timedeltastring (daylength (daystart, dayend))
-    print thedate, totaltime, daytimes (daystart, dayend), dl
+    week_hrs = '%.1f' % (weektot/3600)
+    if t0.tm_wday == 0:
+        print
+    print thedate, totaltime, daytimes (daystart, dayend), dl, week_hrs
 
 def parse_timestamp_file (filename):
     f = open(filename, 'r')
@@ -57,6 +60,7 @@ def parse_timestamp_file (filename):
         line = f.readline ().split ()
     prev = None
     daytime = 0
+    weektime = 0
     daystart = str2time (line[0])
     res = []
     while line:
@@ -68,6 +72,7 @@ def parse_timestamp_file (filename):
                 t1 = time.localtime ()
                 print t1[2]
             if day (t0) != day (t1): # new day
+                weektime += daytime
                 if line[1] == 'OUT': # stayed logged in past midnight
                     daytime += time_diff (t0, (date (t0[0], t0[1],
                                                      t0[2]) + timedelta (days=1)).timetuple ())
@@ -78,9 +83,11 @@ def parse_timestamp_file (filename):
                     daystart = date (t1[0], t1[1], t1[2]).timetuple ()
                 else:
                     dayend = t0
-                    res.append ((t0, daytime, daystart, dayend))
+                    res.append ((t0, daytime, daystart, dayend, weektime))
                     daytime = 0
                     daystart = t1
+                if t0.tm_wday > t1.tm_wday: # new week
+                    weektime = 0
             elif prev[1] == 'IN':
                 daytime += time_diff (t0, t1)
         prev = line
@@ -88,7 +95,7 @@ def parse_timestamp_file (filename):
     if prev[1] == 'IN': # still logged in it seems, use present time
         daytime += time_diff (t1, time.localtime ())
         t1 = time.localtime ()
-    res.append((t0, daytime, daystart, t1))
+    res.append((t0, daytime, daystart, t1, weektime + daytime))
     return res
 
 for day in parse_timestamp_file (argv[1]):
