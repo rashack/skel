@@ -25,3 +25,12 @@
       (replace-regexp "\\[{file,[ \t\n]*\"\\([^\"]*\\)\"},[ \t\n]*{line,[ \t\n]*\\([0-9]+\\)}\\]"
                       "\"\\1:\\2\"" nil (point-min) (point-max))
       (align-regexp (point-min) (point-max) ".*\\(, +\\).*" 1 2 t))))
+
+(defun erl-align (start end)
+  "Align around commas to try to make hairy lists of records readable."
+  (interactive "*r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (align-regexp (point-min) (point-max)  "\\(, *\\)" 1 2 t)
+      (delete-trailing-whitespace))))
