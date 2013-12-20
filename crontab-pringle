@@ -19,9 +19,10 @@
 # 
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
-# m h  dom mon dow   command
-00  04   *   *   *   /home/kjell/bin/backup_remote tp /home/kjell /home/kjell/.ssh/tp-backup
-00  07   *   *   *   /home/kjell/bin/backup /home/kjell /mnt/backup/kjell
-00  08   *   *   *   /home/kjell/bin/backup /mnt/kjell /mnt/backup/kjell
-#*/5 * * * * exec ~/bin/start-daemon -n19 -c2 -p7 python /home/kjell/src/offlineimap/offlineimap.py
- 0  2    *   *   *   ~/bin/check-bash-history.sh
+# m      h dom mon dow   command
+00      04   *   *   *   /home/kjell/bin/backup_remote tp /home/kjell /home/kjell/.ssh/tp-backup
+00      07   *   *   *   /home/kjell/bin/backup /home/kjell /mnt/backup/kjell
+00      08   *   *   *   /home/kjell/bin/backup /mnt/kjell /mnt/backup/kjell
+#*/5     *   *   *   *   exec ~/bin/start-daemon -n19 -c2 -p7 python /home/kjell/src/offlineimap/offlineimap.py
+ 0       2   *   *   *   ~/bin/check-bash-history.sh
+ 0-59,1  *   *   *   *   ~/bin/check-xssw.sh
