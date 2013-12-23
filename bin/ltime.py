@@ -1,8 +1,11 @@
 #!/usr/bin/python2
 
+from collections import namedtuple
 from sys import argv
 from datetime import date, datetime, timedelta
 import time
+
+Interval = namedtuple('Interval', ['start', 'end', 'in_time'])
 
 
 def time_diff (t0, t1):
@@ -48,9 +51,10 @@ def print_day_sum (t0, daytime, daystart, dayend, weektot):
     thedate = ts2datestr (t0)
     totaltime = timedeltastring (timedelta (seconds=daytime))
     dl = timedeltastring (daylength (daystart, dayend))
-    week_hrs = '%.1f' % (weektot/3600)
+    week_hrs = '%4.1f' % (weektot/3600)
     if t0.tm_wday == 0:
-        print
+        #       'YYYY-MM-DD HH:MM:SS [HH:MM:SS - HH:MM:SS] HH:MM:SS H.M'
+        print '\n[  date  ] [active] [  day start - end  ] [d len ] [total week time]'
     print thedate, totaltime, daytimes (daystart, dayend), dl, week_hrs
 
 def parse_timestamp_file (filename):
@@ -77,7 +81,7 @@ def parse_timestamp_file (filename):
                     daytime += time_diff (t0, (date (t0[0], t0[1],
                                                      t0[2]) + timedelta (days=1)).timetuple ())
                     dayend = date (t1[0], t1[1], t1[2]).timetuple ()
-                    print_day_sum (t0, daytime, daystart, dayend)
+                    print_day_sum (t0, daytime, daystart, dayend, weektime + daytime)
                     # since logged in past midnight, start at OUT time instead of 0
                     daytime = time_diff (date (t1[0], t1[1], t1[2]).timetuple (), t1)
                     daystart = date (t1[0], t1[1], t1[2]).timetuple ()
@@ -86,7 +90,7 @@ def parse_timestamp_file (filename):
                     res.append ((t0, daytime, daystart, dayend, weektime))
                     daytime = 0
                     daystart = t1
-                if t0.tm_wday > t1.tm_wday: # new week
+                if t0.tm_wday > t1.tm_wday or t0.tm_wday == 0: # new week
                     weektime = 0
             elif prev[1] == 'IN':
                 daytime += time_diff (t0, t1)
