@@ -81,7 +81,7 @@ def parse_timestamp_file (filename):
                     daytime += time_diff (t0, (date (t0[0], t0[1],
                                                      t0[2]) + timedelta (days=1)).timetuple ())
                     dayend = date (t1[0], t1[1], t1[2]).timetuple ()
-                    print_day_sum (t0, daytime, daystart, dayend, weektime + daytime)
+                    res.append ((t0, daytime, daystart, dayend, weektime + daytime))
                     # since logged in past midnight, start at OUT time instead of 0
                     daytime = time_diff (date (t1[0], t1[1], t1[2]).timetuple (), t1)
                     daystart = date (t1[0], t1[1], t1[2]).timetuple ()
