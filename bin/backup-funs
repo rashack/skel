@@ -15,7 +15,7 @@ roll_backup_dirs () {
     if [ -f $RSYNC_LOG_PREV -a $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
         log "INFO: No changes in yestardays backup; not rolling backup dirs."
     else
-        log "INFO: rolling backp directories."
+        log "INFO: rolling backup directories."
     fi
 
     mv $BACKUP_DEST.$N_BACKUPS $BACKUP_DEST.$N_BACKUPS.bak
