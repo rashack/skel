@@ -146,7 +146,15 @@ __gdiff () {
 }
 complete -F __gdiff gid
 
-source /etc/profile.d/lesspipe.sh
+case $OS_ID in
+    arch)
+        export LESSOPEN="| source-highlight-esc.sh %s"
+        ;;
+    debian|linuxmint)
+        export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh  %s"
+        ;;
+esac
+export LESS=' -R '
 
 hgrep () {
     history | grep "$*"

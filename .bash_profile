@@ -57,13 +57,3 @@ export HISTTIMEFORMAT="%F %T "
 
 export KRED_POLL=true
 export DIALYZER_PLT=$HOME/src/OTP/install/R15B03-1/dialyzer.plt
-
-case $OS_ID in
-    arch)
-        export LESSOPEN="| source-highlight-esc.sh %s"
-        ;;
-    debian|linuxmint)
-        export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh  %s"
-        ;;
-esac
-export LESS=' -R '
