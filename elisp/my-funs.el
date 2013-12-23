@@ -294,3 +294,15 @@ If the file doesn't exist an error message is displayed."
 ;;                         (string-match "[[:alnum:]]+$" string))
 ;; ;                        (string-match "/\\.\\{1,2\\}$" string))
 ;;                '("foo" "-" "bar" "quux/-" "home/." "home/.." "/foo/..." "my-.d" "/.."))
+
+(defun split-window-triple-right ()
+  "Split the selected window into three side-by-side columns, as equal in width as possible."
+  (interactive)
+  (let ((third (/ (window-total-width) 3)))
+    (split-window-right third)
+    (other-window 1)
+    (switch-to-buffer (other-buffer (current-buffer)))
+    (split-window-right third)
+    (other-window 1)
+    (switch-to-buffer (other-buffer (current-buffer)))
+    (other-window 1)))
