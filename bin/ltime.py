@@ -59,6 +59,9 @@ def daylength (t0, t1):
 def ts2date (t0):
     return date (t0[0], t0[1], t0[2])
 
+def day_tuple (t0, t1, daytime, daystart, dayend, weektime):
+    return (t0, daytime, daystart, dayend, weektime, t0.tm_wday, new_week (t0, t1))
+
 def print_day_sum (t0, daytime, daystart, dayend, weektot, wday, nWeek):
     thedate = ts2datestr (t0)
     totaltime = timedeltastring (timedelta (seconds=daytime))
@@ -95,7 +98,7 @@ def parse_timestamp_file (filename):
                     daytime += time_diff (t0, (ts2date (t0) + timedelta (days=1)).timetuple ())
                     dayend = ts2date (t1).timetuple ()
                     weektime += daytime
-                    res.append ((t0, daytime, daystart, dayend, weektime, t0.tm_wday, new_week (t0, t1)))
+                    res.append (day_tuple (t0, t1, daytime, daystart, dayend, weektime))
                     # since logged in past midnight, start at OUT time instead of 0
                     daytime = time_diff (ts2date (t1).timetuple (), t1)
                     daystart = ts2date (t1).timetuple ()
@@ -104,7 +107,7 @@ def parse_timestamp_file (filename):
                 else:
                     dayend = t0
                     weektime += daytime
-                    res.append ((t0, daytime, daystart, dayend, weektime, t0.tm_wday, new_week (t0, t1)))
+                    res.append (day_tuple (t0, t1, daytime, daystart, dayend, weektime))
                     daytime = 0
                     daystart = t1
                     if new_week (t0, t1):
@@ -116,7 +119,7 @@ def parse_timestamp_file (filename):
     if prev[1] == 'IN': # still logged in it seems, use present time
         daytime += time_diff (t1, time.localtime ())
         t1 = time.localtime ()
-    res.append((t0, daytime, daystart, t1, weektime + daytime, t0.tm_wday, new_week (t0, t1)))
+    res.append (day_tuple (t0, t1, daytime, daystart, t1, weektime + daytime))
     return res
 
 for day in parse_timestamp_file (argv[1]):
