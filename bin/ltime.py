@@ -55,6 +55,10 @@ def tt2dt (tt):
 def daylength (t0, t1):
     return tt2dt (t1) - tt2dt (t0)
 
+# time.struct_time -> date
+def ts2date (t0):
+    return date (t0[0], t0[1], t0[2])
+
 def print_day_sum (t0, daytime, daystart, dayend, weektot, wday, nWeek):
     thedate = ts2datestr (t0)
     totaltime = timedeltastring (timedelta (seconds=daytime))
@@ -88,14 +92,13 @@ def parse_timestamp_file (filename):
                 print t1[2]
             if day (t0) != day (t1): # new day
                 if line[1] == 'OUT': # stayed logged in past midnight
-                    daytime += time_diff (t0, (date (t0[0], t0[1],
-                                                     t0[2]) + timedelta (days=1)).timetuple ())
-                    dayend = date (t1[0], t1[1], t1[2]).timetuple ()
+                    daytime += time_diff (t0, (ts2date (t0) + timedelta (days=1)).timetuple ())
+                    dayend = ts2date (t1).timetuple ()
                     weektime += daytime
                     res.append ((t0, daytime, daystart, dayend, weektime, t0.tm_wday, new_week (t0, t1)))
                     # since logged in past midnight, start at OUT time instead of 0
-                    daytime = time_diff (date (t1[0], t1[1], t1[2]).timetuple (), t1)
-                    daystart = date (t1[0], t1[1], t1[2]).timetuple ()
+                    daytime = time_diff (ts2date (t1).timetuple (), t1)
+                    daystart = ts2date (t1).timetuple ()
                     if new_week (t0, t1):
                         weektime = daytime
                 else:
