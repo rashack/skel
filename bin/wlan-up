@@ -1,23 +1,17 @@
 #!/bin/bash
 
+source ~kjell/bin/try-run.sh
+
 IF=wlan0
 
 if [ -z "$SSID" ] ; then
-    SSID=D3E1F4
+    #SSID=D3E1F4
+    SSID=AndroidAP
 fi
 
-try () {
-    echo $@
-    $@
-    ERR=$?
-    if [[ 0 != $ERR ]] ; then
-	exit $ERR
-    fi
-}
-
-try ifconfig $IF up
-try killall wpa_supplicant
-try wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i$IF
-try iwconfig $IF essid $SSID
-#try dhclient $IF
-try dhclient -s 192.168.100.2 $IF
+try_run ifconfig $IF up
+killall wpa_supplicant
+try_run wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i$IF
+try_run iwconfig $IF essid $SSID
+try_run dhclient $IF
+#try_run dhclient -s 192.168.100.2 $IF

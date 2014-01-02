@@ -1,4 +1,7 @@
 #!/bin/bash
 
-ifconfig wlan1 up
-iwlist wlan1 scan
+IF=$(iw dev | grep Interface | awk '{ print $2 }')
+
+#ifconfig $IF up
+#iwlist $IF scan
+iw dev wlan0 scan | grep SSID
