@@ -25,7 +25,7 @@ def week (t0):
     return int (date.fromtimestamp (time.mktime (t0)).strftime ('%W'))
 
 def new_week (t0, t1):
-    return week (t0) < week (t1)
+    return week (t0) != week (t1)
 
 def timediffstr (t0, t1):
     return tt2dt (t1) - tt2dt (t0)
