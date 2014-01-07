@@ -67,7 +67,8 @@ def print_day_sum (t0, daytime, daystart, dayend, weektot, wday, nWeek):
     totaltime = timedeltastring (timedelta (seconds=daytime))
     dl = timedeltastring (daylength (daystart, dayend))
     week_hrs = '%4.1f' % (weektot/3600)
-    print week (t0), wday, thedate, totaltime, daytimes (daystart, dayend), dl, week_hrs
+    week_no = '%02d' % week (t0)
+    print week_no , wday, thedate, totaltime, daytimes (daystart, dayend), dl, week_hrs
     if nWeek:
         print_header ()
 
