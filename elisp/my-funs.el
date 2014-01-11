@@ -306,3 +306,12 @@ If the file doesn't exist an error message is displayed."
     (other-window 1)
     (switch-to-buffer (other-buffer (current-buffer)))
     (other-window 1)))
+
+(defun align-word-space (start end)
+  "Align at word-to-whitespace boundaries."
+  (interactive "*r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (align-regexp (point-min) (point-max)  "\\(\\sw\\s-+\\)" 1 2 t)
+      (delete-trailing-whitespace))))
