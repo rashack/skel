@@ -10,8 +10,12 @@ charge () {
 
 TS=$(date +"%FT%T")
 CHARGE=$(charge "$(acpi -b)")
-OLD_CHARGE=$(tail -1 $CHARGE_LOG)
-OLD_CHARGE=$(charge "$OLD_CHARGE")
-if [ "$CHARGE" != "$OLD_CHARGE" ] ; then
+if [ -f $CHARGE_LOG ] ; then
+    OLD_CHARGE=$(tail -1 $CHARGE_LOG)
+    OLD_CHARGE=$(charge "$OLD_CHARGE")
+    if [ "$CHARGE" != "$OLD_CHARGE" ] ; then
+        echo -e "$TS\t$CHARGE\t$BATTERY_ID" >> $CHARGE_LOG
+    fi
+else
     echo -e "$TS\t$CHARGE\t$BATTERY_ID" >> $CHARGE_LOG
 fi
