@@ -29,9 +29,7 @@ if [ $# -lt 1 ] ; then
 fi
 
 if [ $# -eq 1 ] ; then
-    while read line ; do
-	echo "$line" | sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
-    done
+    sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
 else
     shift
     echo "$@" | sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
