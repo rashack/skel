@@ -133,6 +133,8 @@
  '(ps-paper-type (quote a4))
  '(safe-local-variable-values (quote ((erlang-ident-level . 2) (allout-layout . t)))))
 
+(setq ps-lpr-command "lp")
+
 ;; default grep command is 'grep -nH -e '
 (setq grep-command "bgrep -n ")
 
