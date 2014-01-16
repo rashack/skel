@@ -22,7 +22,7 @@ def day (t0):
 
 # time.struct_time -> integer
 def week (t0):
-    return int (date.fromtimestamp (time.mktime (t0)).strftime ('%W'))
+    return int (date.fromtimestamp (time.mktime (t0)).strftime ('%W')) + 1
 
 def new_week (t0, t1):
     return week (t0) != week (t1)
