@@ -1,0 +1,47 @@
+#!/bin/bash
+
+FIND_ROOT="$TC_SRC_HOME"
+SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git"
+SKIP_FILES="--exclude=*.beam --exclude=*.jar"
+UNWANTED="$SKIP_DIRS $SKIP_FILES"
+GREP_OPTS="--color -d skip -Prin"
+
+while getopts "d:f:g:v" opt ; do
+    case $opt in
+        d) FIND_ROOT="$OPTARG" ;;
+        f) FILE_FILTER="$FILE_FILTER --include=*$OPTARG*" ;;
+        g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
+        v) VERBOSE=t
+    esac
+done
+shift `expr $OPTIND - 1`
+
+log () {
+    [ $VERBOSE ] && echo "$*" >&2
+}
+logv () {
+    log "$1='${!1}'"
+}
+
+logv FIND_ROOT
+logv FILE_FILTER
+
+find_grep () {
+    FIND="grep $GREP_OPTS $FILE_FILTER $UNWANTED -e \"$*\" $FIND_ROOT"
+    log "$FIND"
+    eval $FIND
+}
+
+find_grep_recur () {
+    log "recursive grep"
+    FIND="grep -d skip -PriZl $FILE_FILTER $UNWANTED -e \"$1\" $FIND_ROOT |
+        xargs -0 grep --color -d skip -Pin -e \"$2\""
+    log "$FIND"
+    eval $FIND
+}
+
+if [ $# -gt 1 ] ; then
+    find_grep_recur "$1" "$2"
+else
+    find_grep "$@"
+fi
