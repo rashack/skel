@@ -30,7 +30,7 @@
   ;; Matches  [{file, "some/dir/module.erl"}, {line, 13}}]
   ;; Match    [{file, "<file>"}, {line, <line>}]
   ;; Groups          1:<file>         2:<line>
-  "\\[{file,[ \t\n]*\"\\([^\"]*\\)\"},[ \t\n]*{line,[ \t\n]*\\([0-9]+\\)}\\]")
+  "\\[{file,\\s *\"\\([^\"]*\\)\"},\\s *{line,\\s *\\([0-9]+\\)}\\]")
 
 (defun erl-stack (start end)
   "Try to extract an Erlang stack trace from the region, copy it, format it
