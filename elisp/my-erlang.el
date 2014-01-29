@@ -22,9 +22,35 @@
       (replace-regexp "\\(\\(\\sw\\|\\s_\\)+\\),[ \t\n]*\\(\\(\\sw\\|\\s_\\)+\\),[ \t\n]*\\([0-9]\\),[ \t\n]*\\(\\[{file\\)"
                       "\\1:\\3/\\5, \\6" nil (point-min) (point-max))
       ;; rewrite "[{file, "<file>"}, {line, <line>}]" to "<file>:<line>"
-      (replace-regexp "\\[{file,[ \t\n]*\"\\([^\"]*\\)\"},[ \t\n]*{line,[ \t\n]*\\([0-9]+\\)}\\]"
+      (replace-regexp erl-location-regexp
                       "\"\\1:\\2\"" nil (point-min) (point-max))
       (align-regexp (point-min) (point-max) ".*\\(, +\\).*" 1 2 t))))
+
+(defconst erl-location-regexp
+  ;; Matches  [{file, "some/dir/module.erl"}, {line, 13}}]
+  ;; Match    [{file, "<file>"}, {line, <line>}]
+  ;; Groups          1:<file>         2:<line>
+  "\\[{file,[ \t\n]*\"\\([^\"]*\\)\"},[ \t\n]*{line,[ \t\n]*\\([0-9]+\\)}\\]")
+
+(defun erl-stack (start end)
+  "Try to extract an Erlang stack trace from the region, copy it, format it
+in an Emacs-friendly way and put it in a buffer."
+  (interactive "*r")
+  (let ((buf (generate-new-buffer "erlang-stack-trace")))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region start end)
+        (beginning-of-buffer)
+        (while (condition-case nil
+                   ;; condition-case becase I can't get re-search-forward to exit cleanly
+                   (re-search-forward erl-location-regexp)
+                 (error nil))
+          (let ((file (match-string 1))
+                (line (match-string 2)))
+            (with-current-buffer buf
+              (insert file ":" line "\n")
+              (erlang-mode))))))
+    (switch-to-buffer buf)))
 
 (defun erl-align (start end)
   "Align around commas to try to make hairy lists of records readable."
