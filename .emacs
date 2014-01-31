@@ -136,7 +136,9 @@
 (setq ps-lpr-command "lp")
 
 ;; default grep command is 'grep -nH -e '
-(setq grep-command "bgrep -n ")
+(grep-apply-setting 'grep-command "ggrep ")
+;; I normally use my own script around grep and don't wat the /dev/null appended
+(grep-apply-setting 'grep-use-null-device nil)
 
 (autoload 'gtags-mode "gtags" "" t)
 (gtags-mode 1)
