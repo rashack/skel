@@ -13,15 +13,19 @@
                 (whitespace-mode t)
                 (linum-mode)))))
 
+(defconst erl-mfa-regexp
+  ;; Match      <module>,  <fun>,       <arity>,  [{file
+  ;; Groups   1:<module> 3:<function> 5:<arity> 6:[{file
+  "\\(\\(\\sw\\|\\s_\\)+\\),\\s *\\(\\(\\sw\\|\\s_\\)+\\),\\s *\\([0-9]\\),\\s *\\(\\[{file\\)")
 
 (defun erl-trace (start end)
-  "Try to convert an Erlang stack trace to something a little more readable."
+  "Try to convert an Erlang stack trace [in buffer] to something a little more readable."
   (interactive "*r")
   (save-excursion
     (save-restriction
       (narrow-to-region start end)
       ;; rewrite "<module>, <function>, <arity>, [{file" to "<module>:<function>/<arity>, [{file"
-      (replace-regexp "\\(\\(\\sw\\|\\s_\\)+\\),[ \t\n]*\\(\\(\\sw\\|\\s_\\)+\\),[ \t\n]*\\([0-9]\\),[ \t\n]*\\(\\[{file\\)"
+      (replace-regexp erl-mfa-regexp
                       "\\1:\\3/\\5, \\6" nil (point-min) (point-max))
       ;; rewrite "[{file, "<file>"}, {line, <line>}]" to "<file>:<line>"
       (replace-regexp erl-location-regexp
