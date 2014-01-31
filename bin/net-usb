@@ -1,0 +1,11 @@
+#!/bin/bash
+
+IF=$(ip link list | sed -n 's/^[0-9]\+: \(usb.\).*/\1/ p')
+
+if [ -z "$IF" ] ; then
+    echo "Could not find a usb interface."
+    exit 1
+else
+    ip link set dev $IF up
+    dhclient $IF
+fi
