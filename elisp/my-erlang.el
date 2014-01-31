@@ -10,7 +10,9 @@
               (lambda ()
                 (setq-local whitespace-style '(face lines-tail))
                 (setq-local whitespace-line-column 80)
-                (whitespace-mode t)))))
+                (whitespace-mode t)
+                (linum-mode)))))
+
 
 (defun erl-trace (start end)
   "Try to convert an Erlang stack trace to something a little more readable."
