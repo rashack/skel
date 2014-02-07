@@ -136,7 +136,8 @@
 (setq ps-lpr-command "lp")
 
 ;; default grep command is 'grep -nH -e '
-(grep-apply-setting 'grep-command "ggrep ")
+;; (grep-apply-setting 'grep-command "mgrep ")
+(setq grep-command "mgrep ")
 ;; I normally use my own script around grep and don't wat the /dev/null appended
 (grep-apply-setting 'grep-use-null-device nil)
 
