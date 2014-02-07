@@ -19,7 +19,6 @@ textwidth () {
 case $OS_ID in
     arch|linuxmint)
 	DZEN_FONT="-*-terminus-*-*-*-*-12-*-*-*-*-*-iso8859-*"
-#	DZEN_FONT="-misc-fixed-medium-r-semicondensed--12-*-*-*-*-*-*-*"
 	;;
     debian)
 	DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
@@ -31,6 +30,15 @@ DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
 DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
 CONKY_IF=$(ip r | sed -n 's/default via.*dev \([^ ]*\).*/\1/ p')
 CONKY_EXTRA=''
+
+case $OS_ID in
+    arch|linuxmint)
+	;;
+    debian)
+        DZEN_TIMEBAR_WIDTH=$(( $DZEN_TIMEBAR_WIDTH + 16 ))
+        DZEN_IDLE_WIDTH=$(( $DZEN_IDLE_WIDTH + 16 ))
+	;;
+esac
 
 case $(hostname) in
     pringle)
