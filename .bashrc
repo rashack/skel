@@ -63,7 +63,7 @@ function set_prompt
     esac
 
     export PS1=${TITLEBAR}'\
-\[\033[31m\][\t] \
+\[\033[37m\][\t] \
 \[\033[m\]\[\033[44m\][\u@\h]\
 \[\033[40m\]\[\033[32m\] \w\
 \[\033[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\033[m\]\$ '
