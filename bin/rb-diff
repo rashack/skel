@@ -1,0 +1,35 @@
+#!/bin/bash
+
+PARENT_BRANCH=$1
+
+DIFF_ROOT=/tmp/git-diffs
+mkdir -p $DIFF_ROOT
+
+next_seq_file () {
+    local FILE_BASE="$1"
+    # TODO: only works up to 10, must fix regex
+    local PREV=$(find $DIFF_ROOT -maxdepth 1 -iname "$FILE_BASE*[0-9]" | sort -t '-' -k 4 -n | tail -1 | sed 's/.*-\([^-]\+\)/\1/')
+    if [[ -f "$DIFF_ROOT/$FILE_BASE$PREV" ]] ; then
+        echo $FILE_BASE$(( $PREV + 1))
+    else
+        echo ${FILE_BASE}0
+    fi
+}
+
+debug_echo() {
+    if [ -n "$DEBUG_PRINT" ] ; then
+        echo "$*"
+    fi
+}
+
+BRANCH_PREFIX='gbl-\d+-'
+BRANCH=$(git branch | grep -Pi "\* $BRANCH_PREFIX" | sed 's/..\(...-[0-9]\+.*\)/\1/')
+JIRA_TICKET=$(echo $BRANCH | sed 's/\(...-[0-9]\+\).*/\1/')
+debug_echo "jira ticket:   $JIRA_TICKET"
+debug_echo "parent branch: $PARENT_BRANCH"
+MERGE_BASE=$(git merge-base HEAD $PARENT_BRANCH)
+debug_echo "merge base:    $MERGE_BASE"
+NEXT_DIFF=$(next_seq_file $JIRA_TICKET-diff-)
+debug_echo "next diff:     $NEXT_DIFF"
+git diff --full-index --ignore-submodules -p $MERGE_BASE...HEAD > "$DIFF_ROOT/$NEXT_DIFF"
+echo "$NEXT_DIFF: created from git diff --full-index --ignore-submodules -p $MERGE_BASE...HEAD"
