@@ -139,7 +139,8 @@
 ;; (grep-apply-setting 'grep-command "mgrep ")
 (setq grep-command "mgrep ")
 ;; I normally use my own script around grep and don't wat the /dev/null appended
-(grep-apply-setting 'grep-use-null-device nil)
+;; (grep-apply-setting 'grep-use-null-device nil)
+(setq grep-use-null-device nil)
 
 (autoload 'gtags-mode "gtags" "" t)
 (gtags-mode 1)
