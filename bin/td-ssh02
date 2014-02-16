@@ -1,3 +1,0 @@
-#!/bin/bash
-
-ssh -i ~/.ssh/tdhq197-id_rsa kjean@217.212.240.236
