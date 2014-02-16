@@ -31,6 +31,7 @@ function decrypt-and-mount {
                 echo "[ ${COLG}OK${COLN}  ] mount successful"
             else
                 echo "[ ${COLR}ERR${COLN} ] could not decrypt $NAME, error code: $ERR"
+                run_command "sudo dmsetup remove $NAME"
                 return $ERR
             fi
         fi
