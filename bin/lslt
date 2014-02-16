@@ -1,0 +1,14 @@
+#!/bin/bash
+
+FILES="$2"
+if [[ "$FILES" == "" ]] ; then
+    FILES="*"
+fi
+
+for x in $FILES ; do
+    SIZE=$(du -bs "$x" | awk '{ print $1 }')
+    if [ "$SIZE" -lt "$1" ] ; then
+	echo $x
+#	mv "$x" small
+    fi
+done
