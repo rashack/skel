@@ -1,0 +1,31 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+
+if [ -z $1 ]; then
+    echo "Give oracle connect string as first parameter (user/pass@SID)."
+    exit 1
+fi
+CONNECT_IDENTIFIER=$1
+
+
+FORMATTING=$(echo -e \
+"SET LINESIZE 32767\n\
+SET NEWPAGE 0\n\
+SET SPACE 0\n\
+SET LINESIZE 32767\n\
+SET PAGESIZE 0\n\
+SET ECHO OFF\n\
+SET FEEDBACK OFF\n\
+SET VERIFY OFF\n\
+SET HEADING OFF\n\
+SET MARKUP HTML OFF SPOOL OFF\n")
+
+function get-column-names {
+    sqlplus -S $CONNECT_IDENTIFIER <<EOF
+$FORMATTING
+select column_name from all_tab_columns where table_name = upper('$1') order by column_name;
+EOF
+}
+
+get-column-names $2
