@@ -10,6 +10,7 @@ fi
 #SPDIF="-ao alsa:device=spdif -afm hwac3"
 SPDIF="-ao alsa:device=pt48 -afm hwac3"
 DIGITAL_REGEX=".*d"
+OPTS="-cache 4096"
 if [[ $0 =~ $DIGITAL_REGEX ]]; then
     OPTS="$OPTS $SPDIF"
 elif [[ $0 =~ "qplayer" ]]; then
