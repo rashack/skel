@@ -2,19 +2,22 @@
 
 (use-package erlang-start)
 (add-to-list 'load-path (elisp-root "edts"))
+
+;;(setq erlang-mode-hook '(my-erlang-mode-hook))
+(defun my-erlang-mode-hook ()
+  (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
+                      :inherit font-lock-function-name-face
+                      :underline t)
+  (setq-local whitespace-style '(face lines-tail))
+  (setq-local whitespace-line-column 80)
+  (whitespace-mode t)
+  (linum-mode))
+
 (use-package edts-start
   :init
   (progn
     (edts-log-set-level 'debug)
-    (add-hook 'erlang-mode-hook
-              (lambda ()
-                (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
-                                    :inherit font-lock-function-name-face
-                                    :underline t)
-                (setq-local whitespace-style '(face lines-tail))
-                (setq-local whitespace-line-column 80)
-                (whitespace-mode t)
-                (linum-mode)))))
+    (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)))
 
 (defconst erl-mfa-regexp
   ;; Match      <module>,  <fun>,       <arity>,  [{file
