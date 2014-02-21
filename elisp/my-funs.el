@@ -315,3 +315,7 @@ If the file doesn't exist an error message is displayed."
       (narrow-to-region start end)
       (align-regexp (point-min) (point-max)  "\\(\\sw\\s-+\\)" 1 2 t)
       (delete-trailing-whitespace))))
+
+(defun filter (condp lst)
+  (delq nil
+        (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
