@@ -8,6 +8,9 @@
     (edts-log-set-level 'debug)
     (add-hook 'erlang-mode-hook
               (lambda ()
+                (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
+                                    :inherit font-lock-function-name-face
+                                    :underline t)
                 (setq-local whitespace-style '(face lines-tail))
                 (setq-local whitespace-line-column 80)
                 (whitespace-mode t)
