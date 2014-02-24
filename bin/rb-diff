@@ -7,8 +7,8 @@ mkdir -p $DIFF_ROOT
 
 next_seq_file () {
     local FILE_BASE="$1"
-    # TODO: only works up to 10, must fix regex
-    local PREV=$(find $DIFF_ROOT -maxdepth 1 -iname "$FILE_BASE*[0-9]" | sort -t '-' -k 4 -n | tail -1 | sed 's/.*-\([^-]\+\)/\1/')
+    local PREV=$(find $DIFF_ROOT -maxdepth 1 -iname "$FILE_BASE*[0-9]" | sort -t '-' -k 5 -n | tail -1 | sed 's/.*-\([^-]\+\)/\1/')
+    debug_echo "prev: $PREV"
     if [[ -f "$DIFF_ROOT/$FILE_BASE$PREV" ]] ; then
         echo $FILE_BASE$(( $PREV + 1))
     else
@@ -18,7 +18,7 @@ next_seq_file () {
 
 debug_echo() {
     if [ -n "$DEBUG_PRINT" ] ; then
-        echo "$*"
+        echo "$*" >&2
     fi
 }
 
