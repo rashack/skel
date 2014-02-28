@@ -1,18 +1,47 @@
+# -*- mode: conf; -*-
+
 [color]
-	ui = auto
+        ui = auto
+
 [core]
         editor = vim
-	excludesfile = ~/.gitignore
+        excludesfile = ~/.gitignore
+
 [alias]
         st = status
         ci = commit
         br = branch
         co = checkout
         df = diff
-        lg = log -p
-	unstage = reset HEAD --
+        lg = log -p --stat --decorate
+        # all new commits after you fetched, with stats, but excluding merges
+        lc = log ORIG_HEAD.. --stat --no-merges
+        in = log HEAD..origin/master
+        out = log origin/master..HEAD --decorate
+        unstage = reset HEAD --
+        glog  = log --graph --abbrev-commit --pretty=oneline --decorate
+        lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+        lola = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+        mdiff = !gitk --left-right HEAD...ORIG_HEAD
+        # Remove a file from the index: git unstage <file>
+        unstage = reset HEAD --
+        last = log -1 HEAD
+        whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+        who = "!git shortlog -s -- | sort -n -k1"
+        aliases = "!git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
+        swap = checkout "@{-1}"
+        ln = "!git --no-pager log --decorate --pretty=oneline -n $1"
+        lo = "!git --no-pager log --decorate -n $1"
+
 [user]
-	name = Kjell Andreassen
-	email = andreassen.kjell@gmail.com
+        name = Kjell Andreassen
+        email = andreassen.kjell@gmail.com
+
 [push]
-	default = tracking
+        default = tracking
+
+[color "diff"]
+#	meta = magenta black
+	header = magenta black
+	commit = yellow black
+	frag = cyan black
