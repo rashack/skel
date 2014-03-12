@@ -319,3 +319,14 @@ If the file doesn't exist an error message is displayed."
 (defun filter (condp lst)
   (delq nil
         (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
+(defun spacify-regexp-region (start end regexp)
+  "Interactively replace occurrences of REGEXP with non spaces on both sides
+by the matching string and a space on both sides."
+  (interactive "*r
+sPut a space on both sides of: ")
+  (let ((non-space-group "\\([^ 
+]\\)"))
+    (perform-replace (concat non-space-group regexp non-space-group)
+                     (concat "\\1 " regexp " \\2")
+                     t t nil nil nil start end)))
