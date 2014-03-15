@@ -1,4 +1,5 @@
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/erlang")
+;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/erlang")
+(add-to-list 'load-path (concat (getenv "ERLANG_HOME") "/elisp"))
 
 (use-package erlang-start)
 (add-to-list 'load-path (elisp-root "edts"))
