@@ -1,6 +1,5 @@
 #!/bin/bash
 
-FIND_ROOT="$TC_SRC_HOME"
 SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git"
 SKIP_FILES="--exclude=*.beam --exclude=*.jar"
 UNWANTED="$SKIP_DIRS $SKIP_FILES"
@@ -15,6 +14,8 @@ while getopts "d:f:g:v" opt ; do
     esac
 done
 shift `expr $OPTIND - 1`
+
+[ -z "$FIND_ROOT" ] && FIND_ROOT=.
 
 log () {
     [ $VERBOSE ] && echo "$*" >&2
