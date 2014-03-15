@@ -1,7 +1,7 @@
 # .bashrc
 
 export OS_ID=$(source /etc/os-release ; echo $ID)
-export HOME_FQDN=rashack.dyndns.org
+export HOME_FQDN=rashack.com
 
 MY_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 
