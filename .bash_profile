@@ -23,8 +23,8 @@ export SBT_HOME=$HOME/sbt/sbt
 BIN_PATH=$HOME/bin
 JAVA_PATH=$JAVA_HOME/bin
 SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
-ERLANG_PATH=~/src/OTP/install/R15B03-1/bin
-export PATH=$BIN_PATH:$ERLANG_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$PATH
+export ERLANG_HOME=~/src/erlang
+export PATH=$BIN_PATH:$ERLANG_HOME/install/bin:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$PATH
 export ENV=$HOME/.bashrc
 
 # from eval $(dircolors -b)
