@@ -39,6 +39,8 @@
 (load-library "my-vc.el")
 (load-library "my-org.el")
 
+(my-load-use 'markdown-mode)
+
 (which-func-mode t)
 
 (require 'dos)
