@@ -40,6 +40,7 @@
 (load-library "my-org.el")
 
 (my-load-use 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (which-func-mode t)
 
