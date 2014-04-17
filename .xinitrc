@@ -2,6 +2,8 @@
 
 xrdb -merge ~/.Xdefaults
 xbindkeys
+# Log an IN row in ~/.time
+echo $(date +"%F_%T") IN >> ~/.time
 xscreensaver -nosplash &
 imwheel
 parcellite &
