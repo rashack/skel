@@ -1,127 +1,179 @@
 #!/usr/bin/python2
 
-from collections import namedtuple
 from sys import argv
 from datetime import date, datetime, timedelta
 import time
 
-Interval = namedtuple('Interval', ['start', 'end', 'in_time'])
+class Day:
+    def __init__(self, tss):
+        self.tss = tss # [Ts]
+        self.day_no = self.tss[0].ts.tm_wday
+    def in_time(self):
+        pass
+    def __str__(self):
+        return self.str(0, 0)
+    def str(self, active_tot, length_tot):
+        tsf = self.tss[0]
+        tsl = last(self.tss)
+        return "%02d %d %s [%s - %s] %s %s %s %s" % (
+            week(tsf.ts), self.day_no, ts2datestr(tsf.ts),
+            ts2timestr(tsf.ts), ts2timestr(tsl.ts), timedeltastring(self.length()),
+            seconds2str(self.active()), seconds2str(active_tot),
+            "%03d:%02d:%02d" % secs2hms(timedeltasecs(length_tot)))
+    def length(self):
+        return daylength(self.tss[0].ts, last(self.tss).ts)
+    def active(self):
+        acc = 0
+        if self.tss[0].out(): # add 00:00:00 IN if first in tss is OUT
+            acc += Ts(day_start(self.tss[0].ts), 'IN').secs()
+        if not last(self.tss).out(): # add 23:59:59 OUT if last in tss is IN
+            acc += Ts(day_end(self.tss[0].ts), 'OUT').secs()
+        # TODO: if Day is today, add now
+        for ts in self.tss:
+            acc += ts.secs()
+        return acc
+    def year(self):
+        return self.tss[0].ts.tm_year
+    def week(self):
+        return week(self.tss[0].ts)
+    def day(self):
+        return self.tss[0].ts.tm_wday
 
+class Ts:
+    def __init__(self, ts, out): # time.struct_time, string
+        self.ts     = ts
+        self.outstr = out
+        self.date   = self.ts[0:3]
+    def __str__(self):
+        return "%s %s" % (ts2datestr(self.ts), ts2timestr(self.ts))
+    def out(self):
+        return self.outstr == "OUT"
+    def secs(self):
+        if self.out():
+            return time.mktime(self.ts)
+        else:
+            return -time.mktime(self.ts)
 
-def time_diff (t0, t1):
-    return time.mktime(t1) - time.mktime(t0)
+def ts_from_line(line):
+    ts = str2time(line[0])
+    return Ts(ts, line[1])
 
-# Return a time object parsed from a string formatted according to iso 8601-ish.
+def last(list):
+    return list[len(list)-1]
+
+# Return a time object parsed from a string formatted according to iso-8601(-ish).
 # string -> time.struct_time
-def str2time (str):
-#          time.strptime ("2013-08-25_20:25:26", "%Y-%m-%d_%H:%M:%S")
-    return time.strptime (str, "%Y-%m-%d_%H:%M:%S")
+def str2time(str):
+#          time.strptime("2013-08-25_20:25:26", "%Y-%m-%d_%H:%M:%S")
+    return time.strptime(str, "%Y-%m-%d_%H:%M:%S")
 
-def day (t0):
+# Day of month
+# time.struct_time -> integer
+def day(t0):
     return t0[2]
 
+# iso-8601 week number
 # time.struct_time -> integer
-def week (t0):
-    return int (date.fromtimestamp (time.mktime (t0)).strftime ('%W')) + 1
+def week(t0):
+    return int(date.fromtimestamp(time.mktime(t0)).strftime('%W')) + 1
 
-def new_week (t0, t1):
-    return week (t0) != week (t1)
-
-def timediffstr (t0, t1):
-    return tt2dt (t1) - tt2dt (t0)
+# timedelta -> int
+def timedeltasecs(td):
+    return td.days * 3600 * 24 + td.seconds
 
 # timedelta -> string
-def timedeltastring (td):
-    hours, remainder = divmod (td.seconds, 3600)
-    minutes, seconds = divmod (remainder, 60)
-    return '%02d:%02d:%02d' % (hours, minutes, seconds)
+def timedeltastring(td):
+    return seconds2str(timedeltasecs(td))
+
+# Seconds to hours, minutes and seconds.
+# integer -> (int, int, int)
+def secs2hms(secs):
+    hours, remainder = divmod(secs, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return (hours, minutes, seconds)
+
+# integer -> string
+def seconds2str(secs):
+    return '%02d:%02d:%02d' % secs2hms(secs)
+
+# First time of the day (YYYY-mm-DD HH:MM:SS -> YYYY-mm-DD 00:00:00)
+# time.struct_time -> time.struct_time
+def day_start(ts):
+    return datetime(*ts[0:3]).timetuple()
+
+# First time of the next day (YYYY-mm-DD HH:MM:SS -> YYYY-mm-(DD+1) 00:00:00)
+# time.struct_time -> time.struct_time
+def day_end(ts):
+    return day_start((tt2dt(ts) + timedelta(days=1)).timetuple())
 
 # time.struct_time -> string
-def ts2datestr (timestruct):
-    return date.fromtimestamp (time.mktime (timestruct)).strftime ('%Y-%m-%d')
+def ts2datestr(timestruct):
+    return date.fromtimestamp(time.mktime(timestruct)).strftime('%Y-%m-%d')
 
 # time.struct_time -> string
-def ts2timestr (ts):
-    return datetime.fromtimestamp (time.mktime (ts)).strftime ('%H:%M:%S')
+def ts2timestr(ts):
+    return datetime.fromtimestamp(time.mktime(ts)).strftime('%H:%M:%S')
 
-# time.struct_time -> string
-def daytimes (ts0, ts1):
-    return '[' + ts2timestr (ts0) + ' - ' + ts2timestr (ts1) + ']'
+# time.struct_time -> datetime.datetime
+def tt2dt(tt):
+    return datetime(*tt[0:6])
 
-# timetuple -> datetime
-def tt2dt (tt):
-    return datetime (*tt[0:6])
-
-def daylength (t0, t1):
-    return tt2dt (t1) - tt2dt (t0)
+# time.struct_time, time.struct_time -> datetime.timedelta
+def daylength(t0, t1):
+    return tt2dt(t1) - tt2dt(t0)
 
 # time.struct_time -> date
-def ts2date (t0):
-    return date (t0[0], t0[1], t0[2])
+def ts2date(t0):
+    return date(t0[0], t0[1], t0[2])
 
-def day_tuple (t0, t1, daytime, daystart, dayend, weektime):
-    return (t0, daytime, daystart, dayend, weektime, t0.tm_wday, new_week (t0, t1))
+def print_header():
+    #       'WW ? YYYY-MM-DD [HH:MM:SS - HH:MM:SS] HH:MM:SS HH:MM:SS H.M'
+    print '\nWW D [  date  ] [  day start - end  ] [d len ] [active] [act S]'
 
-def print_day_sum (t0, daytime, daystart, dayend, weektot, wday, nWeek):
-    thedate = ts2datestr (t0)
-    totaltime = timedeltastring (timedelta (seconds=daytime))
-    dl = timedeltastring (daylength (daystart, dayend))
-    week_hrs = '%4.1f' % (weektot/3600)
-    week_no = '%02d' % week (t0)
-    print week_no , wday, thedate, totaltime, daytimes (daystart, dayend), dl, week_hrs
-    if nWeek:
-        print_header ()
-
-def print_header ():
-    #       'WW ? YYYY-MM-DD HH:MM:SS [HH:MM:SS - HH:MM:SS] HH:MM:SS H.M'
-    print '\nWW D [  date  ] [active] [  day start - end  ] [d len ] [total week time]'
-
-def parse_timestamp_file (filename):
-    f = open(filename, 'r')
-    line = f.readline ().split ()
-    if line[1] == 'OUT': # If the first line of the file is an OUT, ignore it.
-        line = f.readline ().split ()
-    prev = None
-    daytime = 0
-    weektime = 0
-    daystart = str2time (line[0])
-    res = []
+def parse_to_days(filename):
+    fp         = open(filename, 'r')
+    line       = fp.readline().split()
+    days       = []
+    timestamps = []
+    curr_date  = ts_from_line(line).date
     while line:
-        if prev is not None:
-            t0 = str2time (prev[0])
-            if len (line) == 2:
-                t1 = str2time (line[0])
-            else:
-                t1 = time.localtime ()
-                print t1[2]
-            if day (t0) != day (t1): # new day
-                if line[1] == 'OUT': # stayed logged in past midnight
-                    daytime += time_diff (t0, (ts2date (t0) + timedelta (days=1)).timetuple ())
-                    dayend = ts2date (t1).timetuple ()
-                    weektime += daytime
-                    res.append (day_tuple (t0, t1, daytime, daystart, dayend, weektime))
-                    # since logged in past midnight, start at OUT time instead of 0
-                    daytime = time_diff (ts2date (t1).timetuple (), t1)
-                    daystart = ts2date (t1).timetuple ()
-                    if new_week (t0, t1):
-                        weektime = daytime
-                else:
-                    dayend = t0
-                    weektime += daytime
-                    res.append (day_tuple (t0, t1, daytime, daystart, dayend, weektime))
-                    daytime = 0
-                    daystart = t1
-                    if new_week (t0, t1):
-                        weektime = 0
-            elif prev[1] == 'IN':
-                daytime += time_diff (t0, t1)
-        prev = line
-        line = f.readline ().split ()
-    if prev[1] == 'IN': # still logged in it seems, use present time
-        daytime += time_diff (t1, time.localtime ())
-        t1 = time.localtime ()
-    res.append (day_tuple (t0, t1, daytime, daystart, t1, weektime + daytime))
-    return res
+        ts = ts_from_line(line)
+        if ts.date != curr_date:
+            curr_date = ts.date
+            if timestamps != []:
+                days.append(Day(timestamps))
+                timestamps = []
+        timestamps.append(ts)
+        line = fp.readline().split()
+    if timestamps != []:
+        days.append(Day(timestamps))
+    return days
 
-for day in parse_timestamp_file (argv[1]):
-    print_day_sum (*day)
+def partition_to_years(days):
+    years = {}
+    for day in days:
+        year = years.get(day.year(), {})
+        week = year.get(day.week(), {})
+        week[day.day()] = day
+        year[day.week()] = week
+        years[day.year()] = year
+    return years
+
+def print_all(years):
+    for year, weeks in years.iteritems():
+        print "Year", year
+        for week, days in weeks.iteritems():
+            print_header()
+            print_week(days)
+
+def print_week(days):
+    active_tot = 0
+    length_tot = timedelta(0)
+    for day in days:
+        active_tot += days[day].active()
+        length_tot += days[day].length()
+        print days[day].str(active_tot, length_tot)
+
+days = parse_to_days(argv[1])
+years = partition_to_years(days)
+print_all(years)
