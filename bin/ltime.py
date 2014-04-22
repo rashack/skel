@@ -19,7 +19,7 @@ class Day:
             week(tsf.ts), self.day_no, ts2datestr(tsf.ts),
             ts2timestr(tsf.ts), ts2timestr(tsl.ts), timedeltastring(self.length()),
             seconds2str(self.active()), seconds2str(active_tot),
-            "%03d:%02d:%02d" % secs2hms(timedeltasecs(length_tot)))
+            "% 3d:%02d:%02d" % secs2hms(timedeltasecs(length_tot)))
     def length(self):
         return daylength(self.tss[0].ts, last(self.tss).ts)
     def active(self):
@@ -127,8 +127,8 @@ def ts2date(t0):
     return date(t0[0], t0[1], t0[2])
 
 def print_header():
-    #       'WW ? YYYY-MM-DD [HH:MM:SS - HH:MM:SS] HH:MM:SS HH:MM:SS H.M'
-    print '\nWW D [  date  ] [  day start - end  ] [d len ] [active] [act S]'
+    #       'WW ? YYYY-MM-DD [HH:MM:SS - HH:MM:SS] HH:MM:SS HH:MM:SS HH:MM:SS HHH:MM:SS'
+    print '\nWW D [  date  ] [  day start - end  ] [d len ] [active] [act  S] [week  S]'
 
 def parse_to_days(filename):
     fp         = open(filename, 'r')
