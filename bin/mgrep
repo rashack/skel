@@ -3,19 +3,23 @@
 SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git"
 SKIP_FILES="--exclude=*.beam --exclude=*.jar"
 UNWANTED="$SKIP_DIRS $SKIP_FILES"
-GREP_OPTS="--color -d skip -Prin"
+GREP_OPTS="--color -d skip -Prn"
+CASE_SENSITIVE="-i"
 
-while getopts "d:f:g:v" opt ; do
+while getopts "d:f:g:iv" opt ; do
     case $opt in
         d) FIND_ROOT="$OPTARG" ;;
         f) FILE_FILTER="$FILE_FILTER --include=*$OPTARG*" ;;
         g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
+        i) CASE_SENSITIVE="" ;;
         v) VERBOSE=t
     esac
 done
 shift `expr $OPTIND - 1`
 
 [ -z "$FIND_ROOT" ] && FIND_ROOT=.
+
+GREP_OPTS="${GREP_OPTS} ${CASE_SENSITIVE}"
 
 log () {
     [ $VERBOSE ] && echo "$*" >&2
