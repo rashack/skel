@@ -1,21 +1,33 @@
 #!/bin/bash
 
-BOLD=$(tput bold)
-NORMAL=$(tput sgr0)
-
-if [[ -z $1 ]]; then
-    echo "${BOLD}$0 -update${NORMAL} to update movie list, ${BOLD}$0 MOVIENAME${NORMAL} to find ${BOLD}MOVIENAME${NORMAL}."
-    exit 1
-fi
-
 MOVIE_LIST_FILENAME=~/.movielist
 MOVIE_DIRECTORIES=" \
     /mnt/movies/ "
 IGNORE_SUFFIXES="txt$|url$|nfo$|srt$|jpg$|ifo$|bup$|sub$|md5$|sfv$|idx$"
+IGNORE_DIRS="( -name .x -o -name TODO -o -name lost+found ) -prune"
 
-if [[ $1 =~ "-update" ]]; then
-    find $MOVIE_DIRECTORIES -type f | \
+update_list() {
+    find $MOVIE_DIRECTORIES $IGNORE_DIRS -o -type f | \
 	grep -Eiv $IGNORE_SUFFIXES | sort > $MOVIE_LIST_FILENAME
-else
-    grep -i --color $1 $MOVIE_LIST_FILENAME
+}
+
+usage() {
+    echo "${BOLD}$0 -u${NORMAL} to update movie list, ${BOLD}$0 MOVIENAME${NORMAL} to find ${BOLD}MOVIENAME${NORMAL}."
+}
+
+unset WORD
+while getopts "hwu" opt ; do
+    case $opt in
+        h) usage ; exit 0 ;;
+        u) update_list ;;
+        w) WORD="-w" ;;
+    esac
+done
+shift `expr $OPTIND - 1`
+
+BOLD=$(tput bold)
+NORMAL=$(tput sgr0)
+
+if ! [ -z $1 ] ; then
+    grep -i --color $WORD $1 $MOVIE_LIST_FILENAME
 fi
