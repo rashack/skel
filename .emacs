@@ -180,7 +180,8 @@
   (set-face-background 'hl-line "#222"))
 
 ;; from https://github.com/scottjad/linum-relativenumber
-(my-load-use 'linum-relativenumber)
+(when window-system
+  (my-load-use 'linum-relativenumber))
 ;; from https://github.com/nschum/highlight-parentheses.el.git
 (my-load-use 'highlight-parentheses)
 (add-to-hooks 'highlight-parentheses-mode
