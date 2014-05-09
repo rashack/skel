@@ -22,14 +22,18 @@ debug_echo() {
     fi
 }
 
-BRANCH_PREFIX='gbl-\d+-'
-BRANCH=$(git branch | grep -Pi "\* $BRANCH_PREFIX" | sed 's/..\(...-[0-9]\+.*\)/\1/')
+if [ -z "$2" ] ; then
+    BRANCH_PREFIX='gbl-\d+-'
+    BRANCH=$(git branch | grep -Pi "\* $BRANCH_PREFIX" | sed 's/..\(...-[0-9]\+.*\)/\1/')
+else
+    BRANCH=$2
+fi
 JIRA_TICKET=$(echo $BRANCH | sed 's/\(...-[0-9]\+\).*/\1/')
 debug_echo "jira ticket:   $JIRA_TICKET"
 debug_echo "parent branch: $PARENT_BRANCH"
-MERGE_BASE=$(git merge-base HEAD $PARENT_BRANCH)
+MERGE_BASE=$(git merge-base $BRANCH $PARENT_BRANCH)
 debug_echo "merge base:    $MERGE_BASE"
 NEXT_DIFF=$(next_seq_file $JIRA_TICKET-diff-)
 debug_echo "next diff:     $NEXT_DIFF"
-git diff --full-index --ignore-submodules -p $MERGE_BASE...HEAD > "$DIFF_ROOT/$NEXT_DIFF"
-echo "$NEXT_DIFF: created from git diff --full-index --ignore-submodules -p $MERGE_BASE...HEAD"
+git diff --full-index --ignore-submodules -p $MERGE_BASE...$BRANCH > "$DIFF_ROOT/$NEXT_DIFF"
+echo "$NEXT_DIFF: created from git diff --full-index --ignore-submodules -p $MERGE_BASE...$BRANCH"
