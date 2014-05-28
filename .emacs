@@ -39,6 +39,7 @@
 (load-library "my-vc.el")
 (load-library "my-org.el")
 (load-library "my-emacs-tmp-files.el")
+(load-library "my-lua-mode.el")
 
 (my-load-use 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
