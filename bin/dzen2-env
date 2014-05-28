@@ -28,8 +28,8 @@ esac
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
 DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
-CONKY_IF=$(ip r | sed -n 's/default via.*dev \([^ ]*\).*/\1/ p')
 CONKY_EXTRA=''
+CONKY_SSID=''
 
 case $OS_ID in
     arch|linuxmint)
@@ -54,17 +54,19 @@ case $(hostname) in
     bluetang)
 	SCREEN_WIDTH=1600
 	CONKY_EXTRA=' Bat: ${battery_short}'
+	CONKY_SSID="\${execpi 60 sh /home/kjell/bin/active-ssid.sh}"
 	;;
 esac
 
-CONKY_LOAD_STR="CPU:\${cpu} Mem:\${memperc} Swap:\${swapperc} $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF}$CONKY_EXTRA"
+CONKY_IF=$(ip r | sed -n 's/default via.*dev \([^ ]*\).*/\1/ p')
+CONKY_LOAD_STR="CPU:\${cpu} Mem:\${memperc} Swap:\${swapperc} $CONKY_EXTRA $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF} [$CONKY_SSID]"
 
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
 if [ '' == "$CONKY_EXTRA" ] ; then
     DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 $CONKY_IF: 0.1234KiB/0.1234KiB")
 else
-    DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 $CONKY_IF: 0.1234KiB/0.1234KiB Bat: ")
+    DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 Bat: $CONKY_IF: 0.1234KiB/0.1234KiB [active-SSID]")
 fi
 DZEN_STATUS_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_LOAD_WIDTH ))
 DZEN_LOAD_X=$(( $SCREEN_WIDTH - $DZEN_LOAD_WIDTH ))
@@ -80,5 +82,6 @@ export DZEN_STATUS_WIDTH
 export DZEN_LOAD_X
 export DZEN_LOAD_WIDTH
 export CONKY_IF
+export CONKY_SSID
 export CONKY_EXTRA
 export CONKY_LOAD_STR
