@@ -4,7 +4,7 @@ set -o nounset
 
 OS_ID=$(source /etc/os-release ; echo $ID)
 
-textwidth () {
+textwidth() {
     TEXT="$1"
     case $OS_ID in
 	arch)
@@ -14,6 +14,11 @@ textwidth () {
 	    dzen2-textwidth $DZEN_FONT "$TEXT"
 	    ;;
     esac
+}
+
+laptop_variables() {
+    CONKY_EXTRA=' Bat: ${battery_short}'
+    CONKY_SSID="\${execpi 60 sh ~/bin/active-ssid.sh}"
 }
 
 case $OS_ID in
@@ -49,12 +54,11 @@ case $(hostname) in
 	;;
     tp)
 	SCREEN_WIDTH=1280
-	CONKY_EXTRA=' Bat: ${battery_short}'
+        laptop_variables
 	;;
     bluetang)
 	SCREEN_WIDTH=1600
-	CONKY_EXTRA=' Bat: ${battery_short}'
-	CONKY_SSID="\${execpi 60 sh /home/kjell/bin/active-ssid.sh}"
+        laptop_variables
 	;;
 esac
 
