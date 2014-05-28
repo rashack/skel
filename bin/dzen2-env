@@ -59,7 +59,11 @@ case $(hostname) in
 esac
 
 CONKY_IF=$(ip r | sed -n 's/default via.*dev \([^ ]*\).*/\1/ p')
-CONKY_LOAD_STR="CPU:\${cpu} Mem:\${memperc} Swap:\${swapperc} $CONKY_EXTRA $CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF} [$CONKY_SSID]"
+CONKY_CPU="\${lua lc cpu CPU}"
+CONKY_MEM="\${lua lc memperc Mem}"
+CONKY_SWP="Swap:\${swapperc}"
+CONKY_NET="$CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF} [$CONKY_SSID]"
+CONKY_LOAD_STR="$CONKY_CPU $CONKY_MEM $CONKY_SWP $CONKY_EXTRA $CONKY_NET"
 
 DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
