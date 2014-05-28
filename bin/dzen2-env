@@ -17,7 +17,7 @@ textwidth() {
 }
 
 laptop_variables() {
-    CONKY_EXTRA=' Bat: ${battery_short}'
+    CONKY_EXTRA="\${lua lc_n battery_percent Bat}"
     CONKY_SSID="\${execpi 60 sh ~/bin/active-ssid.sh}"
 }
 
