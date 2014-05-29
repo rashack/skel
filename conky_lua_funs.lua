@@ -10,7 +10,7 @@ function conky_lc(what, string)
    else
       fg_colour=0x00ff00
    end
-   return string.format("%s: ^fg(#%06x)%d^fg()", string, fg_colour, value)
+   return string.format("%s: ^fg(#%06x)%2d^fg()", string, fg_colour, value)
 end
 
 function conky_lc_n(what, string)
