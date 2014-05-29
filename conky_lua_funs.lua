@@ -16,7 +16,7 @@ end
 function conky_lc_n(what, string)
    value=tonumber(conky_parse("${" .. what .. "}"))
    if value >= 60 then
-      fg_colour=0x0000ff
+      fg_colour=0x00ff00
    elseif value >= 50 then
       fg_colour=0x7fff00
    elseif value >= 15 then
