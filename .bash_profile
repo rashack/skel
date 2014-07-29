@@ -15,16 +15,9 @@ ANDROID_PATH=$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS
 
 export MUSIC_ROOT=/mnt/music
 export EDITOR=vim
-export JAVA_HOME=$HOME/jdk/jdk
-export JDK_HOME=$JAVA_HOME
-export SCALA_HOME=$HOME/scala/scala
-export SBT_HOME=$HOME/sbt/sbt
 
-BIN_PATH=$HOME/bin
-JAVA_PATH=$JAVA_HOME/bin
-SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
-export ERLANG_HOME=~/src/erlang
-export PATH=$BIN_PATH:$ERLANG_HOME/install/bin:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$PATH
+set_normal_path
+
 export ENV=$HOME/.bashrc
 
 # from eval $(dircolors -b)

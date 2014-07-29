@@ -159,3 +159,31 @@ export LESS=' -R '
 hgrep () {
     history | grep "$*"
 }
+
+export ORIGINAL_SYSTEM_PATH=$PATH
+
+function set_normal_homes() {
+    export JAVA_HOME=$HOME/jdk/jdk
+    export JDK_HOME=$JAVA_HOME
+    export SCALA_HOME=$HOME/scala/scala
+    export SBT_HOME=$HOME/sbt/sbt
+}
+
+function set_normal_path() {
+    set_normal_homes
+    export ERLANG_HOME=~/src/erlang
+    local BIN_PATH=$HOME/bin
+    local ERLANG_PATH=$ERLANG_HOME/install/bin
+    local JAVA_PATH=$JAVA_HOME/bin
+    local SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
+    export PATH=$BIN_PATH:$ERLANG_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$ORIGINAL_SYSTEM_PATH
+}
+
+function set_non_erl_path() {
+    set_normal_homes
+    unset ERLANG_HOME
+    local BIN_PATH=$HOME/bin
+    local JAVA_PATH=$JAVA_HOME/bin
+    local SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
+    export PATH=$BIN_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$ORIGINAL_SYSTEM_PATH
+}
