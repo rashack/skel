@@ -4,7 +4,6 @@
 (use-package erlang-start)
 (add-to-list 'load-path (elisp-root "edts"))
 
-;;(setq erlang-mode-hook '(my-erlang-mode-hook))
 (defun my-erlang-mode-hook ()
   (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
                       :inherit font-lock-function-name-face
