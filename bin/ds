@@ -2,18 +2,41 @@
 
 # ss - list file and directory sizes in ascending order
 
+MAX_SIZE=0
 HUMAN_READABLE="y"
-while getopts "n-" opt ; do
+QUOTE=0
+
+while getopts "l:n-q" opt ; do
     case $opt in
         -) break;;
+        l) MAX_SIZE="$OPTARG";;
         n) HUMAN_READABLE="n";;
+        q) QUOTE=1;;
     esac
 done
 
 shift $(( $OPTIND - 1 ))
 
+function less_than_size() {
+    if [ $MAX_SIZE -gt 0 ] ; then
+        awk '{ if ($1 < '"$MAX_SIZE"') print $0}'
+    else
+        awk '{print $0}'
+    fi
+}
+
+function files_and_sizes() {
+    if [ $QUOTE -eq 1 ] ; then
+        du -s "$@" | less_than_size | sed 's/\([0-9]\+\)\([ \t]\+\)\(.*\)/\1\2"\3"/g' | sort -n
+    else
+        du -s "$@" | less_than_size | sort -n
+    fi
+}
+#    $MAX_SIZE
+#  if (ARGV[1] > 0 && size < ARGV[1]) {
+
 if [[ "$HUMAN_READABLE" == "y" ]] ; then
-    du -s "$@" | sort -n | gawk -F'\t' \
+    files_and_sizes "$@" | gawk -F'\t' \
 'BEGIN {
   suffArr[0] = "K";
   suffArr[1] = "M";
@@ -36,5 +59,5 @@ if [[ "$HUMAN_READABLE" == "y" ]] ; then
   printf ("%6.1f %s\t%s\n", size, suffArr[suff], $2)
 } '
 else
-    du -s "$@" | sort -n
+    files_and_sizes "$@"
 fi
