@@ -187,3 +187,9 @@ function set_non_erl_path() {
     local SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
     export PATH=$BIN_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$ORIGINAL_SYSTEM_PATH
 }
+
+function set_java7_path() {
+    export PATH=${PATH/$JAVA_HOME/$HOME/jdk/jdk7}
+    export JAVA_HOME=$HOME/jdk/jdk7
+    export JDK_HOME=$JAVA_HOME
+}
