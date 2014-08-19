@@ -1,17 +1,14 @@
 #!/bin/sh
 
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-NORMAL=$(tput sgr0)
+source ~/bin/colours.sh
 
 try_run () {
     local CMD="$*"
-    echo "$YELLOW$CMD$NORMAL" >& 2
+    echo "$COLY$CMD$COLN" >& 2
     eval $CMD
     ERR=$?
     if [ $ERR -ne 0 ] ; then
-        echo "$CMD: ${RED}command failed with exit code $ERR$NORMAL"
+        echo "$CMD: ${COLR}command failed with exit code $ERR$COLN"
         exit $ERR
     fi
 }
