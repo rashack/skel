@@ -363,3 +363,17 @@ for the current buffer's file name, and the line number at point."
   (kill-new
    (format "%s:%d" (buffer-file-name) (save-restriction
                                         (widen) (line-number-at-pos)))))
+
+(defun cleanup-whitespace (start end)
+  "Delete trailing whitespace and then replace more than three consecutive
+ empty lines with two"
+  (interactive "*r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (delete-trailing-whitespace start end)
+      (replace-regexp "
+\\{3,\\}" "
+
+" nil start end)
+      (delete-trailing-whitespace))))
