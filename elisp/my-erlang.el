@@ -72,3 +72,14 @@ in an Emacs-friendly way and put it in a buffer."
       (narrow-to-region start end)
       (align-regexp (point-min) (point-max)  "\\(, *\\)" 1 2 t)
       (delete-trailing-whitespace))))
+
+(defun erlang-skeleton ()
+  (interactive)
+  (insert (concat
+           "-module().\n"
+           "\n"
+           "-export([]).\n"
+           "\n"
+           "%%% Local Variables:\n"
+           "%%% erlang-indent-level: 2\n"
+           "%%% End:\n")))
