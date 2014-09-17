@@ -40,10 +40,9 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 source ~/.skel/git-completion.bash
 source ~/.skel/git-prompt.sh
-# set_prompt is "not working" in the sense that it doesn't change the color of the prompt
-# depending on the username
-function set_prompt
+function __set_prompt
 {
+    local EXIT="$?"
     if [ "$SSH_CONNECTION" ]; then
         SSH_PROMPT='\[\033[m\] [\[\033[31m\]SSH\[\033[m\]] '
     else
@@ -62,18 +61,23 @@ function set_prompt
             ;;
     esac
 
-    export PS1=${TITLEBAR}'\
+    local UCOL='\033[44m\]'
+    if [ "$USER" == 'root' ]; then
+        UCOL='\033[41m\]'
+    fi
+
+    PS1=${TITLEBAR}
+    if [ $EXIT != 0 ]; then
+        PS1+=" \[\e[0;31m\]($EXIT)\[\e[0m\] "
+    fi
+
+    PS1+='\
 \[\033[37m\][\t] \
-\[\033[m\]\[\033[44m\][\u@\h]\
+\[\033[m\]\[\033['$UCOL'\][\u@\h]\
 \[\033[40m\]\[\033[32m\] \w\
 \[\033[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\033[m\]\$ '
 }
-
-if [ "$USER" == 'root' ]; then
-    set_prompt '\033[41m\]'
-else
-    set_prompt '\033[44m\]'
-fi
+export PROMPT_COMMAND=__set_prompt
 
 shopt -s checkwinsize
 
