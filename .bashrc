@@ -44,13 +44,13 @@ function __set_prompt
 {
     local EXIT="$?"
     if [ "$SSH_CONNECTION" ]; then
-        SSH_PROMPT='\[\033[m\] [\[\033[31m\]SSH\[\033[m\]] '
+        SSH_PROMPT='\[\e[m\] [\[\e[31m\]SSH\[\e[m\]] '
     else
         SSH_PROMPT=
     fi
     case $TERM in
  	xterm*)
-	    TITLEBAR='\[\033]0;\w\007\]'
+	    TITLEBAR='\[\e]0;\w\007\]'
             ;;
 	screen)
 #	    TITLEBAR='\[\033k^fg(grey)[^fg(white)\u^fg(grey)@^fg(white)\h^fg(grey)] ^fg(green)\w^fg(white)\033\\\]'
@@ -61,9 +61,9 @@ function __set_prompt
             ;;
     esac
 
-    local UCOL='\033[44m\]'
+    local UCOL='\e[44m\]'
     if [ "$USER" == 'root' ]; then
-        UCOL='\033[41m\]'
+        UCOL='\e[41m\]'
     fi
 
     PS1=${TITLEBAR}
@@ -72,10 +72,10 @@ function __set_prompt
     fi
 
     PS1+='\
-\[\033[37m\][\t] \
-\[\033[m\]\[\033['$UCOL'\][\u@\h]\
-\[\033[40m\]\[\033[32m\] \w\
-\[\033[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\033[m\]\$ '
+\[\e[37m\][\t] \
+\[\e[m\]\[\e['$UCOL'\][\u@\h]\
+\[\e[40m\]\[\e[32m\] \w\
+\[\e[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\e[m\]\$ '
 }
 export PROMPT_COMMAND=__set_prompt
 
