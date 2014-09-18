@@ -61,19 +61,19 @@ function __set_prompt
             ;;
     esac
 
-    local UCOL='\e[44m\]'
+    local UCOL='\[\e[44m\]'
     if [ "$USER" == 'root' ]; then
-        UCOL='\e[41m\]'
+        UCOL='\[\e[41m\]'
     fi
 
     PS1=${TITLEBAR}
     if [ $EXIT != 0 ]; then
-        PS1+=" \[\e[0;31m\]($EXIT)\[\e[0m\] "
+        PS1+=" \[\e[31m\]($EXIT)\[\e[0m\] "
     fi
 
     PS1+='\
 \[\e[37m\][\t] \
-\[\e[m\]\[\e['$UCOL'\][\u@\h]\
+\[\e[m\]'$UCOL'[\u@\h]\
 \[\e[40m\]\[\e[32m\] \w\
 \[\e[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\e[m\]\$ '
 }
