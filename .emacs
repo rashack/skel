@@ -22,6 +22,7 @@
 ;; temporary uncommented, will be functional in a later commit
 ;;(require 'sqlplus)
 
+(load-library "my-misc-modes.el")
 (load-library "my-cl.el")
 (load-library "my-clojure.el")
 (load-library "my-flymake.el")
@@ -41,12 +42,7 @@
 (load-library "my-emacs-tmp-files.el")
 (load-library "my-lua-mode.el")
 
-(my-load-use 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
 (which-func-mode t)
-
-(require 'dos)
 
 ;; ;; Dont crash if file not found
 ;; (defun load-safe (file)
