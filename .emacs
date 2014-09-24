@@ -23,6 +23,7 @@
 ;;(require 'sqlplus)
 
 (load-library "my-misc-modes.el")
+(load-library "my-recentf.el")
 (load-library "my-cl.el")
 (load-library "my-clojure.el")
 (load-library "my-flymake.el")
