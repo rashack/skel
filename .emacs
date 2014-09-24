@@ -67,12 +67,6 @@
 ;; Buffer history for commands reading buffer names (for example C-x b)
 ;;(load-safe "better-readbuf")
 
-(add-hook 'c-mode-hook '(lambda ()
-	  (c-set-style "Stroustrup")))
-
-(add-hook 'c++-mode-hook '(lambda ()
-	  (c-set-style "Stroustrup")))
-
 ;; Some new Colors for Font-lock.
 (setq font-lock-mode-normal-decoration t)
 (require 'font-lock)
