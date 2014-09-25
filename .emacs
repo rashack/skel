@@ -13,6 +13,7 @@
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (require 'cl)
 (my-load-use 'use-package)
+(my-load-use 'dash)
 (my-load-use 'undo-tree)
 (global-undo-tree-mode)
 
@@ -42,6 +43,10 @@
 (load-library "my-org.el")
 (load-library "my-emacs-tmp-files.el")
 (load-library "my-lua-mode.el")
+
+;; from git://jblevins.org/git/markdown-mode.git
+(my-load-use 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (which-func-mode t)
 

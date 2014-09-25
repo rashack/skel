@@ -56,6 +56,9 @@ download_elisp() {
     cd $ELD
     git clone https://github.com/jwiegley/use-package.git
     git clone http://www.dr-qubit.org/git/undo-tree.git
+    git clone https://github.com/clojure-emacs/clojure-mode.git
+    git clone https://github.com/clojure-emacs/cider.git
+    git clone https://github.com/magnars/dash.el.git dash
     git clone https://github.com/emacsmirror/icicles.git
     git clone https://github.com/haskell/haskell-mode.git
     git clone https://github.com/fgallina/multi-web-mode.git

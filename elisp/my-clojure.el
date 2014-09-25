@@ -2,3 +2,5 @@
 
 (add-to-list 'load-path (elisp-root "clojure-mode"))
 (use-package clojure-mode)
+
+(my-load-use 'cider)
