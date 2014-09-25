@@ -78,8 +78,7 @@ main = do
              [ ((controlMask .|. modm, xK_Right), nextWS)
              , ((controlMask .|. modm, xK_Left),  prevWS)
              , ((modm, xK_b     ), sendMessage $ ToggleGaps)
-	     , ((modm, xK_q     ), broadcastMessage ReleaseResources >> restart "xmonad" True)
---	     , ((modm, xK_r     ), spawn "killall dzen2 && xmonad --recompile && xmonad --restart")
+             , ((modm, xK_q     ), spawn myRestart         ) -- Restart xmonad
 	     , ((modm, xK_g ),   withFocused toggleBorder)
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
 	      ]
@@ -94,3 +93,6 @@ main = do
 	         | (i, k) <- zip myWorkspaces workspaceKeys
 	     ]
 	     where workspaceKeys = [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0, xK_plus]
+     myRestart  = "for pid in `pgrep conky`; do kill -9 $pid; done && " ++
+                  "for pid in `pgrep dzen2`; do kill -9 $pid; done && " ++
+                  "xmonad --recompile && xmonad --restart"
