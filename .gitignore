@@ -10,3 +10,10 @@ TAGS
 .xmonad/xmonad.o
 .xmonad/log.txt
 bin/xidle
+bin/git
+bin/git-cvsserver
+bin/git-receive-pack
+bin/git-shell
+bin/git-upload-archive
+bin/git-upload-pack
+bin/gitk
