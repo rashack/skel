@@ -10,6 +10,10 @@
     (add-to-list 'load-path path))
   (require pack))
 
+(defun ensure-package-installed (package)
+  (or (package-installed-p package)
+      (package-install package)))
+
 (defun add-to-hooks (fun &rest hooks)
   (mapcar (lambda (h) (add-hook h fun)) hooks))
 

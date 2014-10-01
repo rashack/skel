@@ -4,6 +4,12 @@
 
 (setq my-emacs-dir (expand-file-name "~/.emacs.d"))
 (setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
+
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/"))
+(package-initialize)
+
 (load-library "my-funs.el")
 
 (set-variable 'bios-home (getenv "BIOS_HOME"))
@@ -303,10 +309,6 @@
 (setq calendar-view-diary-initially-flag nil)
 (setq calendar-view-holidays-initially-flag nil)
 
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
-(package-initialize)
 (require 'popup-switcher)
 ;; (setq psw-in-window-center t)
 (global-set-key [f2] 'psw-switch-buffer)
