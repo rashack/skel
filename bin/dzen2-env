@@ -21,15 +21,6 @@ laptop_variables() {
     CONKY_SSID="\${execpi 60 sh ~/bin/active-ssid.sh}"
 }
 
-case $OS_ID in
-    arch|linuxmint)
-	DZEN_FONT="-*-terminus-*-*-*-*-12-*-*-*-*-*-iso8859-*"
-	;;
-    debian)
-	DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
-	;;
-esac
-
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
 DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
@@ -45,12 +36,14 @@ case $OS_ID in
 	;;
 esac
 
+DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 case $(hostname) in
     pringle)
 	SCREEN_WIDTH=1920
 	;;
     chimp)
 	SCREEN_WIDTH=2560
+	DZEN_FONT="-*-terminus-*-*-*-*-14-*-*-*-*-*-iso8859-*"
 	;;
     tp)
 	SCREEN_WIDTH=1280
