@@ -381,3 +381,9 @@ for the current buffer's file name, and the line number at point."
 
 " nil start end)
       (delete-trailing-whitespace))))
+
+(defun var-num-suffix-increase (var-base)
+  (interactive "*MIncrease numeric suffix for variable: ")
+  (while (re-search-forward (concat var-base "\\([0-9]+\\)") nil t)
+    (replace-match
+     (concat var-base (number-to-string (1+ (string-to-int (match-string 1))))))))
