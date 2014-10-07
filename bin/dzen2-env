@@ -21,21 +21,6 @@ laptop_variables() {
     CONKY_SSID="\${execpi 60 sh ~/bin/active-ssid.sh}"
 }
 
-DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
-DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
-DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
-CONKY_EXTRA=''
-CONKY_SSID=''
-
-case $OS_ID in
-    arch|linuxmint)
-	;;
-    debian)
-        DZEN_TIMEBAR_WIDTH=$(( $DZEN_TIMEBAR_WIDTH + 16 ))
-        DZEN_IDLE_WIDTH=$(( $DZEN_IDLE_WIDTH + 16 ))
-	;;
-esac
-
 DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 case $(hostname) in
     pringle)
@@ -52,6 +37,21 @@ case $(hostname) in
     bluetang)
 	SCREEN_WIDTH=1600
         laptop_variables
+	;;
+esac
+
+DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
+DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
+DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
+CONKY_EXTRA=''
+CONKY_SSID=''
+
+case $OS_ID in
+    arch|linuxmint)
+	;;
+    debian)
+        DZEN_TIMEBAR_WIDTH=$(( $DZEN_TIMEBAR_WIDTH + 16 ))
+        DZEN_IDLE_WIDTH=$(( $DZEN_IDLE_WIDTH + 16 ))
 	;;
 esac
 
