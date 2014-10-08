@@ -12,8 +12,13 @@ update_list() {
 }
 
 usage() {
-    echo "${BOLD}$0 -u${NORMAL} to update movie list, ${BOLD}$0 MOVIENAME${NORMAL} to find ${BOLD}MOVIENAME${NORMAL}."
+    echo "${BOLD}$(basename $0) -u${NORMAL} to update media list, ${BOLD}$(basename $0) MOVIENAME${NORMAL} to find ${BOLD}MOVIENAME${NORMAL}."
 }
+
+if [ $# -eq 0 ] ; then
+    usage
+    exit 1
+fi
 
 unset WORD
 while getopts "hwu" opt ; do
