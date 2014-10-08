@@ -7,7 +7,9 @@ MEDIA_LIST=~/.mfind-$MFIND.cache
 MEDIA_DIRECTORIES="/mnt/movies/"
 IGNORE_SUFFIXES="txt$|url$|nfo$|srt$|jpg$|ifo$|bup$|sub$|md5$|sfv$|idx$|torrent$"
 IGNORE_DIRS="( -name .x -o -name TODO -o -name lost+found ) -prune"
-source $MFIND_CONF
+if [ -f $MFIND_CONF ] ; then
+    source $MFIND_CONF
+fi
 
 update_list() {
     find $MEDIA_DIRECTORIES $IGNORE_DIRS -o -type f | \
