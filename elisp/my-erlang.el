@@ -83,3 +83,16 @@ in an Emacs-friendly way and put it in a buffer."
            "%%% Local Variables:\n"
            "%%% erlang-indent-level: 2\n"
            "%%% End:\n")))
+
+(defun merl-rename-var ()
+  "Rename a variable, either in the active region or the present Erlang function clause."
+  (interactive)
+  (let* ((suggestion (if (use-region-p) "" (symbol-name (symbol-at-point))))
+         (old-var-name (read-string "Variable name to change: " suggestion))
+         (new-var-name (read-string (format "Change variable '%s' to : " old-var-name))))
+    (if (use-region-p)
+        (replace-regexp old-var-name new-var-name t (region-beginning) (region-end))
+      (save-excursion
+        (save-restriction
+          (erlang-mark-clause)
+          (replace-regexp old-var-name new-var-name t (region-beginning) (region-end)))))))
