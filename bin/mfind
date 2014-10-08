@@ -1,18 +1,21 @@
 #!/bin/bash
 
-MOVIE_LIST_FILENAME=~/.movielist
-MOVIE_DIRECTORIES=" \
-    /mnt/movies/ "
+MFIND=$(basename $0)
+MFIND_CONF=~/.mfind-$MFIND-conf.sh
+MEDIA_LIST=~/.mfind-$MFIND.cache
+
+MEDIA_DIRECTORIES="/mnt/movies/"
 IGNORE_SUFFIXES="txt$|url$|nfo$|srt$|jpg$|ifo$|bup$|sub$|md5$|sfv$|idx$|torrent$"
 IGNORE_DIRS="( -name .x -o -name TODO -o -name lost+found ) -prune"
+source $MFIND_CONF
 
 update_list() {
-    find $MOVIE_DIRECTORIES $IGNORE_DIRS -o -type f | \
-	grep -Eiv $IGNORE_SUFFIXES | sort > $MOVIE_LIST_FILENAME
+    find $MEDIA_DIRECTORIES $IGNORE_DIRS -o -type f | \
+	grep -Eiv $IGNORE_SUFFIXES | sort > $MEDIA_LIST
 }
 
 usage() {
-    echo "${BOLD}$(basename $0) -u${NORMAL} to update media list, ${BOLD}$(basename $0) MOVIENAME${NORMAL} to find ${BOLD}MOVIENAME${NORMAL}."
+    echo "${BOLD}$MFIND -u${NORMAL} to update media list, ${BOLD}$MFIND MEDIANAME${NORMAL} to find ${BOLD}MEDIANAME${NORMAL}."
 }
 
 if [ $# -eq 0 ] ; then
@@ -34,5 +37,5 @@ BOLD=$(tput bold)
 NORMAL=$(tput sgr0)
 
 if ! [ -z $1 ] ; then
-    grep -i --color $WORD $1 $MOVIE_LIST_FILENAME
+    grep -i --color $WORD $1 $MEDIA_LIST
 fi
