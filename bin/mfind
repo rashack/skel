@@ -3,7 +3,7 @@
 MOVIE_LIST_FILENAME=~/.movielist
 MOVIE_DIRECTORIES=" \
     /mnt/movies/ "
-IGNORE_SUFFIXES="txt$|url$|nfo$|srt$|jpg$|ifo$|bup$|sub$|md5$|sfv$|idx$"
+IGNORE_SUFFIXES="txt$|url$|nfo$|srt$|jpg$|ifo$|bup$|sub$|md5$|sfv$|idx$|torrent$"
 IGNORE_DIRS="( -name .x -o -name TODO -o -name lost+found ) -prune"
 
 update_list() {
