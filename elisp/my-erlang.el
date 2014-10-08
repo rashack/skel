@@ -96,3 +96,31 @@ in an Emacs-friendly way and put it in a buffer."
         (save-restriction
           (erlang-mark-clause)
           (replace-regexp old-var-name new-var-name t (region-beginning) (region-end)))))))
+
+(defun merl-move-arrow (line column)
+  "Move the arrow on line LINE to column COLUMN"
+  (goto-char (point-min))
+  (forward-line (1- line))
+  (end-of-line)
+  (search-backward "->")
+  (insert (make-string (- column (current-column)) ? )))
+
+(defun merl-aling-arrows ()
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (let ((end (progn (erlang-end-of-function) (point)))
+            (beg (progn (erlang-beginning-of-function) (point)))
+            (max-col 0)
+            (arrows ()))
+        ;; narrow to present function
+        (narrow-to-region beg end)
+        ;; find the column of the arrow on the longest line
+        (while (search-forward "->" nil t)
+          (progn (setq max-col (max max-col (current-column)))
+                 (setq arrows (cons (line-number-at-pos) arrows))
+                 (erlang-end-of-clause)))
+        (message "%S" arrows)
+        (erlang-beginning-of-function)
+        (dolist (line arrows)
+          (merl-move-arrow line (- max-col 2)))))))
