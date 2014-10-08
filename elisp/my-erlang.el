@@ -19,32 +19,32 @@
     (edts-log-set-level 'debug)
     (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)))
 
-(defconst erl-mfa-regexp
+(defconst merl-mfa-regexp
   ;; Match      <module>,  <fun>,       <arity>,  [{file
   ;; Groups   1:<module> 3:<function> 5:<arity> 6:[{file
   "\\(\\(\\sw\\|\\s_\\)+\\),\\s *\\(\\(\\sw\\|\\s_\\)+\\),\\s *\\([0-9]\\),\\s *\\(\\[{file\\)")
 
-(defun erl-trace (start end)
+(defun merl-trace (start end)
   "Try to convert an Erlang stack trace [in buffer] to something a little more readable."
   (interactive "*r")
   (save-excursion
     (save-restriction
       (narrow-to-region start end)
       ;; rewrite "<module>, <function>, <arity>, [{file" to "<module>:<function>/<arity>, [{file"
-      (replace-regexp erl-mfa-regexp
+      (replace-regexp merl-mfa-regexp
                       "\\1:\\3/\\5, \\6" nil (point-min) (point-max))
       ;; rewrite "[{file, "<file>"}, {line, <line>}]" to "<file>:<line>"
-      (replace-regexp erl-location-regexp
+      (replace-regexp merl-location-regexp
                       "\"\\1:\\2\"" nil (point-min) (point-max))
       (align-regexp (point-min) (point-max) ".*\\(, +\\).*" 1 2 t))))
 
-(defconst erl-location-regexp
+(defconst merl-location-regexp
   ;; Matches  [{file, "some/dir/module.erl"}, {line, 13}}]
   ;; Match    [{file, "<file>"}, {line, <line>}]
   ;; Groups          1:<file>         2:<line>
   "\\[{file,\\s *\"\\([^\"]*\\)\"},\\s *{line,\\s *\\([0-9]+\\)}\\]")
 
-(defun erl-stack (start end)
+(defun merl-stack (start end)
   "Try to extract an Erlang stack trace from the region, copy it, format it
 in an Emacs-friendly way and put it in a buffer."
   (interactive "*r")
@@ -55,7 +55,7 @@ in an Emacs-friendly way and put it in a buffer."
         (beginning-of-buffer)
         (while (condition-case nil
                    ;; condition-case becase I can't get re-search-forward to exit cleanly
-                   (re-search-forward erl-location-regexp)
+                   (re-search-forward merl-location-regexp)
                  (error nil))
           (let ((file (match-string 1))
                 (line (match-string 2)))
@@ -64,7 +64,7 @@ in an Emacs-friendly way and put it in a buffer."
               (erlang-mode))))))
     (switch-to-buffer buf)))
 
-(defun erl-align (start end)
+(defun merl-align (start end)
   "Align around commas to try to make hairy lists of records readable."
   (interactive "*r")
   (save-excursion
@@ -73,7 +73,7 @@ in an Emacs-friendly way and put it in a buffer."
       (align-regexp (point-min) (point-max)  "\\(, *\\)" 1 2 t)
       (delete-trailing-whitespace))))
 
-(defun erlang-skeleton ()
+(defun merl-ang-skeleton ()
   (interactive)
   (insert (concat
            "-module().\n"
