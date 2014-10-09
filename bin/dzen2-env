@@ -21,14 +21,20 @@ laptop_variables() {
     CONKY_SSID="\${execpi 60 sh ~/bin/active-ssid.sh}"
 }
 
-DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
+
+case $OS_ID in
+    linuxmint)
+	DZEN_FONT="-*-terminus-*-*-*-*-14-*-*-*-*-*-iso8859-*" ;;
+    *)
+        DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*";;
+esac
+
 case $(hostname) in
     pringle)
 	SCREEN_WIDTH=1920
 	;;
     chimp)
 	SCREEN_WIDTH=2560
-	DZEN_FONT="-*-terminus-*-*-*-*-14-*-*-*-*-*-iso8859-*"
 	;;
     tp)
 	SCREEN_WIDTH=1280
