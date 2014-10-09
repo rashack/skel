@@ -105,10 +105,17 @@ update_emacs_deps() {
     download_elisp
 }
 
-download_other() {
-    # download stuff
+clone_git() {
     cd ~/src
     git clone https://github.com/git/git.git
+    cd ~/.skel
+    ln -s ../src/git/contrib/completion/git-completion.bash
+    ln -s ../src/git/contrib/completion/git-prompt.sh
+}
+
+download_other() {
+    # download stuff
+    clone_git
 }
 
 all() {
