@@ -29,6 +29,9 @@ case $OS_ID in
         DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*";;
 esac
 
+CONKY_EXTRA=''
+CONKY_SSID=''
+
 case $(hostname) in
     pringle)
 	SCREEN_WIDTH=1920
@@ -49,8 +52,6 @@ esac
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
 DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
-CONKY_EXTRA=''
-CONKY_SSID=''
 
 case $OS_ID in
     arch|linuxmint)
