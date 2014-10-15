@@ -58,6 +58,7 @@ class Ts:
         else:
             return -time.mktime(self.ts)
 
+# [string] -> Ts
 def ts_from_line(line):
     ts = str2time(line[0])
     return Ts(ts, line[1])
