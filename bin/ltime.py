@@ -134,9 +134,16 @@ def print_header():
     #       'WW ? YYYY-MM-DD [HH:MM:SS - HH:MM:SS] HH:MM:SS HH:MM:SS HH:MM:SS HHH:MM:SS'
     print '\nWW D [  date  ] [  day start - end  ] [d len ] [active] [act  S] [week  S]'
 
+def readline(fp):
+    line = fp.readline()
+    while line is None or line == "\n":
+        line = fp.readline()
+    return line.split()
+
+# string -> [Day]
 def parse_to_days(filename):
     fp         = open(filename, 'r')
-    line       = fp.readline().split()
+    line       = readline(fp)
     days       = []
     timestamps = []
     curr_date  = ts_from_line(line).date
@@ -148,7 +155,7 @@ def parse_to_days(filename):
                 days.append(Day(timestamps))
                 timestamps = []
         timestamps.append(ts)
-        line = fp.readline().split()
+        line = readline(fp)
     if timestamps != []:
         days.append(Day(timestamps))
     return days
