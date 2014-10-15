@@ -26,11 +26,15 @@ class Day:
         acc = 0
         if self.tss[0].out(): # add 00:00:00 IN if first in tss is OUT
             acc += Ts(day_start(self.tss[0].ts), 'IN').secs()
-        if not last(self.tss).out(): # add 23:59:59 OUT if last in tss is IN
+        if not last(self.tss).out():
             acc += Ts(day_end(self.tss[0].ts), 'OUT').secs()
-        # TODO: if Day is today, add now
-        for ts in self.tss:
-            acc += ts.secs()
+        # don't add consecutive IN's or OUT's
+        prev_out = self.tss[0].out()
+        acc += self.tss[0].secs()
+        for ts in self.tss[1:]:
+            if prev_out != ts.out():
+                acc += ts.secs()
+            prev_out = ts.out()
         return acc
     def year(self):
         return self.tss[0].ts.tm_year
