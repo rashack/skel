@@ -1,3 +1,44 @@
-#!/bin/sh
+#!/bin/bash
 
-/sbin/ifconfig | grep "inet addr" | grep -v "127.0.0.1" | awk '{print $2;}' | awk -F':' '{print $2;}'
+netmask() {
+    local bits=$1
+    local mask=$(( (2 ** 32) - (2 ** (32 - bits)) ))
+
+    printf "%d.%d.%d.%d" \
+        $(( (mask & 0xff000000) >> 24 )) \
+        $(( (mask &   0xff0000) >> 16 )) \
+        $(( (mask &     0xff00) >> 8  )) \
+        $(( (mask &       0xff)       ))
+}
+
+ipaddr_ifconfig() {
+    /sbin/ifconfig | grep "inet addr" | grep -v "127.0.0.1" | awk '{print $2;}' | awk -F':' '{print $2;}'
+}
+
+ipaddr_cidr() {
+    local IP=/bin/ip
+    local DEF_GW_DEV=$($IP r | grep "default" | awk '{print $5}')
+    $IP a | grep "inet.*$DEF_GW_DEV\$" | awk '{print $2}'
+}
+
+ipaddr() {
+    IP_CIDR=$(ipaddr_cidr)
+    IP=$(echo $IP_CIDR | sed 's/\([^/]\)\/.*/\1/')
+    echo $IP
+}
+
+ipaddr_mask() {
+    IP_CIDR=$(ipaddr_cidr)
+    BITS=$(echo $IP_CIDR | sed 's/[^/]\+\/\([0-9]\+\)/\1/')
+    echo "$(netmask $BITS)"
+}
+
+while getopts "cimo" opt ; do
+    case $opt in
+        i) ipaddr ;;
+        c) ipaddr_cidr ;;
+        m) ipaddr_mask ;;
+        o) ipaddr_ifconfig ;;
+    esac
+done
+shift `expr $OPTIND - 1`
