@@ -99,6 +99,10 @@ def secs2hms(secs):
 
 # integer -> string
 def seconds2str(secs):
+    """
+    >>> seconds2str(130)
+    '00:02:10'
+    """
     return '%02d:%02d:%02d' % secs2hms(secs)
 
 # First time of the day (YYYY-mm-DD HH:MM:SS -> YYYY-mm-DD 00:00:00)
@@ -186,7 +190,19 @@ def print_week(days):
         length_tot += days[day].length()
         print days[day].str(active_tot, length_tot)
 
-fp = open(argv[1], 'r')
-days = parse_to_days(fp)
-years = partition_to_years(days)
-print_all(years)
+def main():
+    fp = open(argv[1], 'r')
+    days = parse_to_days(fp)
+    years = partition_to_years(days)
+    fp.close()
+    print_all(years)
+
+def tests():
+    import doctest
+    doctest.testmod()
+
+if __name__ == "__main__":
+    if argv[1] == "-t":
+        tests()
+    else:
+        main()
