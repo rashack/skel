@@ -141,9 +141,8 @@ def readline(fp):
         line = fp.readline()
     return line.split()
 
-# string -> [Day]
-def parse_to_days(filename):
-    fp         = open(filename, 'r')
+# filel -> [Day]
+def parse_to_days(fp):
     line       = readline(fp)
     days       = []
     timestamps = []
@@ -159,6 +158,7 @@ def parse_to_days(filename):
         line = readline(fp)
     if timestamps != []:
         days.append(Day(timestamps))
+    fp.close()
     return days
 
 def partition_to_years(days):
@@ -186,6 +186,7 @@ def print_week(days):
         length_tot += days[day].length()
         print days[day].str(active_tot, length_tot)
 
-days = parse_to_days(argv[1])
+fp = open(argv[1], 'r')
+days = parse_to_days(fp)
 years = partition_to_years(days)
 print_all(years)
