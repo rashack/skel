@@ -8,6 +8,11 @@ class Day:
     def __init__(self, tss):
         self.tss = tss # [Ts]
         self.day_no = self.tss[0].ts.tm_wday
+        if not last(self.tss).out(): # add now or end of day depending on "self.day" == today
+            if datetime.now().timetuple()[0:3] == self.tss[0].ts[0:3]: # add now
+                self.tss.append(Ts(datetime.now().timetuple(), 'OUT'))
+            else:
+                self.tss.append(Ts(day_end(self.tss[0].ts), 'OUT')) # add end of day
     def in_time(self):
         pass
     def __str__(self):
@@ -26,11 +31,6 @@ class Day:
         acc = 0
         if self.tss[0].out(): # add 00:00:00 IN if first in tss is OUT
             acc += Ts(day_start(self.tss[0].ts), 'IN').secs()
-        if not last(self.tss).out(): # add now or end of day depending on "self.day" == today
-            if datetime.now().timetuple()[0:3] == self.tss[0].ts[0:3]: # add now
-                acc += Ts(datetime.now().timetuple(), 'OUT').secs()
-            else:
-                acc += Ts(day_end(self.tss[0].ts), 'OUT').secs() # add end of day
         # don't add consecutive IN's or OUT's
         prev_out = self.tss[0].out()
         acc += self.tss[0].secs()
