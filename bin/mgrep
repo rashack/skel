@@ -6,8 +6,9 @@ UNWANTED="$SKIP_DIRS $SKIP_FILES"
 GREP_OPTS="--color -d skip -Prn"
 CASE_SENSITIVE="-i"
 
-while getopts "d:f:g:iv" opt ; do
+while getopts "cd:f:g:iv" opt ; do
     case $opt in
+        c) CONVERT_ENCODING=t ;;
         d) FIND_ROOT="$OPTARG" ;;
         f) FILE_FILTER="$FILE_FILTER --include=*$OPTARG*" ;;
         g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
@@ -48,5 +49,9 @@ find_grep_recur () {
 if [ $# -gt 1 ] ; then
     find_grep_recur "$1" "$2"
 else
-    find_grep "$@"
+    if [ -z "$CONVERT_ENCODING" ] ; then
+        find_grep "$@"
+    else
+        find_grep $(echo $@ | iconv -f utf8 -t latin1)
+    fi
 fi
