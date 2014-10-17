@@ -13,12 +13,14 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout
 import XMonad.Layout.Gaps
-import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutScreens
 import XMonad.Layout.MultiColumns
+import XMonad.Layout.NoBorders
 import XMonad.Layout.Reflect
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ToggleLayouts
+import XMonad.Layout.TwoPane
 import XMonad.Util.Loggers
 import XMonad.Util.Run (spawnPipe)
 import qualified Data.Map as M
@@ -81,6 +83,9 @@ main = do
              , ((modm, xK_q     ), spawn myRestart         ) -- Restart xmonad
 	     , ((modm, xK_g ),   withFocused toggleBorder)
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
+             , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn (latin1xterm))
+             , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.5 0.5))
+             , ((modm .|. controlMask .|. shiftMask, xK_space), rescreen)
 	      ]
 	      ++
              [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
