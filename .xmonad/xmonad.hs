@@ -84,7 +84,7 @@ main = do
 	     , ((modm, xK_g ),   withFocused toggleBorder)
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
              , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn (latin1xterm))
-             , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.5 0.5))
+             , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.25 0.75))
              , ((modm .|. controlMask .|. shiftMask, xK_space), rescreen)
 	      ]
 	      ++
