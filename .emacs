@@ -310,3 +310,6 @@
 (require 'popup-switcher)
 ;; (setq psw-in-window-center t)
 (global-set-key [f2] 'psw-switch-buffer)
+
+(require 'desktop)
+(add-to-list 'desktop-path ".")
