@@ -81,8 +81,6 @@
 
 (setq default-frame-alist
       '(
-;;; Define here the default geometry or via ~/.Xdefaults.
-;;	(width . 100) (height . 60)
         (cursor-color . "red")
         (cursor-type . box)
         (foreground-color . "gray")
