@@ -1,16 +1,16 @@
 #!/bin/sh
 
-colour () {
+colour() {
     COLOUR=$(tput setaf $1)
 }
 
-bold () {
-    COLOUR="$COLOUR; $(tput bold)"
+bold() {
+    COLOUR="$COLOUR$(tput bold)"
 }
 
 colour 1
 
-while getopts "Rrgbcmy" opt ; do
+while getopts "Brgbcmy" opt ; do
     case $opt in
 	r) colour 1; shift ;;
 	g) colour 2; shift ;;
@@ -18,7 +18,7 @@ while getopts "Rrgbcmy" opt ; do
 	c) colour 6; shift ;;
 	m) colour 5; shift ;;
 	y) colour 3; shift ;;
-	R) colour 1; bold; shift ;;
+	B) bold;     shift ;;
     esac
 done
 
@@ -26,11 +26,9 @@ PATTERN=$1
 if [ $# -lt 1 ] ; then
     echo "Usage: $0 PATTERN [FILE...]\nIf no file is given, standard input is read."
     exit 1
-fi
-
-if [ $# -eq 1 ] ; then
+elif [ $# -eq 1 ] ; then
     sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
 else
     shift
-    echo "$@" | sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
+    cat "$@" | sed 's/'$PATTERN'/'$COLOUR'&'$(tput sgr0)'/g'
 fi
