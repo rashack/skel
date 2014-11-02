@@ -387,3 +387,11 @@ for the current buffer's file name, and the line number at point."
   (while (re-search-forward (concat var-base "\\([0-9]+\\)") nil t)
     (replace-match
      (concat var-base (number-to-string (1+ (string-to-int (match-string 1))))))))
+
+
+;; macro used for simple tests
+(defmacro assert-equal (expected expr)
+  `(let ((actual ,expr))
+     (or (equal actual ,expected)
+         (message "Expected: '%s' Actual: '%s' Expression: '%s'"
+                  ,expected actual (prin1-to-string ',expr)))))
