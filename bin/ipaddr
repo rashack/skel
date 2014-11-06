@@ -33,6 +33,21 @@ ipaddr_mask() {
     echo "$(netmask $BITS)"
 }
 
+usage() {
+    echo "  Usage: $(basename $0) OPTION
+
+  Options:
+    -i        print IP address for the default device
+    -c        print IP address and netmask using CIDR notation
+    -m        print IP netmask for the default device
+    -o        print IP addresses for all devices but 127.0.0.1" >&2
+}
+
+if [[ $# -lt 1 ]] ; then
+    usage
+    exit 1
+fi
+
 while getopts "cimo" opt ; do
     case $opt in
         i) ipaddr ;;
