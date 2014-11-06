@@ -105,7 +105,7 @@ in an Emacs-friendly way and put it in a buffer."
   (search-backward "->")
   (insert (make-string (- column (current-column)) ? )))
 
-(defun merl-aling-arrows ()
+(defun merl-align-arrows ()
   (interactive)
   (save-excursion
     (save-restriction
