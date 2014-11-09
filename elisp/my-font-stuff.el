@@ -17,7 +17,6 @@
   (when (= my-font-size 0)
     (my-font-set my-font-scaled))
   (text-scale-increase 1)
-  ;;(text-scale-adjust 1)
   (setq my-font-size (+ my-font-size 1))
   (my-font-message my-font-scaled my-font-size))
 
@@ -26,14 +25,12 @@
   (cond ((= my-font-size 1)
          (progn (setq my-font-size 0)
                 (text-scale-increase 0)
-                ;;(text-scale-adjust -1)
                 (my-font-set my-font-fixed)
-                (my-font-message my-font-scaled my-font-size)))
+                (my-font-message my-font-fixed my-font-size)))
         ((= my-font-size 0)
          (progn (my-font-message my-font-scaled my-font-size)))
         (t
          (progn (setq my-font-size (- my-font-size 1))
-                ;; (text-scale-adjust -1)
                 (text-scale-increase -1)
                 (my-font-message my-font-scaled my-font-size)))))
 
