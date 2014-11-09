@@ -12,6 +12,7 @@
 
 (load-library "my-funs.el")
 (load-library "my-string-funs.el")
+(load-library "my-font-stuff.el")
 
 (set-variable 'bios-home (getenv "BIOS_HOME"))
 (set-variable 'compilation-search-path (list bios-home))
