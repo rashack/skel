@@ -6,6 +6,7 @@
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cr" 'recompile)
 (global-set-key [ f8 ] 'next-error)
+(global-set-key [ f7 ] 'previous-error)
 (global-set-key "\C-xaf" 'find-file-at-point)
 
 (global-set-key [C-left] 'shrink-window-horizontally)
