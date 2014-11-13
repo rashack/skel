@@ -126,3 +126,55 @@ in an Emacs-friendly way and put it in a buffer."
         (erlang-beginning-of-function)
         (dolist (line arrows)
           (merl-move-arrow line (- max-col 2)))))))
+
+(defun merl-mfa (str)
+  (string-match "\\([a-zA-Z0-0_]\\):\\([a-zA-Z0-0_]\\)/\\([0-9]+\\)" str)
+  (let ((res (list (match-string 1)
+                   (match-string 2)
+                   (string-to-int (match-string 3)))))
+    (message "Jumpung to: %S" res)
+    res))
+
+(defun merl-find-source (str)
+  (apply 'edts-find-source (merl-mfa str)))
+
+(defun merl-edts-find-source-other-window ()
+  (interactive)
+  (cond
+   ((edts-header-under-point-p) (let ((what (read-string (format "Jump to header '%S' or M:F/A "
+                                                                 (edts-header-at-point)))))
+                                  (if (string= "" what)
+                                      (edts-find-header-source)
+                                    (merl-find-source what))))
+   ((edts-macro-under-point-p) (let ((what (read-string (format "Jump to macro '%S' or M:F/A "
+                                                                (symbol-at-point)))))
+                                 (if (string= "" what)
+                                     (edts-find-macro-source)
+                                    (merl-find-source what))))
+   ((edts-record-under-point-p) (let ((what (read-string (format "Jump to record '%S' or M:F/A "
+                                                                 (symbol-at-point)))))
+                                  (if (string= "" what)
+                                      (edts-find-record-source)
+                                    (merl-find-source what))))
+   ;;((edts-behaviour-under-point-p) (edts-find-behaviour-source))
+   ((edts-mfa-at (point)) (let ((what (read-string (format "Jump to function '%S' or M:F/A "
+                                                           (edts-mfa-at (point))))))
+                            (if (string= "" what)
+                                (apply #'edts-find-source (edts-mfa-at (point)))
+                              (merl-find-source what))))
+   (t (message "Nothing to do"))))
+
+(defun merl-align-proplist (start end)
+  "Align a property list properly."
+  (interactive "*r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (align-regexp (point-min) (point-max) "[[\"?a-zA-Z]" 1 2 t))))
+
+;; (defun erlang-path (&optional dirs)
+;;   (let ((root "/kred/erlang/R15B03-1/install"))
+;;     (expand-file-name (cond ((null dirs)    root)
+;;                             ((consp dirs)   (mapconcat 'concat dirs "/"))
+;;                             ((stringp dirs) (concat root "/" dirs)))
+;;                       root)))
