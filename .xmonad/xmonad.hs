@@ -83,7 +83,7 @@ main = do
              , ((modm, xK_q     ), spawn myRestart         ) -- Restart xmonad
 	     , ((modm, xK_g ),   withFocused toggleBorder)
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
-             , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn (latin1xterm))
+             , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn ("~/bin/xterm-latin1"))
              , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.25 0.75))
              , ((modm .|. controlMask .|. shiftMask, xK_space), rescreen)
 	      ]
