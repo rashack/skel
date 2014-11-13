@@ -11,6 +11,8 @@
   (setq-local whitespace-style '(face lines-tail))
   (setq-local whitespace-line-column 80)
   (whitespace-mode t)
+  (setq erlang-electric-commands
+        (remove 'erlang-electric-gt erlang-electric-commands))
   (linum-mode))
 
 (use-package edts-start
