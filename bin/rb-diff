@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -lt 1 ] ; then
+    echo "Diff with what branch?"
+    exit 1
+fi
+
 PARENT_BRANCH=$1
 
 DIFF_ROOT=/tmp/git-diffs
