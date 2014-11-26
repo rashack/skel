@@ -1,8 +1,32 @@
 (add-to-list 'custom-theme-load-path (elisp-root "emacs-color-theme-solarized"))
 (add-to-list 'custom-theme-load-path (elisp-root "zenburn-emacs"))
-;;(load-theme 'solarized-dark t)
-;;(load-theme 'solarized-light t)
-;;(load-theme 'zenburn t)
+
+(defun my-colours-set ()
+  (interactive)
+  (set-background-color "grey15")
+  (set-foreground-color '"grey75")
+  (set-cursor-color "red"))
+
+(defun my-colours-disable-all-themes ()
+  (interactive)
+  (mapc (lambda (theme) (disable-theme theme))
+        custom-enabled-themes))
+
+(defun my-colours-theme (theme)
+  (interactive
+   (list (intern (completing-read
+                  "Set custom theme: "
+                  '(("solarized-dark" 1) ("solarized-light" 2) ("zenburn" 3)
+                    ("default" 4) ("my-solarized" 5))
+                  nil t))))
+    (my-colours-disable-all-themes)
+    (cond ((eq theme 'default)
+           (my-colours-set))
+          ((eq theme 'my-solarized)
+           (load-theme 'solarized-dark t)
+           (my-colours-set))
+          (t
+           (load-theme theme t nil))))
 
 ;; Some new Colors for Font-lock.
 (setq font-lock-mode-normal-decoration t)
