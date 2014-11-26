@@ -1,6 +1,5 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/" t)
 (setq inhibit-startup-message t)
-;;(setq inhibit-startup-echo-area-message "kjell")
 
 (setq my-emacs-dir (expand-file-name "~/.emacs.d"))
 (setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
