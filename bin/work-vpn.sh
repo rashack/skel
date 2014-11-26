@@ -2,5 +2,5 @@
 
 CMD="openvpn --daemon --script-security 2 --config work-vpn.ovpn"
 
-sudo pkill -f "$CMD"
+sudo pkill -9 -f "$CMD"
 sudo sh -c "$CMD"
