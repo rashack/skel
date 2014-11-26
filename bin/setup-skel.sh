@@ -70,6 +70,8 @@ EMACS_REPOS=(
     "linum-relativenumber"       "https://github.com/scottjad/linum-relativenumber.git"
     "highlight-parentheses"      "https://github.com/nschum/highlight-parentheses.el.git"
     "markdown-mode"              "git://jblevins.org/git/markdown-mode.git"
+    "zenburn-emacs"              "https://github.com/bbatsov/zenburn-emacs.git"
+    "emacs-color-theme-solarized" "https://github.com/sellout/emacs-color-theme-solarized.git"
 )
 
 repo_name() {

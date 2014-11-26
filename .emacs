@@ -24,6 +24,12 @@
 (my-load-use 'undo-tree)
 (global-undo-tree-mode)
 
+(add-to-list 'custom-theme-load-path (elisp-root "emacs-color-theme-solarized"))
+(add-to-list 'custom-theme-load-path (elisp-root "zenburn-emacs"))
+;;(load-theme 'solarized-dark t)
+;;(load-theme 'solarized-light t)
+;;(load-theme 'zenburn t)
+
 (load-library "my-java.el")
 
 ;;(load-file "~/.emacs.d/elisp/sqlplus.el")
