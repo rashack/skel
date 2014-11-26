@@ -1,10 +1,12 @@
 (defvar my-font-size 0)
 
 (defconst my-font-fixed "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*")
+;; (print (font-family-list))
 ;; "Droid Sans Mono-10"
 ;; "DejaVu Sans Mono-10"
 ;; "Liberation Mono-10"
-(defconst my-font-scaled "Droid Sans Mono-10")
+;; "Inconsolata-9"
+(defconst my-font-scaled "Inconsolata-9")
 
 (defun my-font-set (font)
   (set-frame-font font nil t))
