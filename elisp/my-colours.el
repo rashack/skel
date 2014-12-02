@@ -3,8 +3,8 @@
 
 (defun my-colours-set ()
   (interactive)
-  (set-background-color "grey15")
-  (set-foreground-color '"grey75")
+  (set-background-color "grey8")
+  (set-foreground-color "grey70")
   (set-cursor-color "red"))
 
 (defun my-colours-disable-all-themes ()
@@ -17,14 +17,19 @@
    (list (intern (completing-read
                   "Set custom theme: "
                   '(("solarized-dark" 1) ("solarized-light" 2) ("zenburn" 3)
-                    ("default" 4) ("my-solarized" 5))
+                    ("default" 4) ("my-solarized" 5) ("solarized-grey" 6))
                   nil t))))
     (my-colours-disable-all-themes)
     (cond ((eq theme 'default)
            (my-colours-set))
           ((eq theme 'my-solarized)
+           (setq solarized-contrast 'high)
            (load-theme 'solarized-dark t)
            (my-colours-set))
+          ((eq theme 'solarized-grey)
+           (setq solarized-contrast 'high)
+           (load-theme 'solarized-dark t)
+           (load-theme 'solarized-grey t))
           (t
            (load-theme theme t nil))))
 
