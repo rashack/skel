@@ -15,7 +15,7 @@
 
 (add-hook 'kill-buffer-hook 'track-closed-file)
 
-(define-prefix-command 'recent-files-map)
-(global-set-key "\C-xr" 'recent-files-map)
-(define-key recent-files-map "r" 'recentf-open-files)
-(define-key recent-files-map "c" 'last-closed-files)
+;;(define-prefix-command 'recent-files-map)
+;;(global-set-key "\C-xr" 'recent-files-map)
+;;(define-key recent-files-map "r" 'recentf-open-files)
+;;(define-key recent-files-map "c" 'last-closed-files)
