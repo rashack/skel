@@ -33,7 +33,7 @@ logv FIND_ROOT
 logv FILE_FILTER
 
 find_grep () {
-    FIND="grep $GREP_OPTS $FILE_FILTER $UNWANTED -e \"$*\" $FIND_ROOT"
+    FIND="grep $GREP_OPTS $FILE_FILTER $UNWANTED -e \"$*\" \"$FIND_ROOT\""
     log "$FIND"
     eval $FIND
 }
