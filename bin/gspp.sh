@@ -1,22 +1,13 @@
 #!/bin/bash
 
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-NORMAL=$(tput sgr0)
+source ~/bin/try-run.sh
 
-run_command () {
-    echo "$YELLOW$1$NORMAL" >& 2
-    eval $1
-    ERR=$?
-    if [ $ERR -ne 0 ] ; then
-        echo "$1: ${RED}command failed with exit code $ERR$NORMAL"
-        exit $?
-    fi
+git_config() {
+    echo $(find-file-in-parent.sh .git/config $PWD)/config
 }
 
 check_add_ssh_key () {
-    local GIT_HOST=$(grep "url \?= \?ssh://" .git/config | \
+    local GIT_HOST=$(grep "url \?= \?ssh://" $(git_config) | \
 	perl -pe 's|\s*url *= *ssh://([^/]+)/.*|$1|')
     if [ -z $GIT_HOST ] ; then
         echo "${RED}Couldn't figure out git host.${NORMAL} Do you have a ssh://... in .git/config?"
@@ -31,7 +22,7 @@ check_add_ssh_key () {
             echo "${RED}Couldn't find $HOST_KEY, giving up.${NORMAL}"
             exit 1
         fi
-        run_command "ssh-add $HOST_KEY"
+        tr_run "ssh-add $HOST_KEY"
     fi
 }
 
@@ -39,8 +30,8 @@ check_add_ssh_key
 
 git diff --quiet
 STASH_NEEDED=$?
-[ $STASH_NEEDED -eq 1 ] && run_command "git stash"
-run_command "git pull --rebase"
-run_command "git push"
-[ $STASH_NEEDED -eq 1 ] && run_command "git stash pop"
+[ $STASH_NEEDED -eq 1 ] && try_run "git stash"
+try_run "git pull --rebase"
+try_run "git push"
+[ $STASH_NEEDED -eq 1 ] && try_run "git stash pop"
 echo "[ ${GREEN}OK${NORMAL} ]"

@@ -2,25 +2,7 @@
 
 # Find a build.xml for ant in PWD or a parent of it.
 
-function ls-file () {
-    ls $1/$2 2> /dev/null
-}
-
-function find-file-in-parent () {
-    local FILE=$1
-    local DIR=$2
-    local RES=$(ls-file $DIR $FILE)
-    while [ -z $RES ] ; do
-	if [ "$DIR" == "/" ] ; then
-	    return
-	fi
-	DIR=$(dirname $DIR)
-	RES=$(ls-file $DIR $FILE)
-    done
-    echo $(dirname $RES)
-}
-
-BUILD_DIR=$(find-file-in-parent build.xml $PWD)
+BUILD_DIR=$(find-file-in-parent.sh build.xml $PWD)
 if [ -z "$BUILD_DIR" ] ; then
     echo "Could not find a build.xml in $PWD or a parent directory."
     exit 1
