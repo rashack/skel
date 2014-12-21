@@ -4,19 +4,24 @@ source ~/bin/try-run.sh
 source ~/.repos-to-fetch
 
 repo_name() {
-    echo ${REPOS[$(( $1 * 3 + 0 ))]}
+    echo ${REPOS[$(( $1 * 3 + $REPO_NAME_IDX ))]}
 }
 
 repo_dir() {
-    echo ${REPOS[$(( $1 * 3 + 1 ))]}
+    echo ${REPOS[$(( $1 * 3 + $REPO_DIR_IDX ))]}
 }
 
 repo_uri() {
-    echo ${REPOS[$(( $1 * 3 + 2 ))]}
+    echo ${REPOS[$(( $1 * 3 + $REPO_REMOTE_IDX ))]}
 }
 
+no_repos() {
+    echo $(( ${#REPOS[@]} / $REPO_ELEMENTS ))
+}
+
+
 fetch_repos() {
-    for (( i=0 ; i < ${#REPOS[@]} / 3 ; i=$i+1 )) ; do
+    for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
         REPO_DIR=$(repo_dir $i)
         try_run "cd ~/$REPO_DIR"
         try_run "git fetch --all"
@@ -24,7 +29,7 @@ fetch_repos() {
 }
 
 clone_repos() {
-    for (( i=0 ; i < ${#REPOS[@]} / 3 ; i=$i+1 )) ; do
+    for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
         REPO_DIR=$(repo_dir $i)
         REPO_URI=$(repo_uri $i)
         REPO_NAME=$(repo_name $i)
@@ -37,7 +42,7 @@ clone_repos() {
 }
 
 shortstat_repos() {
-    for (( i=0 ; i < ${#REPOS[@]} / 3 ; i=$i+1 )) ; do
+    for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
         REPO_DIR=$(repo_dir $i)
         REPO_URI=$(repo_uri $i)
         REPO_NAME=$(repo_name $i)
