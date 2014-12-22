@@ -23,8 +23,12 @@ no_repos() {
 fetch_repos() {
     for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
         REPO_DIR=$(repo_dir $i)
-        try_run "cd ~/$REPO_DIR"
-        try_run "git fetch --all"
+        if [ -d $REPO_DIR ] ; then
+            try_run "cd ~/$REPO_DIR"
+            try_run "git fetch --all"
+        else
+            echo "$REPO_DIR: not there, not fetching"
+        fi
     done
 }
 
@@ -50,7 +54,7 @@ shortstat_repos() {
             try_run "cd ~/$REPO_DIR"
             git status -sb | head -1
         else
-            echo "$REPO_NOE: not cloned"
+            echo "$REPO_NAME: not cloned"
         fi
     done
 }
