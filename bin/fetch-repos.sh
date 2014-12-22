@@ -21,9 +21,10 @@ no_repos() {
 
 
 fetch_repos() {
-    cd
+    pushd .
     for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
         REPO_DIR=$(repo_dir $i)
+        cd
         if [ -d $REPO_DIR ] ; then
             try_run "cd ~/$REPO_DIR"
             try_run "git fetch --all"
@@ -31,7 +32,7 @@ fetch_repos() {
             echo "$REPO_DIR: not there, not fetching"
         fi
     done
-    cd -
+    popd
 }
 
 clone_repos() {
