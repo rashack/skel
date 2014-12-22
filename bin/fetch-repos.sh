@@ -21,6 +21,7 @@ no_repos() {
 
 
 fetch_repos() {
+    cd
     for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
         REPO_DIR=$(repo_dir $i)
         if [ -d $REPO_DIR ] ; then
@@ -30,6 +31,7 @@ fetch_repos() {
             echo "$REPO_DIR: not there, not fetching"
         fi
     done
+    cd -
 }
 
 clone_repos() {
