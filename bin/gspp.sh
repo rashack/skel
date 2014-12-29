@@ -22,7 +22,7 @@ check_add_ssh_key () {
             echo "${RED}Couldn't find $HOST_KEY, giving up.${NORMAL}"
             exit 1
         fi
-        tr_run "ssh-add $HOST_KEY"
+        try_run "ssh-add $HOST_KEY"
     fi
 }
 
