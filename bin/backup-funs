@@ -2,11 +2,10 @@
 
 BACKUP_ROOT=/mnt/backup/$LOGNAME
 LOG_FILE=$BACKUP_ROOT/log/backup.log
-EXCLUDES=$HOME/.skel/rsync_excludes
 RSYNC_LOG_NEXT=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date "+%F")
 RSYNC_LOG_PREV=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date --date "yesterday" "+%F")
 RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
---inplace --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES"
+--inplace --numeric-ids --delete --delete-excluded"
 
 roll_backup_dirs () {
     local BACKUP_DEST=$1
