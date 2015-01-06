@@ -37,9 +37,9 @@ else
 fi
 
 if [ -n "$KEY_FILE" ] ; then
-    SSH_COMMAND="-e ssh -i $KEY_FILE"
+    SSH_COMMAND="-e '/usr/bin/ssh -i $KEY_FILE'"
 else
-    SSH_COMMAND="-e ssh -l $REMOTE_USER"
+    SSH_COMMAND="-e '/usr/bin/ssh -l $REMOTE_USER'"
 fi
 
 if [ -f "$RSYNC_LOG_NEXT" ] ; then

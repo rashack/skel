@@ -5,7 +5,7 @@ LOG_FILE=$BACKUP_ROOT/log/backup.log
 RSYNC_LOG_NEXT=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date "+%F")
 RSYNC_LOG_PREV=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date --date "yesterday" "+%F")
 RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
---inplace --numeric-ids --delete --delete-excluded"
+--inplace --numeric-ids --delete --delete-excluded -F"
 
 roll_backup_dirs () {
     local BACKUP_DEST=$1
@@ -60,19 +60,25 @@ if ($D_PERCENT > $MAX_PERCENT) 1 else 0" | bc -l)
 }
 
 do_backup () {
-    roll_backup_dirs "$BACKUP_DEST" "$N_BACKUPS"
+    if [ -e "$BACKUP_DEST.00" ] ; then
+        exit_backup "$BACKUP_DEST.00: exists, did last backup fail?" 1
+    fi
 
     log "INFO: Starting rsync."
-    rsync "$SSH_COMMAND" \
-        $RSYNC_OPTS \
-        --link-dest=$BACKUP_DEST.1 $BACKUP_SOURCE/ $BACKUP_DEST.0 \
-        -i > $RSYNC_LOG_NEXT
+    CMD="rsync $SSH_COMMAND $RSYNC_OPTS \
+ --link-dest=$BACKUP_DEST.0 $BACKUP_SOURCE/ $BACKUP_DEST.00 \
+ -i"
+    log "running: $CMD"
+    eval $CMD >> $RSYNC_LOG_NEXT
     ERR=$?
     if [ $ERR != 0 ] ; then
         MSG="rsync returned an error ($ERR), not moving directories."
         echo $MSG >&2
         exit_backup "$MSG" $ERR
     fi
+
+    roll_backup_dirs "$BACKUP_DEST" "$N_BACKUPS"
+    mv $BACKUP_DEST.00 $BACKUP_DEST.0
 
     log "INFO: removing $BACKUP_DEST.$N_BACKUPS.bak"
     rm -rf $BACKUP_DEST.$N_BACKUPS.bak
