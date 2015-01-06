@@ -21,7 +21,6 @@ roll_backup_dirs () {
     for (( i=$N_BACKUPS ; i > 0 ; i=i-1 )) ; do
         mv $BACKUP_DEST.$(( $i-1 )) $BACKUP_DEST.$i
     done
-    mkdir -p $BACKUP_DEST.0
 }
 
 log () {
