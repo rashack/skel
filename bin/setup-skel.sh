@@ -38,6 +38,7 @@ link_skel_files() {
 	.conkyrc \
 	.emacs \
 	.gitconfig \
+        .guile \
 	.imwheelrc \
 	.inputrc \
 	.screenrc \
