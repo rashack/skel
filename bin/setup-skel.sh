@@ -38,9 +38,10 @@ link_skel_files() {
 	.conkyrc \
 	.emacs \
 	.gitconfig \
-        .guile \
+	.guile \
 	.imwheelrc \
 	.inputrc \
+	.repos-to-fetch \
 	.screenrc \
 	.tmux-default.conf \
 	.tmux.conf \
