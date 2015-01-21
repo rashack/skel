@@ -55,6 +55,9 @@ link_skel_files() {
 	link_file $SKEL_DIR $x
     done
 
+    mkdir -p ~/.gnupg
+    ln -s -t ~/.gnupg ../.skel/gpg.conf
+
     ln -s $SKEL_DIR/.xinitrc .xsession
 }
 
