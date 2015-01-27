@@ -63,6 +63,7 @@ main = do
 	 , workspaces = myWorkspaces
          , layoutHook = myLayout
          , manageHook = composeAll [ className =? "fontforge" --> doFloat
+                                   , className =? "stalonetray" --> doIgnore
                                    , className =? "Gimp"      --> doFloat
 				   , className =? "sun-applet-Main" --> doFloat
 				   , className =? "sun.applet.Main" --> doFloat
