@@ -25,6 +25,7 @@
 (global-undo-tree-mode)
 
 (load-library "my-colours.el")
+(my-colours-theme 'solarized-grey)
 
 (load-library "my-java.el")
 

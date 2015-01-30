@@ -77,6 +77,7 @@ EMACS_REPOS=(
     "markdown-mode"              "git://jblevins.org/git/markdown-mode.git"
     "zenburn-emacs"              "https://github.com/bbatsov/zenburn-emacs.git"
     "emacs-color-theme-solarized" "https://github.com/sellout/emacs-color-theme-solarized.git"
+    "solarized-grey"             "ssh://my-github/rashack/solarized-grey.git"
 )
 
 repo_name() {

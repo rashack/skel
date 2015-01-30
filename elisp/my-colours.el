@@ -1,5 +1,6 @@
 (add-to-list 'custom-theme-load-path (elisp-root "emacs-color-theme-solarized"))
 (add-to-list 'custom-theme-load-path (elisp-root "zenburn-emacs"))
+(add-to-list 'custom-theme-load-path (elisp-root "solarized-grey"))
 
 (defun my-colours-set ()
   (interactive)
@@ -16,8 +17,8 @@
   (interactive
    (list (intern (completing-read
                   "Set custom theme: "
-                  '(("solarized-dark" 1) ("solarized-light" 2) ("zenburn" 3)
-                    ("default" 4) ("my-solarized" 5) ("solarized-grey" 6))
+                  '(("solarized-dark" 1) ("solarized-light" 2) ("zenburn"        3)
+                    ("default"        4) ("my-solarized"    5) ("solarized-grey" 6))
                   nil t))))
     (my-colours-disable-all-themes)
     (cond ((eq theme 'default)
