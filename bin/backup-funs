@@ -36,6 +36,10 @@ exit_backup () {
 }
 
 check_size_diff () {
+    if ! ( [ -d $1 ] && [ -d $2 ] ) ; then
+        log "WRNING: $1 or $2 not found, not doing growth comparison."
+        return
+    fi
     local OLD_SIZE=$(du -s $1 | cut -f 1)
     local NEW_SIZE=$(du -s $2 | cut -f 1)
     local MAX_PERCENT=$3
