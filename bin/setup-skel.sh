@@ -10,7 +10,7 @@ usage: $0 OPTION\n\
     -a    perform all other steps\n\
     -e    setup Emacs dependencies\n\
     -l    symlink files in .skel to home directory\n\
-    -o    fir other dependencies (e.g. clone some repos)\n"
+    -o    for other dependencies (e.g. clone some repos)\n"
 }
 
 link_file() {
