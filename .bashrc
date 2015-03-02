@@ -197,3 +197,9 @@ function set_java7_path() {
     export JAVA_HOME=$HOME/jdk/jdk7
     export JDK_HOME=$JAVA_HOME
 }
+
+function set_java8_path() {
+    export PATH=${PATH/$JAVA_HOME/$HOME/jdk/jdk8}
+    export JAVA_HOME=$HOME/jdk/jdk8
+    export JDK_HOME=$JAVA_HOME
+}
