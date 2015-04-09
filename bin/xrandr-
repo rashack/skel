@@ -1,0 +1,47 @@
+#!/bin/bash
+
+EXTERNAL_DEVICE=$(xrandr | grep -w connected | grep -v LVDS1 | awk '{print $1}')
+
+single() {
+    echo "Setting xrandr for single screen."
+    xrandr --output LVDS1 --mode 1600x900 \
+           --output VGA1 --off \
+           --output HDMI1 --off \
+           --output DP1 --off
+}
+
+dual_right_of() {
+    xrandr --output LVDS1 --mode 1600x900 \
+           --output $EXTERNAL_DEVICE --mode 1920x1080 --right-of LVDS1
+}
+
+dual_clone() {
+    xrandr --output LVDS1 --mode 1600x900 \
+           --output $EXTERNAL_DEVICE --mode 1600x900 --same-as LVDS1
+}
+
+usage() {
+    echo "usage: $(basename $0) -[dms]
+
+    -d      dual screen, right-of
+    -m      dual screen, mirror
+    -s      single screen
+"
+}
+
+if [ $# -eq 0 ] ; then
+    usage
+    xrandr
+    exit 1
+fi
+
+
+
+while getopts "dms" opt ; do
+    case $opt in
+        d) dual_right_of ;;
+        m) dual_clone ;;
+        s) single ;;
+    esac
+done
+shift `expr $OPTIND - 1`
