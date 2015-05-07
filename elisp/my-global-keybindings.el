@@ -13,3 +13,5 @@
 (global-set-key [C-right] 'enlarge-window-horizontally)
 (global-set-key [C-S-up] 'enlarge-window)
 (global-set-key [C-S-down] 'shrink-window)
+(global-set-key (kbd "C-S-s") 'isearch-forward-symbol-at-point)
+(global-set-key (kbd "C-S-SPC") 'cycle-spacing)
