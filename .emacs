@@ -23,6 +23,10 @@
 (my-load-use 'dash)
 (my-load-use 'undo-tree)
 (global-undo-tree-mode)
+(my-load-use 'yasnippet)
+(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(yas-reload-all)
+(yas-global-mode 1)
 
 (load-library "my-colours.el")
 (my-colours-theme 'solarized-grey)

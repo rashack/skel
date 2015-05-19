@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+#name: io:format(...
+#key: iof
+# --
+io:format(user, "${1:format}: ~p~n", [$1])$0
