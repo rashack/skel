@@ -72,7 +72,7 @@ in an Emacs-friendly way and put it in a buffer."
   (save-excursion
     (save-restriction
       (narrow-to-region start end)
-      (align-regexp (point-min) (point-max)  "\\(, *\\)" 1 2 t)
+      (align-regexp (point-min) (point-max) "\\(, *\\)" 1 2 t)
       (delete-trailing-whitespace))))
 
 (defun merl-ang-skeleton ()
