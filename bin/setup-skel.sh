@@ -78,6 +78,7 @@ EMACS_REPOS=(
     "zenburn-emacs"              "https://github.com/bbatsov/zenburn-emacs.git"
     "emacs-color-theme-solarized" "https://github.com/sellout/emacs-color-theme-solarized.git"
     "solarized-grey"             "ssh://my-github/rashack/solarized-grey.git"
+    "yasnippet"                  "https://github.com/capitaomorte/yasnippet.git"
 )
 
 repo_name() {
