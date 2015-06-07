@@ -15,6 +15,12 @@ dual_right_of() {
            --output $EXTERNAL_DEVICE --mode 1920x1080 --right-of LVDS1
 }
 
+dual_right_of_max() {
+    local MAX_OTHER=$(xrandr | sed -n "/^$EXTERNAL_DEVICE/,// p" | grep \+ | awk '{print $1}')
+    xrandr --output LVDS1 --mode 1600x900 \
+           --output $EXTERNAL_DEVICE --mode $MAX_OTHER --right-of LVDS1
+}
+
 dual_clone() {
     xrandr --output LVDS1 --mode 1600x900 \
            --output $EXTERNAL_DEVICE --mode 1600x900 --same-as LVDS1
@@ -24,6 +30,7 @@ usage() {
     echo "usage: $(basename $0) -[dms]
 
     -d      dual screen, right-of
+    -D      dual screen, right-of maximazing resolution of other screen
     -m      dual screen, mirror
     -s      single screen
 "
@@ -37,9 +44,10 @@ fi
 
 
 
-while getopts "dms" opt ; do
+while getopts "Ddms" opt ; do
     case $opt in
         d) dual_right_of ;;
+        D) dual_right_of_max ;;
         m) dual_clone ;;
         s) single ;;
     esac
