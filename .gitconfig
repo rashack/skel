@@ -37,7 +37,6 @@
 
 [user]
         name = Kjell Andreassen
-        email = andreassen.kjell@gmail.com
 
 [push]
         default = tracking
