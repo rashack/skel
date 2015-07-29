@@ -23,13 +23,13 @@ def cached_diff_chunks(file)
   chunk = []
   res = []
   diff.each do |line|
-    if not (/#{chunk_head}/ =~ line)
+    if /#{chunk_head}/ !~ line
       chunk.push([line_number, line])
       line_number += 1
     else
       /^@@ -\d+,\d+ \+(\d+),\d+ @@/ =~ line
       line_number = $1.to_i
-      res.push(chunk) if not (chunk == [])
+      res.push(chunk) if chunk != []
       chunk = []
     end
   end
