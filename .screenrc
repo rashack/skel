@@ -1,17 +1,8 @@
-#
-# Example of a user's .screenrc file
-#
-
-# This is how one can set a reattach password:
-# password ODSJQf.4IJN7E    # "1234"
-
-# no annoying audible bell, please
 vbell on
 
 # detach on hangup
 autodetach on
 
-# don't display the copyright page
 startup_message off
 
 # emulate .logout message
