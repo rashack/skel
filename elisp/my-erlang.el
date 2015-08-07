@@ -2,7 +2,6 @@
 (add-to-list 'load-path (concat (getenv "ERLANG_HOME") "/elisp"))
 
 (use-package erlang-start)
-(add-to-list 'load-path (elisp-root "edts"))
 
 (defun my-erlang-mode-hook ()
   (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
@@ -15,7 +14,8 @@
         (remove 'erlang-electric-gt erlang-electric-commands))
   (linum-mode))
 
-(use-package edts-start
+(use-package edts
+  :ensure edts
   :init
   (progn
     (edts-log-set-level 'debug)

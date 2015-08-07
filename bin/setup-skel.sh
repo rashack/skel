@@ -62,21 +62,17 @@ link_skel_files() {
 }
 
 EMACS_REPOS=(
-    "use-package"                "https://github.com/jwiegley/use-package.git"
     "undo-tree"                  "http://www.dr-qubit.org/git/undo-tree.git"
     "clojure-mode"               "https://github.com/clojure-emacs/clojure-mode.git"
     "cider"                      "https://github.com/clojure-emacs/cider.git"
     "dash"                       "https://github.com/magnars/dash.el.git"
     "icicles"                    "https://github.com/emacsmirror/icicles.git"
     "haskell-mode"               "https://github.com/haskell/haskell-mode.git"
-    "multi-web-mode"             "https://github.com/fgallina/multi-web-mode.git"
     "gnuplot-mode"               "https://github.com/mkmcc/gnuplot-mode.git"
-    "edts"                       "https://github.com/tjarvstrand/edts.git"
     "linum-relativenumber"       "https://github.com/scottjad/linum-relativenumber.git"
     "highlight-parentheses"      "https://github.com/nschum/highlight-parentheses.el.git"
     "markdown-mode"              "git://jblevins.org/git/markdown-mode.git"
     "zenburn-emacs"              "https://github.com/bbatsov/zenburn-emacs.git"
-    "emacs-color-theme-solarized" "https://github.com/sellout/emacs-color-theme-solarized.git"
     "solarized-grey"             "ssh://my-github/rashack/solarized-grey.git"
     "yasnippet"                  "https://github.com/capitaomorte/yasnippet.git"
 )

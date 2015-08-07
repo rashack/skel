@@ -1,6 +1,6 @@
 ;; from https://github.com/fgallina/multi-web-mode.git
-(add-to-list 'load-path (elisp-root "multi-web-mode"))
 (use-package multi-web-mode
+  :ensure multi-web-mode
   :init
   (progn
     (setq mweb-default-major-mode 'html-mode)

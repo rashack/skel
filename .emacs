@@ -6,8 +6,14 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
+             '("melpa" . "http://melpa.milkbox.net/packages/")
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
+(if (not (package-installed-p 'use-package))
+    (progn
+      (package-refresh-contents)
+      (package-install 'use-package)))
+(require 'use-package)
 
 (load-library "my-funs.el")
 (load-library "my-string-funs.el")
@@ -19,7 +25,6 @@
 (savehist-mode t)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (require 'cl)
-(my-load-use 'use-package)
 (my-load-use 'dash)
 (my-load-use 'undo-tree)
 (global-undo-tree-mode)

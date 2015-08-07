@@ -1,4 +1,5 @@
-(add-to-list 'custom-theme-load-path (elisp-root "emacs-color-theme-solarized"))
+(use-package solarized-theme
+  :ensure solarized-theme)
 (add-to-list 'custom-theme-load-path (elisp-root "zenburn-emacs"))
 (add-to-list 'custom-theme-load-path (elisp-root "solarized-grey"))
 
