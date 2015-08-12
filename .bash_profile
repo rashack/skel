@@ -50,3 +50,5 @@ export HISTTIMEFORMAT="%F %T "
 
 export KRED_POLL=true
 export DIALYZER_PLT=$HOME/src/OTP/install/R15B03-1/dialyzer.plt
+
+export GEM_HOME=~/.gem
