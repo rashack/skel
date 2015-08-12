@@ -67,6 +67,10 @@
 (my-load-use 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+(use-package geiser
+  :ensure geiser)
+(add-hook 'after-init-hook 'global-company-mode)
+
 (which-func-mode t)
 
 ;; ;; Dont crash if file not found
