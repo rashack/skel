@@ -15,7 +15,7 @@ end
 @cached_files = %x[ git diff --cached --name-only ].split
 
 def cached_diff_chunks(file)
-  diff = %x[ git diff --cached #{file} ].split("\n").drop(4)
+  diff = %x[ git diff --cached #{file} ].force_encoding("iso-8859-1").split("\n").drop(4)
          .delete_if { |line| /^\-/ =~ line }
 
   chunk_head = "^@@.*@@"
