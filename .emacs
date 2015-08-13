@@ -3,6 +3,7 @@
 
 (setq my-emacs-dir (expand-file-name "~/.emacs.d"))
 (setq bookmark-default-file (expand-file-name "bookmarks" my-emacs-dir))
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 
 (require 'package)
 (add-to-list 'package-archives
@@ -25,10 +26,13 @@
 (savehist-mode t)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (require 'cl)
-(my-load-use 'dash)
-(my-load-use 'undo-tree)
+(use-package dash
+  :ensure dash)
+(use-package undo-tree
+  :ensure undo-tree)
 (global-undo-tree-mode)
-(my-load-use 'yasnippet)
+(use-package yasnippet
+  :ensure yasnippet)
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (yas-reload-all)
 (yas-global-mode 1)
@@ -49,11 +53,13 @@
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
-(load-library "graphviz-dot-mode.el")
+(use-package graphviz-dot-mode
+  :ensure graphviz-dot-mode)
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
 (load-library "my-mu4e.el")
-(load-and-do-if-exists (elisp-root "gnuplot-mode/gnuplot-mode.el") nil)
+(use-package gnuplot-mode
+  :ensure gnuplot-mode)
 (load-library "my-apl.el")
 (load-library "my-cgm-stuff.el")
 (load-library "my-haskell.el")
@@ -64,11 +70,14 @@
 (load-library "my-lua-mode.el")
 
 ;; from git://jblevins.org/git/markdown-mode.git
-(my-load-use 'markdown-mode)
+(use-package markdown-mode
+  :ensure markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (use-package geiser
   :ensure geiser)
+(use-package company
+  :ensure company)
 (add-hook 'after-init-hook 'global-company-mode)
 
 (which-func-mode t)
@@ -158,7 +167,7 @@
 ;;  "Insert a tag pair, i.e. <tag></tag>, and move the point in between them."
 ;;  (blahblahblah
 
-(setq message-log-max 512)
+(setq message-log-max 2048)
 
 ;; mozrepl
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
@@ -171,7 +180,9 @@
 ;; from https://github.com/scottjad/linum-relativenumber
 ;; (when window-system
 ;;   (my-load-use 'linum-relativenumber))
-(global-linum-mode 1)
+(when window-system
+  (global-linum-mode 1))
+
 ;; from https://github.com/nschum/highlight-parentheses.el.git
 (my-load-use 'highlight-parentheses)
 (add-to-hooks 'highlight-parentheses-mode
@@ -181,8 +192,8 @@
               'haskell-mode-hook
               'javascript-mode-hook)
 
-;; (require 'ido)
-;; (ido-mode t)
+(require 'ido)
+(ido-mode t)
 ;; (setq ido-enable-flex-matching nil)
 
 (setq line-move-visual nil)
