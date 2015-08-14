@@ -17,6 +17,7 @@ import XMonad.Layout.LayoutScreens
 import XMonad.Layout.MultiColumns
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Reflect
+import XMonad.Layout.ResizableTile
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.ToggleLayouts
@@ -30,12 +31,13 @@ import qualified XMonad.StackSet as W
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
 myTitleFgColor = "white"
 
-myLayout = gaps [(U,16)] (smartBorders (tiled ||| full ||| threeCol))
+myLayout = gaps [(U,16)] (smartBorders (tiled ||| full ||| threeCol ||| resizableTall))
            where
              toggleReflect l = toggleLayouts (reflectHoriz $ l) l
              tiled           = toggleReflect (Tall 1 0.03 0.5)
              threeCol        = toggleReflect (ThreeCol 1 (0.8/100) (1/3))
              full            = toggleLayouts Full (tabbed shrinkText myTabConfig)
+             resizableTall   = ResizableTall 1 (3/100) (1/2) []
 
 myTabConfig = defaultTheme {   activeBorderColor = "#FF9900",   activeColor = "#444444",   activeTextColor = "#00CC00"
                            , inactiveBorderColor = "#444444", inactiveColor = "#222222", inactiveTextColor = "#888888"}
@@ -87,6 +89,8 @@ main = do
              , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn ("~/bin/xterm-latin1"))
              , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.25 0.75))
              , ((modm .|. controlMask .|. shiftMask, xK_space), rescreen)
+             , ((modm, xK_a), sendMessage MirrorShrink)
+             , ((modm, xK_z), sendMessage MirrorExpand)
 	      ]
 	      ++
              [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
