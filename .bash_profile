@@ -3,7 +3,7 @@ echo "Reading .bash_profile"
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+    . ~/.bashrc
 fi
 
 # User specific environment and startup programs
@@ -52,3 +52,9 @@ export KRED_POLL=true
 export DIALYZER_PLT=$HOME/src/OTP/install/R15B03-1/dialyzer.plt
 
 export GEM_HOME=~/.gem
+export RBENV_SHELL=bash
+export RBENV_PATH=$HOME/.rbenv
+export RUBY_PATH=$RBENV_PATH/bin:$RBENV_PATH/shims:$RBENV_PATH/plugins/ruby-build/bin:$GEM_HOME/gems/bundler-1.10.6/bin
+export PATH=$RUBY_PATH:$PATH
+source ~/.rbenv/completions/rbenv.bash
+rbenv rehash 2>/dev/null
