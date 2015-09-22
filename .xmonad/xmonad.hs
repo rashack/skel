@@ -48,7 +48,7 @@ main = do
         spawn ("~/bin/dzen2-time")
         spawn ("~/bin/dzen2-idle")
         spawn ("~/bin/dzen2-load")
-        xmonad (ewmh (withUrgencyHook NoUrgencyHook defaultConfig))
+        xmonad (ewmh $ withUrgencyHook NoUrgencyHook defaultConfig)
          {
            --dzen2
            logHook = dynamicLogWithPP $ defaultPP { ppOutput = hPutStrLn h
