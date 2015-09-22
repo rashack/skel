@@ -12,7 +12,7 @@ roll_backup_dirs () {
     local N_BACKUPS=$2
 
     if [ -f $RSYNC_LOG_PREV -a $(cat $RSYNC_LOG_PREV | wc -l) -le 1 ] ; then
-        log "INFO: No changes in yestardays backup; not rolling backup dirs."
+        log "INFO: No changes in yesterdays backup; not rolling backup dirs."
     else
         log "INFO: rolling backup directories."
     fi
@@ -27,9 +27,13 @@ log () {
     echo $(date "+%F %T") "$BACKUP_NAME: $1" >> $LOG_FILE
 }
 
+vlog () {
+    echo $(date "+%F %T") "$BACKUP_NAME: $1" | tee -a $LOG_FILE
+}
+
 exit_backup () {
     if [ -n "$1" ] ; then
-        log "$1"
+        vlog "$1"
     fi
     log "END: backup"
     exit $2
@@ -37,7 +41,7 @@ exit_backup () {
 
 check_size_diff () {
     if ! ( [ -d $1 ] && [ -d $2 ] ) ; then
-        log "WRNING: $1 or $2 not found, not doing growth comparison."
+        log "WARNING: $1 or $2 not found, not doing growth comparison."
         return
     fi
     local OLD_SIZE=$(du -s $1 | cut -f 1)
