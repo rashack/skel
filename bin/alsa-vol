@@ -3,7 +3,7 @@
 source ~/bin/dzen2-env
 amixer -q set Master $1
 case $OS_ID in
-    linuxmint)
+    debian|linuxmint)
         VOL="Volume: $(amixer get Master | grep 'Front Left' | egrep -o '[0-9]+%')" ;;
     arch)
         VOL="Volume: $(amixer get Master | grep 'Mono: Playback' | egrep -o '[0-9]+%')" ;;
