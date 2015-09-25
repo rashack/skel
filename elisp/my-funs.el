@@ -50,6 +50,16 @@
   (kill-new (buffer-file-name)))
 (global-set-key "\C-xac" 'copy-file-name)
 
+(defun copy-row-reference ()
+  "Put <filename:line number:current line content> on the kill-ring"
+  (interactive)
+  (kill-new
+   (format "%s:%s:%s"
+           (buffer-file-name)
+           (line-number-at-pos)
+           (buffer-substring (line-beginning-position) (line-end-position)))))
+(global-set-key "\C-xar" 'copy-row-reference)
+
 ;; (looking-at "\\>") means "at end of word"
 ;; (looking-at "$") means "at end of line"
 (defun indent-or-complete ()
