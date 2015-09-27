@@ -129,8 +129,7 @@
     (push-mark)
     (forward-word)
     (kill-new (buffer-substring (mark) (point)))))
-;;(<global-set-key "\C-x\C-g" 'copy-word)
-
+(global-set-key (kbd "C-S-w") 'copy-word)
 
 ;; Highlight word on double-click.
 
