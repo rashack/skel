@@ -16,10 +16,9 @@
 
 (use-package edts
   :ensure edts
-  :init
-  (progn
-    (edts-log-set-level 'debug)
-    (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)))
+  :config
+  (edts-log-set-level 'debug)
+  (add-hook 'erlang-mode-hook 'my-erlang-mode-hook))
 
 (defconst merl-mfa-regexp
   ;; Match      <module>,  <fun>,       <arity>,  [{file
