@@ -220,3 +220,5 @@ rbenv() {
     command rbenv "$command" "$@";;
   esac
 }
+
+source ~/.skel/lib/tmux-completion.bash
