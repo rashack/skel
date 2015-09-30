@@ -1,7 +1,5 @@
 # .bashrc
 
-echo "Reading .bashrc"
-
 export OS_ID=$(source /etc/os-release ; echo $ID)
 export HOME_FQDN=rashack.com
 
