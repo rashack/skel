@@ -40,6 +40,7 @@
 (load-library "my-colours.el")
 (my-colours-theme 'solarized-grey)
 
+(load-library "my-projectile.el")
 (load-library "my-java.el")
 
 ;;(load-file "~/.emacs.d/elisp/sqlplus.el")
@@ -68,6 +69,7 @@
 (load-library "my-org.el")
 (load-library "my-emacs-tmp-files.el")
 (load-library "my-lua-mode.el")
+(load-library "my-ruby.el")
 
 ;; from git://jblevins.org/git/markdown-mode.git
 (use-package markdown-mode
