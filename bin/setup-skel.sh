@@ -41,6 +41,7 @@ link_skel_files() {
 	.guile \
 	.imwheelrc \
 	.inputrc \
+        .psqlrc \
 	.repos-to-fetch \
 	.screenrc \
 	.tmux-default.conf \
