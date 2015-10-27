@@ -1,7 +1,8 @@
 (use-package projectile
   :ensure projectile)
 
-(add-hook 'clojure-mode-hook 'projectile-mode)
-(add-hook 'haskell-mode-hook 'projectile-mode)
-(add-hook 'java-mode-hook 'projectile-mode)
-(add-hook 'ruby-mode-hook 'projectile-mode)
+(eval-after-load 'projectile-mode
+  '(define-key projectile-command-map (kbd "C-x f") 'projectile-find-file))
+
+(projectile-global-mode)
+(setq projectile-completion-system 'grizzl)
