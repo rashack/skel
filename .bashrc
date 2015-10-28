@@ -137,12 +137,14 @@ man() {
 
 alias gid='git diff'
 __gdiff () {
-    local cur prev opts
     COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts=$(git status --porcelain | grep '^.[^ ?]' | cut -b 4-)
-
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local prev="${COMP_WORDS[COMP_CWORD-1]}"
+    local pgwd=$(realpath --relative-to=$(git rev-parse --show-toplevel) $(pwd))
+    local opts
+    for opt in $(git status --porcelain | grep '^.[^ ?]' | cut -b 4-) ; do
+        opts="$opts $(realpath --relative-to=$PWD $(git rev-parse --show-toplevel)/$opt)"
+    done
     case "${prev}" in
         gid)
             COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
