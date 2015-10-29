@@ -1,8 +1,14 @@
 #!/bin/bash
 
-if $(tmux ls -F"#{session_name}" | grep -q main) ; then
-    tmux detach -s main
-    tmux attach -t main
+SESSION=main
+
+if [ $1 != "" ] ; then
+    SESSION=$1
+fi
+
+if $(tmux ls -F"#{session_name}" | grep -q $SESSION) ; then
+    tmux detach -s $SESSION
+    tmux attach -t $SESSION
 else
-    tmux new -s main
+    tmux new -s $SESSION
 fi
