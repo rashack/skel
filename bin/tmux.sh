@@ -2,7 +2,7 @@
 
 SESSION=main
 
-if [ $1 != "" ] ; then
+if [ -n "$1" ] ; then
     SESSION=$1
 fi
 
