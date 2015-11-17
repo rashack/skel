@@ -1,11 +1,19 @@
 #!/bin/bash
 
-TL=$(cat ~/.bash_history | wc -l)
-PL=$(cat ~/.bash_history.0 | wc -l)
+BACKUP_BASE=.bash_history
+BACKUP_DIR=~/$BACKUP_BASE.d
+mkdir -p $BACKUP_DIR
 
-if [ $(( $PL - $TL )) -gt 1 ] ; then
-    echo ".bash_history had $PL rows yesterday and $TL rows today." >&2
+PRES=$(wc -l ~/$BACKUP_BASE | awk '{print $1}')
+PREV=$(wc -l $BACKUP_DIR/$BACKUP_BASE.0 | awk '{print $1}')
+
+if [ $(( $PREV - $PRES )) -gt 0 ] ; then
+    echo "Previous $BACKUP_BASE had $PREV rows and present has $PRES rows." >&2
     exit 1
 fi
 
-cp -f .bash_history .bash_history.0
+for (( i=${N_BASH_HISTORY_BACKUPS:-10} ; i > 0 ; i=i-1 )) ; do
+    mv $BACKUP_DIR/$BACKUP_BASE.$(( $i-1 )) $BACKUP_DIR/$BACKUP_BASE.$i
+done
+
+cp ~/$BACKUP_BASE $BACKUP_DIR/$BACKUP_BASE.0
