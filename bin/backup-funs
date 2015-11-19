@@ -2,8 +2,10 @@
 
 BACKUP_ROOT=/mnt/backup/$LOGNAME
 LOG_FILE=$BACKUP_ROOT/log/backup.log
-RSYNC_LOG_NEXT=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date "+%F")
-RSYNC_LOG_PREV=$BACKUP_ROOT/log/rsync-res-${BACKUP_SOURCE//\//-}-$(date --date "yesterday" "+%F")
+RSYNC_LOG_DIR=$BACKUP_ROOT/log/rsync-log-${BACKUP_SOURCE//\//-}
+mkdir -p $RSYNC_LOG_DIR
+RSYNC_LOG_NEXT=$RSYNC_LOG_DIR/$(date "+%F").log
+RSYNC_LOG_PREV=$RSYNC_LOG_DIR/$(date --date "yesterday" "+%F").log
 RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
 --inplace --numeric-ids --delete --delete-excluded -F"
 
