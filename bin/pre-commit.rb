@@ -3,6 +3,8 @@
 @exit_value = 0
 
 @git_branch = %x[ git branch | grep -oP "^\\* \\K.*" ]
+# or (if not GNU grep?)
+# @git_branch = %x[ git branch | sed -n "s/^\* \(.*\)/\1/p"
 
 # Check that the branch name conforms to GBL-<team name>-NNNNN
 def check_branch_name
@@ -60,7 +62,8 @@ end
 errors = [ check_branch_name,
            check_chunks("Commas not followed by a space", ",[^ \\n]", @cached_files),
            check_chunks("Parenthesis with space on concave side", "\\( | \\)", @cached_files),
-           check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @cached_files)
+           check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @cached_files),
+           check_chunks("Line too long", ".{80,}", @cached_files)
          ].delete_if { |errs| errs == "" or errs == nil }
          .join "\n"
 puts errors unless errors == ""
