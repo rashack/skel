@@ -63,7 +63,7 @@ errors = [ check_branch_name,
            check_chunks("Commas not followed by a space", ",[^ \\n]", @cached_files),
            check_chunks("Parenthesis with space on concave side", "\\( | \\)", @cached_files),
            check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @cached_files),
-           check_chunks("Line too long", ".{80,}", @cached_files)
+           check_chunks("Line too long", ".{81,}", @cached_files)
          ].delete_if { |errs| errs == "" or errs == nil }
          .join "\n"
 puts errors unless errors == ""
