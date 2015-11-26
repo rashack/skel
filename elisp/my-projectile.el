@@ -1,4 +1,5 @@
 (use-package projectile
+  :defer t
   :ensure projectile)
 
 (eval-after-load 'projectile-mode

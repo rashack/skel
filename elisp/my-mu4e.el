@@ -1,5 +1,6 @@
 ;;(add-to-list 'load-path "~/src/mu/mu4e")
 (use-package mu4e-maildirs-extension
+  :defer t
   :ensure mu4e-maildirs-extension
   :init
   (progn

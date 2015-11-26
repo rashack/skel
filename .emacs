@@ -1,3 +1,5 @@
+(defconst emacs-start-time (current-time))
+
 (add-to-list 'load-path "~/.emacs.d/elisp/" t)
 (setq inhibit-startup-message t)
 
@@ -27,8 +29,10 @@
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
 (require 'cl)
 (use-package dash
+  :defer t
   :ensure dash)
 (use-package undo-tree
+  :defer t
   :ensure undo-tree)
 (global-undo-tree-mode)
 (use-package yasnippet
@@ -55,11 +59,13 @@
 (load-library "my-jdb.el")
 (load-library "my-erlang.el")
 (use-package graphviz-dot-mode
+  :defer t
   :ensure graphviz-dot-mode)
 (load-library "my-scala.el")
 ;;(load-library "my-eclim.el")
 (load-library "my-mu4e.el")
 (use-package gnuplot-mode
+  :defer t
   :ensure gnuplot-mode)
 (load-library "my-apl.el")
 (load-library "my-cgm-stuff.el")
@@ -73,12 +79,15 @@
 
 ;; from git://jblevins.org/git/markdown-mode.git
 (use-package markdown-mode
+  :defer t
   :ensure markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (use-package geiser
+  :defer t
   :ensure geiser)
 (use-package company
+  :defer t
   :ensure company)
 (add-hook 'after-init-hook 'global-company-mode)
 
@@ -314,3 +323,15 @@
 
 (require 'desktop)
 (add-to-list 'desktop-path ".")
+
+(let ((elapsed (float-time (time-subtract (current-time)
+                                          emacs-start-time))))
+  (message "Loading %s...done (%.3fs)" load-file-name elapsed)
+
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract (current-time)
+                                                         emacs-start-time))))
+                 (message "Loading %s...done (%.3fs) [after-init]"
+                          ,load-file-name elapsed)))
+            t))

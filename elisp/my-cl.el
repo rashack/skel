@@ -1,4 +1,5 @@
 (use-package slime
+  :defer t
   :ensure slime
   :init
   (progn

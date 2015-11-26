@@ -1,5 +1,6 @@
 (add-to-list 'load-path (elisp-root "scala-mode"))
 (use-package scala-mode2
+  :defer t
   :ensure scala-mode2
   :init
   (progn

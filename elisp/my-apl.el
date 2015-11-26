@@ -3,6 +3,7 @@
 ;; Dyalog-mode, from https://bitbucket.org/harsman/dyalog-mode
 (add-to-list 'load-path (elisp-root "dyalog-mode"))
 (use-package dyalog-mode
+  :defer t
   :init
   (progn
     (add-to-list 'auto-mode-alist '("\\.apl\\'" . dyalog-mode))

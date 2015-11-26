@@ -1,5 +1,6 @@
 ;; from https://github.com/fgallina/multi-web-mode.git
 (use-package multi-web-mode
+  :defer t
   :ensure multi-web-mode
   :init
   (progn

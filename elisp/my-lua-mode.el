@@ -1,5 +1,6 @@
 (add-to-list 'load-path (elisp-root "lua-mode"))
 (use-package lua-mode
+  :defer t
   :ensure lua-mode
   :init
   (progn

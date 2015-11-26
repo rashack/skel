@@ -1,7 +1,8 @@
 ;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/erlang")
 (add-to-list 'load-path (concat (getenv "ERLANG_HOME") "/elisp"))
 
-(use-package erlang-start)
+(use-package erlang-start
+  :defer t)
 
 (defun my-erlang-mode-hook ()
   (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
@@ -12,13 +13,18 @@
   (whitespace-mode t)
   (setq erlang-electric-commands
         (remove 'erlang-electric-gt erlang-electric-commands))
-  (linum-mode))
+  (yas-minor-mode)
+  (edts-mode))
 
-(use-package edts
+(use-package edts-start
+  :defer t
   :ensure edts
+  :init
+  (message "init edts")
+  (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
   :config
-  (edts-log-set-level 'debug)
-  (add-hook 'erlang-mode-hook 'my-erlang-mode-hook))
+  (message "config edts")
+  (edts-log-set-level 'debug))
 
 (defconst merl-mfa-regexp
   ;; Match      <module>,  <fun>,       <arity>,  [{file
