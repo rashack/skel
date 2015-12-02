@@ -58,3 +58,7 @@ export RUBY_PATH=$RBENV_PATH/bin:$RBENV_PATH/shims:$RBENV_PATH/plugins/ruby-buil
 export PATH=$RUBY_PATH:$PATH
 source ~/.rbenv/completions/rbenv.bash
 rbenv rehash 2>/dev/null
+
+if ! [ -z "$PS1" ]; then
+    trap "history -a" SIGUSR1
+fi
