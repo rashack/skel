@@ -25,4 +25,3 @@
  0       2   *   *   *   ~/bin/check-bash-history.sh
  0-59,1  *   *   *   *   ~/bin/check-xssw.sh
  0-59,1  *   *   *   *   ~/bin/check-external-ip.sh
- 0      12   *   *   *   ~/bin/signal-usr1-to-bashes.sh

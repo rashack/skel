@@ -77,6 +77,7 @@ function __set_prompt
 \[\e[m\]'$UCOL'[\u@\h]\
 \[\e[40m\]\[\e[32m\] \w\
 \[\e[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\e[m\]\$ '
+    history -a
 }
 export PROMPT_COMMAND=__set_prompt
 
