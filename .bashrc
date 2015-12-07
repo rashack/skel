@@ -179,9 +179,9 @@ function set_normal_homes() {
 
 function set_normal_path() {
     set_normal_homes
-    export ERLANG_HOME=~/src/erlang
+    export ERLANG_HOME=~/otp/install
     local BIN_PATH=$HOME/bin
-    local ERLANG_PATH=$ERLANG_HOME/install/bin
+    local ERLANG_PATH=$ERLANG_HOME/bin
     local JAVA_PATH=$JAVA_HOME/bin
     local SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
     export PATH=$BIN_PATH:$ERLANG_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH:$ORIGINAL_SYSTEM_PATH
