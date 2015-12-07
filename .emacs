@@ -67,7 +67,7 @@
 (use-package gnuplot-mode
   :defer t
   :ensure gnuplot-mode)
-(load-library "my-apl.el")
+;;(load-library "my-apl.el")
 (load-library "my-cgm-stuff.el")
 (load-library "my-haskell.el")
 (load-library "my-html.el")
@@ -191,8 +191,7 @@
 ;; from https://github.com/scottjad/linum-relativenumber
 ;; (when window-system
 ;;   (my-load-use 'linum-relativenumber))
-(when window-system
-  (global-linum-mode 1))
+(global-linum-mode 1)
 
 ;; from https://github.com/nschum/highlight-parentheses.el.git
 (my-load-use 'highlight-parentheses)
