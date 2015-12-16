@@ -10,8 +10,15 @@ create_torrent () {
     else
         filename=$hashh
     fi
-    echo "d10:magnet-uri${#1}:${1}e" > "$TORRENT_DIR/meta-$filename.torrent"
+    echo "d10:magnet-uri${#1}:${1}e" > "$TORRENT_DIR/magnet-$filename.torrent"
 }
+
+while getopts "d:" opt ; do
+    case $opt in
+        d) TORRENT_DIR="$OPTARG" ;;
+    esac
+done
+shift `expr $OPTIND - 1`
 
 for x in $* ; do
     create_torrent "$x"
