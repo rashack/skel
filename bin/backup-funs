@@ -25,12 +25,16 @@ roll_backup_dirs () {
     done
 }
 
+msg () {
+    echo $(date "+%F %T") "$BACKUP_NAME: $1"
+}
+
 log () {
-    echo $(date "+%F %T") "$BACKUP_NAME: $1" >> $LOG_FILE
+    msg "$1" >> $LOG_FILE
 }
 
 vlog () {
-    echo $(date "+%F %T") "$BACKUP_NAME: $1" | tee -a $LOG_FILE
+    msg "$1" | tee -a $LOG_FILE
 }
 
 exit_backup () {
@@ -60,10 +64,10 @@ change_ratio ($OLD_SIZE, $NEW_SIZE)" | bc -l)
 if ($D_PERCENT > $MAX_PERCENT) 1 else 0" | bc -l)
     D_MSG=$(printf "backup size changed %.2f%%, from %d to %d" $D_PERCENT $OLD_SIZE $NEW_SIZE)
     if [ $D_OK -gt 0 ] ; then
-        MSG="WARNING: $D_MSG"
+        MSG=$(msg "WARNING: $D_MSG")
         echo "$MSG" >&2
     else
-        MSG="INFO: $D_MSG"
+        MSG=$(msg "INFO: $D_MSG")
     fi
     log "$MSG"
 }
