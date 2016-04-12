@@ -5,13 +5,15 @@
 MAX_SIZE=0
 HUMAN_READABLE="y"
 QUOTE=0
+SORT="sort -n"
 
-while getopts "l:n-q" opt ; do
+while getopts "l:n-qr" opt ; do
     case $opt in
         -) break;;
         l) MAX_SIZE="$OPTARG";;
         n) HUMAN_READABLE="n";;
         q) QUOTE=1;;
+        r) SORT="sort -nr"
     esac
 done
 
@@ -27,9 +29,9 @@ function less_than_size() {
 
 function files_and_sizes() {
     if [ $QUOTE -eq 1 ] ; then
-        du -s "$@" | less_than_size | sed 's/\([0-9]\+\)\([ \t]\+\)\(.*\)/\1\2"\3"/g' | sort -n
+        du -s "$@" | less_than_size | sed 's/\([0-9]\+\)\([ \t]\+\)\(.*\)/\1\2"\3"/g' | $SORT
     else
-        du -s "$@" | less_than_size | sort -n
+        du -s "$@" | less_than_size | $SORT
     fi
 }
 #    $MAX_SIZE
