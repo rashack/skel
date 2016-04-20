@@ -1,5 +1,10 @@
 # .bashrc
 
+export HISTTIMEFORMAT="%F %T "
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=1048576
+export HISTFILESIZE=1048576
+
 export OS_ID=$(source /etc/os-release ; echo $ID)
 export HOME_FQDN=rashack.com
 

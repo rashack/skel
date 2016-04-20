@@ -38,16 +38,6 @@ LS_C_IMG=$(echo {do,*.anx,*.asf,*.avi,*.axv,*.bmp,*.cgm,*.dl,*.flv,*.m4v,\
 LS_C_EXTRA=$LS_C_ARCHIVES$LS_C_AUD$LS_C_IMG
 export LS_COLORS=$LS_COLORS${LS_C_EXTRA// /}
 
-export HISTCONTROL=ignoredups:erasedups
-export HISTSIZE=1048576
-export HISTFILESIZE=1048576
-#export PROMPT_COMMAND="history -a; history -c; history -r"
-export ORACLE_HOME=~/oracle/ora_home
-export HISTTIMEFORMAT="%F %T "
-#JUNIT_HOME="/usr/local/java/junit"
-#CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit.jar:/$JUNIT_HOME"
-#MANPATH="$MANPATH:/usr/local/java/j2sdk/man"
-
 export KRED_POLL=true
 export DIALYZER_PLT=$HOME/src/OTP/install/R15B03-1/dialyzer.plt
 
