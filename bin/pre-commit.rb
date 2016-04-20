@@ -1,4 +1,4 @@
-#!/usr/bin/ruby -w
+#!/usr/bin/env ruby
 
 @exit_value = 0
 
@@ -14,11 +14,8 @@ def check_branch_name
   end
 end
 
-@cached_files = %x[ git diff --cached --name-only ].split
-
-def cached_diff_chunks(file)
-  diff = %x[ git diff --cached #{file} ].force_encoding("iso-8859-1").split("\n").drop(4)
-         .delete_if { |line| /^\-/ =~ line }
+def diff_chunks(file)
+  diff = @diff_fun.call file
 
   chunk_head = "^@@.*@@"
   line_number = 0
@@ -41,7 +38,7 @@ end
 def check_chunks(err_msg, regex, files)
   errs = ""
   files.each do |file|
-    cached_diff_chunks(file).each do |chunk|
+    diff_chunks(file).each do |chunk|
       chunk.each do |line|
         l, str = line
         if /^\+/ =~ str
@@ -59,11 +56,38 @@ def check_chunks(err_msg, regex, files)
   end
 end
 
+def diff_cached(file)
+  postprocess_diff %x[ git diff --cached #{file} ]
+end
+
+def diff_commit(file)
+  postprocess_diff %x[ git show #{ARGV[0]} -- #{file} ]
+end
+
+def diff_modified(file)
+  postprocess_diff %x[ git diff #{file} ]
+end
+
+def postprocess_diff(diff)
+  diff.force_encoding("iso-8859-1").split("\n").drop(4).delete_if { |line| /^\-/ =~ line }
+end
+
+if ARGV.length == 0
+  @files = %x[ git diff --cached --name-only ].split
+  @diff_fun = lambda { |file| diff_cached file }
+elsif ARGV[0] == "--"
+  @files = %x[ git ls-files -m ].split
+  @diff_fun = lambda { |file| diff_modified file }
+else
+  @files = %x[ git diff-tree --no-commit-id --name-only -r #{ARGV[0]} ].split
+  @diff_fun = lambda { |file| diff_commit file }
+end
+
 errors = [ check_branch_name,
-           check_chunks("Commas not followed by a space", ",[^ \\n]", @cached_files),
-           check_chunks("Parenthesis with space on concave side", "\\( | \\)", @cached_files),
-           check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @cached_files),
-           check_chunks("Line too long", ".{81,}", @cached_files)
+           check_chunks("Commas not followed by a space", ",[^ \\n]", @files),
+           check_chunks("Parenthesis with space on concave side", "\\( | \\)", @files),
+           check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @files),
+           check_chunks("Line too long", ".{81,}", @files)
          ].delete_if { |errs| errs == "" or errs == nil }
          .join "\n"
 puts errors unless errors == ""
