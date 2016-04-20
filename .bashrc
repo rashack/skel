@@ -141,6 +141,7 @@ man() {
     man "$@"
 }
 
+alias gnp='git --no-pager'
 alias gid='git diff'
 __gdiff () {
     COMPREPLY=()
