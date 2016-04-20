@@ -6,13 +6,23 @@ REPO_ELEMENTS=3
 
 REPOS=(
     ".skel"             ".skel"                                 ssh://my-github/rashack/skel.git
+    apl-altgr           src/apl-altgr                           ssh://my-github/rashack/apl-altgr.git
+    byte-frequency      src/byte-frequency                      ssh://my-github/rashack/byte-frequency.git
+    count-srv           src/erlang/count-srv                    ssh://my-github/rashack/count-srv.git
+    dream               src/dream                               ssh://my-github/rashack/dream.git
+    duplicates          src/duplicates                          ssh://my-github/rashack/duplicates.git
+    elife               src/elisp/elife                         ssh://my-github/rashack/elife.git
+    frequency-scan      src/frequency-scan                      ssh://my-github/rashack/frequency-scan.git
+    gapd                src/guile/gapd                          ssh://my-github/rashack/gapd.git
+    guile-zeromq-3      src/guile-zeromq-3                      ssh://my-github/rashack/guile-zeromq-3.git
+    h2047               src/haskell/h2048                       ssh://my-github/rashack/h2048.git
+    nexus-personal      src/nexus-personal                      ssh://my-github/rashack/nexus-personal.git
+    parse-bash-hist     src/haskell/parse-bash-hist             ssh://my-github/rashack/parse-bash-history.git
+    scheme-in-48        src/scheme-in-48                        ssh://my-github/rashack/scheme-in-48.git
+    solarized-grey      src/solarized-grey                      ssh://my-github/rashack/solarized-grey.git
+
     slask               src/slask                               ssh://my-bitbucket/rashack/slask.git
     android-play        src/android/android-play                ssh://my-bitbucket/rashack/android-play.git
-    frequency-scan      src/frequency-scan                      ssh://my-github/rashack/frequency-scan.git
-    count-srv           src/erlang/count-srv                    ssh://my-github/rashack/count-srv.git
-    gapd                src/guile/gapd                          ssh://my-github/rashack/gapd.git
-    elife               src/elisp/elife                         ssh://my-github/rashack/elife.git
-    duplicates          src/duplicates                          ssh://my-github/rashack/duplicates.git
     fp101x              src/haskell/fp101x                      ssh://my-bitbucket/rashack/fp101x.git
     mshell              src/mshell                              ssh://my-bitbucket/rashack/mshell.git
     pyfi                src/pyfi                                ssh://my-bitbucket/rashack/pyfi.git
