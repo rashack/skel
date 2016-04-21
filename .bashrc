@@ -19,6 +19,7 @@ alias gcc='gcc -ansi -Wall -pedantic -g'
 alias ee='emacs -Q -nw'
 alias ec='emacsclient --alternate-editor="" -c'
 alias nl='nl -ba'
+alias od='od -Ax -t x1'
 alias wcmencoder='mencoder tv:// -tv driver=v4l2:width=960:height=720:device=/dev/video0 -nosound -ovc lavc -o wcrecording.avi'
 alias xscreensaver='xscreensaver -nosplash -display :0.0'
 #alias snes9x='snes9x -joydev1 /dev/input/js0 -joymap1 13 14 12 15 10 11 3 0' # sixaxis
