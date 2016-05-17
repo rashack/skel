@@ -17,12 +17,13 @@ end
 def diff_chunks(file)
   diff = @diff_fun.call file
 
-  chunk_head = "^@@.*@@"
   line_number = 0
   chunk = []
   res = []
   diff.each do |line|
-    if /#{chunk_head}/ !~ line
+    if /#{chunk_head}/ !~ line and line_number == 0
+      next
+    elsif /#{chunk_head}/ !~ line
       chunk.push([line_number, line])
       line_number += 1
     else
@@ -33,6 +34,10 @@ def diff_chunks(file)
     end
   end
   res.push(chunk)
+end
+
+def chunk_head
+  "^@@.*@@"
 end
 
 def check_chunks(err_msg, regex, files)
