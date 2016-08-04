@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: io:format for debugging
+# key: iod
+# --
+io:format(user, " *** ~s:~p~n", [?FILE, ?LINE]),
