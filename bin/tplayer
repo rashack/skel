@@ -33,6 +33,12 @@ else
     CMD="$MPLAYER -vo xv -stop-xscreensaver $OPTS"
 fi
 
+LOOP=1
+if [[ $1 =~ ^-?[0-9]+$ ]] ; then
+    LOOP=$1
+    shift
+fi
+
 if [[ "$1" =~ .*mp3 ]] ; then
     if ! [ -f "$1" ] ; then
         if [ -f "$MUSIC_ROOT/$1" ] ; then
@@ -42,7 +48,10 @@ if [[ "$1" =~ .*mp3 ]] ; then
 fi
 
 echo "$CMD $@"
-$CMD "$@"
+
+for ((i = 0; i < $LOOP; i += 1)) ; do
+    $CMD "$@"
+done
 
 # if [ -p $MPLAYER_SLAVE_FIFO ] ; then
 #     rm $MPLAYER_SLAVE_FIFO
