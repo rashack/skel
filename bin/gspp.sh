@@ -2,13 +2,9 @@
 
 source ~/bin/try-run.sh
 
-git_config() {
-    echo $(find-file-in-parent.sh .git/config $PWD)/config
-}
-
 check_add_ssh_key () {
-    local GIT_HOST=$(grep "url \?= \?ssh://" $(git_config) | \
-	perl -pe 's|\s*url *= *ssh://([^/]+)/.*|$1|')
+    local GIT_HOST=$(git remote get-url origin | \
+	perl -pe 's|ssh://([^/]+)/.*|$1|')
     if [ -z $GIT_HOST ] ; then
         echo "${RED}Couldn't figure out git host.${NORMAL} Do you have a ssh://... in .git/config?"
         exit 1
