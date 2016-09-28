@@ -1,13 +1,20 @@
 #!/bin/bash
 
+xscreensaver -nosplash &
 xrdb -merge ~/.Xdefaults
 xbindkeys
 # Log an IN row in ~/.time
 echo $(date +"%F_%T") IN >> ~/.time
-xscreensaver -nosplash &
 imwheel
 parcellite &
 xsetroot -solid black
+
+case `hostname` in
+    chimp)    stalonetray --icon-size=16 --geometry 1x1+2544+0 --grow-gravity SE & ;;
+    tp)       stalonetray --icon-size=16 --geometry 1x1+1264+0 --grow-gravity SE & ;;
+    bluetang) stalonetray --icon-size=16 --geometry 1x1+1424+0 --grow-gravity SE & ;;
+    tubarao)  stalonetray --icon-size=16 --geometry 1x1+2544+0 --grow-gravity SE & ;;
+esac
 
 case `hostname` in
     chimp)
@@ -19,6 +26,7 @@ case `hostname` in
     tp|bluetang|tubarao)
 	setxkbmap -option -option ctrl:nocaps se
 	synclient MaxTapTime=0
+        nm-applet &
 	;;
 esac
 
