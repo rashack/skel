@@ -1,3 +1,5 @@
 #!/bin/sh
 
-/sbin/iw dev wlan0 link | sed -n 's/.*SSID: \(.*\)$/\1/ p'
+DEV=$(/sbin/iw dev | sed -n 's/.*Interface \([a-z0-9]\+\).*/\1/p')
+
+/sbin/iw dev $DEV link | sed -n 's/.*SSID: \(.*\)$/\1/ p'
