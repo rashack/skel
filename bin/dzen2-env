@@ -47,6 +47,10 @@ case $(hostname) in
 	SCREEN_WIDTH=1600
         laptop_variables
 	;;
+    tubarao)
+	SCREEN_WIDTH=2560
+        laptop_variables
+	;;
 esac
 
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
