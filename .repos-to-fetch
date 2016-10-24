@@ -4,6 +4,9 @@ REPO_DIR_IDX=1
 REPO_REMOTE_IDX=2
 REPO_ELEMENTS=3
 
+# automatically add a repo line with:
+# printf "    %-19s %-38s %s\n"  "$(basename $(pwd))" "$(realpath --relative-to=$HOME $(pwd))" "$(git remote get-url origin)"
+
 REPOS=(
     ".skel"             ".skel"                                 ssh://my-github/rashack/skel.git
     apl-altgr           src/apl-altgr                           ssh://my-github/rashack/apl-altgr.git
