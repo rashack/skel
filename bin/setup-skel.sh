@@ -60,6 +60,8 @@ link_skel_files() {
     ln -s -t ~/.gnupg ../.skel/gpg.conf
 
     ln -s $SKEL_DIR/.xinitrc .xsession
+    mkdir -p ~/.stack
+    ln -rs $SKEL_DIR/stack-config.yaml ~/.stack/config.yaml
 }
 
 EMACS_REPOS=(
