@@ -21,7 +21,7 @@ REPOS=(
     h2047               src/haskell/h2048                       ssh://my-github/rashack/h2048.git
     nexus-personal      src/nexus-personal                      ssh://my-github/rashack/nexus-personal.git
     parse-bash-hist     src/haskell/parse-bash-hist             ssh://my-github/rashack/parse-bash-history.git
-    scheme-in-48        src/scheme-in-48                        ssh://my-github/rashack/scheme-in-48.git
+    scheme-in-48h        src/haskell/scheme-in-48h              ssh://my-github/rashack/scheme-in-48h.git
     solarized-grey      src/elisp/solarized-grey                ssh://my-github/rashack/solarized-grey.git
 
     slask               src/slask                               ssh://my-bitbucket/rashack/slask.git
