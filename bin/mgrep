@@ -1,19 +1,27 @@
 #!/bin/bash
 
+set -eu
+
 SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git"
 SKIP_FILES="--exclude=*.beam --exclude=*.jar"
-GREP_OPTS="--color -d skip -Prn"
+GREP_OPTS="--color -Prn"
 CASE_SENSITIVE="-i"
+CONVERT_ENCODING=n
+FIND_ROOT=""
+FILE_FILTER=""
+unset NO_COMMENTS
+VERBOSE=n
 
-while getopts "cd:D:f:g:iv" opt ; do
+while getopts "cd:D:f:g:inv" opt ; do
     case $opt in
-        c) CONVERT_ENCODING=t ;;
+        c) CONVERT_ENCODING=y ;;
         d) FIND_ROOT="$OPTARG" ;;
         D) SKIP_DIRS="$SKIP_DIRS --exclude-dir=$OPTARG" ;;
-        f) FILE_FILTER="$FILE_FILTER --include=*$OPTARG*" ;;
+        f) FILE_FILTER="${FILE_FILTER:-} --include=*$OPTARG*" ;;
         g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
         i) CASE_SENSITIVE="" ;;
-        v) VERBOSE=t
+        n) NO_COMMENTS="^[^%].*" ;;
+        v) VERBOSE=y
     esac
 done
 shift `expr $OPTIND - 1`
@@ -25,24 +33,36 @@ GREP_OPTS="${GREP_OPTS} ${CASE_SENSITIVE}"
 UNWANTED="$SKIP_DIRS $SKIP_FILES"
 
 log () {
-    [ $VERBOSE ] && echo "$*" >&2
+    echo "$*" >&2
 }
+# log if VERBOSE
 logv () {
-    log "$1='${!1}'"
+    if [ "$VERBOSE" = "y" ] ; then
+        echo "$*" >&2
+    fi
 }
 
-logv FIND_ROOT
-logv FILE_FILTER
+warn_no_comments_simplistic() {
+    if [ "${NO_COMMENTS:-}x" != "x" ] ; then
+        echo "WARNING: The 'NO_COMMENTS' option is simplistic and will filter out more than necessary" 1>&2
+    fi
+}
+
+logv "FIND_ROOT: '$FIND_ROOT'"
+logv "FILE_FILTER: '$FILE_FILTER'"
 
 find_grep () {
-    FIND="grep $GREP_OPTS $FILE_FILTER $UNWANTED -e \"$*\" \"$FIND_ROOT\""
-    log "$FIND"
+    logv "regular find-grep"
+    local PATTERN="${NO_COMMENTS:-}$*"
+    local FIND="grep $GREP_OPTS ${FILE_FILTER:-} $UNWANTED -e \"$PATTERN\" \"$FIND_ROOT\""
+    logv "$FIND"
     eval $FIND
 }
 
 find_grep_recur () {
-    log "recursive grep"
-    FIND="grep -d skip -PriZl $FILE_FILTER $UNWANTED -e \"$1\" $FIND_ROOT |
+    logv "recursive grep"
+    local PATTERN="${NO_COMMENTS:-}$1"
+    local FIND="grep -d skip -PriZl $FILE_FILTER $UNWANTED -e \"$PATTERN\" $FIND_ROOT |
         xargs -0 grep --color -d skip -Pin -e \"$2\""
     log "$FIND"
     eval $FIND
@@ -51,9 +71,11 @@ find_grep_recur () {
 if [ $# -gt 1 ] ; then
     find_grep_recur "$1" "$2"
 else
-    if [ -z "$CONVERT_ENCODING" ] ; then
-        find_grep "$@"
-    else
+    if [ "$CONVERT_ENCODING" = "y" ] ; then
         find_grep $(echo $@ | iconv -f utf8 -t latin1)
+    else
+        find_grep "$@"
     fi
 fi
+
+warn_no_comments_simplistic
