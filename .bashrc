@@ -243,3 +243,5 @@ rbenv() {
 source ~/.skel/lib/tmux-completion.bash
 
 eval "$(stack --bash-completion-script stack)"
+
+source ~/.work-environment
