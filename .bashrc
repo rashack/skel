@@ -40,6 +40,7 @@ ulimit -c unlimited
 
 export LC_COLLATE=POSIX
 export LC_TIME=en_DK.utf8
+export LANG=en_US.utf8
 
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
