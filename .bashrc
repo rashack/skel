@@ -219,6 +219,12 @@ function set_java8_path() {
     export JDK_HOME=$JAVA_HOME
 }
 
+function set_non_java_path() {
+    export PATH=${PATH/$JAVA_HOME/}
+    unset JAVA_HOME
+    unset JDK_HOME
+}
+
 rbenv() {
   local command
   command="$1"
