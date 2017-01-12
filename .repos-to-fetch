@@ -28,6 +28,7 @@ REPOS=(
     android-play        src/android/android-play                ssh://my-bitbucket/rashack/android-play.git
     fp101x              src/haskell/fp101x                      ssh://my-bitbucket/rashack/fp101x.git
     mshell              src/mshell                              ssh://my-bitbucket/rashack/mshell.git
+    notes               src/notes                               ssh://my-bitbucket/rashack/notes.git
     pyfi                src/pyfi                                ssh://my-bitbucket/rashack/pyfi.git
     bitbucket           src/bitbucket                           ssh://my-bitbucket/rashack/bitbucket.git
     kebts               src/erlang/kebts                        ssh://my-bitbucket/rashack/kebts.git
@@ -36,4 +37,6 @@ REPOS=(
     cryptochallange     src/cryptochallange                     ssh://my-bitbucket/rashack/cryptochallange.git
     simple-rest         src/erlang/simple-rest                  ssh://my-bitbucket/rashack/simple-rest.git
     android-http-get    src/android/android-http-get            ssh://my-bitbucket/rashack/android-http-get.git
+
+    doc                 src/doc                                 git@gitlab.com:andreassen.kjell/doc.git
 )
