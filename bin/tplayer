@@ -7,8 +7,15 @@ if [ -z $MPLAYER ]; then
     MPLAYER=mplayer
 fi
 
-#SPDIF="-ao alsa:device=spdif -afm hwac3"
-SPDIF="-ao alsa:device=pt48 -afm hwac3"
+if [ $(hostname) == "harc" ] ; then
+    SPDIF="-ao alsa:device=iec958 -afm hwac3"
+    VO="-vo gl"
+else
+    #SPDIF="-ao alsa:device=spdif -afm hwac3"
+    SPDIF="-ao alsa:device=pt48 -afm hwac3"
+    VO="-vo xv"
+fi
+
 DIGITAL_REGEX=".*d"
 OPTS="-cache 4096"
 if [[ $0 =~ $DIGITAL_REGEX ]]; then
@@ -30,7 +37,7 @@ if [[ $0 =~ "vdpau" ]]; then
     fi
     CMD="/mnt/raid/kjell/src/mplayer/r31555/mplayer $SPDIF -vo vdpau"
 else
-    CMD="$MPLAYER -vo xv -stop-xscreensaver $OPTS"
+    CMD="$MPLAYER $VO -stop-xscreensaver $OPTS"
 fi
 
 LOOP=1
