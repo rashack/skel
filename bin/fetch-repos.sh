@@ -40,7 +40,11 @@ clone_repos() {
         REPO_DIR=$(repo_dir $i)
         REPO_URI=$(repo_uri $i)
         REPO_NAME=$(repo_name $i)
-        try_run "cd ~/$(dirname $REPO_DIR)"
+        REPO_PARENT_DIR=~/$(dirname "$REPO_DIR")
+        if ! [ -d "$REPO_PARENT_DIR" ] ; then
+            try_run "mkdir -p $REPO_PARENT_DIR"
+        fi
+        try_run "cd $REPO_PARENT_DIR"
         if [ -d $(basename $REPO_DIR) ] ; then
             continue
         fi
