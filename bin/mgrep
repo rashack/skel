@@ -12,12 +12,13 @@ FILE_FILTER=""
 unset NO_COMMENTS
 VERBOSE=n
 
-while getopts "cd:D:f:g:inv" opt ; do
+while getopts "cd:D:f:F:g:inv" opt ; do
     case $opt in
         c) CONVERT_ENCODING=y ;;
         d) FIND_ROOT="$OPTARG" ;;
         D) SKIP_DIRS="$SKIP_DIRS --exclude-dir=$OPTARG" ;;
         f) FILE_FILTER="${FILE_FILTER:-} --include=*$OPTARG*" ;;
+        F) FILE_FILTER="${FILE_FILTER:-} --exclude=*$OPTARG*" ;;
         g) GREP_OPTS="$GREP_OPTS -$OPTARG" ;;
         i) CASE_SENSITIVE="" ;;
         n) NO_COMMENTS="^[^%].*" ;;
