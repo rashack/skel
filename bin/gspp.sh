@@ -4,9 +4,17 @@ set -eu
 
 source ~/bin/try-run.sh
 
-check_add_ssh_key () {
-    local GIT_HOST=$(git remote get-url origin | \
-	perl -pe 's|ssh://([^/]+)/.*|$1|')
+get_git_host() {
+    local URL=$(git remote get-url origin)
+    local GIT_HOST=$(echo $URL | sed -n 's|ssh://\([^/]\+\)/.*|\1|p')
+    if [ -z "$GIT_HOST" ] ; then
+        GIT_HOST=$(echo $URL | sed -n 's|git@\([^:]\+\).*|\1|p')
+    fi
+    echo $GIT_HOST
+}
+
+check_add_ssh_key() {
+    local GIT_HOST=$(get_git_host)
     if [ -z $GIT_HOST ] ; then
         echo "${COLR}Couldn't figure out git host.${COLN} Do you have a ssh://... in .git/config?"
         exit 1
