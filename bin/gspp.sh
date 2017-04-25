@@ -34,10 +34,12 @@ check_add_ssh_key() {
 
 check_add_ssh_key
 
-git diff --quiet
-STASH_NEEDED=$?
-[ $STASH_NEEDED -eq 1 ] && try_run "git stash"
+STASH_NEEDED=1
+if ! [ git diff --quiet ] ; then
+    STASH_NEEDED=0
+    try_run "git stash"
+fi
 try_run "git pull --rebase"
 try_run "git push"
-[ $STASH_NEEDED -eq 1 ] && try_run "git stash pop"
+[ $STASH_NEEDED -eq 0 ] && try_run "git stash pop"
 echo "[ ${COLG}OK${COLN} ]"
