@@ -35,7 +35,7 @@ check_add_ssh_key() {
 check_add_ssh_key
 
 STASH_NEEDED=1
-if ! [ git diff --quiet ] ; then
+if ! [ $(git diff --quiet) ] ; then
     STASH_NEEDED=0
     try_run "git stash"
 fi
