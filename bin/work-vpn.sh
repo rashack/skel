@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CMD="openvpn --daemon --script-security 2 --config work-vpn.ovpn"
+CMD="openvpn --askpass --daemon --script-security 2 --config work-vpn.ovpn"
 
 kill_openvpn() {
     sudo pkill -9 -fx "$CMD"
