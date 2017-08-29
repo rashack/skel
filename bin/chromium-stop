@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $0 =~ "cont" ]] ; then
+    killall -s CONT -r .*chromium-browser
+elif [[ $0 =~ "stop" ]] ; then
+    killall -s STOP -r .*chromium-browser
+fi
