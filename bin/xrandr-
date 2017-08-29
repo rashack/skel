@@ -1,29 +1,49 @@
 #!/bin/bash
 
-EXTERNAL_DEVICE=$(xrandr | grep -w connected | grep -v LVDS1 | awk '{print $1}')
+case $(hostname) in
+    bluetang)
+        INT_RES=1600x900
+        INT_DEV="LVDS1"
+        EXT_DEVS="VGA1 HDMI1 DP1"
+        ;;
+    tubarao)
+	INT_RES=2560x1440
+        INT_DEV="eDP1"
+        EXT_DEVS="DP1 DP2 HDMI1 HDMI2 VIRTUAL1"
+        ;;
+esac
+
+EXT_DEV=$(xrandr | grep -w connected | grep -v $INT_DEV | awk '{print $1}')
+#EXTERNAL_RESOLUTION=$(xrandr | grep -w connected | grep -v $INT_DEV | awk '{print $2}' | sed 's/\(.*\)+.*/\1/')
+EXT_RES=$(xrandr | sed -n '/ connected/,$ p' | tail -n +2 | sed -n '/ connected/,$ p' | sed -n '2 p' | awk '{print $1}')
 
 single() {
     echo "Setting xrandr for single screen."
-    xrandr --output LVDS1 --mode 1600x900 \
-           --output VGA1 --off \
-           --output HDMI1 --off \
-           --output DP1 --off
+    locale exts=""
+    for ext in $EXT_DEVS ; do
+        exts="$exts --output $ext --off"
+    done
+    local cmd="xrandr --output $INT_DEV --mode $INT_RES $exts"
+    echo "xrandr cmd = $cmd"
+    eval "$cmd"
 }
 
 dual_right_of() {
-    xrandr --output LVDS1 --mode 1600x900 \
-           --output $EXTERNAL_DEVICE --mode 1920x1080 --right-of LVDS1
+    local cmd="xrandr --output $INT_DEV --mode $INT_RES --output $EXT_DEV --mode $EXT_RES --right-of $INT_DEV"
+    echo "xrandr cmd = $cmd"
+    eval "$cmd"
 }
 
 dual_right_of_max() {
-    local MAX_OTHER=$(xrandr | sed -n "/^$EXTERNAL_DEVICE/,// p" | grep \+ | awk '{print $1}')
-    xrandr --output LVDS1 --mode 1600x900 \
-           --output $EXTERNAL_DEVICE --mode $MAX_OTHER --right-of LVDS1
+    local MAX_OTHER=$(xrandr | sed -n "/^$EXT_DEV/,// p" | grep \+ | awk '{print $1}')
+    xrandr --output $INT_DEV --mode $INT_RES \
+           --output $EXT_DEV --mode $MAX_OTHER --right-of $INT_DEV
 }
 
 dual_clone() {
-    xrandr --output LVDS1 --mode 1600x900 \
-           --output $EXTERNAL_DEVICE --mode 1600x900 --same-as LVDS1
+    local cmd="xrandr --output $INT_DEV --mode $EXT_RES --output $EXT_DEV --mode $EXT_RES --same-as $INT_DEV"
+    echo "xrandr cmd = $cmd"
+    eval "$cmd"
 }
 
 usage() {
