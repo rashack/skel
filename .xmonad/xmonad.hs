@@ -91,6 +91,7 @@ main = do
              , ((modm .|. controlMask .|. shiftMask, xK_space), rescreen)
              , ((modm, xK_a), sendMessage MirrorShrink)
              , ((modm, xK_z), sendMessage MirrorExpand)
+             , ((modm, xK_i), spawn ("~/bin/passmenu"))
 	      ]
 	      ++
              [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
