@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+HOME=ENV["HOME"]
+OTP_SRC_HOME="#{HOME}/src/otp"
+OTP_BIN_HOME="#{HOME}/otp"
+
+def versions
+  %x{ls #{OTP_BIN_HOME}}.split("\n").select { |vsn| vsn != "install" }
+end
+
+def print_versions(versions)
+  print "Available verions:\n"
+  versions.each do |vsn|
+    puts "    #{vsn}"
+  end
+  print "\nCurrent version:\n"
+  puts "    " + %x{readlink #{OTP_BIN_HOME}/install}
+end
+
+def set_version(vsn)
+  Dir.chdir(OTP_BIN_HOME) do
+    %x{mv install install.prev}
+    %x{ln -s #{vsn} install}
+  end
+end
+
+if ARGV.length == 0
+  print_versions versions
+elsif ARGV.length == 1
+  set_version ARGV[0]
+end
