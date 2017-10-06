@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+HOME=ENV["HOME"]
+PREFIX=".password-store"
+
+def stores
+  %x{ls -1d #{HOME}/#{PREFIX}*}.split("\n").select { |store| not store.end_with? PREFIX }
+end
+
+def print_current
+  print "Current store:\n"
+  puts "    " + %x{readlink #{PREFIX}}
+end
+
+def print_stores(stores)
+  print "Available stores:\n"
+  stores.each do |store|
+    puts "    #{store}"
+  end
+end
+
+def print_numbered(stores)
+  print "Available stores:\n"
+  numbered = (1..stores.length).zip(stores)
+  numbered.each do |n, store|
+    puts "    #{n} #{store}"
+  end
+end
+
+def choose_store_interactively(stores)
+  print_current
+  print "\n"
+  print_numbered(stores)
+  print "Enter number to switch, or enter to abort: "
+  to = gets.chomp.to_i
+  set_store(stores[to - 1])
+end
+
+def set_store(store)
+  Dir.chdir(HOME) do
+    %x{rm #{PREFIX}}
+    %x{ln -s #{store} #{PREFIX}}
+  end
+end
+
+if ARGV.length == 0
+  choose_store_interactively stores
+elsif ARGV.length == 1
+  set_store ARGV[0]
+end
