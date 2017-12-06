@@ -212,3 +212,21 @@ in an Emacs-friendly way and put it in a buffer."
       (replace-regexp "^ \+%
 " "%%" nil (point-min) (point-max))
       (indent-region (point-min) (point-max)))))
+
+(defun redbug ()
+  "Send a redbug stop and start 'M:F->return' to the local EDTS node,
+ for the M:F at point"
+  (interactive "")
+  (save-excursion
+    (cl-flet ((erl-call-str (mfa-str)
+                            (format "erl_call -n %s -a '%s'"
+                                    (edts-api-node-name)
+                                    mfa-str)))
+      (let* ((mfa (edts-mfa-at (point)))
+             (stop-call (erl-call-str "redbug, stop, []"))
+             (start-call (erl-call-str
+                          (format "redbug start [50000, 50000, \"%s:%s->return\"]"
+                                  (first mfa)
+                                  (second mfa)))))
+        (shell-command stop-call)
+        (shell-command start-call)))))
