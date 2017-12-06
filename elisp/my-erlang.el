@@ -196,3 +196,19 @@ in an Emacs-friendly way and put it in a buffer."
       (narrow-to-region start end)
       (comment-region start end)
       (replace-regexp "^  " "" nil (point-min) (point-max)))))
+
+(defun merl-whitespace-fix (start end)
+  "Untabify, indent, fix some comments"
+  (interactive "*r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (delete-trailing-whitespace (point-min) (point-max))
+      (untabify (point-min) (point-max))
+      (replace-regexp "^% " "%% " nil (point-min) (point-max))
+      (replace-regexp "^%\\([^%]\\)" "%% \\1" nil (point-min) (point-max))
+      (replace-regexp "^ \+% " "%% " nil (point-min) (point-max))
+      (replace-regexp "^ \+%\\([^%]\\)" "%% \\1" nil (point-min) (point-max))
+      (replace-regexp "^ \+%
+" "%%" nil (point-min) (point-max))
+      (indent-region (point-min) (point-max)))))
