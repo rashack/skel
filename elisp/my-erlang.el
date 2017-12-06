@@ -188,3 +188,11 @@ in an Emacs-friendly way and put it in a buffer."
 ;;                             ((consp dirs)   (mapconcat 'concat dirs "/"))
 ;;                             ((stringp dirs) (concat root "/" dirs)))
 ;;                       root)))
+
+(defun merl-comment-region (start end)
+  (interactive "*r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (comment-region start end)
+      (replace-regexp "^  " "" nil (point-min) (point-max)))))
