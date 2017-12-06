@@ -1,8 +1,6 @@
 ;;(add-to-list 'load-path "/usr/share/emacs/site-lisp/erlang")
 (add-to-list 'load-path (concat (getenv "ERLANG_HOME") "/elisp"))
-
-(use-package erlang-start
-  :defer t)
+(add-to-list 'load-path "/home/kjell/src/edts/")
 
 (defun my-erlang-mode-hook ()
   (set-face-attribute 'erlang-font-lock-exported-function-name-face nil
@@ -11,19 +9,26 @@
   (setq-local whitespace-style '(face lines-tail))
   (setq-local whitespace-line-column 80)
   (whitespace-mode t)
-  (setq erlang-electric-commands
-        (remove 'erlang-electric-gt erlang-electric-commands))
-  (yas-minor-mode)
-  (edts-mode))
+  ;;(setq erlang-electric-commands (remove 'erlang-electric-gt erlang-electric-commands))
+  ;;(yas-minor-mode)
+  (message " *** my-erlang-mode-hook")
+  (edts-mode)
+  ;;(navi-stack-wrap-and-bind-in edts-mode-map "M-." 'edts-find-source-under-point)
+  ;;(navi-stack-wrap-and-bind-out edts-mode-map "M-," 'edts-find-source-unwind)
+  ;;(local-set-key (kbd "C-c C-c") #'merl-comment-region)
+)
+
+(setq edts-inhibit-package-check t)
+(require 'edts-start)
 
 (use-package edts-start
   :defer t
-  :ensure edts
+  ;;  :ensure edts
   :init
-  (message "init edts")
+  (message "*** init edts-start")
   (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
   :config
-  (message "config edts")
+  (message "*** config edts-start")
   (edts-log-set-level 'debug))
 
 (defconst merl-mfa-regexp
