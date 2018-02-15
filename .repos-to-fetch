@@ -1,4 +1,5 @@
 #!/bin/sh
+
 REPO_NAME_IDX=0
 REPO_DIR_IDX=1
 REPO_REMOTE_IDX=2
@@ -7,36 +8,38 @@ REPO_ELEMENTS=3
 # automatically add a repo line with:
 # printf "    %-19s %-38s %s\n"  "$(basename $(pwd))" "$(realpath --relative-to=$HOME $(pwd))" "$(git remote get-url origin)"
 
+BASE_PATH="$HOME/src"
+
 REPOS=(
-    ".skel"             ".skel"                                 ssh://my-github/rashack/skel.git
-    apl-altgr           src/apl-altgr                           ssh://my-github/rashack/apl-altgr.git
-    byte-frequency      src/byte-frequency                      ssh://my-github/rashack/byte-frequency.git
-    count-srv           src/erlang/count-srv                    ssh://my-github/rashack/count-srv.git
-    dream               src/dream                               ssh://my-github/rashack/dream.git
-    duplicates          src/duplicates                          ssh://my-github/rashack/duplicates.git
-    elife               src/elisp/elife                         ssh://my-github/rashack/elife.git
-    byte-frequency      src/byte-frequency                      ssh://my-github/rashack/byte-frequency.git
-    gapd                src/guile/gapd                          ssh://my-github/rashack/gapd.git
-    guile-zeromq-3      src/guile-zeromq-3                      ssh://my-github/rashack/guile-zeromq-3.git
-    h2048               src/haskell/h2048                       ssh://my-github/rashack/h2048.git
-    nexus-personal      src/nexus-personal                      ssh://my-github/rashack/nexus-personal.git
-    parse-bash-hist     src/haskell/parse-bash-hist             ssh://my-github/rashack/parse-bash-history.git
-    scheme-in-48h        src/haskell/scheme-in-48h              ssh://my-github/rashack/scheme-in-48h.git
-    solarized-grey      src/elisp/solarized-grey                ssh://my-github/rashack/solarized-grey.git
+    ".skel"             "$HOME/.skel"                    ssh://my-github/rashack/skel.git
+    apl-altgr           $BASE_PATH                       ssh://my-github/rashack/apl-altgr.git
+    byte-frequency      $BASE_PATH                       ssh://my-github/rashack/byte-frequency.git
+    count-srv           $BASE_PATH/erlang                ssh://my-github/rashack/count-srv.git
+    dream               $BASE_PATH                       ssh://my-github/rashack/dream.git
+    duplicates          $BASE_PATH                       ssh://my-github/rashack/duplicates.git
+    elife               $BASE_PATH/elisp                 ssh://my-github/rashack/elife.git
+    byte-frequency      $BASE_PATH                       ssh://my-github/rashack/byte-frequency.git
+    gapd                $BASE_PATH/guile                 ssh://my-github/rashack/gapd.git
+    guile-zeromq-3      $BASE_PATH-zeromq-3              ssh://my-github/rashack/guile-zeromq-3.git
+    h2048               $BASE_PATH/haskell               ssh://my-github/rashack/h2048.git
+    nexus-personal      $BASE_PATH                       ssh://my-github/rashack/nexus-personal.git
+    parse-bash-hist     $BASE_PATH/haskell-bash-hist     ssh://my-github/rashack/parse-bash-history.git
+    scheme-in-48h       $BASE_PATH/haskell-in-48h        ssh://my-github/rashack/scheme-in-48h.git
+    solarized-grey      $BASE_PATH/elisp                 ssh://my-github/rashack/solarized-grey.git
 
-    slask               src/slask                               ssh://my-bitbucket/rashack/slask.git
-    android-play        src/android/android-play                ssh://my-bitbucket/rashack/android-play.git
-    fp101x              src/haskell/fp101x                      ssh://my-bitbucket/rashack/fp101x.git
-    mshell              src/mshell                              ssh://my-bitbucket/rashack/mshell.git
-    notes               src/notes                               ssh://my-bitbucket/rashack/notes.git
-    pyfi                src/pyfi                                ssh://my-bitbucket/rashack/pyfi.git
-    bitbucket           src/bitbucket                           ssh://my-bitbucket/rashack/bitbucket.git
-    kebts               src/erlang/kebts                        ssh://my-bitbucket/rashack/kebts.git
-    scherl              src/erlang/scherl                       ssh://my-bitbucket/rashack/scherl.git
-    misclib             src/erlang/misclib                      ssh://my-bitbucket/rashack/misclib.git
-    cryptochallange     src/cryptochallange                     ssh://my-bitbucket/rashack/cryptochallange.git
-    simple-rest         src/erlang/simple-rest                  ssh://my-bitbucket/rashack/simple-rest.git
-    android-http-get    src/android/android-http-get            ssh://my-bitbucket/rashack/android-http-get.git
+    slask               $BASE_PATH                       ssh://my-bitbucket/rashack/slask.git
+    android-play        $BASE_PATH/android-play          ssh://my-bitbucket/rashack/android-play.git
+    fp101x              $BASE_PATH/haskell               ssh://my-bitbucket/rashack/fp101x.git
+    mshell              $BASE_PATH                       ssh://my-bitbucket/rashack/mshell.git
+    notes               $BASE_PATH                       ssh://my-bitbucket/rashack/notes.git
+    pyfi                $BASE_PATH                       ssh://my-bitbucket/rashack/pyfi.git
+    bitbucket           $BASE_PATH                       ssh://my-bitbucket/rashack/bitbucket.git
+    kebts               $BASE_PATH/erlang                ssh://my-bitbucket/rashack/kebts.git
+    scherl              $BASE_PATH/erlang                ssh://my-bitbucket/rashack/scherl.git
+    misclib             $BASE_PATH/erlang                ssh://my-bitbucket/rashack/misclib.git
+    cryptochallange     $BASE_PATH/cryptochallange       ssh://my-bitbucket/rashack/cryptochallange.git
+    simple-rest         $BASE_PATH/erlang-rest           ssh://my-bitbucket/rashack/simple-rest.git
+    android-http-get    $BASE_PATH/android               ssh://my-bitbucket/rashack/android-http-get.git
 
-    doc                 src/doc                                 git@gitlab.com:andreassen.kjell/doc.git
+    doc                 $BASE_PATH/doc                   git@gitlab.com:andreassen.kjell/doc.git
 )

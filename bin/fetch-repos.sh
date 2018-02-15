@@ -1,7 +1,8 @@
 #!/bin/bash
 
+set -eu
+
 source ~/bin/try-run.sh
-source ~/.repos-to-fetch
 
 repo_name() {
     echo ${REPOS[$(( $1 * 3 + $REPO_NAME_IDX ))]}
@@ -23,13 +24,15 @@ no_repos() {
 fetch_repos() {
     pushd .
     for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
-        REPO_DIR=$(repo_dir $i)
+        local REPO_NAME=$(repo_name $i)
+        local REPO_DIR=$(repo_dir $i)
+        local DIR="$REPO_DIR/$REPO_NAME"
         cd
-        if [ -d $REPO_DIR ] ; then
-            try_run "cd ~/$REPO_DIR"
+        if [ -d $DIR ] ; then
+            try_run "cd ~/$DIR"
             try_run "git fetch --all"
         else
-            echo "$REPO_DIR: not there, not fetching"
+            echo "$DIR: not there, not fetching"
         fi
     done
     popd
@@ -37,15 +40,14 @@ fetch_repos() {
 
 clone_repos() {
     for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
-        REPO_DIR=$(repo_dir $i)
-        REPO_URI=$(repo_uri $i)
-        REPO_NAME=$(repo_name $i)
-        REPO_PARENT_DIR=~/$(dirname "$REPO_DIR")
-        if ! [ -d "$REPO_PARENT_DIR" ] ; then
-            try_run "mkdir -p $REPO_PARENT_DIR"
+        local REPO_NAME=$(repo_name $i)
+        local REPO_DIR=$(repo_dir $i)
+        local REPO_URI=$(repo_uri $i)
+        if ! [ -d "$REPO_DIR" ] ; then
+            try_run "mkdir -p $REPO_DIR"
         fi
-        try_run "cd $REPO_PARENT_DIR"
-        if [ -d $(basename $REPO_DIR) ] ; then
+        try_run "cd $REPO_DIR"
+        if [ -d $(basename "$REPO_DIR/$REPO_NAME") ] ; then
             continue
         fi
         try_run "git clone $REPO_URI $REPO_NAME"
@@ -54,10 +56,10 @@ clone_repos() {
 
 shortstat_repos() {
     for (( i=0 ; i < $(no_repos) ; i=$i+1 )) ; do
-        REPO_DIR=$(repo_dir $i)
-        REPO_URI=$(repo_uri $i)
-        REPO_NAME=$(repo_name $i)
-        if [ -d ~/$REPO_DIR ] ; then
+        local REPO_NAME=$(repo_name $i)
+        local REPO_DIR=$(repo_dir $i)
+        local REPO_URI=$(repo_uri $i)
+        if [ -d $REPO_DIR ] ; then
             try_run "cd ~/$REPO_DIR"
             git status -sb | head -1
         else
@@ -76,7 +78,12 @@ usage() {
 "
 }
 
-if [ $# -lt 1 ] ; then
+if [ $# -eq 2 ] && [ -f "$1" ] ; then
+    source "$1"
+    shift
+elif [ $# -eq 1 ] ; then
+    source ~/.repos-to-fetch
+else
     usage
     exit 1
 fi
