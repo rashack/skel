@@ -43,13 +43,13 @@ clone_repos() {
         local REPO_NAME=$(repo_name $i)
         local REPO_DIR=$(repo_dir $i)
         local REPO_URI=$(repo_uri $i)
+        if [ -d $(basename "$REPO_DIR/$REPO_NAME") ] ; then
+            continue
+        fi
         if ! [ -d "$REPO_DIR" ] ; then
             try_run "mkdir -p $REPO_DIR"
         fi
         try_run "cd $REPO_DIR"
-        if [ -d $(basename "$REPO_DIR/$REPO_NAME") ] ; then
-            continue
-        fi
         try_run "git clone $REPO_URI $REPO_NAME"
     done
 }
@@ -60,7 +60,7 @@ shortstat_repos() {
         local REPO_DIR=$(repo_dir $i)
         local REPO_URI=$(repo_uri $i)
         if [ -d $REPO_DIR ] ; then
-            try_run "cd ~/$REPO_DIR"
+            try_run "cd $REPO_DIR"
             git status -sb | head -1
         else
             echo "$REPO_NAME: not cloned"

@@ -9,37 +9,39 @@ REPO_ELEMENTS=3
 # printf "    %-19s %-38s %s\n"  "$(basename $(pwd))" "$(realpath --relative-to=$HOME $(pwd))" "$(git remote get-url origin)"
 
 BASE_PATH="$HOME/src"
+GITHUB=ssh://my-github/rashack
+GITLAB=git@gitlab.com:andreassen.kjell
 
 REPOS=(
-    ".skel"             "$HOME/.skel"                    ssh://my-github/rashack/skel.git
-    apl-altgr           $BASE_PATH                       ssh://my-github/rashack/apl-altgr.git
-    byte-frequency      $BASE_PATH                       ssh://my-github/rashack/byte-frequency.git
-    count-srv           $BASE_PATH/erlang                ssh://my-github/rashack/count-srv.git
-    dream               $BASE_PATH                       ssh://my-github/rashack/dream.git
-    duplicates          $BASE_PATH                       ssh://my-github/rashack/duplicates.git
-    elife               $BASE_PATH/elisp                 ssh://my-github/rashack/elife.git
-    byte-frequency      $BASE_PATH                       ssh://my-github/rashack/byte-frequency.git
-    gapd                $BASE_PATH/guile                 ssh://my-github/rashack/gapd.git
-    guile-zeromq-3      $BASE_PATH-zeromq-3              ssh://my-github/rashack/guile-zeromq-3.git
-    h2048               $BASE_PATH/haskell               ssh://my-github/rashack/h2048.git
-    nexus-personal      $BASE_PATH                       ssh://my-github/rashack/nexus-personal.git
-    parse-bash-hist     $BASE_PATH/haskell-bash-hist     ssh://my-github/rashack/parse-bash-history.git
-    scheme-in-48h       $BASE_PATH/haskell-in-48h        ssh://my-github/rashack/scheme-in-48h.git
-    solarized-grey      $BASE_PATH/elisp                 ssh://my-github/rashack/solarized-grey.git
+    .skel                   $HOME                           $GITHUB/skel.git
+    apl-altgr               $BASE_PATH                      $GITHUB/apl-altgr.git
+    byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
+    count-srv               $BASE_PATH/erlang               $GITHUB/count-srv.git
+    dream                   $BASE_PATH                      $GITHUB/dream.git
+    duplicates              $BASE_PATH                      $GITHUB/duplicates.git
+    elife                   $BASE_PATH/elisp                $GITHUB/elife.git
+    byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
+    gapd                    $BASE_PATH/guile                $GITHUB/gapd.git
+    guile-zeromq-3          $BASE_PATH/guile                $GITHUB/guile-zeromq-3.git
+    h2048                   $BASE_PATH/haskell              $GITHUB/h2048.git
+    nexus-personal          $BASE_PATH                      $GITHUB/nexus-personal.git
+    parse-bash-hist         $BASE_PATH/haskell              $GITHUB/parse-bash-history.git
+    scheme-in-48h           $BASE_PATH/haskell              $GITHUB/scheme-in-48h.git
+    solarized-grey          $BASE_PATH/elisp                $GITHUB/solarized-grey.git
 
-    slask               $BASE_PATH                       ssh://my-bitbucket/rashack/slask.git
-    android-play        $BASE_PATH/android-play          ssh://my-bitbucket/rashack/android-play.git
-    fp101x              $BASE_PATH/haskell               ssh://my-bitbucket/rashack/fp101x.git
-    mshell              $BASE_PATH                       ssh://my-bitbucket/rashack/mshell.git
-    notes               $BASE_PATH                       ssh://my-bitbucket/rashack/notes.git
-    pyfi                $BASE_PATH                       ssh://my-bitbucket/rashack/pyfi.git
-    bitbucket           $BASE_PATH                       ssh://my-bitbucket/rashack/bitbucket.git
-    kebts               $BASE_PATH/erlang                ssh://my-bitbucket/rashack/kebts.git
-    scherl              $BASE_PATH/erlang                ssh://my-bitbucket/rashack/scherl.git
-    misclib             $BASE_PATH/erlang                ssh://my-bitbucket/rashack/misclib.git
-    cryptochallange     $BASE_PATH/cryptochallange       ssh://my-bitbucket/rashack/cryptochallange.git
-    simple-rest         $BASE_PATH/erlang-rest           ssh://my-bitbucket/rashack/simple-rest.git
-    android-http-get    $BASE_PATH/android               ssh://my-bitbucket/rashack/android-http-get.git
+    slask                   $BASE_PATH                      $GITLAB/slask.git
+    android-play            $BASE_PATH/android              $GITLAB/android-play.git
+    fp101x                  $BASE_PATH/haskell              $GITLAB/fp101x.git
+    mshell                  $BASE_PATH                      $GITLAB/mshell.git
+    notes                   $BASE_PATH                      $GITLAB/notes.git
+    pyfi                    $BASE_PATH                      $GITLAB/pyfi.git
+    bitbucket               $BASE_PATH                      $GITLAB/bitbucket.git
+    kebts                   $BASE_PATH/erlang               $GITLAB/kebts.git
+    scherl                  $BASE_PATH/erlang               $GITLAB/scherl.git
+    misclib                 $BASE_PATH/erlang               $GITLAB/misclib.git
+    cryptochallange         $BASE_PATH                      $GITLAB/cryptochallange.git
+    simple-rest             $BASE_PATH/erlang               $GITLAB/simple-rest.git
+    android-http-get        $BASE_PATH/android              $GITLAB/android-http-get.git
 
-    doc                 $BASE_PATH/doc                   git@gitlab.com:andreassen.kjell/doc.git
+    doc                     $BASE_PATH/doc                  $GITLAB/doc.git
 )
