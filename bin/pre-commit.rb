@@ -6,9 +6,12 @@
 # or (if not GNU grep?)
 # @git_branch = %x[ git branch | sed -n "s/^\* \(.*\)/\1/p"
 
+TEAM_NAMES="(hydra|monkey|monkeys)"
+BRANCH_PREFIX="(gbl|kred)"
+
 # Check that the branch name conforms to GBL-<team name>-NNNNN
 def check_branch_name
-  if /gbl-[0-9]+-monkey/i !~ @git_branch
+  if /#{BRANCH_PREFIX}-[0-9]+-#{TEAM_NAMES}/i !~ @git_branch
     @exit_value = 1
     return "Bad branch name '#{@git_branch.chomp}'\n"
   end
@@ -90,7 +93,7 @@ end
 
 errors = [ check_branch_name,
            check_chunks("Commas not followed by a space", ",[^ \\n]", @files),
-           check_chunks("Parenthesis with space on concave side", "\\( | \\)", @files),
+           check_chunks("Parenthesis with space on concave side", "\\( |[^$] \\)", @files),
            check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @files),
            check_chunks("Line too long", ".{81,}", @files)
          ].delete_if { |errs| errs == "" or errs == nil }
