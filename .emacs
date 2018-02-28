@@ -57,6 +57,7 @@
 (load-library "my-clojure.el")
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
+(load-library "my-navi-stack.el")
 (load-library "my-erlang.el")
 (use-package graphviz-dot-mode
   :defer t
