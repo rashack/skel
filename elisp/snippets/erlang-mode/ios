@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: print a stacktrace
+# key: ios
+# --
+try throw(st) catch st -> S = erlang:get_stacktrace(), io:format(user, "~p~n", [S]) end,
