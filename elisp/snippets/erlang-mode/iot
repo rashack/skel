@@ -1,0 +1,23 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: print pre and post timestamps including delta
+# key: iot
+# --
+DbgTf =
+  fun({{Y,M,D},{H,Mi,S}}) ->
+      io:format("~4..0w-~2..0w-~2..0w ~2..0w:~2..0w:~2..0w~n",
+                [Y,M,D,H,Mi,S])
+  end,
+DbgDTf = fun(T0, T1) ->
+  S0 = calendar:datetime_to_gregorian_seconds(T0),
+  S1 = calendar:datetime_to_gregorian_seconds(T1),
+  {H, M, S} = calendar:seconds_to_time(S1 - S0),
+  io:format("Elapsed time: ~wh ~2..0wm ~2..0ws~n",[H,M,S])
+end,
+
+DbgTS0 = calendar:local_time(),
+DbgTf(DbgTS0),
+
+DbgTS1 = calendar:local_time(),
+DbgTf(DbgTS1),
+
+DbgDTf(DbgTS0, DbgTS1),
