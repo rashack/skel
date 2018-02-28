@@ -22,6 +22,8 @@ check_add_ssh_key() {
     local HOST_KEY=$(sed -ne '/Host '$GIT_HOST'/,/^$/ p' ~/.ssh/config | \
 	sed -ne 's/IdentityFile \(.*\)/\1/ p')
     HOST_KEY=${HOST_KEY/\~/$HOME}
+    echo GIT_HOST=$GIT_HOST
+    echo HOST_KEY=$HOST_KEY
     if ! ssh-add -l | grep -q $HOST_KEY ; then
         echo "${COLY}Couldn't find $GIT_HOST in ssh-agent, trying to add.${COLN}"
         if ! [ -f $HOST_KEY ] ; then
