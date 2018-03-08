@@ -32,8 +32,14 @@ def choose_store_interactively(stores)
   print "\n"
   print_numbered(stores)
   print "Enter number to switch, or enter to abort: "
-  to = gets.chomp.to_i
-  set_store(stores[to - 1])
+  to_s = gets.chomp
+  to_store = to_s.to_i
+  if to_store < 1 or to_store > stores.length
+    print "Not switching pass store (input='#{to_s.chomp}')\n"
+    exit 1
+  else
+    set_store(stores[to_store - 1])
+  end
 end
 
 def set_store(store)
