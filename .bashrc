@@ -34,6 +34,7 @@ umask 022
 alias evince='dbus-launch --exit-with-session evince'
 alias hideprev='history -d $((HISTCMD-2)) && history -d $((HISTCMD-1))'
 alias ag='ag --noheading --color-path=35 --color-line-number=32 --color-match=31'
+alias irb='rlwrap irb'
 
 ulimit -n 2048
 ulimit -c unlimited
