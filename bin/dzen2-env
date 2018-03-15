@@ -32,6 +32,11 @@ esac
 CONKY_EXTRA=''
 CONKY_SSID=''
 
+screen_width() {
+    # xrandr | grep '*' | awk '{print $1}' | cut -d x -f 1
+    xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d x -f 1
+}
+
 case $(hostname) in
     pringle)
         SCREEN_WIDTH=1920
@@ -48,7 +53,7 @@ case $(hostname) in
         laptop_variables
         ;;
     tubarao)
-        SCREEN_WIDTH=2560
+	SCREEN_WIDTH=$(screen_width)
         laptop_variables
         ;;
     harc)
