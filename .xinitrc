@@ -8,6 +8,8 @@ echo $(date +"%F_%T") IN >> ~/.time
 imwheel
 parcellite &
 xsetroot -solid black
+# default: xset r rate 660 25
+xset r rate 400 40
 
 my-stalonetray.sh
 
