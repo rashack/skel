@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -euo pipefail
 
 source ~/bin/try-run.sh
 
@@ -36,9 +36,9 @@ check_add_ssh_key() {
 
 check_add_ssh_key
 
-STASH_NEEDED=1
+STASH_NEEDED=0
 if ! [ $(git diff --quiet) ] ; then
-    STASH_NEEDED=0
+    STASH_NEEDED=1
     try_run "git stash"
 fi
 try_run "git pull --rebase"
