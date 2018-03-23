@@ -126,6 +126,9 @@
 (setq column-number-mode t)
 (setq-default show-trailing-whitespace t)
 (setq default-indicate-empty-lines t)
+(setq org-src-fontify-natively t)
+
+
 ;; These three below are better turned off in .Xdefaults or .Xresources
 (tool-bar-mode -1)
 (menu-bar-mode -1)
