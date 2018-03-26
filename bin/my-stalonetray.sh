@@ -1,8 +1,9 @@
 #!/bin/bash
 
-case `hostname` in
-    chimp)    stalonetray --icon-size=16 --geometry 1x1+2544+0 --grow-gravity SE & ;;
-    tp)       stalonetray --icon-size=16 --geometry 1x1+1264+0 --grow-gravity SE & ;;
-    bluetang) stalonetray --icon-size=16 --geometry 1x1+1424+0 --grow-gravity SE & ;;
-    tubarao)  stalonetray --icon-size=16 --geometry 1x1+2544+0 --grow-gravity SE & ;;
-esac
+set -euo pipefail
+
+SCREEN_WIDTH=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d x -f 1)
+SIZE=16
+X_POS=$(( $SCREEN_WIDTH - $SIZE ))
+
+stalonetray --icon-size=$SIZE --geometry 1x1+$X_POS+0 --grow-gravity SE &
