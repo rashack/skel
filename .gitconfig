@@ -34,8 +34,11 @@
         swap = checkout "@{-1}"
         ln = "!git --no-pager log --decorate --pretty=oneline -n $1"
         lo = "!git --no-pager log --decorate -n $1"
+        uc = reset HEAD~
         au = ls-files --others --exclude-standard
         ap = add -p
+        branches = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads
+        tags = log --oneline --decorate --tags --no-walk
 
 [user]
         name = Kjell Andreassen
@@ -44,7 +47,7 @@
         default = tracking
 
 [color "diff"]
-#	meta = magenta black
-	header = magenta black
-	commit = yellow black
-	frag = cyan black
+        # meta = magenta black
+        header = magenta black
+        commit = yellow black
+        frag = cyan black

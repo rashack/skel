@@ -63,8 +63,6 @@
 (use-package graphviz-dot-mode
   :defer t
   :ensure graphviz-dot-mode)
-(load-library "my-scala.el")
-;;(load-library "my-eclim.el")
 (load-library "my-mu4e.el")
 (use-package gnuplot-mode
   :defer t

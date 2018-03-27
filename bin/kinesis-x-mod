@@ -8,6 +8,7 @@ exit_trap() {
 }
 trap exit_trap EXIT
 
+# xmodmap -e "remove control = Super_L"
 xmodmap -e "remove control = Control_R"
 xmodmap -e "keycode 105 = Super_L Super_R"
 xmodmap -e "keycode 49 = Insert"
