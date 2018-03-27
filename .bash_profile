@@ -1,5 +1,4 @@
 # .bash_profile
-echo "Reading .bash_profile"
 
 # Get the aliases and functions
 if [ -f ~/.bashrc ]; then

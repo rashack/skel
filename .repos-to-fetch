@@ -10,17 +10,17 @@ REPO_ELEMENTS=3
 
 BASE_PATH="$HOME/src"
 GITHUB=ssh://my-github/rashack
-GITLAB=git@gitlab.com:andreassen.kjell
+GITLAB=ssh://my-gitlab
 
 REPOS=(
     .skel                   $HOME                           $GITHUB/skel.git
     apl-altgr               $BASE_PATH                      $GITHUB/apl-altgr.git
     byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
+    byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
     count-srv               $BASE_PATH/erlang               $GITHUB/count-srv.git
     dream                   $BASE_PATH                      $GITHUB/dream.git
     duplicates              $BASE_PATH                      $GITHUB/duplicates.git
     elife                   $BASE_PATH/elisp                $GITHUB/elife.git
-    byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
     gapd                    $BASE_PATH/guile                $GITHUB/gapd.git
     guile-zeromq-3          $BASE_PATH/guile                $GITHUB/guile-zeromq-3.git
     h2048                   $BASE_PATH/haskell              $GITHUB/h2048.git
@@ -29,19 +29,27 @@ REPOS=(
     scheme-in-48h           $BASE_PATH/haskell              $GITHUB/scheme-in-48h.git
     solarized-grey          $BASE_PATH/elisp                $GITHUB/solarized-grey.git
 
-    slask                   $BASE_PATH                      $GITLAB/slask.git
+    android-http-get        $BASE_PATH/android              $GITLAB/android-http-get.git
     android-play            $BASE_PATH/android              $GITLAB/android-play.git
+    bitbucket               $BASE_PATH                      $GITLAB/bitbucket.git
+    cryptochallange         $BASE_PATH                      $GITLAB/cryptochallange.git
+    doc                     $BASE_PATH/doc                  $GITLAB/doc.git
     fp101x                  $BASE_PATH/haskell              $GITLAB/fp101x.git
+    kebts                   $BASE_PATH/erlang               $GITLAB/kebts.git
+    misclib                 $BASE_PATH/erlang               $GITLAB/misclib.git
     mshell                  $BASE_PATH                      $GITLAB/mshell.git
     notes                   $BASE_PATH                      $GITLAB/notes.git
     pyfi                    $BASE_PATH                      $GITLAB/pyfi.git
-    bitbucket               $BASE_PATH                      $GITLAB/bitbucket.git
-    kebts                   $BASE_PATH/erlang               $GITLAB/kebts.git
     scherl                  $BASE_PATH/erlang               $GITLAB/scherl.git
-    misclib                 $BASE_PATH/erlang               $GITLAB/misclib.git
-    cryptochallange         $BASE_PATH                      $GITLAB/cryptochallange.git
     simple-rest             $BASE_PATH/erlang               $GITLAB/simple-rest.git
-    android-http-get        $BASE_PATH/android              $GITLAB/android-http-get.git
-
-    doc                     $BASE_PATH/doc                  $GITLAB/doc.git
+    slask                   $BASE_PATH                      $GITLAB/slask.git
+    # coursera-algo
+    # coursera-algo2
+    # coursera-programdesign
+    # coursera-reactive
+    # +decision
+    # +fp101x
+    # +frequency-scan
+    # +mshell
+    # work-bin
 )

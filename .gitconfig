@@ -35,6 +35,7 @@
         ln = "!git --no-pager log --decorate --pretty=oneline -n $1"
         lo = "!git --no-pager log --decorate -n $1"
         au = ls-files --others --exclude-standard
+        ap = add -p
 
 [user]
         name = Kjell Andreassen

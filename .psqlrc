@@ -1,1 +1,6 @@
-\set AUTOCOMMIT off
+-- \set AUTOCOMMIT off
+\set HISTSIZE 10000
+\set PROMPT1 '%M:%[%033[1;31m%]%>%[%033[0m%] %n@%/%R%#%x '
+\timing
+\x auto
+\set VERBOSITY verbose

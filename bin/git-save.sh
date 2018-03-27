@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BCK=/tmp/${PWD////_}.tar
+BCK=~/tmp/${PWD////_}.tar
 if [ -f $BCK ] ; then
     echo "$BCK: archive already exists"
     exit 1

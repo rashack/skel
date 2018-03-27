@@ -61,6 +61,27 @@ def parent_of_3m(doc)
   puts xs
 end
 
+def txdts_with_amt(doc, amount)
+  xs = doc.xpath("//Amt[text()=#{amount}]/../../..")#.map { |s| s.text }
+  puts xs
+end
+
+def ntryrefs(doc)
+  xs = doc.xpath("//NtryRef").map { |s| s.text }
+  puts xs
+end
+
+
+def ing_to_klarna_refs(doc)
+  xs = doc.xpath("//RmtInf/Ustrd").map { |s| s.text }
+  puts xs
+end
+
+def ing_to_klarna_end_to_end_refs(doc)
+  xs = doc.xpath("//Refs/EndToEndId").map { |s| s.text }
+  puts xs
+end
+
 # sum_and_n_transactions(doc)
 # print_ustrd(doc)
 # print_end_to_end_ref(doc)
@@ -71,4 +92,12 @@ end
 
 # ntry_amts(doc)
 
-parent_of_3m(doc)
+# parent_of_3m(doc)
+
+# amount = "77.43"
+# txdts_with_amt(doc, amount)
+
+# ntryrefs(doc)
+
+#ing_to_klarna_refs(doc)
+ing_to_klarna_end_to_end_refs(doc)

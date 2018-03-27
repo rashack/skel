@@ -50,7 +50,7 @@ link_skel_files() {
 	.vimrc \
 	.xbindkeysrc \
 	.xinitrc \
-	.xmonad \
+	# TODO: fix this .xmonad \
 	.xscreensaver \
 	; do
 	link_file $SKEL_DIR $x

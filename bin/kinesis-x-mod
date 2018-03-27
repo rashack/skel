@@ -1,4 +1,15 @@
 #!/bin/bash
+
+set -eu
+
+exit_trap() {
+    echo "*** Did you forget to run:"
+    echo "setxkbmap -option -option ctrl:nocaps se"
+}
+trap exit_trap EXIT
+
 xmodmap -e "remove control = Control_R"
 xmodmap -e "keycode 105 = Super_L Super_R"
 xmodmap -e "keycode 49 = Insert"
+
+trap EXIT
