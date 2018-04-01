@@ -198,7 +198,7 @@ hgrep () {
     history | grep "$*"
 }
 
-export ANDROID_SDK_ROOT=~/android/android-sdk-linux
+export ANDROID_SDK_ROOT=~/android/sdk
 ANDROID_TOOLS=$ANDROID_SDK_ROOT/tools
 ANDROID_PLATFORM_TOOLS=$ANDROID_SDK_ROOT/platform-tools
 ANDROID_PATH=$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS
@@ -278,7 +278,7 @@ source ~/.skel/lib/tmux-completion.bash
 
 eval "$(stack --bash-completion-script stack)"
 # path for Haskell Stack
-export PATH=$PATH:~/.local/bin
+export PATH=~/.local/bin:$PATH
 # path for Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
