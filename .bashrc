@@ -195,7 +195,11 @@ esac
 export LESS=' -R '
 
 hgrep () {
-    history | grep "$*"
+    local cmd="history "
+    for e in "$@" ; do
+        cmd="$cmd | grep \"$e\""
+    done
+    eval $cmd
 }
 
 export ANDROID_SDK_ROOT=~/android/sdk
