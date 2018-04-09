@@ -6,11 +6,16 @@ exit_trap() {
     echo "*** Did you forget to run:"
     echo "setxkbmap -option -option ctrl:nocaps se"
 }
+
+switch_control() {
+    # xmodmap -e "remove control = Super_L"
+    xmodmap -e "remove control = Control_R"
+    xmodmap -e "keycode 105 = Super_L Super_R"
+    xmodmap -e "keycode 49 = Insert"
+}
+
 trap exit_trap EXIT
 
-# xmodmap -e "remove control = Super_L"
-xmodmap -e "remove control = Control_R"
-xmodmap -e "keycode 105 = Super_L Super_R"
-xmodmap -e "keycode 49 = Insert"
+lsusb | grep -q 05f3.*Kinesis && switch_control
 
 trap EXIT

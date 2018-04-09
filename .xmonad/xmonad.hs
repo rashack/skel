@@ -31,7 +31,7 @@ import qualified XMonad.StackSet as W
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+"]
 myTitleFgColor = "white"
 
-myLayout = gaps [(U,16)] (smartBorders (tiled ||| full ||| threeCol ||| resizableTall))
+myLayout = gaps [(U,18)] (smartBorders (tiled ||| full ||| threeCol ||| resizableTall))
            where
              toggleReflect l = toggleLayouts (reflectHoriz $ l) l
              tiled           = toggleReflect (Tall 1 0.03 0.5)
