@@ -83,9 +83,9 @@ main = do
      mykeys (XConfig {XMonad.modMask = modm}) = M.fromList $
              [ ((controlMask .|. modm, xK_Right), nextWS)
              , ((controlMask .|. modm, xK_Left),  prevWS)
-             , ((modm, xK_b     ), sendMessage $ ToggleGaps)
-             , ((modm, xK_q     ), spawn myRestart         ) -- Restart xmonad
-	     , ((modm, xK_g ),   withFocused toggleBorder)
+             , ((modm, xK_b), sendMessage $ ToggleGaps)
+             , ((modm, xK_q), spawn myRestart         ) -- Restart xmonad
+             , ((modm, xK_g), withFocused toggleBorder)
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
              , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn ("~/bin/xterm-latin1"))
              , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.25 0.75))
@@ -93,10 +93,11 @@ main = do
              , ((modm, xK_a), sendMessage MirrorShrink)
              , ((modm, xK_z), sendMessage MirrorExpand)
              , ((modm, xK_i), spawn ("~/bin/passmenu"))
-	      ]
-	      ++
+             , ((modm, xK_s), spawn "~/bin/screenshot.sh")
+	     ]
+	     ++
              [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-	          | (key, sc) <- zip [xK_w, xK_e, xK_r, xK_s] [0, 1, 2]
+	          | (key, sc) <- zip [xK_w, xK_e, xK_r] [0, 1, 2]
              , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]] ++
 	     [ ((modm, k), windows $ W.greedyView i)
 	         | (i, k) <- zip myWorkspaces workspaceKeys
