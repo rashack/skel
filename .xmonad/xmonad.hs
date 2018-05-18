@@ -75,7 +75,7 @@ main = do
 				   ]
          , keys = \c -> mykeys c `M.union` keys defaultConfig c
          , startupHook = setWMName "LG3D" -- for swing applications
-         , focusFollowsMouse = False
+         , focusFollowsMouse = True
          }
   where
      wrapFg color content = wrap ("^fg(" ++ color ++ ")") "^fg()" content
