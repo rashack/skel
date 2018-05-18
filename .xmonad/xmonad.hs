@@ -44,10 +44,10 @@ myTabConfig = defaultTheme {   activeBorderColor = "#FF9900",   activeColor = "#
 
 main :: IO ()
 main = do
-        h <- spawnPipe ("~/bin/dzen2-status")
-        spawn ("~/bin/dzen2-time")
-        spawn ("~/bin/dzen2-idle")
-        spawn ("~/bin/dzen2-load")
+        h <- spawnPipe "~/bin/dzen2-status"
+        spawn "~/bin/dzen2-time"
+        spawn "~/bin/dzen2-idle"
+        spawn "~/bin/dzen2-load"
         xmonad (ewmh $ withUrgencyHook NoUrgencyHook defaultConfig)
          {
            --dzen2
@@ -87,12 +87,12 @@ main = do
              , ((modm, xK_q), spawn myRestart         ) -- Restart xmonad
              , ((modm, xK_g), withFocused toggleBorder)
              , ((modm .|. controlMask, xK_space), sendMessage ToggleLayout)
-             , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn ("~/bin/xterm-latin1"))
+             , ((modm .|. controlMask .|. shiftMask, xK_Return), spawn "~/bin/xterm-latin1")
              , ((modm .|. shiftMask,                 xK_space), layoutSplitScreen 2 (TwoPane 0.25 0.75))
              , ((modm .|. controlMask .|. shiftMask, xK_space), rescreen)
              , ((modm, xK_a), sendMessage MirrorShrink)
              , ((modm, xK_z), sendMessage MirrorExpand)
-             , ((modm, xK_i), spawn ("~/bin/passmenu"))
+             , ((modm, xK_i), spawn "~/bin/passmenu")
              , ((modm, xK_s), spawn "~/bin/screenshot.sh")
 	     ]
 	     ++
