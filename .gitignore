@@ -9,6 +9,7 @@ TAGS
 .xmonad/xmonad.hi
 .xmonad/xmonad.o
 .xmonad/log.txt
+.xmonad/.stack-work/
 bin/xidle
 bin/git
 bin/git-cvsserver
