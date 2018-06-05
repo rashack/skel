@@ -288,7 +288,5 @@ export PATH="$PATH:$HOME/.cargo/bin"
 
 source ~/.work-environment
 source ~/src/kerl/bash_completion/kerl
-source ~/.asdf/asdf.sh
-source ~/.asdf/completions/asdf.bash
 
 export PATH="$PATH:$HOME/usr/local/bin"
