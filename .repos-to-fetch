@@ -14,6 +14,7 @@ ELISP=$BASE/elisp
 ERLANG=$BASE/erlang
 GUILE=$BASE/guile
 HASKELL=$BASE/haskell
+KOTLIN=$BASE/kotlin
 
 REPO_DIRS=($BASE $ANDROID $ELISP $ERLANG $GUILE $HASKELL)
 
@@ -42,9 +43,12 @@ REPOS=(
     android-http-get        $ANDROID                   $GITLAB/android-http-get.git
     android-play            $ANDROID                   $GITLAB/android-play.git
     bitbucket               $BASE                      $GITLAB/bitbucket.git
+    bittorrent-client       $KOTLIN                    $GITLAB/bittorrent-client.git
     cryptochallange         $BASE                      $GITLAB/cryptochallange.git
     doc                     $BASE                      $GITLAB/doc.git
+    duplicates              $HASKELL                   $GITLAB/duplicates.git
     fp101x                  $HASKELL                   $GITLAB/fp101x.git
+    fp-course               $HASKELL                   $GITLAB/fp-course.git
     kebts                   $ERLANG                    $GITLAB/kebts.git
     misclib                 $ERLANG                    $GITLAB/misclib.git
     mshell                  $BASE                      $GITLAB/mshell.git
