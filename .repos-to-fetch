@@ -8,47 +8,56 @@ REPO_ELEMENTS=3
 # automatically add a repo line with:
 # printf "    %-19s %-38s %s\n"  "$(basename $(pwd))" "$(realpath --relative-to=$HOME $(pwd))" "$(git remote get-url origin)"
 
-BASE_PATH="$HOME/src"
+BASE="$HOME/src/kjell"
+ANDROID=$BASE/android
+ELISP=$BASE/elisp
+ERLANG=$BASE/erlang
+GUILE=$BASE/guile
+HASKELL=$BASE/haskell
+
+REPO_DIRS=($BASE $ANDROID $ELISP $ERLANG $GUILE $HASKELL)
+
 GITHUB=ssh://my-github/rashack
 GITLAB=ssh://my-gitlab
 
 REPOS=(
-    .skel                   $HOME                           $GITHUB/skel.git
-    apl-altgr               $BASE_PATH                      $GITHUB/apl-altgr.git
-    byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
-    byte-frequency          $BASE_PATH                      $GITHUB/byte-frequency.git
-    count-srv               $BASE_PATH/erlang               $GITHUB/count-srv.git
-    dream                   $BASE_PATH                      $GITHUB/dream.git
-    duplicates              $BASE_PATH                      $GITHUB/duplicates.git
-    elife                   $BASE_PATH/elisp                $GITHUB/elife.git
-    gapd                    $BASE_PATH/guile                $GITHUB/gapd.git
-    guile-zeromq-3          $BASE_PATH/guile                $GITHUB/guile-zeromq-3.git
-    h2048                   $BASE_PATH/haskell              $GITHUB/h2048.git
-    nexus-personal          $BASE_PATH                      $GITHUB/nexus-personal.git
-    parse-bash-hist         $BASE_PATH/haskell              $GITHUB/parse-bash-history.git
-    scheme-in-48h           $BASE_PATH/haskell              $GITHUB/scheme-in-48h.git
-    solarized-grey          $BASE_PATH/elisp                $GITHUB/solarized-grey.git
+    .skel                   $HOME                      $GITHUB/skel.git
+    alpha-words.hs          $HASKELL                   $GITHUB/alpha-words.hs.git
+    apl-altgr               $BASE                      $GITHUB/apl-altgr.git
+    byte-frequency          $BASE                      $GITHUB/byte-frequency.git
+    count-srv               $ERLANG                    $GITHUB/count-srv.git
+    dream                   $BASE                      $GITHUB/dream.git
+    duplicates              $BASE                      $GITHUB/duplicates.git
+    elife                   $ELISP                     $GITHUB/elife.git
+    gapd                    $GUILE                     $GITHUB/gapd.git
+    guile-zeromq-3          $GUILE                     $GITHUB/guile-zeromq-3.git
+    h2048                   $HASKELL                   $GITHUB/h2048.git
+    nexus-personal          $BASE                      $GITHUB/nexus-personal.git
+    parse-bash-hist         $HASKELL                   $GITHUB/parse-bash-history.git
+    qfpl-code-problem       $HASKELL                   $GITHUB/qfpl-code-problem.git
+    scheme-in-48h           $HASKELL                   $GITHUB/scheme-in-48h.git
+    sine-table              $HASKELL                   $GITHUB/sine-table.hs.git
+    solarized-grey          $ELISP                     $GITHUB/solarized-grey.git
 
-    android-http-get        $BASE_PATH/android              $GITLAB/android-http-get.git
-    android-play            $BASE_PATH/android              $GITLAB/android-play.git
-    bitbucket               $BASE_PATH                      $GITLAB/bitbucket.git
-    cryptochallange         $BASE_PATH                      $GITLAB/cryptochallange.git
-    doc                     $BASE_PATH/doc                  $GITLAB/doc.git
-    fp101x                  $BASE_PATH/haskell              $GITLAB/fp101x.git
-    kebts                   $BASE_PATH/erlang               $GITLAB/kebts.git
-    misclib                 $BASE_PATH/erlang               $GITLAB/misclib.git
-    mshell                  $BASE_PATH                      $GITLAB/mshell.git
-    notes                   $BASE_PATH                      $GITLAB/notes.git
-    pyfi                    $BASE_PATH                      $GITLAB/pyfi.git
-    scherl                  $BASE_PATH/erlang               $GITLAB/scherl.git
-    simple-rest             $BASE_PATH/erlang               $GITLAB/simple-rest.git
-    slask                   $BASE_PATH                      $GITLAB/slask.git
+    android-http-get        $ANDROID                   $GITLAB/android-http-get.git
+    android-play            $ANDROID                   $GITLAB/android-play.git
+    bitbucket               $BASE                      $GITLAB/bitbucket.git
+    cryptochallange         $BASE                      $GITLAB/cryptochallange.git
+    doc                     $BASE                      $GITLAB/doc.git
+    fp101x                  $HASKELL                   $GITLAB/fp101x.git
+    kebts                   $ERLANG                    $GITLAB/kebts.git
+    misclib                 $ERLANG                    $GITLAB/misclib.git
+    mshell                  $BASE                      $GITLAB/mshell.git
+    notes                   $BASE                      $GITLAB/notes.git
+    pyfi                    $BASE                      $GITLAB/pyfi.git
+    scherl                  $ERLANG                    $GITLAB/scherl.git
+    simple-rest             $ERLANG                    $GITLAB/simple-rest.git
+    slask                   $BASE                      $GITLAB/slask.git
     # coursera-algo
     # coursera-algo2
     # coursera-programdesign
     # coursera-reactive
     # +decision
-    # +fp101x
     # +frequency-scan
     # +mshell
     # work-bin
