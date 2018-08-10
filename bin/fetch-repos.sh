@@ -84,11 +84,11 @@ shortstat_repos() {
         local REPO_URI=$(repo_uri $i)
         if [ -d $REPO_DIR ] ; then
             cd $REPO_DIR
-            echo "$REPO_DIR: $(git status -sb | head -1)"
+            echo -e "$REPO_DIR:\t$(git status -sb | head -1)"
         else
-            echo "$REPO_DIR: not cloned"
+            echo -e "$REPO_DIR:\tnot cloned"
         fi
-    done | column -t
+    done | column -s $'\t' -t
 }
 
 usage() {
