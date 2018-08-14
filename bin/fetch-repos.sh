@@ -88,7 +88,7 @@ shortstat_repos() {
         else
             echo -e "$REPO_DIR:\tnot cloned"
         fi
-    done | column -s $'\t' -t
+    done | sort | column -s $'\t' -t
 }
 
 usage() {
