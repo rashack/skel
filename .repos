@@ -1,0 +1,69 @@
+#!/bin/sh
+
+REPO_NAME_IDX=0
+REPO_DIR_IDX=1
+REPO_REMOTE_IDX=2
+REPO_ELEMENTS=3
+
+# automatically add a repo line with:
+# printf "    %-19s %-38s %s\n"  "$(basename $(pwd))" "$(realpath --relative-to=$HOME $(pwd))" "$(git remote get-url origin)"
+
+BASE="$HOME/src/kjell"
+ANDROID=$BASE/android
+ELISP=$BASE/elisp
+ERLANG=$BASE/erlang
+GUILE=$BASE/guile
+HASKELL=$BASE/haskell
+KOTLIN=$BASE/kotlin
+
+REPO_DIRS=($BASE $ANDROID $ELISP $ERLANG $GUILE $HASKELL $KOTLIN)
+
+GITHUB=ssh://my-github
+MGITHUB=$GITHUB/rashack
+GITLAB=ssh://my-gitlab
+MGITLAB=$GITLAB/andreassen.kjell
+
+REPOS=(
+    .skel                   $HOME                      $MGITHUB/skel.git
+    alpha-words.hs          $HASKELL                   $MGITHUB/alpha-words.hs.git
+    android-http-get        $ANDROID                   $MGITLAB/android-http-get.git
+    android-play            $ANDROID                   $MGITLAB/android-play.git
+    apl-altgr               $BASE                      $MGITHUB/apl-altgr.git
+    bitbucket               $BASE                      $MGITLAB/bitbucket.git
+    bittorrent-client       $KOTLIN                    $GITLAB/renanreismartins/bittorrent-client.git
+    byte-frequency          $BASE                      $MGITHUB/byte-frequency.git
+    count-srv               $ERLANG                    $MGITHUB/count-srv.git
+    cryptochallenge         $BASE                      $MGITLAB/cryptochallange.git
+    doc                     $BASE                      $MGITLAB/doc.git
+    dream                   $BASE                      $MGITHUB/dream.git
+    duplicates              $BASE                      $MGITHUB/duplicates.git
+    duplicates              $HASKELL                   $MGITLAB/duplicates.git
+    elife                   $ELISP                     $MGITHUB/elife.git
+    fp-course               $HASKELL                   $MGITHUB/fp-course.git
+    fp101x                  $HASKELL                   $MGITLAB/fp101x.git
+    gapd                    $GUILE                     $MGITHUB/gapd.git
+    guile-zeromq-3          $GUILE                     $MGITHUB/guile-zeromq-3.git
+    h2048                   $HASKELL                   $MGITHUB/h2048.git
+    kebts                   $ERLANG                    $MGITLAB/kebts.git
+    misclib                 $ERLANG                    $MGITLAB/misclib.git
+    mshell                  $BASE                      $MGITLAB/mshell.git
+    nexus-personal          $BASE                      $MGITHUB/nexus-personal.git
+    notes                   $BASE                      $MGITLAB/notes.git
+    parse-bash-hist         $HASKELL                   $MGITHUB/parse-bash-history.git
+    pyfi                    $BASE                      $MGITLAB/pyfi.git
+    qfpl-code-problem       $HASKELL                   $MGITLAB/qfpl-code-problem.git
+    scheme-in-48h           $HASKELL                   $MGITHUB/scheme-in-48h.git
+    scherl                  $ERLANG                    $MGITLAB/scherl.git
+    simple-rest             $ERLANG                    $MGITLAB/simple-rest.git
+    sine-table              $HASKELL                   $MGITHUB/sine-table.hs.git
+    slask                   $BASE                      $MGITLAB/slask.git
+    solarized-grey          $ELISP                     $MGITHUB/solarized-grey.git
+    # coursera-algo
+    # coursera-algo2
+    # coursera-programdesign
+    # coursera-reactive
+    # +decision
+    # +frequency-scan
+    # +mshell
+    # work-bin
+)

@@ -42,7 +42,7 @@ link_skel_files() {
 	.imwheelrc \
 	.inputrc \
         .psqlrc \
-	.repos-to-fetch \
+	.repos \
 	.screenrc \
 	.tmux-default.conf \
 	.tmux.conf \

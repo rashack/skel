@@ -106,7 +106,7 @@ if [ $# -eq 2 ] && [ -f "$1" ] ; then
     source "$1"
     shift
 elif [ $# -eq 1 ] ; then
-    source ~/.repos-to-fetch
+    source ~/.repos
 else
     usage
     exit 1
