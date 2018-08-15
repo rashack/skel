@@ -52,6 +52,7 @@ REPOS=(
     parse-bash-hist         $HASKELL                   $MGITHUB/parse-bash-history.git
     pyfi                    $BASE                      $MGITLAB/pyfi.git
     qfpl-code-problem       $HASKELL                   $MGITLAB/qfpl-code-problem.git
+    quickcheck-course       $ERLANG                    $MGITLAB/quickcheck-course.git
     scheme-in-48h           $HASKELL                   $MGITHUB/scheme-in-48h.git
     scherl                  $ERLANG                    $MGITLAB/scherl.git
     simple-rest             $ERLANG                    $MGITLAB/simple-rest.git
