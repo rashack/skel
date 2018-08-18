@@ -290,3 +290,6 @@ source ~/.work-environment
 source ~/src/kerl/bash_completion/kerl
 
 export PATH="$PATH:$HOME/usr/local/bin"
+
+bind -x '"\e\C-i":"git diff"'
+bind -x '"\e\C-u":"git status"'
