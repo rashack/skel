@@ -33,7 +33,7 @@ REPOS=(
     bittorrent-client       $KOTLIN                    $GITLAB/renanreismartins/bittorrent-client.git
     byte-frequency          $BASE                      $MGITHUB/byte-frequency.git
     count-srv               $ERLANG                    $MGITHUB/count-srv.git
-    cryptochallenge         $BASE                      $MGITLAB/cryptochallange.git
+    cryptochallenge         $BASE                      $MGITLAB/cryptochallenge.git
     doc                     $BASE                      $MGITLAB/doc.git
     dream                   $BASE                      $MGITHUB/dream.git
     duplicates              $BASE                      $MGITHUB/duplicates.git
