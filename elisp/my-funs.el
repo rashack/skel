@@ -1,7 +1,7 @@
 (defun home-root (path) (concat (getenv "HOME") path))
 
 (defun elisp-root (path)
-  (concat "~/src/elisp/" path "/"))
+  (concat "~/src/kjell/elisp/" path "/"))
 
 (defun my-load-use (pack &optional ppath)
   (let ((path (cond ((null ppath) (elisp-root (symbol-name pack)))
