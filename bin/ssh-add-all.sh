@@ -8,7 +8,7 @@ done
 
 for key in ~/.ssh/*.pub ; do
     KEY=${key//.pub}
-    if [ $(grep -v $KEY <(echo ${ADDED[*]})) ] ; then
+    if $(grep -qv $KEY <(echo ${ADDED[*]})) ; then
         ssh-add $KEY
     fi
 done
