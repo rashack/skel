@@ -41,6 +41,7 @@ REPOS=(
     elife                   $ELISP                     $MGITHUB/elife.git
     fp-course               $HASKELL                   $MGITHUB/fp-course.git
     fp101x                  $HASKELL                   $MGITLAB/fp101x.git
+    fix-rps                 $HASKELL                   $MGITLAB/fix-rps.git
     gapd                    $GUILE                     $MGITHUB/gapd.git
     guile-zeromq-3          $GUILE                     $MGITHUB/guile-zeromq-3.git
     h2048                   $HASKELL                   $MGITHUB/h2048.git
@@ -59,6 +60,8 @@ REPOS=(
     sine-table              $HASKELL                   $MGITHUB/sine-table.hs.git
     slask                   $BASE                      $MGITLAB/slask.git
     solarized-grey          $ELISP                     $MGITHUB/solarized-grey.git
+    ud851-Exercises         $ANDROID                   $MGITLAB/ud851-Exercises.git
+    ud851-Sunshine          $ANDROID                   $MGITLAB/ud851-Sunshie.git
     # coursera-algo
     # coursera-algo2
     # coursera-programdesign
