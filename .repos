@@ -61,7 +61,7 @@ REPOS=(
     slask                   $BASE                      $MGITLAB/slask.git
     solarized-grey          $ELISP                     $MGITHUB/solarized-grey.git
     ud851-Exercises         $ANDROID                   $MGITLAB/ud851-Exercises.git
-    ud851-Sunshine          $ANDROID                   $MGITLAB/ud851-Sunshie.git
+    ud851-Sunshine          $ANDROID                   $MGITLAB/ud851-Sunshine.git
     # coursera-algo
     # coursera-algo2
     # coursera-programdesign
