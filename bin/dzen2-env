@@ -34,6 +34,8 @@ CONKY_SSID=''
 
 # xrandr | grep '*' | awk '{print $1}' | cut -d x -f 1
 SCREEN_WIDTH=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d x -f 1)
+# leave some room for stalonetray
+SCREEN_WIDTH=$(( $SCREEN_WIDTH - 34 ))
 STATUS_Y_POS=0
 
 case $(hostname) in
