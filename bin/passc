@@ -9,7 +9,7 @@ end
 
 def print_current
   print "Current store:\n"
-  puts "    " + %x{readlink #{PREFIX}}
+  puts "    " + %x{readlink #{HOME}/#{PREFIX}}
 end
 
 def print_stores(stores)
