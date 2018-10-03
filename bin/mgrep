@@ -2,7 +2,7 @@
 
 set -eu
 
-SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git --exclude-dir=_build"
+SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git --exclude-dir=_cache"
 SKIP_FILES="--exclude=*.beam --exclude=*.jar"
 GREP_OPTS="--color -Prn"
 CASE_SENSITIVE="-i"
