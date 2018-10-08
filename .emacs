@@ -69,7 +69,6 @@
   :ensure gnuplot-mode)
 ;;(load-library "my-apl.el")
 (load-library "my-cgm-stuff.el")
-(load-library "my-haskell.el")
 (load-library "my-html.el")
 (load-library "my-org.el")
 (load-library "my-emacs-tmp-files.el")
