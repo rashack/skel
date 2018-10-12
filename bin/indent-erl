@@ -1,0 +1,13 @@
+#!/usr/local/bin/emacs --script
+;;-*- mode: emacs-lisp;-*-
+
+(defun possible-erlang-mode-dir ()
+  (car (file-expand-wildcards "~/.emacs.d/elpa/erlang*")))
+
+(progn
+  (find-file (elt argv 0))
+  (add-to-list 'load-path (possible-erlang-mode-dir))
+  (require 'erlang-start)
+  (erlang-mode)
+  (indent-region (point-min) (point-max) nil)
+  (save-buffer))
