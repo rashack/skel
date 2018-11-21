@@ -93,6 +93,7 @@ main = do
              , ((modm, xK_a), sendMessage MirrorShrink)
              , ((modm, xK_z), sendMessage MirrorExpand)
              , ((modm, xK_i), spawn "~/bin/passmenu")
+             , ((modm, xK_o), spawn "PASSWORD_STORE_DIR=~/.pass-store-w ~/bin/passmenu")
              , ((modm, xK_s), spawn "~/bin/screenshot.sh")
 	     ]
 	     ++
