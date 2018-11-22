@@ -9,7 +9,7 @@
 TEAM_NAMES="(hydra|monkey|monkeys)"
 BRANCH_PREFIX="(gbl|kred)"
 
-# Check that the branch name conforms to GBL-<team name>-NNNNN
+# Check that the branch name conforms to <branch-prefix>-<team name>-NNNNN
 def check_branch_name
   if /#{BRANCH_PREFIX}-[0-9]+-#{TEAM_NAMES}/i !~ @git_branch
     @exit_value = 1
@@ -95,7 +95,8 @@ errors = [ check_branch_name,
            check_chunks("Commas not followed by a space", ",[^ \\n]", @files),
            check_chunks("Parenthesis with space on concave side", "\\( |[^$] \\)", @files),
            check_chunks("Comment line beginning with single %%", "^\s*%[^%]", @files),
-           check_chunks("Line too long", ".{81,}", @files)
+           check_chunks("Line too long", ".{81,}", @files),
+           check_chunks("Arrow (->) whitespace error", "[^ ]->|->[^ \n]", @files)
          ].delete_if { |errs| errs == "" or errs == nil }
          .join "\n"
 puts errors unless errors == ""
