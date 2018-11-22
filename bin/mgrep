@@ -3,7 +3,7 @@
 set -eu
 
 SKIP_DIRS="--exclude-dir=.hg --exclude-dir=.git --exclude-dir=_cache"
-SKIP_FILES="--exclude=*.beam --exclude=*.jar"
+SKIP_FILES="--exclude=*.beam --exclude=*.jar --exclude=*.JPG --exclude=*.ARW --exclude=*.RAF"
 GREP_OPTS="--color -Prn"
 CASE_SENSITIVE="-i"
 CONVERT_ENCODING=n
