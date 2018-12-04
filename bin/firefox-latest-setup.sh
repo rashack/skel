@@ -1,8 +1,10 @@
 #!/bin/bash
 
+CURRENT=$(readlink /usr/local/firefox)
 LATEST=$(ls -1tr ~/Downloads/firefox-*.tar* | tail -1)
 LATEST_VER=$(basename $LATEST | sed 's/.*\(firefox-[0-9\.]\+\)\.tar\..*/\1/')
 
+echo "CURRENT=$CURRENT"
 echo "LATEST=$LATEST"
 echo "LATEST_VER=$LATEST_VER"
 
