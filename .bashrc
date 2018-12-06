@@ -10,10 +10,11 @@ export HOME_FQDN=rashack.com
 
 MY_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 
-alias ls='ls --color -F'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
+alias ls='ls --color -F'
+alias ltr='ls -ltr --time-style=+"%Y-%m-%d %H:%M:%S %a"'
 alias more='less -FX'
 alias gcc='gcc -ansi -Wall -pedantic -g'
 alias ee='emacs -Q -nw'
