@@ -196,10 +196,11 @@ export LESS=' -R '
 
 hgrep () {
     local cmd="history "
-    for e in "$@" ; do
-        cmd="$cmd | grep \"$e\""
-    done
-    eval $cmd
+    # build an awk program: '/pattern1/ && /pattern2/ && ...'
+    local search=$(echo "$@" | sed "s/ /\/ \&\& \//g")
+    # build a grep highlight pattern: '^|pattern1|pattern2|...'
+    local highlight=$(echo "$@" | sed "s/ /|/g")
+    history | awk "/$search/" | grep --color -E "^|$highlight"
 }
 
 export ANDROID_SDK_ROOT=~/android/sdk
