@@ -190,7 +190,7 @@
 ;; from https://github.com/scottjad/linum-relativenumber
 ;; (when window-system
 ;;   (my-load-use 'linum-relativenumber))
-(global-linum-mode 1)
+(global-display-line-numbers-mode 1)
 
 ;; from https://github.com/nschum/highlight-parentheses.el.git
 (my-load-use 'highlight-parentheses)
