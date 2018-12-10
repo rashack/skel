@@ -187,9 +187,6 @@
   (moz-minor-mode 1))
 ;; mozrepl end
 
-;; from https://github.com/scottjad/linum-relativenumber
-;; (when window-system
-;;   (my-load-use 'linum-relativenumber))
 (global-display-line-numbers-mode 1)
 
 ;; from https://github.com/nschum/highlight-parentheses.el.git
