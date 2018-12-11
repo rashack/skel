@@ -16,6 +16,7 @@
         df = diff
         ld = log --stat --decorate
         lg = log -p --stat --decorate
+        lcd = log --pretty='%C(yellow)commit %H%Creset%nAuthor: %an %ae%nDate:   %ad%nC-Date: %cd%n%n    %s%n'
         # all new commits after you fetched, with stats, but excluding merges
         lc = log ORIG_HEAD.. --stat --no-merges
         in = log HEAD..origin/master
@@ -51,3 +52,5 @@
         header = magenta black
         commit = yellow black
         frag = cyan black
+[log]
+	decorate = auto
