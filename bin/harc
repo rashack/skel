@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -eux
+
+LOCAL_PORT=22
+
+HOST1_PORT=2233
+HOST1=151.177.236.159
+
+HOST2=harc
+HOST2_PORT=2234
+
+ssh -t -R $HOST1_PORT:localhost:$LOCAL_PORT $HOST1  \
+    "ssh -R $HOST2_PORT:localhost:$HOST1_PORT $HOST2"

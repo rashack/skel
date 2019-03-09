@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eux
+
+ssh -R 2222:localhost:22 151.177.236.159
