@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 CMD="openvpn --askpass --daemon --script-security 2 --config work-vpn.ovpn"
 
 kill_openvpn() {
