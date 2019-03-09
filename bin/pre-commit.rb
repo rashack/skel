@@ -7,7 +7,7 @@
 # @git_branch = %x[ git branch | sed -n "s/^\* \(.*\)/\1/p"
 
 TEAM_NAMES="(hydra|monkey|monkeys)"
-BRANCH_PREFIX="(gbl|kred)"
+BRANCH_PREFIX="(gbl|kred|hydra)"
 
 # Check that the branch name conforms to <branch-prefix>-<team name>-NNNNN
 def check_branch_name
