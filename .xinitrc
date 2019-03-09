@@ -29,6 +29,9 @@ case `hostname` in
 	synclient MaxTapTime=0 HorizHysteresis=0 VertHysteresis=0 MinSpeed=1.25 MaxSpeed=2
         nm-applet &
 	;;
+    harv)
+        nm-applet &
+	;;
 esac
 
 if $(lsusb | grep -q "Kinesis Advantage") ; then kinesis-x-mod ; fi

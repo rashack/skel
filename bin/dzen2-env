@@ -2,15 +2,13 @@
 
 set -o nounset
 
-OS_ID=$(source /etc/os-release ; echo $ID)
-
 textwidth() {
     TEXT="$1"
-    case $OS_ID in
-        arch)
+    case $(hostname) in
+        harc)
             echo $(( ${#TEXT} * 8 ))
             ;;
-        debian|linuxmint)
+        chimp|pringle|tubarao|tp|bluetang|harv)
             dzen2-textwidth $DZEN_FONT "$TEXT"
             ;;
     esac
@@ -22,8 +20,8 @@ laptop_variables() {
 }
 
 
-case $OS_ID in
-    arch|linuxmint)
+case $(hostname) in
+    harc|bluetang|tubarao|harv)
         DZEN_FONT="-*-terminus-*-*-*-*-14-*-*-*-*-*-iso8859-*" ;;
     *)
         DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*";;
@@ -47,7 +45,7 @@ case $(hostname) in
         # the following is needed (because the top of the left screen is shifted by 560 = (2560-1440)/2)
         # STATUS_Y_POS=560
         ;;
-    tp|bluetang|tubarao)
+    tp|bluetang|tubarao|harv)
         laptop_variables
         ;;
 esac
@@ -56,10 +54,8 @@ DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS    ")
 DZEN_TIMEBAR_WIDTH=$(textwidth "Day wNN YYYY-mm-dd HH:MM:SS")
 DZEN_IDLE_WIDTH=$(textwidth "<SSS>")
 
-case $OS_ID in
-    arch|linuxmint)
-    ;;
-    debian)
+case $(hostname) in
+    chimp|pringle)
         DZEN_TIMEBAR_WIDTH=$(( $DZEN_TIMEBAR_WIDTH + 16 ))
         DZEN_IDLE_WIDTH=$(( $DZEN_IDLE_WIDTH + 16 ))
         ;;
