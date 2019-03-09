@@ -78,10 +78,10 @@ keycode 123 = XF86AudioLowerVolume
 "$HOME/bin/alsa-vol 5%-"
   XF86AudioLowerVolume
 
-"$HOME/bin/display-brightness"
+"$HOME/bin/display-brightness inc 5"
   XF86MonBrightnessUp
 
-"$HOME/bin/display-brightness"
+"$HOME/bin/display-brightness dec 5"
   XF86MonBrightnessDown
 
 ##################################

@@ -2,9 +2,16 @@
 
 source ~/bin/dzen2-env
 
+INCDEC=$1
+AMOUNT=$2
+xbacklight -"$INCDEC" $AMOUNT
+
 MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
 ACTUAL=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
-PERCENTAGE=$(echo -e "scale=1 \n 100  * $ACTUAL / $MAX" | bc)
+PERCENTAGE=$(echo -e "scale=1 \n 100  * $ACTUAL / $MAX" | bc -l)
 
-echo "brightness: $PERCENTAGE%" | \
+MESSAGE="brightness: $PERCENTAGE%"
+notify-send --expire-time=3000 "$MESSAGE"
+
+echo "$MESSAGE" | \
     dzen2 -xs 1 -x $DZEN_STATUS_X -w $DZEN_STATUS_WIDTH -ta c $DZEN_OPTS  -fg white -p 2
