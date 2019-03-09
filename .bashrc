@@ -68,6 +68,27 @@ export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
 source ~/.skel/git-completion.bash
 source ~/.skel/git-prompt.sh
+
+__dark_bg() {
+    $HOME/bin/xterm-bg-colour.sh | grep -q "rgb:0000/0000/0000"
+}
+
+__ucol() {
+    if [ __dark_bg ] ; then
+        echo -e '\[\e[44m\]'
+    else
+        echo -e '\[\e[34m\]'
+    fi
+}
+
+__prompt_time_colour() {
+    if [ __dark_bg ] ; then
+        echo -n "37m"
+    else
+        echo -n "1m"
+    fi
+}
+
 function __set_prompt
 {
     local EXIT="$?"
@@ -89,7 +110,7 @@ function __set_prompt
             ;;
     esac
 
-    local UCOL='\[\e[44m\]'
+    local UCOL=$(__ucol)
     if [ "$USER" == 'root' ]; then
         UCOL='\[\e[41m\]'
     fi
@@ -100,7 +121,7 @@ function __set_prompt
     fi
 
     PS1+='\
-\[\e[37m\][\t] \
+\[\e['$(__prompt_time_colour)'\][\t] \
 \[\e[m\]'$UCOL'[\u@\h]\
 \[\e[40m\]\[\e[32m\] \w\
 \[\e[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\e[m\]\$ '
