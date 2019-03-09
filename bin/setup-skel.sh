@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 SKEL_DIR=.skel
 BACKUP_DIR=~/orig-skel
 
@@ -13,11 +15,19 @@ usage: $0 OPTION\n\
     -o    for other dependencies (e.g. clone some repos)\n"
 }
 
-link_file() {
+ln_s() {
     local SRC=$1/$2
     local DEST=$2
-    [ -f $DEST ] && mv $DEST $BACKUP_DIR
-    ln -s $SRC $DEST
+    if ! [ "$(readlink $DEST)" = "$SRC" ] ; then
+        if [ -a $DEST ] ; then
+            echo "mv $DEST $BACKUP_DIR"
+            mv $DEST $BACKUP_DIR
+        fi
+        echo "ln -s $SRC $DEST"
+        ln -s $SRC $DEST
+    else
+        echo "ln_s: not linking: $DEST -> $SRC"
+    fi
 }
 
 link_skel_files() {
@@ -27,7 +37,12 @@ link_skel_files() {
 
     #echo $(dirname $0)
     #echo $(dirname $(readlink -e $0))
-    ln -s $SKEL_DIR/bin
+    local BIN_DIR=$SKEL_DIR/bin
+    if [ -L ~/bin ] ; then
+        if ! [ $(readlink ~/bin) = "$BIN_DIR" ] ; then
+            ln -s $BIN_DIR
+        fi
+    fi
 
     for x in \
 	.Xdefaults \
@@ -50,18 +65,22 @@ link_skel_files() {
 	.vimrc \
 	.xbindkeysrc \
 	.xinitrc \
-	# TODO: fix this .xmonad \
+        .xmonad \
 	.xscreensaver \
 	; do
-	link_file $SKEL_DIR $x
+	ln_s $SKEL_DIR $x
     done
 
     mkdir -p ~/.gnupg
-    ln -s -t ~/.gnupg ../.skel/gpg.conf
+    if ! [ -L ~/.gnupg/gpg.conf ] ; then
+        ln -s -t ~/.gnupg ../.skel/gpg.conf
+    fi
 
     ln -s $SKEL_DIR/.xinitrc .xsession
     mkdir -p ~/.stack
     ln -rs $SKEL_DIR/stack-config.yaml ~/.stack/config.yaml
+
+    ln -srt $SKEL_DIR/bin/ $HOME/src/kjell/doc/bin/doc
 }
 
 EMACS_REPOS=(
@@ -109,7 +128,7 @@ update_emacs_deps() {
     ED=~/.emacs.d
     mkdir -p $ED
     cd $ED
-#    ln -s ../.skel/elisp
+    ln -s ../.skel/elisp
     download_elisp
 }
 
