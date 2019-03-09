@@ -303,9 +303,9 @@ rbenv rehash 2>/dev/null
 
 source ~/.skel/lib/tmux-completion.bash
 
-eval "$(stack --bash-completion-script stack)"
 # path for Haskell Stack
 export PATH=$HOME/.local/bin:$PATH
+eval "$(stack --bash-completion-script stack)"
 # path for Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 
