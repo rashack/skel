@@ -186,7 +186,10 @@
   (moz-minor-mode 1))
 ;; mozrepl end
 
-(global-display-line-numbers-mode 1)
+(if (and window-system
+         (version< emacs-version "26"))
+    (global-linum-mode 1)
+  (global-display-line-numbers-mode 1))
 
 ;; from https://github.com/nschum/highlight-parentheses.el.git
 (my-load-use 'highlight-parentheses)
