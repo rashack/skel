@@ -210,7 +210,7 @@ case $OS_ID in
     arch)
         export LESSOPEN="| source-highlight-esc.sh %s"
         ;;
-    debian|linuxmint)
+    *) # Debian and derivatives
         export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh  %s"
         ;;
 esac
