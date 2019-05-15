@@ -9,7 +9,8 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
+             '("melpa" . "http://melpa.milkbox.net/packages/")
+             '("MELPA Stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 (if (not (package-installed-p 'use-package))
     (progn
