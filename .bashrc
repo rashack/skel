@@ -74,19 +74,11 @@ __dark_bg() {
 }
 
 __ucol() {
-    if [ __dark_bg ] ; then
-        echo -e '\[\e[44m\]'
-    else
-        echo -e '\[\e[34m\]'
-    fi
+    __dark_bg && echo -e '\[\e[44m\]' || echo -e '\[\e[34m\]'
 }
 
 __prompt_time_colour() {
-    if [ __dark_bg ] ; then
-        echo -n "37m"
-    else
-        echo -n "1m"
-    fi
+    __dark_bg && echo -n "37m"|| echo -n "m"
 }
 
 function __set_prompt
@@ -123,7 +115,7 @@ function __set_prompt
     PS1+='\
 \[\e['$(__prompt_time_colour)'\][\t] \
 \[\e[m\]'$UCOL'[\u@\h]\
-\[\e[40m\]\[\e[32m\] \w\
+\[\e[m\] \[\e[32m\]\w\
 \[\e[33m\]`__git_ps1 "(%s)"`'$SSH_PROMPT'\[\e[m\]\$ '
     history -a
 }
