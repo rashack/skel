@@ -5,7 +5,9 @@ set -eux
 EMACS_SOURCE_BASE=~/src/emacs
 
 if [[ $0 =~ .*25 ]]; then
-    $EMACS_SOURCE_BASE/emacs-25.3/src/emacs $*
+    $EMACS_SOURCE_BASE/emacs-25/src/emacs $*
 elif [[ $0 =~ .*26 ]]; then
-    $EMACS_SOURCE_BASE/emacs-26.2/src/emacs $*
+    $EMACS_SOURCE_BASE/emacs-26/src/emacs $*
+else
+    emacs $*
 fi
