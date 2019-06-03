@@ -11,6 +11,11 @@ case $(hostname) in
         INT_DEV="eDP1"
         EXT_DEVS="DP1 DP2 HDMI1 HDMI2 VIRTUAL1"
         ;;
+    harv)
+	INT_RES=1920x1080
+        INT_DEV="eDP-1"
+        EXT_DEVS="DP-1 DP-2 HDMI-1 HDMI-2"
+        ;;
 esac
 
 EXT_DEV=$(xrandr | grep -w connected | grep -v $INT_DEV | awk '{print $1}')
@@ -19,7 +24,7 @@ EXT_RES=$(xrandr | sed -n '/ connected/,$ p' | tail -n +2 | sed -n '/ connected/
 
 single() {
     echo "Setting xrandr for single screen."
-    locale exts=""
+    local exts=""
     for ext in $EXT_DEVS ; do
         exts="$exts --output $ext --off"
     done
