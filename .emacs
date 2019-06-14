@@ -41,6 +41,11 @@
 (yas-reload-all)
 (yas-global-mode 1)
 
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 (load-library "my-colours.el")
 (my-colours-theme 'solarized-grey)
 
@@ -134,6 +139,8 @@
 ;;emacs.verticalScrollBars: off
 ;; does the trick
 
+(which-key-mode 1)
+
 (show-paren-mode t)
 (setq-default require-final-newline t)
 
@@ -142,6 +149,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 rust-mode popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete)))
  '(ps-font-size (quote (7 . 8)))
  '(ps-header-font-size (quote (10 . 10)))
  '(ps-header-title-font-size (quote (12 . 12)))
