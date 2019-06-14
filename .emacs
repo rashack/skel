@@ -64,6 +64,7 @@
 (load-library "my-jdb.el")
 (load-library "my-navi-stack.el")
 (load-library "my-erlang.el")
+(load-library "klarna-funs.el")
 (load-library "my-xml.el")
 (use-package graphviz-dot-mode
   :defer t

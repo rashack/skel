@@ -104,6 +104,15 @@
 	(delete-backward-char (- diff))
       (insert-char 32 diff))))
 
+(defun insert-or-delete-whitespace-to-column (col)
+  "Fill with spaces to that the first non space character on or to the right of point ends up at column COL."
+  (interactive "NColumn: ")
+  (cycle-spacing 0)
+  (let ((diff (- col (current-column))))
+    (if (< diff 0)
+	(delete-backward-char (- diff))
+      (insert-char 32 diff))))
+
 ;; (require 'java-mode-indent-annotations)
 (defun fix-java-annotation-indentation ()
   (lambda () "Treat Java 1.5 @-style annotations as comments."
@@ -397,10 +406,65 @@ for the current buffer's file name, and the line number at point."
     (replace-match
      (concat var-base (number-to-string (1+ (string-to-int (match-string 1))))))))
 
-
 ;; macro used for simple tests
 (defmacro assert-equal (expected expr)
   `(let ((actual ,expr))
      (or (equal actual ,expected)
          (message "Expected: '%s' Actual: '%s' Expression: '%s'"
                   ,expected actual (prin1-to-string ',expr)))))
+
+(defun delete-from-list (list el)
+  "Delete an element from a list after duplicates have been removed"
+  (setq list (delete el (remove-duplicates list))))
+
+(defun xml-format (start end)
+  "Try to format the region, assuming it's XML"
+  (interactive "*r"
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (replace-regexp "last" "LAST" nil start end)
+      (replace-regexp "\\(\\S-\+\\) \\s" "\\1
+<" nil start end)
+;;      (replace-regexp "\\\"" "\"")
+;;      (delete-trailing-whitespace)
+      ;;      (indent-region)
+      ))))
+
+(defun window-buffer-file (window)
+  "Returns the file of the buffer of the given window."
+  (interactive)
+  (buffer-file-name (window-buffer window)))
+
+(defun delete-last-opened-window ()
+  "Delete the previously opened window, unless the buffer in it has a file."
+  (interactive)
+  (let (last-opened-window get-last-opened-window)
+    (if (not (window-buffer-has-file last-opened-window))
+        (delete-window last-opened-window))))
+
+(defun chomp (str)
+  "Chomp leading and tailing whitespace from STR."
+  (while (string-match "\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\'"
+                       str)
+    (setq str (replace-match "" t t str)))
+  str)
+
+(defun capture-shell-command-output (command)
+  (with-temp-buffer
+    (shell-command command t)
+    (chomp (buffer-string))))
+
+(defun git-branch ()
+  (capture-shell-command-output "git branch | grep -oP '^\\* \\K.*'"))
+
+(defun kerl-flip-pairs (pairs)
+  (mapcar (lambda (pair) (cons (cdr pair) (car (pair)))) pairs))
+
+(defun kill-ring-save-no-newlines (start end)
+  (interactive "*r")
+  (let* ((string (buffer-substring (region-beginning) (region-end)))
+         (new-string (replace-regexp-in-string "\\s-*\n+\\s-*" " " string)))
+    (deactivate-mark)
+    (kill-new new-string)
+    (gui-set-selection 'PRIMARY new-string)))
