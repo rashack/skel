@@ -468,3 +468,15 @@ for the current buffer's file name, and the line number at point."
     (deactivate-mark)
     (kill-new new-string)
     (gui-set-selection 'PRIMARY new-string)))
+
+(defun my-ra (start end regexp)
+  "align-regexp for a region with an argument (shortcut for C-u M-x align-regexp)"
+  (interactive (list (region-beginning)
+                     (region-end)
+                     (read-string "Complex align using regexp: "
+                                  "\\(\\s-*\\)"
+                                  'align-regexp-history)))
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (align-regexp start end regexp))))
