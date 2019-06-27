@@ -17,6 +17,8 @@ if [[ $TERM =~ "xterm" ]] ; then
     stty $oldstty
     echo $result
     $success
+else
+    echo "rgb:0000/0000/0000"
 fi
 
 
