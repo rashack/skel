@@ -9,5 +9,7 @@
   (add-to-list 'load-path (possible-erlang-mode-dir))
   (require 'erlang-start)
   (erlang-mode)
+  (set-variable 'indent-tabs-mode nil)
+  (set-variable 'erlang-indent-level 2)
   (indent-region (point-min) (point-max) nil)
   (save-buffer))
