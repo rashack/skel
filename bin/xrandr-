@@ -1,20 +1,10 @@
 #!/bin/bash
 
 case $(hostname) in
-    bluetang)
-        INT_RES=1600x900
-        INT_DEV="LVDS1"
-        EXT_DEVS="VGA1 HDMI1 DP1"
-        ;;
-    tubarao)
-	INT_RES=2560x1440
-        INT_DEV="eDP1"
-        EXT_DEVS="DP1 DP2 HDMI1 HDMI2 VIRTUAL1"
-        ;;
-    harv)
+    reot)
 	INT_RES=1920x1080
-        INT_DEV="eDP-1"
-        EXT_DEVS="DP-1 DP-2 HDMI-1 HDMI-2"
+        INT_DEV="eDP1"
+        EXT_DEVS="DP1 DP2 HDMI1 VIRTUAL1"
         ;;
 esac
 
@@ -35,6 +25,12 @@ single() {
 
 dual_right_of() {
     local cmd="xrandr --output $INT_DEV --mode $INT_RES --output $EXT_DEV --mode $EXT_RES --right-of $INT_DEV"
+    echo "xrandr cmd = $cmd"
+    eval "$cmd"
+}
+
+dual_left_of() {
+    local cmd="xrandr --output $INT_DEV --mode $INT_RES --output $EXT_DEV --mode $EXT_RES --left-of $INT_DEV"
     echo "xrandr cmd = $cmd"
     eval "$cmd"
 }
@@ -67,12 +63,11 @@ if [ $# -eq 0 ] ; then
     exit 1
 fi
 
-
-
-while getopts "Ddms" opt ; do
+while getopts "Ddlms" opt ; do
     case $opt in
         d) dual_right_of ;;
         D) dual_right_of_max ;;
+        l) dual_left_of ;;
         m) dual_clone ;;
         s) single ;;
     esac
