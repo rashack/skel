@@ -12,3 +12,5 @@ export MUSIC_ROOT=/mnt/music
 export EDITOR=vim
 
 export ENV=$HOME/.bashrc
+
+export PATH="$HOME/.cargo/bin:$PATH"
