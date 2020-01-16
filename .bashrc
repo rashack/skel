@@ -10,6 +10,7 @@ export HOME_FQDN=rashack.com
 
 MY_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*"
 
+alias trm=trash-put
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
