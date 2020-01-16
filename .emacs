@@ -46,6 +46,25 @@
   :config
   (editorconfig-mode 1))
 
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode))
+
+;; (use-package company
+;;   :defer t
+;;   :ensure company)
+(use-package company
+  :hook (prog-mode . company-mode)
+  :config (setq company-tooltip-align-annotations t)
+          (setq company-minimum-prefix-length 1))
+(add-hook 'after-init-hook 'global-company-mode)
+
+(use-package lsp-mode
+  :commands lsp
+  :config (require 'lsp-clients))
+
+(use-package lsp-ui)
+
+(load-library "my-rust.el")
 (load-library "my-colours.el")
 (my-colours-theme 'solarized-grey)
 
@@ -90,10 +109,6 @@
 (use-package geiser
   :defer t
   :ensure geiser)
-(use-package company
-  :defer t
-  :ensure company)
-(add-hook 'after-init-hook 'global-company-mode)
 
 (which-func-mode t)
 
@@ -152,7 +167,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 rust-mode popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete)))
+    (toml-mode lsp-ui lsp-mode cargo flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 rust-mode popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete)))
  '(ps-font-size (quote (7 . 8)))
  '(ps-header-font-size (quote (10 . 10)))
  '(ps-header-title-font-size (quote (12 . 12)))
