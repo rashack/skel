@@ -1,5 +1,7 @@
 (defconst emacs-start-time (current-time))
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (add-to-list 'load-path "~/.emacs.d/elisp/" t)
 (setq inhibit-startup-message t)
 
