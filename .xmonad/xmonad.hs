@@ -74,7 +74,10 @@ main = do
                                    , className =? "sun-plugin-navig-motif-Plugin" --> doFloat
                                    ]
          , keys = \c -> mykeys c `M.union` keys def c
-         , startupHook = setWMName "LG3D" -- for swing applications
+         , startupHook = do
+             setWMName "LG3D" -- for swing applications
+             spawn "killall stalonetray"
+             spawn "~/bin/my-stalonetray.sh"
          , focusFollowsMouse = True
          }
   where
