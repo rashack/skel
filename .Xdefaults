@@ -2,6 +2,8 @@ Emacs*font: -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
 xterm*font: -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
 XTerm*metaSendsEscape: true
 XTerm*bellIsUrgent: true
+UXTerm*metaSendsEscape: true
+UXTerm*bellIsUrgent: true
 urxvt.urgentOnBell: true
 
 ! better to turn this off here than in .emacs
