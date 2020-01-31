@@ -24,7 +24,8 @@ check_add_ssh_key() {
     HOST_KEY=${HOST_KEY/\~/$HOME}
     echo GIT_HOST=$GIT_HOST
     echo HOST_KEY=$HOST_KEY
-    if ! ssh-add -l | grep -q $HOST_KEY ; then
+    FINGERPRINT=$(ssh-keygen -lf $HOST_KEY)
+    if ! ssh-add -l | grep -q "$FINGERPRINT" ; then
         echo "${COLY}Couldn't find $GIT_HOST in ssh-agent, trying to add.${COLN}"
         if ! [ -f $HOST_KEY ] ; then
             echo "${COLR}Couldn't find $HOST_KEY, giving up.${COLN}"
