@@ -27,7 +27,7 @@ case `hostname` in
 	synclient MaxTapTime=0 HorizHysteresis=0 VertHysteresis=0 MinSpeed=1.25 MaxSpeed=2
         nm-applet &
 	;;
-    harv)
+    reot)
         nm-applet &
         # disable two-finger horizontal scrolling
         # (libinput Scroll Method Enabled (292):   0, 0, 0)
