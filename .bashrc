@@ -224,52 +224,7 @@ ANDROID_PLATFORM_TOOLS=$ANDROID_SDK_ROOT/platform-tools
 ANDROID_PATH=$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS
 
 export ORIGINAL_SYSTEM_PATH=$PATH
-
-function set_normal_homes() {
-    export JAVA_HOME=$HOME/jdk/jdk
-    export JDK_HOME=$JAVA_HOME
-    export SCALA_HOME=$HOME/scala/scala
-    export SBT_HOME=$HOME/sbt/sbt
-}
-
-function set_normal_path() {
-    set_normal_homes
-    export ERLANG_HOME=~/otp/install
-    local BIN_PATH=$HOME/bin
-    local ERLANG_PATH=$ERLANG_HOME/bin
-    local JAVA_PATH=$JAVA_HOME/bin
-    local SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
-    export PATH=$ORIGINAL_SYSTEM_PATH:$BIN_PATH:$ERLANG_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH
-}
-
-function set_non_erl_path() {
-    set_normal_homes
-    unset ERLANG_HOME
-    local BIN_PATH=$HOME/bin
-    local JAVA_PATH=$JAVA_HOME/bin
-    local SCALA_PATH=$SCALA_HOME/bin:$SBT_HOME/bin
-    export PATH=$ORIGINAL_SYSTEM_PATH:$BIN_PATH:$JAVA_PATH:$ANDROID_PATH:$SCALA_PATH
-}
-
-function set_java7_path() {
-    export PATH=${PATH/$JAVA_HOME/$HOME/jdk/jdk7}
-    export JAVA_HOME=$HOME/jdk/jdk7
-    export JDK_HOME=$JAVA_HOME
-}
-
-function set_java8_path() {
-    export PATH=${PATH/$JAVA_HOME/$HOME/jdk/jdk8}
-    export JAVA_HOME=$HOME/jdk/jdk8
-    export JDK_HOME=$JAVA_HOME
-}
-
-function set_non_java_path() {
-    export PATH=${PATH/$JAVA_HOME/}
-    unset JAVA_HOME
-    unset JDK_HOME
-}
-
-set_normal_path
+export PATH=$ORIGINAL_SYSTEM_PATH:$HOME/bin:$ANDROID_PATH
 
 rbenv() {
   local command
@@ -301,6 +256,7 @@ export PATH=$HOME/.local/bin:$PATH
 eval "$(stack --bash-completion-script stack)"
 # path for Rust
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/kotlin/kotlinc/bin"
 
 source ~/.work-environment
 source ~/src/kerl/bash_completion/kerl
@@ -309,3 +265,12 @@ export PATH="$PATH:$HOME/usr/local/bin"
 
 bind -x '"\e\C-i":"git diff"'
 bind -x '"\e\C-u":"git status"'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
