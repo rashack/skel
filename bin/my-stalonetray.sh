@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-SCREEN_WIDTH=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d x -f 1)
+source ~/bin/dzen2-env
+
 SIZE=16
 X_POS=$(( $SCREEN_WIDTH - $SIZE ))
 
