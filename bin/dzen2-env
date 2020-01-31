@@ -8,7 +8,7 @@ textwidth() {
         harc)
             echo $(( ${#TEXT} * 8 ))
             ;;
-        chimp|pringle|tubarao|tp|bluetang|harv)
+        chimp|pringle|reot)
             dzen2-textwidth $DZEN_FONT "$TEXT"
             ;;
     esac
@@ -21,7 +21,7 @@ laptop_variables() {
 
 
 case $(hostname) in
-    harc|bluetang|tubarao|harv)
+    harc|reot)
         DZEN_FONT="-*-terminus-*-*-*-*-14-*-*-*-*-*-iso8859-*" ;;
     *)
         DZEN_FONT="-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*";;
@@ -30,10 +30,12 @@ esac
 CONKY_EXTRA=''
 CONKY_SSID=''
 
+DZEN_BASE_X=0
 # xrandr | grep '*' | awk '{print $1}' | cut -d x -f 1
-SCREEN_WIDTH=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d x -f 1)
+REAL_SCREEN_WIDTH=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d x -f 1)
 # leave some room for stalonetray
-SCREEN_WIDTH=$(( $SCREEN_WIDTH - 34 ))
+STALONE_TRAY_WIDTH=34
+SCREEN_WIDTH=$(( $REAL_SCREEN_WIDTH - $STALONE_TRAY_WIDTH ))
 STATUS_Y_POS=0
 
 case $(hostname) in
@@ -45,8 +47,12 @@ case $(hostname) in
         # the following is needed (because the top of the left screen is shifted by 560 = (2560-1440)/2)
         # STATUS_Y_POS=560
         ;;
-    tp|bluetang|tubarao|harv)
+    tp|reot)
         laptop_variables
+        if [[ $REAL_SCREEN_WIDTH == 5760 ]] ; then
+            SCREEN_WIDTH=3840
+            DZEN_BASE_X=0
+        fi
         ;;
 esac
 
@@ -62,27 +68,31 @@ case $(hostname) in
 esac
 
 CONKY_IF=$(ip r | sed -n 's/default via.*dev \([^ ]*\).*/\1/ p')
-CONKY_CPU="\${lua lc cpu CPU}"
-CONKY_MEM="\${lua lc memperc Mem}"
-CONKY_SWP="Swap:\${swapperc}"
+CONKY_CPU="\${lua lc cpu C}"
+CONKY_MEM="\${lua lc memperc M}"
+CONKY_SWP="S:\${swapperc}"
 CONKY_NET="$CONKY_IF:\${upspeed $CONKY_IF}/\${downspeed $CONKY_IF} [$CONKY_SSID]"
 CONKY_LOAD_STR="$CONKY_CPU $CONKY_MEM $CONKY_SWP $CONKY_EXTRA $CONKY_NET"
 
-DZEN_IDLE_X=$DZEN_TIMEBAR_WIDTH
+DZEN_TIME_X=$DZEN_BASE_X
+DZEN_IDLE_X=$(( $DZEN_TIME_X + $DZEN_TIMEBAR_WIDTH ))
 DZEN_STATUS_X=$(( $DZEN_IDLE_X + $DZEN_IDLE_WIDTH ))
 if [ '' == "$CONKY_EXTRA" ] ; then
-    DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 $CONKY_IF: 0.1234KiB/0.1234KiB")
+    DZEN_LOAD_WIDTH=$(textwidth "C:100 M:100 S:100 $CONKY_IF: 0.1234KiB/0.1234KiB")
 else
-    DZEN_LOAD_WIDTH=$(textwidth "CPU:100 Mem:100 Swap:100 Bat: $CONKY_IF: 0.1234KiB/0.1234KiB [active-SSID]")
+    DZEN_LOAD_WIDTH=$(textwidth "C:100 M:100 S:100 B: $CONKY_IF: 0.1234KiB/0.1234KiB [active-SSID]")
 fi
-DZEN_STATUS_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_LOAD_WIDTH ))
-DZEN_LOAD_X=$(( $SCREEN_WIDTH - $DZEN_LOAD_WIDTH ))
+DZEN_STATUS_WIDTH=$(( $SCREEN_WIDTH - $DZEN_STATUS_X - $DZEN_LOAD_WIDTH - $STALONE_TRAY_WIDTH ))
+#DZEN_LOAD_X=$(( $SCREEN_WIDTH - $DZEN_LOAD_WIDTH ))
+DZEN_LOAD_X=$(( $DZEN_STATUS_X + $DZEN_STATUS_WIDTH ))
 DZEN_OPTS="-y $STATUS_Y_POS -fn $DZEN_FONT -bg #044084"
 #DZEN_OPTS="-fn $DZEN_FONT -bg #044084"
 
 export DZEN_FONT
 export DZEN_OPTS
 export DZEN_TIMEBAR_WIDTH
+export DZEN_BASE_X
+export DZEN_TIME_X
 export DZEN_IDLE_X
 export DZEN_IDLE_WIDTH
 export DZEN_STATUS_X
