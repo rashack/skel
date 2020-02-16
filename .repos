@@ -17,7 +17,7 @@ HASKELL=$BASE/haskell
 KOTLIN=$BASE/kotlin
 RUST=$BASE/rust
 
-REPO_DIRS=($BASE $ANDROID $ELISP $ERLANG $GUILE $HASKELL $KOTLIN)
+REPO_DIRS=($BASE $ANDROID $ELISP $ERLANG $GUILE $HASKELL $KOTLIN $RUST)
 
 GITHUB=ssh://my-github
 MGITHUB=$GITHUB/rashack
@@ -32,7 +32,7 @@ REPOS=(
     apl-altgr               $BASE                      $MGITHUB/apl-altgr.git
     bitbucket               $BASE                      $MGITLAB/bitbucket.git
     bittorrent-client       $KOTLIN                    $GITLAB/renanreismartins/bittorrent-client.git
-    bittorrent.rs           $RUST                      $MGITLAB/rust.rs.git
+    bittorrent.rs           $RUST                      $MGITLAB/bittorrent.rs.git
     btclient                $HASKELL                   $MGITLAB/btclient.git
     byte-frequency          $BASE                      $MGITHUB/byte-frequency.git
     count-srv               $ERLANG                    $MGITHUB/count-srv.git
