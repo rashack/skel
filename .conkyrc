@@ -1,8 +1,12 @@
-double_buffer yes
-out_to_console yes
-update_interval 1.0
-font -misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*
-use_spacer left
-pad_percents 2
-lua_load ~/.skel/conky_lua_funs.lua
-TEXT
+conky.config = {
+  double_buffer = true,
+  out_to_console = true,
+  update_interval = 1.0,
+  font = '-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-*',
+  use_spacer = left,
+  pad_percents = 2,
+  lua_load = '~/.skel/conky_lua_funs.lua'
+}
+
+conky.text = [[\
+]]
