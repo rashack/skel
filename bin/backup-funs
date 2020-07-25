@@ -62,7 +62,7 @@ define change_ratio (old, new) {
 change_ratio ($OLD_SIZE, $NEW_SIZE)" | bc -l)
     local D_OK=$(echo "
 if ($D_PERCENT > $MAX_PERCENT) 1 else 0" | bc -l)
-    D_MSG=$(printf "backup size changed %.2f%%, from %d to %d" $D_PERCENT $OLD_SIZE $NEW_SIZE)
+    D_MSG=$(env printf "backup size changed %.2f%%, from %d to %d" $D_PERCENT $OLD_SIZE $NEW_SIZE)
     if [ $D_OK -gt 0 ] ; then
         MSG=$(msg "WARNING: $D_MSG")
         echo "$MSG" >&2

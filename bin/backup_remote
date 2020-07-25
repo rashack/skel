@@ -28,7 +28,7 @@ if [ -O "$3" ] ; then
     if [ $(stat -c %a "$3") == 600 ]; then
 	KEY_FILE=$3
     else
-	MSG="$3: FATAL: The given key file does not have permission 600"
+	MSG="$3: FATAL: The given key file ($3) does not have permission 600"
         echo $MSG
 	exit_backup "$MSG" 2
     fi
