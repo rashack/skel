@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
---inplace --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES"
+--inplace --numeric-ids --delete --delete-excluded --exclude-from=$EXCLUDES -F --filter=':- .gitignore'"
 BACKUP_SOURCE=/mnt/backup/
 BACKUP_DEST=/mnt/weekly
 

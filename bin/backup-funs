@@ -7,7 +7,7 @@ mkdir -p $RSYNC_LOG_DIR
 RSYNC_LOG_NEXT=$RSYNC_LOG_DIR/$(date "+%F").log
 RSYNC_LOG_PREV=$RSYNC_LOG_DIR/$(date --date "yesterday" "+%F").log
 RSYNC_OPTS="--archive --one-file-system --hard-links --human-readable \
---inplace --numeric-ids --delete --delete-excluded -F"
+--inplace --numeric-ids --delete --delete-excluded -F --filter=':- .gitignore'"
 
 roll_backup_dirs () {
     local BACKUP_DEST=$1
