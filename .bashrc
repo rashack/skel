@@ -85,6 +85,8 @@ __prompt_time_colour() {
 function __set_prompt
 {
     local EXIT="$?"
+    export COMMAND_COMPLETED_AT_PREV=$COMMAND_COMPLETED_AT
+    export COMMAND_COMPLETED_AT=$(date '+%FT%H%M%S.%N')
     if [ "$SSH_CONNECTION" ]; then
         SSH_PROMPT='\[\e[m\] [\[\e[31m\]SSH\[\e[m\]] '
     else
