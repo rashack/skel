@@ -29,6 +29,8 @@ case `hostname` in
 	;;
     reot)
         nm-applet &
+        blueman-applet &
+        pnmixer &
         # disable two-finger horizontal scrolling
         # (libinput Scroll Method Enabled (292):   0, 0, 0)
         xinput set-prop 11 292 0 0 0
