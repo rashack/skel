@@ -7,7 +7,9 @@ EMACS_SOURCE_BASE=~/src/emacs
 if [[ $0 =~ .*25 ]]; then
     $EMACS_SOURCE_BASE/emacs-25/src/emacs $*
 elif [[ $0 =~ .*26 ]]; then
-    $EMACS_SOURCE_BASE/emacs-26/src/emacs $*
+    $EMACS_SOURCE_BASE/emacs-26.3/src/emacs $*
+elif [[ $0 =~ .*27 ]]; then
+    $EMACS_SOURCE_BASE/emacs-27.1/src/emacs $*
 else
     emacs $*
 fi
