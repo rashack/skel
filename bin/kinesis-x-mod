@@ -12,6 +12,7 @@ switch_control() {
     xmodmap -e "remove control = Control_R"
     xmodmap -e "keycode 105 = Super_L Super_R"
     xmodmap -e "keycode 49 = Insert"
+    xset r rate 400 40
 }
 
 trap exit_trap EXIT
