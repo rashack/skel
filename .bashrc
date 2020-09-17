@@ -64,12 +64,17 @@ export LC_COLLATE=POSIX
 export LC_TIME=en_DK.utf8
 export LANG=en_US.utf8
 
+maybe_source() {
+    local file=$1
+    [ -f $file ] && source $file || echo "$file: no such file"
+}
+
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 export GIT_PS1_SHOWUPSTREAM="auto"
-source ~/.skel/git-completion.bash
-source ~/.skel/git-prompt.sh
+maybe_source ~/.skel/git-completion.bash
+maybe_source ~/.skel/git-prompt.sh
 
 __dark_bg() {
     $HOME/bin/xterm-bg-colour.sh | grep -q "rgb:0000/0000/0000"
@@ -249,20 +254,21 @@ export RBENV_SHELL=bash
 export RBENV_PATH=$HOME/.rbenv
 export RUBY_PATH=$RBENV_PATH/bin:$RBENV_PATH/shims:$RBENV_PATH/plugins/ruby-build/bin:$GEM_HOME/gems/bundler-1.10.6/bin
 export PATH=$RUBY_PATH:$PATH
-source ~/.rbenv/completions/rbenv.bash
+maybe_source ~/.rbenv/completions/rbenv.bash
 rbenv rehash 2>/dev/null
 
-source ~/.skel/lib/tmux-completion.bash
+maybe_source ~/.skel/lib/tmux-completion.bash
 
 # path for Haskell Stack
 export PATH=$HOME/.local/bin:$PATH
-eval "$(stack --bash-completion-script stack)"
+command stack >& /dev/null && eval "$(stack --bash-completion-script stack)" || echo "stack: command not found"
+
 # path for Rust
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/kotlin/kotlinc/bin"
 
-source ~/.work-environment
-source ~/src/kerl/bash_completion/kerl
+maybe_source ~/.work-environment
+maybe_source ~/src/kerl/bash_completion/kerl
 
 export PATH="$PATH:$HOME/usr/local/bin"
 
@@ -273,7 +279,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+maybe_source ~/.fzf.bash
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_CTRL_R_OPTS='--bind ctrl-g:print-query'
 
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
+
+maybe_source /usr/share/bash-completion/completions/gradle
