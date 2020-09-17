@@ -2,4 +2,4 @@
 
 source $HOME/bin/dzen2-env
 
-conky -d -t "$CONKY_LOAD_STR" | dzen2 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l $DZEN_OPTS
+exec conky -d -t "$CONKY_LOAD_STR" | dzen2 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l $DZEN_OPTS
