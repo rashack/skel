@@ -64,13 +64,16 @@ main = do
          , modMask = mod4Mask
          , workspaces = myWorkspaces
          , layoutHook = myLayout
-         , manageHook = composeAll [ className =? "fontforge" --> doFloat
-                                   , className =? "stalonetray" --> doIgnore
-                                   , className =? "Gimp"      --> doFloat
-                                   , className =? "sun-applet-Main" --> doFloat
-                                   , className =? "sun.applet.Main" --> doFloat
-                                   , className =? "vmware-server-console" --> doFloat
-                                   , className =? "Vmware-server-console" --> doFloat
+         , manageHook = composeAll [ className =? "fontforge"                     --> doFloat
+                                   , className =? "stalonetray"                   --> doIgnore
+                                   , className =? "Godot_Engine"                  --> doFloat
+                                   , className =? "Godot"                         --> doFloat
+                                   , className =? "Gtk-recordmydesktop"           --> doFloat
+                                   , className =? "Gimp"                          --> doFloat
+                                   , className =? "sun-applet-Main"               --> doFloat
+                                   , className =? "sun.applet.Main"               --> doFloat
+                                   , className =? "vmware-server-console"         --> doFloat
+                                   , className =? "Vmware-server-console"         --> doFloat
                                    , className =? "sun-plugin-navig-motif-Plugin" --> doFloat
                                    ]
          , keys = \c -> mykeys c `M.union` keys def c
