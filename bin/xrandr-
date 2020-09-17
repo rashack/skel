@@ -3,8 +3,8 @@
 case $(hostname) in
     reot)
 	INT_RES=1920x1080
-        INT_DEV="eDP1"
-        EXT_DEVS="DP1 DP2 HDMI1 VIRTUAL1"
+        INT_DEV="eDP-1"
+        EXT_DEVS="DP-1 DP-2 HDMI-1"
         ;;
 esac
 
@@ -31,6 +31,12 @@ dual_right_of() {
 
 dual_left_of() {
     local cmd="xrandr --output $INT_DEV --mode $INT_RES --output $EXT_DEV --mode $EXT_RES --left-of $INT_DEV"
+    echo "xrandr cmd = $cmd"
+    eval "$cmd"
+}
+
+laptop_right_of_secondary() {
+    local cmd="xrandr --output $EXT_DEV --mode $EXT_RES --output $INT_DEV --mode $INT_RES --right-of $EXT_DEV"
     echo "xrandr cmd = $cmd"
     eval "$cmd"
 }
@@ -63,11 +69,12 @@ if [ $# -eq 0 ] ; then
     exit 1
 fi
 
-while getopts "Ddlms" opt ; do
+while getopts "Ddlmrs" opt ; do
     case $opt in
         d) dual_right_of ;;
         D) dual_right_of_max ;;
         l) dual_left_of ;;
+        r) laptop_right_of_secondary ;;
         m) dual_clone ;;
         s) single ;;
     esac
