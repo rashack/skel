@@ -29,7 +29,8 @@
 
 (savehist-mode t)
 (setq savehist-additional-variables '(kill-ring search-ring regexp-search-ring))
-(require 'cl)
+(use-package cl
+  :defer t)
 (use-package dash
   :defer t
   :ensure dash)
@@ -55,16 +56,19 @@
 ;;   :defer t
 ;;   :ensure company)
 (use-package company
+  :defer t
   :hook (prog-mode . company-mode)
   :config (setq company-tooltip-align-annotations t)
           (setq company-minimum-prefix-length 1))
 (add-hook 'after-init-hook 'global-company-mode)
 
 (use-package lsp-mode
+  :defer t
   :commands lsp
   :config (require 'lsp-clients))
 
-(use-package lsp-ui)
+(use-package lsp-ui
+  :defer t)
 
 (load-library "my-rust.el")
 (load-library "my-colours.el")
@@ -84,7 +88,7 @@
 (load-library "my-flymake.el")
 (load-library "my-jdb.el")
 (load-library "my-navi-stack.el")
-(load-library "my-erlang.el")
+;; (load-library "my-erlang.el")
 (load-library "klarna-funs.el")
 (load-library "my-xml.el")
 (use-package graphviz-dot-mode
@@ -173,16 +177,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a63355b90843b228925ce8b96f88c587087c3ee4f428838716505fd01cf741c8" "5e3fc08bcadce4c6785fc49be686a4a82a356db569f55d411258984e952f194a" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "015ed1c4e94502568b7c671ced6fe132bec9edf72fd732aa59780cfbe4b7927c" default)))
+   '("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a63355b90843b228925ce8b96f88c587087c3ee4f428838716505fd01cf741c8" "5e3fc08bcadce4c6785fc49be686a4a82a356db569f55d411258984e952f194a" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "015ed1c4e94502568b7c671ced6fe132bec9edf72fd732aa59780cfbe4b7927c" default))
  '(package-selected-packages
-   (quote
-    (gradle-mode unicode-fonts spacemacs-theme intellij-theme alect-themes leuven-theme php-mode material-theme company lsp-ui lsp-mode cargo flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 rust-mode popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete)))
- '(ps-font-size (quote (7 . 8)))
- '(ps-header-font-size (quote (10 . 10)))
- '(ps-header-title-font-size (quote (12 . 12)))
- '(ps-paper-type (quote a4))
- '(safe-local-variable-values (quote ((erlang-ident-level . 2) (allout-layout . t)))))
+   '(projectile yasnippet highlight-parentheses gradle-mode unicode-fonts spacemacs-theme intellij-theme alect-themes leuven-theme php-mode material-theme company lsp-ui lsp-mode cargo flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 rust-mode popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete))
+ '(ps-font-size '(7 . 8))
+ '(ps-header-font-size '(10 . 10))
+ '(ps-header-title-font-size '(12 . 12))
+ '(ps-paper-type 'a4)
+ '(safe-local-variable-values '((erlang-ident-level . 2) (allout-layout . t))))
 
 (setq ps-lpr-command "lp")
 
@@ -237,7 +239,8 @@
               'haskell-mode-hook
               'javascript-mode-hook)
 
-(require 'ido)
+(use-package ido
+  :defer t)
 (ido-mode t)
 ;; (setq ido-enable-flex-matching nil)
 
@@ -351,12 +354,15 @@
 (setq calendar-view-diary-initially-flag nil)
 (setq calendar-view-holidays-initially-flag nil)
 
-(require 'popup-switcher)
+(use-package popup-switcher
+  :defer t)
 ;; (setq psw-in-window-center t)
 (global-set-key [f2] 'psw-switch-buffer)
 
-(require 'desktop)
-(add-to-list 'desktop-path ".")
+(use-package desktop
+  :defer t
+  :config
+  (add-to-list 'desktop-path "."))
 
 (let ((elapsed (float-time (time-subtract (current-time)
                                           emacs-start-time))))
