@@ -2,12 +2,15 @@
 (my-load-use 'cedet-java "cedet/cedet-1.1/common/cedet.el")
 (global-ede-mode t)                      ; Enable the Project management system
 
-(require 'semanticdb)
+(use-package semanticdb
+  :defer t)
 (when (cedet-gnu-global-version-check t)
   (require 'semanticdb-global)
   (semanticdb-enable-gnu-global-databases 'java-mode))
-(require 'semantic-ia)
-(require 'semantic-java)
+(use-package semantic-ia
+  :defer t)
+(use-package semantic-java
+  :defer t)
 
 ;;(semantic-load-enable-minimum-features)  ; * This enables the database and idle reparse engines
 (semantic-load-enable-code-helpers)      ; * Enable prototype help and smart completion

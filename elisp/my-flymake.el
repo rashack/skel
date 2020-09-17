@@ -4,7 +4,8 @@
 
 ;; ecj-flymake http://www.khelekore.org/~robo/ecj-flymake/
 ;;(add-to-list 'load-path "~/pkg/flymake/cvs")
-(require 'flymake "~/.emacs.d/elisp/flymake.el")
+(use-package flymake
+  :defer t)
 (setq flymake-log-level 1) ; set this when debugging flymake
 (setq flymake-compiler-jar (elisp-root "ecj-flymake/jars/compiler.jar"))
 
@@ -57,19 +58,19 @@
 (defun compile-hercules-init ()
   (compile-server-dir-init hercules-home "code/src" "lib"))
 
-(push (list (concat hercules-home "/code/src.+\\.java$")
-	    'compile-hercules-init
-	    'compile-server-flymake-cleanup)
-      flymake-allowed-file-name-masks)
+;; (push (list (concat hercules-home "/code/src.+\\.java$")
+;; 	    'compile-hercules-init
+;; 	    'compile-server-flymake-cleanup)
+;;       flymake-allowed-file-name-masks)
 
 
-(set-variable 'batch-home (concat (getenv "TD_TRUNK_SRC_HOME") "hercules-modules/batch"))
-(defun compile-batch-init ()
-  (compile-server-dir-init batch-home "code/src" "lib"))
-(push (list (concat batch-home "/code/src.+\\.java$")
-	    'compile-batch-init
-	    'compile-server-flymake-cleanup)
-      flymake-allowed-file-name-masks)
+;; (set-variable 'batch-home (concat (getenv "TD_TRUNK_SRC_HOME") "hercules-modules/batch"))
+;; (defun compile-batch-init ()
+;;   (compile-server-dir-init batch-home "code/src" "lib"))
+;; (push (list (concat batch-home "/code/src.+\\.java$")
+;; 	    'compile-batch-init
+;; 	    'compile-server-flymake-cleanup)
+;;       flymake-allowed-file-name-masks)
 
 
 ;; (setq flymake-allowed-file-name-masks (cdr flymake-allowed-file-name-masks))
@@ -77,10 +78,10 @@
 (defun compile-hercules-regressiontests-init ()
   (compile-server-dir-init hercules-home "code/src:/code/regressiontests" "lib"))
 
-(push (list (concat hercules-home "/code/\\(src\\|regressiontests\\).+\\.java$")
-	    'compile-hercules-regressiontests-init
-	    'compile-server-flymake-cleanup)
-      flymake-allowed-file-name-masks)
+;; (push (list (concat hercules-home "/code/\\(src\\|regressiontests\\).+\\.java$")
+;; 	    'compile-hercules-regressiontests-init
+;; 	    'compile-server-flymake-cleanup)
+;;       flymake-allowed-file-name-masks)
 
 (push '("\\(.*?\\):\\([0-9]+\\): error: \\(.*?\\)\n" 1 2 nil 2 3
 	(6 compilation-error-face)) compilation-error-regexp-alist)

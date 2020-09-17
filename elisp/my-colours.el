@@ -37,7 +37,8 @@
 
 ;; Some new Colors for Font-lock.
 (setq font-lock-mode-normal-decoration t)
-(require 'font-lock)
+(use-package font-lock
+  :defer t)
 
 (setq default-frame-alist
       '(

@@ -1,4 +1,5 @@
-(require 'recentf)
+(use-package recentf
+  :defer t)
 (recentf-mode 1)
 
 (defvar closed-files (list))

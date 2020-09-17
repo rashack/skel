@@ -1,1 +1,2 @@
-(require 'dos)
+(use-package dos
+  :defer t)
