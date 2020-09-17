@@ -32,6 +32,7 @@ alias bc='bc -l'
 alias grep='grep --color'
 alias pgrep='pgrep -l'
 alias diff='colordiff -u'
+alias wdiff='wdiff -w "$(tput setaf 1)" -x "$(tput sgr0)" -y "$(tput setaf 2)" -z "$(tput sgr0)"'
 umask 022
 alias evince='dbus-launch --exit-with-session evince'
 alias hideprev='history -d $((HISTCMD-2)) && history -d $((HISTCMD-1))'
