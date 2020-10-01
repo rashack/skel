@@ -101,7 +101,14 @@ main = do
              , ((modm, xK_z), sendMessage MirrorExpand)
              , ((modm, xK_i), spawn "~/bin/passmenu")
              , ((modm, xK_o), spawn "PASSWORD_STORE_DIR=~/.pass-store-w ~/bin/passmenu")
+
              , ((modm, xK_s), spawn "~/bin/screenshot.sh")
+             --take a screenshot of focused window
+             , ((modm .|. controlMask, xK_Print ), spawn "scrot window_%Y-%m-%d-%H_%M_%S.png -u")
+              --take a screenshot of entire display
+             , ((modm , xK_Print), spawn "scrot screen_%Y-%m-%d-%H_%M_%S.png")
+
+             , ((modm, xK_m), spawn "~/bin/keymap.sh $(echo \"se\\nus\" | dmenu)")
              ]
              ++
              [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
