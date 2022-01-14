@@ -6,6 +6,10 @@ UXTerm*metaSendsEscape: true
 UXTerm*bellIsUrgent: true
 urxvt.urgentOnBell: true
 
+! xterm Blues
+xterm*color4:           #3131ff
+xterm*color12:          #7171ff
+
 ! better to turn this off here than in .emacs
 ! where it has already been loaded.
 emacs.menuBar: off
