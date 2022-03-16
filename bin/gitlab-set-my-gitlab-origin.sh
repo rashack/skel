@@ -15,7 +15,11 @@ shift `expr $OPTIND - 1`
 unset NEW_URL
 unset REMOTE
 REMOTE=$(git remote get-url origin)
-NEW_URL=$(echo $REMOTE | perl -pe 's/git\@git(lab|hub).com:/ssh:\/\/my-git\1\//g')
+if echo "$REMOTE" | grep "^http" ; then
+    NEW_URL=$(echo "$REMOTE" | perl -pe 's=https://git(lab|hub).com=ssh://my-git\1=g')
+else
+    NEW_URL=$(echo "$REMOTE" | perl -pe 's/git\@git(lab|hub).com:/ssh:\/\/my-git\1\//g')
+fi
 
 if [ -n "$NEW_URL" ] ; then
     if [ "x$DRY_RUN" = "xy" ] ; then
