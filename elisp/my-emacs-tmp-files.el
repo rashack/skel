@@ -1,4 +1,5 @@
-(setq auto-save-file-name-transforms `((".*" "~/.emacs.d/autosaves/\\1" t)))
+;; since the below doesn't seem to work: (setq create-lockfiles nil)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
 (setq make-bakup-files t
       backup-by-copying t

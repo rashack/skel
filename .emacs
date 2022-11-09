@@ -12,6 +12,7 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/")
+
              '("MELPA Stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 (if (not (package-installed-p 'use-package))
@@ -34,6 +35,7 @@
 (use-package dash
   :defer t
   :ensure dash)
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-tree-saves")))
 (use-package undo-tree
   :defer t
   :ensure undo-tree)
@@ -62,14 +64,12 @@
           (setq company-minimum-prefix-length 1))
 (add-hook 'after-init-hook 'global-company-mode)
 
-(use-package lsp-mode
-  :defer t
-  :commands lsp
-  :config (require 'lsp-clients))
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (ansi-color-apply-on-region (point-min) (point-max)))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
-(use-package lsp-ui
-  :defer t)
-
+(load-library "my-lsp.el")
 (load-library "my-rust.el")
 (load-library "my-colours.el")
 (my-colours-theme 'solarized-grey)
@@ -86,7 +86,7 @@
 (load-library "my-cl.el")
 (load-library "my-clojure.el")
 (load-library "my-flymake.el")
-(load-library "my-jdb.el")
+;;(load-library "my-jdb.el")
 (load-library "my-navi-stack.el")
 ;; (load-library "my-erlang.el")
 (load-library "klarna-funs.el")
@@ -116,7 +116,7 @@
   :defer t
   :ensure geiser)
 
-(which-func-mode t)
+(which-function-mode t)
 
 ;; ;; Dont crash if file not found
 ;; (defun load-safe (file)
@@ -178,8 +178,16 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "c433c87bd4b64b8ba9890e8ed64597ea0f8eb0396f4c9a9e01bd20a04d15d358" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a63355b90843b228925ce8b96f88c587087c3ee4f428838716505fd01cf741c8" "5e3fc08bcadce4c6785fc49be686a4a82a356db569f55d411258984e952f194a" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "015ed1c4e94502568b7c671ced6fe132bec9edf72fd732aa59780cfbe4b7927c" default))
+ '(highlight-parentheses-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900"))
+ '(lsp-eldoc-render-all t nil nil "Customized with use-package lsp-mode")
+ '(lsp-idle-delay 0.6 nil nil "Customized with use-package lsp-mode")
+ '(lsp-rust-analyzer-cargo-watch-command "clippy" nil nil "Customized with use-package lsp-mode")
+ '(lsp-rust-analyzer-server-display-inlay-hints t nil nil "Customized with use-package lsp-mode")
+ '(lsp-ui-doc-enable nil nil nil "Customized with use-package lsp-ui")
+ '(lsp-ui-peek-always-show t nil nil "Customized with use-package lsp-ui")
+ '(lsp-ui-sideline-show-hover t nil nil "Customized with use-package lsp-ui")
  '(package-selected-packages
-   '(projectile yasnippet highlight-parentheses gradle-mode unicode-fonts spacemacs-theme intellij-theme alect-themes leuven-theme php-mode material-theme company lsp-ui lsp-mode cargo flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 rust-mode popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete))
+   '(arduino-mode urlenc svelte-mode flycheck rust-mode rustic projectile yasnippet highlight-parentheses gradle-mode unicode-fonts spacemacs-theme intellij-theme alect-themes leuven-theme php-mode material-theme company lsp-ui lsp-mode flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete))
  '(ps-font-size '(7 . 8))
  '(ps-header-font-size '(10 . 10))
  '(ps-header-title-font-size '(12 . 12))
@@ -375,3 +383,18 @@
                  (message "Loading %s...done (%.3fs) [after-init]"
                           ,load-file-name elapsed)))
             t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flymake-errline ((((class color)) (:underline "Red"))) t)
+ '(flymake-warnline ((((class color)) (:underline "Orange"))) t)
+ '(show-paren-match-face ((((class color)) (:background "lightblue" :foreground "black"))) t)
+ '(show-paren-mismatch-face ((((class color)) (:background "purple" :foreground "white"))) t))
+
+(setq mac-right-option-modifier nil
+      ;;mac-command-key-is-meta t
+      ;;mac-command-modifier 'meta
+      ;;mac-option-modifier 'none
+      )

@@ -246,6 +246,23 @@
 ;;   (highlight-regexp "\?" 'hi-green)
 ;;   (delete-trailing-whitespace))
 
+(defun k8s-yaml-networking-update ()
+  (interactive)
+  (let ((from (point-min))
+	(to (point-max)))
+      (replace-regexp "apiVersion: networking.k8s.io/v1beta1" "apiVersion: networking.k8s.io/v1" nil from to)
+      (replace-regexp "\\(\\s-\+\\)- path: \\([/a-zA-Z0-9_.-]\+\\)
+\\(\\s-\+\\)backend:
+\\(\\s-\+\\)serviceName: \\([a-z-A-Z0-9]\+\\)
+\\(\\s-\+\\)servicePort: \\([0-9]\+\\)" "\\1- path: \\2
+\\3pathType: Prefix
+\\3backend:
+\\4service:
+\\4  name: \\5
+\\6  port:
+\\6    number: \\7" nil from to)
+))
+
 
 (defun ps-print-buffer-landscape ()
   "Use ps-print-buffer to print the buffer in landscape mode."
