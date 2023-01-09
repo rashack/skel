@@ -45,30 +45,31 @@ link_skel_files() {
     fi
 
     for x in \
-	.Xdefaults \
-	.Xmodmap \
-	.bash_profile \
-	.bashrc \
-	.colordiffrc \
-	.conkyrc \
-	.emacs \
-	.gitconfig \
-	.guile \
-	.imwheelrc \
-	.inputrc \
+        .Xdefaults \
+        .Xmodmap \
+        .bash_profile \
+        .bashrc \
+        .colordiffrc \
+        .conkyrc \
+        .emacs \
+        .gitconfig \
+        .guile \
+        .imwheelrc \
+        .inputrc \
         .psqlrc \
-	.repos \
-	.screenrc \
-	.tmux-default.conf \
-	.tmux.conf \
-	.vimperatorrc \
-	.vimrc \
-	.xbindkeysrc \
-	.xinitrc \
+        .repos \
+        .screenrc \
+        .tmux-default.conf \
+        .tmux.conf \
+        .vimperatorrc \
+        .vimrc \
+        .xbindkeysrc \
+        .xinitrc \
         .xmonad \
-	.xscreensaver \
-	; do
-	ln_s $SKEL_DIR $x
+        .xscreensaver \
+        .zshrc \
+        ; do
+        ln_s $SKEL_DIR $x
     done
 
     mkdir -p ~/.gnupg
@@ -114,12 +115,12 @@ download_elisp() {
     cd $ELD
 
     for (( i = 0 ; i < ${#EMACS_REPOS[@]} / 2 ; i=$i+1 )) ; do
-	REPO_NAME=$(repo_name $i)
-	REPO_URI=$(repo_uri $i)
-	if [ ! -d $ELD/$REPO_NAME ] ; then
-	    echo "${REPO_NAME}: does not exist, cloning $REPO_URI"
-	    git clone $REPO_URI $REPO_NAME
-	fi
+        REPO_NAME=$(repo_name $i)
+        REPO_URI=$(repo_uri $i)
+        if [ ! -d $ELD/$REPO_NAME ] ; then
+            echo "${REPO_NAME}: does not exist, cloning $REPO_URI"
+            git clone $REPO_URI $REPO_NAME
+        fi
     done
 
 }
@@ -130,6 +131,14 @@ update_emacs_deps() {
     cd $ED
     ln -s ../.skel/elisp
     download_elisp
+}
+
+setup-zsh-and-oh-my-zzshell() {
+    cd
+    ln -s .skel/.zshrc
+    mkdir -p .oh-my-zsh/custom/themes
+    ln -srt .skel/kjellz.zsh-theme .oh-my-zsh/custom/themes
+    cd -
 }
 
 clone_git() {
@@ -145,10 +154,20 @@ download_other() {
     clone_git
 }
 
+ohmyzshell() {
+    if ! [ -d ~/.oh-my-zsh/ ] ; then
+        echo "Oh my zshell not installed?"
+        exit 1
+    fi
+    cd ~/.oh-my-zsh/custom/themes
+    ln -s ../../../.skel/kjellz.zsh-theme .
+}
+
 all() {
     link_skel_files
     update_emacs_deps
     download_other
+    ohmyzshell
 }
 
 while getopts "aelo" opt ; do
@@ -157,6 +176,7 @@ while getopts "aelo" opt ; do
         e) update_emacs_deps ; exit 0 ;;
         l) link_skel_files ; exit 0 ;;
         o) download_other ; exit 0 ;;
+        z) ohmyzshell ; exit 0 ;;
     esac
 done
 shift `expr $OPTIND - 1`
