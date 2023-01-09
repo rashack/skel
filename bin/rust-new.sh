@@ -2,9 +2,19 @@
 
 set -euo pipefail
 
-cargo new $1
+if [[ "$1" == "--lib" ]] ; then
+    lib="--lib"
+    shift
+else
+    lib=""
+fi
+
+cargo new $lib $1
 cd $1
-cargo run
+cargo build
+if [ -z $lib ] ; then
+    sed -i -e '/edition = "2021"/a\'$'\n'"default-run = \"$1\""$'\n' Cargo.toml
+fi
 git add .
 git commit -m "New project from 'cargo run'"
 
