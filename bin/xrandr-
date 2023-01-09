@@ -1,21 +1,20 @@
 #!/bin/bash
 
-case $(hostname) in
-    reot)
-	INT_RES=1920x1080
-        INT_DEV="eDP-1"
-        EXT_DEVS="DP-1 DP-2 HDMI-1"
-        ;;
-esac
-
+INT_DEV=$(xrandr | grep ' connected primary' | awk '{print $1}')
+INT_RES=$(xrandr | grep -A1 ' connected primary' | tail -n +2 | awk '{print $1}')
+ALL_DEVS=$(xrandr | grep connected | awk '{print $1}')
+EXT_DEVS=( ${ALL_DEVS[@]/eDP-1} )
 EXT_DEV=$(xrandr | grep -w connected | grep -v $INT_DEV | awk '{print $1}')
-#EXTERNAL_RESOLUTION=$(xrandr | grep -w connected | grep -v $INT_DEV | awk '{print $2}' | sed 's/\(.*\)+.*/\1/')
 EXT_RES=$(xrandr | sed -n '/ connected/,$ p' | tail -n +2 | sed -n '/ connected/,$ p' | sed -n '2 p' | awk '{print $1}')
+
+echo "INT_DEV=$INT_DEV $INT_RES"
+echo "EXT_DEVS=${EXT_DEVS[@]}"
+echo "EXT_DEV=$EXT_DEV $EXT_RES"
 
 single() {
     echo "Setting xrandr for single screen."
     local exts=""
-    for ext in $EXT_DEVS ; do
+    for ext in ${EXT_DEVS[@]} ; do
         exts="$exts --output $ext --off"
     done
     local cmd="xrandr --output $INT_DEV --mode $INT_RES $exts"
@@ -56,11 +55,16 @@ dual_clone() {
 usage() {
     echo "usage: $(basename $0) -[dms]
 
-    -d      dual screen, right-of
-    -D      dual screen, right-of maximazing resolution of other screen
-    -m      dual screen, mirror
+    -d      dual screen, right-of maximizing resolution of other screen
+    -D      dual screen, right-of (same resolution)
+    -m      dual screen, mirror (clone)
     -s      single screen
 "
+}
+
+summary() {
+    xrandr | grep -E 'connected|Screen'
+    
 }
 
 if [ $# -eq 0 ] ; then
@@ -71,8 +75,8 @@ fi
 
 while getopts "Ddlmrs" opt ; do
     case $opt in
-        d) dual_right_of ;;
-        D) dual_right_of_max ;;
+        D) dual_right_of ;;
+        d) dual_right_of_max ;;
         l) dual_left_of ;;
         r) laptop_right_of_secondary ;;
         m) dual_clone ;;
