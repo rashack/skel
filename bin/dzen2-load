@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -euo pipefail
+
 source $HOME/bin/dzen2-env
 
-exec conky -d -t "$CONKY_LOAD_STR" | dzen2 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l $DZEN_OPTS
+ts=$(date +'%F %T')
+echo "$ts starting dzen2-load: exec conky -bqdt $CONKY_LOAD_STR | dzen2 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l $DZEN_OPTS" 2>&1 >> ~/.dzen2.log
+
+exec conky -bqdt "$CONKY_LOAD_STR" | dzen2 -x $DZEN_LOAD_X -w $DZEN_LOAD_WIDTH -ta l $DZEN_OPTS 2>&1 >> ~/.dzen2.log
