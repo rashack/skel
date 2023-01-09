@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# ss - list file and directory sizes in ascending order
+# ds - list file and directory sizes in ascending order
 
 MAX_SIZE=0
 HUMAN_READABLE="y"
@@ -29,9 +29,9 @@ function less_than_size() {
 
 function files_and_sizes() {
     if [ $QUOTE -eq 1 ] ; then
-        du -s "$@" | less_than_size | sed 's/\([0-9]\+\)\([ \t]\+\)\(.*\)/\1\2"\3"/g' | $SORT
+        du -sk "$@" | less_than_size | sed 's/\([0-9]\+\)\([ \t]\+\)\(.*\)/\1\2"\3"/g' | $SORT
     else
-        du -s "$@" | less_than_size | $SORT
+        du -sk "$@" | less_than_size | $SORT
     fi
 }
 #    $MAX_SIZE
