@@ -31,7 +31,13 @@ int GetIdleTime () {
 }
 
 int main() {
-    printf("%d\n", GetIdleTime());
+    int idle_time = GetIdleTime();
+    if (idle_time > 59) {
+        int minutes = idle_time / 60;
+        printf("%dm%d\n", minutes, idle_time % 60);
+    } else {
+        printf("%d\n", idle_time);
+    }
     return 0;
 }' > $SRC
 
