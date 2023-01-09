@@ -105,7 +105,7 @@
       (insert-char 32 diff))))
 
 (defun insert-or-delete-whitespace-to-column (col)
-  "Fill with spaces to that the first non space character on or to the right of point ends up at column COL."
+  "Fill with spaces so that the first non space character on or to the right of point ends up at column COL."
   (interactive "NColumn: ")
   (cycle-spacing 0)
   (let ((diff (- col (current-column))))
