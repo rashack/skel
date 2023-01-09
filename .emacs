@@ -187,7 +187,7 @@
  '(lsp-ui-peek-always-show t nil nil "Customized with use-package lsp-ui")
  '(lsp-ui-sideline-show-hover t nil nil "Customized with use-package lsp-ui")
  '(package-selected-packages
-   '(arduino-mode urlenc svelte-mode flycheck rust-mode rustic projectile yasnippet highlight-parentheses gradle-mode unicode-fonts spacemacs-theme intellij-theme alect-themes leuven-theme php-mode material-theme company lsp-ui lsp-mode flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete))
+   '(flycheck-kotlin kotlin-mode arduino-mode urlenc svelte-mode flycheck rust-mode rustic projectile yasnippet highlight-parentheses gradle-mode unicode-fonts spacemacs-theme intellij-theme alect-themes leuven-theme php-mode material-theme company lsp-ui lsp-mode flycheck-rust flymake-rust rust-playground which-key yaml-mode editorconfig json-mode haskell-mode win-switch use-package undo-tree solarized-theme smartparens slime scala-mode2 popup-switcher multi-web-mode mu4e-maildirs-extension markdown-preview-mode magit lua-mode intero hlinum helm-projectile groovy-mode grizzl graphviz-dot-mode gnuplot-mode geiser f erlang eproject ensime dockerfile-mode cider auto-highlight-symbol auto-complete))
  '(ps-font-size '(7 . 8))
  '(ps-header-font-size '(10 . 10))
  '(ps-header-title-font-size '(12 . 12))
