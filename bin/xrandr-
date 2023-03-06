@@ -6,6 +6,12 @@ ALL_DEVS=$(xrandr | grep connected | awk '{print $1}')
 EXT_DEVS=( ${ALL_DEVS[@]/eDP-1} )
 EXT_DEV=$(xrandr | grep -w connected | grep -v $INT_DEV | awk '{print $1}')
 EXT_RES=$(xrandr | sed -n '/ connected/,$ p' | tail -n +2 | sed -n '/ connected/,$ p' | sed -n '2 p' | awk '{print $1}')
+FULL_COLOUR=""
+[[ "$EXT_DEV" =~ HDMI ]] && FULL_COLOUR='--set "Broadcast RGB" "Full"'
+
+printf "INT_DEV = %8s INT_RES = %s\n" $INT_DEV $INT_RES
+printf "EXT_DEV = %8s EXT_RES = %s\n" $EXT_DEV $EXT_RES
+echo "EXT_DEVS=${EXT_DEVS[@]}"
 
 echo "INT_DEV=$INT_DEV $INT_RES"
 echo "EXT_DEVS=${EXT_DEVS[@]}"
@@ -41,9 +47,10 @@ laptop_right_of_secondary() {
 }
 
 dual_right_of_max() {
-    local MAX_OTHER=$(xrandr | sed -n "/^$EXT_DEV/,// p" | grep \+ | awk '{print $1}')
-    xrandr --output $INT_DEV --mode $INT_RES \
-           --output $EXT_DEV --mode $MAX_OTHER --right-of $INT_DEV
+    local MAX_OTHER=$(xrandr | grep "$EXT_DEV" | awk '{print $3}' | awk -F+ '{print $1}')
+    local cmd="xrandr --output $INT_DEV --mode $INT_RES --output $EXT_DEV --mode $MAX_OTHER --right-of $INT_DEV $FULL_COLOUR"
+    echo "xrandr cmd = $cmd"
+    eval "$cmd"
 }
 
 dual_clone() {
