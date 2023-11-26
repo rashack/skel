@@ -89,18 +89,22 @@ def drives
   res = []
 
   %x{ ls /dev/sd? }.split("\n").each do |dev|
+    puts "dev=#{dev}"
     #      dev            size,       used, avail, use%, mount_point,      label,           model,           serial,           uuid,           apm_level,      power_state
     res << ["#{dev} *"] + [size(dev), "",   "",    "",   mount_point(dev), label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev), apm_level(dev), power_state(dev)]
     #res << ["\e[44m#{dev}\e[0m"] + [size(dev), "",   "",    "",   mount_point(dev), label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev)]
     partitions_sata(dev).each do |part|
+      puts "partition=#{part}"
       res << wide_sata(part)
     end
   end
 
-    %x{ sudo nvme list | tail +3 | awk '{print $1}' }.split("\n").each do |dev|
+  %x{ sudo nvme list | tail +3 | awk '{print $1}' }.split("\n").each do |dev|
+    puts "dev=#{dev}"
     #      dev            size,       used, avail, use%, mount_point,      label,           model,           serial,           uuid,           apm_level,      power_state
     res << ["#{dev} *"] + [size(dev), "",   "",    "",   mount_point(dev), label_nvme(dev), model_nvme(dev), serial_nvme(dev), uuid_nvme(dev), "",             ""]
     partitions_nvme(dev).each do |part|
+      puts "partition=#{part}"
       res << wide_nvme(part)
     end
   end
