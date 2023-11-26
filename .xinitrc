@@ -11,7 +11,7 @@ xsetroot -solid black
 # default: xset r rate 660 25
 xset r rate 400 40
 
-setxkbmap -option -option ctrl:nocaps se
+setxkbmap -option -option ctrl:nocaps us
 case `hostname` in
     chimp)
         xrandr --output DP-1 --mode 2560x1440 --rotate normal --output DP-2 --pos 2560x0 --mode 2560x1440 --rotate left
