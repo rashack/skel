@@ -24,7 +24,7 @@ def label_sata(dev)
 end
 
 def label_nvme(dev)
-  %x{ lsblk -no LABEL #{dev} }.strip
+  %x{ lsblk -no LABEL #{dev} }.strip.gsub("\n", "\\n")
 end
 
 def uuid_sata(dev)
@@ -39,8 +39,12 @@ def mount_point(dev)
   %x{ mount | grep '#{dev} on ' | sed -n 's|#{dev} on \\([^ ]\\+\\) .*|\\1|p' }.strip
 end
 
+def fs_type(dev)
+  %x{ lsblk -rpno NAME,FSTYPE | grep '#{dev}' | awk '{print $2}' }.strip
+end
+
 def stats_headings
-  ["Size", "Used", "Avail", "Use%", "Mounted on"]
+  ["Size", "Used", "Free", "Use", "Mount"]
 end
 
 def stats(dev)
@@ -50,15 +54,15 @@ def stats(dev)
 end
 
 def headings
-  ["Dev"] + stats_headings + ["Label", "Model", "Serial", "UUID", "APM_level", "Power_state"]
+  ["Dev", "Type"] + stats_headings + ["Label", "Model", "Serial", "UUID", "APM_level", "Power_state"]
 end
 
 def wide_sata(dev)
-  [dev] + stats(dev) + [label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev), "", ""]
+  [dev, fs_type(dev)] + stats(dev) + [label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev), "", ""]
 end
 
 def wide_nvme(dev)
-  [dev] + stats(dev) + [label_nvme(dev), model_nvme(dev), serial_nvme(dev), uuid_nvme(dev), "", ""]
+  [dev, fs_type(dev)] + stats(dev) + [label_nvme(dev), model_nvme(dev), serial_nvme(dev), uuid_nvme(dev), "", ""]
 end
 
 def devs
@@ -90,8 +94,8 @@ def drives
 
   %x{ ls /dev/sd? }.split("\n").each do |dev|
     puts "dev=#{dev}"
-    #      dev            size,       used, avail, use%, mount_point,      label,           model,           serial,           uuid,           apm_level,      power_state
-    res << ["#{dev} *"] + [size(dev), "",   "",    "",   mount_point(dev), label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev), apm_level(dev), power_state(dev)]
+    #       dev            type, size,      used, free,  use,  mount,            label,           model,           serial,           uuid,           apm_level,      power_state
+    res << ["#{dev} *"] + ["",   size(dev), "",   "",    "",   mount_point(dev), label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev), apm_level(dev), power_state(dev)]
     #res << ["\e[44m#{dev}\e[0m"] + [size(dev), "",   "",    "",   mount_point(dev), label_sata(dev), model_sata(dev), serial_sata(dev), uuid_sata(dev)]
     partitions_sata(dev).each do |part|
       puts "partition=#{part}"
@@ -101,8 +105,8 @@ def drives
 
   %x{ sudo nvme list | tail +3 | awk '{print $1}' }.split("\n").each do |dev|
     puts "dev=#{dev}"
-    #      dev            size,       used, avail, use%, mount_point,      label,           model,           serial,           uuid,           apm_level,      power_state
-    res << ["#{dev} *"] + [size(dev), "",   "",    "",   mount_point(dev), label_nvme(dev), model_nvme(dev), serial_nvme(dev), uuid_nvme(dev), "",             ""]
+    #       dev            type, size,      used, free,  use,  mount,            label,           model,           serial,           uuid,           apm_level,      power_state
+    res << ["#{dev} *"] + ["",   size(dev), "",   "",    "",   mount_point(dev), label_nvme(dev), model_nvme(dev), serial_nvme(dev), uuid_nvme(dev), "",             ""]
     partitions_nvme(dev).each do |part|
       puts "partition=#{part}"
       res << wide_nvme(part)
