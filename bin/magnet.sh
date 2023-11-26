@@ -1,6 +1,8 @@
 #!/bin/bash
 
-TORRENT_DIR=/mnt/intel/torrents
+set -euo pipefail
+
+TORRENT_DIR=$HOME/Downloads/torrents
 
 usage() {
     echo -e "Usage:
@@ -16,13 +18,10 @@ create_torrent () {
     else
         filename=$hashh
     fi
-    echo "d10:magnet-uri${#1}:${1}e" > "$TORRENT_DIR/magnet-$filename.torrent"
+    local TORRENT_NAME="$TORRENT_DIR/magnet-$filename.torrent"
+    echo "Creating torrent: $TORRENT_NAME"
+    echo "d10:magnet-uri${#1}:${1}e" > "$TORRENT_NAME"
 }
-
-if [ $# -lt 1 ] ; then
-    usage
-    exit 1
-fi
 
 while getopts "d:" opt ; do
     case $opt in
@@ -31,6 +30,16 @@ while getopts "d:" opt ; do
 done
 shift `expr $OPTIND - 1`
 
-for x in $* ; do
-    create_torrent "$x"
-done
+if [ $# -gt 0 ] ; then
+    for x in $* ; do
+        create_torrent "$x"
+    done
+elif [ $# -eq 0 ] ; then
+    while true ; do
+        read MAGNET_LINK
+        if [ -z "$MAGNET_LINK" ] ; then
+            exit 0
+        fi
+        create_torrent "$MAGNET_LINK"
+    done
+fi
